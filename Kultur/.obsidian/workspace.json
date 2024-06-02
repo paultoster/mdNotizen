@@ -1,0 +1,193 @@
+{
+  "main": {
+    "id": "3e69afb1f5b2455f",
+    "type": "split",
+    "children": [
+      {
+        "id": "d2e1e9e6bd43844d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7babdc0ec860cf9d",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          },
+          {
+            "id": "800767649564ff73",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.4.5"
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "313a7553d44d2e4a",
+    "type": "split",
+    "children": [
+      {
+        "id": "587ca9e8cca036bf",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fff01885db3fc271",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "2ba768382588bffe",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "6003323f40eac904",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 478.5
+  },
+  "right": {
+    "id": "bf3b13a6ec9c6359",
+    "type": "split",
+    "children": [
+      {
+        "id": "4dea9cb36daea654",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b27ee5a0fa06d633",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "4f11a63ad5e97c65",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a599e21c2db04bab",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "e22fb0b8c87f84b6",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Schnellauswahl öffnen": false,
+      "graph:Graphen-Ansicht öffnen": false,
+      "canvas:Neuen Canvas erstellen": false,
+      "daily-notes:Heutige Notiz öffnen": false,
+      "templates:Vorlage einfügen": false,
+      "command-palette:Befehlspalette öffnen": false
+    }
+  },
+  "active": "800767649564ff73",
+  "lastOpenFiles": [
+    "Filme/Secret & Lies.md",
+    "Tanz/Salsa/Rueda.md",
+    "Tanz/Tango/Tanzwerkstatt.md",
+    "Tanz/Tango/Figuren.md",
+    "Filme/Gefahr im Verzug.md",
+    "Filme/20210131_Auf_Einmal.md",
+    "Filme/20210130_Beginning.md",
+    "Filme/20191228_DieSehnsuchtDerSchwesternGusmao.md",
+    "Filme/20190728_Leid_und_Herrlichkeit.md",
+    "Filme/20160101_UnterDieHaut.md",
+    "Filme/220625_Deteched.md",
+    "_bilder/20230701152559.png",
+    "_bilder/20230701152415.png",
+    "_bilder/20230701152144.png",
+    "_bilder/20230701151837.png",
+    "_bilder/20230701151348.png",
+    "Filme/Hotel.md",
+    "Pasted.md",
+    "Pasted image 20230701105756.png",
+    "GeleseneBücher/20100531_powers_DerKlangDerZeit.md",
+    "GeleseneBücher/20100926_pessl_DieAlltäglichePhysikDesUnglücks.md",
+    "GeleseneBücher/20121209_Tellkamp_DerTurm.md",
+    "2023-07-01.md",
+    "GeleseneBücher/20120505_Osario_Tango.md",
+    "GeleseneBücher/20110701_Fleischhauer_Drei Minuten mit der Wirklichkeit.md",
+    "20220515_.md",
+    "GeleseneBücher/foto.jpg",
+    "20170220_d�renmatt1.png.md",
+    "20170220_d�renmatt0.png.md",
+    "20120528_g�nther-schipfel0.png.md",
+    "20111003_schätzing0.png.md",
+    "GeleseneBücher/nicht gelesene1.png",
+    "GeleseneBücher/nicht gelesene0.png",
+    "GeleseneBücher/nicht gelesene.md",
+    "_bilder/20220515_peter_carey_dasschnellsterennen0.png",
+    "GeleseneBücher/20220515_Carey_DasSchnellsteRennen.md",
+    "_bilder",
+    "GeleseneBücher"
+  ]
+}

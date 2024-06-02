@@ -1,0 +1,188 @@
+{
+  "main": {
+    "id": "ce11e28a297f71c7",
+    "type": "split",
+    "children": [
+      {
+        "id": "80277563d1d5563f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cd7cae8c7a44e750",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "1900/1999-09-09.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "887dc50304dc8fd1",
+    "type": "split",
+    "children": [
+      {
+        "id": "e56d1428d3450aab",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2e3cbecfa23f8c8c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "cb5e40af0f730d88",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:#NeckermannUndRreisen",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e49bfff36d52c527",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "fc3b8221488a723c",
+    "type": "split",
+    "children": [
+      {
+        "id": "1466e72d521d6a60",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3c8dbc6ddd437e97",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "1900/1999-09-09.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ca8ab347fb106e94",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "1900/1999-09-09.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "28c8541f88e0e4c9",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "548934f4194383c1",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "1900/1999-09-09.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Schnellauswahl öffnen": false,
+      "graph:Graphen-Ansicht öffnen": false,
+      "canvas:Neuen Canvas erstellen": false,
+      "daily-notes:Heutige Notiz öffnen": false,
+      "templates:Vorlage einfügen": false,
+      "command-palette:Befehlspalette öffnen": false
+    }
+  },
+  "active": "cd7cae8c7a44e750",
+  "lastOpenFiles": [
+    "1900/1980-07-21.md",
+    "2023-10-29.md",
+    "Unbenannt.canvas",
+    "1900/1980-10-23.md",
+    "1900/1979-08-20.md",
+    "1900/1975-07-03.md",
+    "1900/1975-09-05.md",
+    "1900/1983-07-10.md",
+    "1900/1982-08-05.md",
+    "2023/2023-09-23.md",
+    "1900/1983-07-14.md",
+    "2023/2023-09-24.md",
+    "_bilder/20230923_184823_S8_20230923_184823.jpg",
+    "_bilder/20230923_184823_S8_20230923_184823.png",
+    "2023/2023-07-21.md",
+    "2023/2023-02-04.md",
+    "2023/2023-01-13.md",
+    "_bilder/20230204185858.png",
+    "_bilder/20230204185604.png",
+    "_bilder/20230121104928.png",
+    "_bilder/20221229194424.png",
+    "_bilder/20221229194339.png",
+    "_bilder/20220501225007.png",
+    "_bilder/20211212195109.png",
+    "_bilder/20210928212442.png",
+    "2022/2022-12-29.md",
+    "2022/2022-08-13.md",
+    "2022/2022-06-28.md",
+    "2022/2022-06-25.md",
+    "2022/2022-06-16.md",
+    "2022/2022-05-01.md",
+    "2022/2022-04-04.md",
+    "2021/2021-12-17.md",
+    "2021/2021-11-18.md",
+    "2021/2021-11-07.md",
+    "2021/2021-09-28.md"
+  ]
+}

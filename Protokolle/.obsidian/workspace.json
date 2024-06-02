@@ -1,0 +1,155 @@
+{
+  "main": {
+    "id": "4d965b8497d1e574",
+    "type": "split",
+    "children": [
+      {
+        "id": "259e4c9dfc28d4de",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c403dac6427f0a0f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Weltsparen.md",
+                "mode": "source",
+                "backlinks": false,
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f8c2c2832a6f63d6",
+    "type": "split",
+    "children": [
+      {
+        "id": "fe6a74cfcb23227e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f02747c2132e63fc",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "cfc923a40985fe43",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "88b7c750e7a051b9",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "db9053eb0adbca48",
+    "type": "split",
+    "children": [
+      {
+        "id": "44330f57311a72f3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "922236f307dcd525",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Weltsparen.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a39952fb2ae819d0",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Weltsparen.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "20bdd4119ab20bdb",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "310d2af70338c923",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Weltsparen.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Schnellauswahl öffnen": false,
+      "graph:Graphen-Ansicht öffnen": false,
+      "canvas:Neuen Canvas erstellen": false,
+      "daily-notes:Heutige Notiz öffnen": false,
+      "templates:Vorlage einfügen": false,
+      "command-palette:Befehlspalette öffnen": false
+    }
+  },
+  "active": "c403dac6427f0a0f",
+  "lastOpenFiles": [
+    "TFBank.md",
+    "Wo ist das Geld angelegt.md"
+  ]
+}

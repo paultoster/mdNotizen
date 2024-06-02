@@ -1,0 +1,159 @@
+{
+  "main": {
+    "id": "78deabb6116b1d01",
+    "type": "split",
+    "children": [
+      {
+        "id": "565f88c19e4d6501",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c4ad145d22d846d2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Italienisch/Kurs_Michaela_230928.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "8c8cb0462900381b",
+    "type": "split",
+    "children": [
+      {
+        "id": "0db09b59d6765d3a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "06a11c4fb7dcfbd7",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "73cb3aac9bbde404",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "80b870edebe31581",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "0a8d0cda7d35b069",
+    "type": "split",
+    "children": [
+      {
+        "id": "ff941f2292d64ec8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1729ad319e4fea88",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Italienisch/Kurs_Michaela_230928.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "1a48ce4b0f4d39bd",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Italienisch/Kurs_Michaela_230928.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "9f05ce51c5b3efbc",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "77e569aee49f58eb",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Italienisch/Kurs_Michaela_230928.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Schnellauswahl öffnen": false,
+      "graph:Graphen-Ansicht öffnen": false,
+      "canvas:Neuen Canvas erstellen": false,
+      "daily-notes:Heutige Notiz öffnen": false,
+      "templates:Vorlage einfügen": false,
+      "command-palette:Befehlspalette öffnen": false
+    }
+  },
+  "active": "c4ad145d22d846d2",
+  "lastOpenFiles": [
+    "_bilder/230928_3.JPG",
+    "_bilder/230928_2.JPG",
+    "_bilder/230928_1.JPG",
+    "_bilder/3.JPG",
+    "_bilder/2.JPG",
+    "_bilder/1.JPG",
+    "Italienisch/Kurs_Michaela_230928.md"
+  ]
+}

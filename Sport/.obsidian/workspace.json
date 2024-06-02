@@ -1,0 +1,157 @@
+{
+  "main": {
+    "id": "94f94fb83966e1e0",
+    "type": "split",
+    "children": [
+      {
+        "id": "980bb01dab419e35",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "87465447e73e4651",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d8ccfc3c4322f91c",
+    "type": "split",
+    "children": [
+      {
+        "id": "789cfd4e9dc03d1a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "82956689cf5e68f3",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "527205f4fed4a6a9",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "bd070eee323c2629",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1f4f803ec039c4a0",
+    "type": "split",
+    "children": [
+      {
+        "id": "a16c629249f3ed02",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d87a6a6309dedccc",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "cbebd6f5be33e71d",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "556b2592306ce66a",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "e6cf98a0cf9f5028",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Schnellauswahl öffnen": false,
+      "graph:Graphen-Ansicht öffnen": false,
+      "canvas:Neuen Canvas erstellen": false,
+      "daily-notes:Heutige Notiz öffnen": false,
+      "templates:Vorlage einfügen": false,
+      "command-palette:Befehlspalette öffnen": false
+    }
+  },
+  "active": "87465447e73e4651",
+  "lastOpenFiles": [
+    "Gynmastik/VorDemSchlafengehen.md",
+    "_bilder/image-20211203205721328.png",
+    "_bilder/image-20211203205521604.png",
+    "_bilder/image-20211203205441846.png",
+    "_bilder/image-20211203205158925.png",
+    "_bilder/image-20211203205059732.png",
+    "_bilder/image-20211203204848671.png",
+    "_bilder/image-20211203204555327.png",
+    "_bilder/image-20211203204430045.png",
+    "_bilder/image-20211203204202226.png",
+    "_bilder/image-20211203204059436.png",
+    "Gynmastik/HalsWirbelGymnastik.md",
+    "_bilder"
+  ]
+}

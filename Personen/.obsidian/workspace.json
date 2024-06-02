@@ -1,0 +1,170 @@
+{
+  "main": {
+    "id": "e35ddea3098cecc3",
+    "type": "split",
+    "children": [
+      {
+        "id": "e3a82fe5632f2d0e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4e3678ccc9c5e7f2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Gloria/Bauphysik_Formmelsammlung.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e2dc27bd7fa75176",
+    "type": "split",
+    "children": [
+      {
+        "id": "17bcd7e0ec3fcc3a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f6689efcbea9e6be",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b5d4b6cd91c0ed46",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "5ede441e011623c0",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "e7661e59514d57c3",
+    "type": "split",
+    "children": [
+      {
+        "id": "599c9f82a40cfde5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1086d6424fcf70a9",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Gloria/Bauphysik_Formmelsammlung.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "10dfcf3306f48061",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Gloria/Bauphysik_Formmelsammlung.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "47f8112307535ec9",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "37399a64fbf5fe6e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Gloria/Bauphysik_Formmelsammlung.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Schnellauswahl öffnen": false,
+      "graph:Graphen-Ansicht öffnen": false,
+      "canvas:Neuen Canvas erstellen": false,
+      "daily-notes:Heutige Notiz öffnen": false,
+      "templates:Vorlage einfügen": false,
+      "command-palette:Befehlspalette öffnen": false
+    }
+  },
+  "active": "4e3678ccc9c5e7f2",
+  "lastOpenFiles": [
+    "Gloria/Bauphysik_Aufgabe14b.md",
+    "Gloria/Bauphysik_Aufgabe13.md",
+    "Gloria/Bauphysik_Aufgabe12b.md",
+    "Gloria/Bauphysik_Aufgabe11c.md",
+    "Gloria/Bauphysik_Aufgabe11a.md",
+    "Gloria/Bauphysik_Formmelsammlung.md",
+    "_bilder/ff57a2d9f8cd93e662cc16893adf5ce32bd91b68.png",
+    "_bilder/fd7019f9e32a9e4fd5de5e1969dc5684e7c09dc6.png",
+    "_bilder/f812b3ac9756abf3854edabd80e59ecce45d65ee.png",
+    "_bilder/f610dfb136572544bb10c1ec3ce70d5be4d5bbc3.png",
+    "_bilder/ea6e8fc582024e77c43ccbf8ba2f366261e0ae96.png",
+    "_bilder/e3c5d17b01760f82f7bd41b0651d55925bc2d0d2.png",
+    "_bilder/ddd19b4d6d0a0536ed861b390fc2a6bc710b11cc.png",
+    "_bilder/dd7886124f8679c36d473d3dc13f9e600a4d12e9.png",
+    "_bilder/c75f6e1d517cf77fe52ca221ba57d0c2590720de.png",
+    "_bilder/c68c3fdeb630fa6115a59adc2b885bb1d83b53b8.png",
+    "Dagmar/Magnetboard.md",
+    "Dagmar/Küche.md"
+  ]
+}
