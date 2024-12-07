@@ -30,8 +30,6 @@ Zutaten
 
 ![](../_bilder/Süßkartoffel-Kürbis-Curry.jpg)
 
-
-
 Anleitungen
 
 1. Als erstes den Hokkaidokürbis waschen und halbieren. Mit einem Löffel

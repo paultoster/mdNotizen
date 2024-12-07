@@ -43,10 +43,32 @@
 - Besteuerung: Als Privatanleger unterliegen Sie mit Ihren Zinserträgen der Kapitalertragsteuer sowie dem Solidaritätszuschlag und ggf. der Kirchensteuer in Deutschland. Alle erforderlichen Unterlagen werden Ihnen rechtzeitig zur Verfügung gestellt
 
 ---
-- 31.05.24
+
+17.01.24
+
+- Tagesgeld-Instabank beantragt 3,18%
+
+- Geld von C24-Bank eingezahlt ~60 000,-
+  
+  ---
+
+31.05.24
+
 - Festgeld bei Younited ist aufgelöst
 - 2050,-  € Zinsen auf C24-Kont Gespartes2 überwiesen
 - 20000,- zurück überweisen (5000,- für bettervest Croudfunding und 1500,- für Trade Republic )
+
 ---
+
 31.05.24
+
 - Neuantrag Festgelt bei PEAC-Bank 60 000,-
+- Is angelegt
+
+---
+
+3.9.2024
+
+- Antrag Nordax-Tagesgeld 3,2 % Minimum 2000,- € Einzahlung, deswegen habe ich 2400,- von Girokonto genommen + 100,- € waren noch bei Weltsparen, werde 2500=2400+100 auf Tageseldkonto nach Eröffnung  einzahlen
+
+- Eigentlich sollen hier alle weiteren Zinseinnahmen von 2024 reinlaufen, da aber Mindesteinzahlung, wird jetzt erst mal alles auflaufende bis 2400,- auf Giro aufgefüllt (siehe Girokonto)

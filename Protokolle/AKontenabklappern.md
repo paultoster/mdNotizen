@@ -1,13 +1,33 @@
 # Konten abklappern
 
-11.03.24
+14.09.24
 
-Post Ausschüttungen geholt, Referenzkonto beantragt
+- [ ] Weltsparen Steuerbescheinigung kopiert auf M: 
 
-10.03.24 kommende Aktion
+- [ ] Wüstenrot Steuerbescheinigung kopiert
 
-- [ ] Wüstenrot E-Post und Steuerbescheinigung
+- [ ] Deutsche Bank Steuerbescheinigung beantragt
 
-- [ ] Deutsche Bank E-Post und Zinsen holen
+- [ ] Consors Steuerbescheinigung kopiert
 
-- [ ] Consors nachschauen
+- [ ] Ing-Bank Steuerbescheinigung kopiert
+
+- [ ] Finanzagnetur  Steuerbescheinigung kopiert
+
+- [ ] AKF-Bank: keine Zinsen 2023
+
+- [ ] Banc Of Scotland Steuerbescheinigung kopiert
+
+- [ ] C24 erst 2024 eröffnet
+
+- [ ] SmartBrokerPlus Steuerbescheinigung kopiert
+
+- [ ] Onvista Steuerbescheinigung kopiert (letzte mal da gekündigt)
+
+- [ ] Credit Agricole erst 2024 Festgeld
+
+- [ ] Hanseatische Fidus Vermietungseunnahmen 2023 kopiert
+
+- [ ] Kommunale Kredit Invest erst 2024 Festgeld
+
+- [ ] 

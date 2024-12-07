@@ -9,8 +9,6 @@
 
    
 
-
-
 # Bestellung erhalten
 
 Vielen Dank. Deine Bestellung ist eingegangen.
