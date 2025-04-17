@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>VisualStudio12</title>
+</head><body>To suppress specific warnings for Visual C++<br/>
+1.&#09;In Solution Explorer, choose the project or source file in which you want to suppress warnings.<br/>
+2.&#09;On the menu bar, choose View, Property Pages.<br/>
+3.&#09;Choose the Configuration Properties category, choose the C/C++ category, and then choose the Advancedpage.<br/>
+4.&#09;Perform one of the following steps:<br/>
+In the Disable Specific Warnings box, specify the error codes of the warnings that you want to suppress, separated by a semicolon.<br/>
+In the Disable Specific Warnings box, choose Edit to display more options.<br/>
+5.&#09;Choose the OK button, and then rebuild the solution.<br/>
+--<br/>
+<br/>
+#ifdef _MSC_VER <br/>
+#pragma warning(push) <br/>
+#pragma warning(disable: 4100 4127 4244 4267 4512) <br/>
+#endif <br/>
+#include "monitoring.pb.h" <br/>
+#ifdef _MSC_VER <br/>
+#pragma warning(pop) <br/>
+#endif <br/>
+--<br/>
+<br/>
+<br/>
+<br/>
+Daniel Dube<br/>
+Systems &amp; Technology of Chassis &amp; Safety<br/>
+Advanced Engineering<br/>
+Competence Center Electronics Software (CTZS)<br/>
+<br/>
+Continental <br/>
+Chassis and Safety Division<br/>
+<br/>
+phone: +49 (0) 69 7603 8308<br/>
+fax.: +49 (0) 69 7603 3864</body></html>

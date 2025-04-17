@@ -1,0 +1,154 @@
+{
+  "main": {
+    "id": "461745e86f8f2143",
+    "type": "split",
+    "children": [
+      {
+        "id": "fcf965838dcbf9be",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6562d4c269c2a8f1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Süss/ApfelGrenadineRelish.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "b7f7805bea5e06b4",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "91b6080593f42245",
+        "type": "leaf",
+        "state": {
+          "type": "file-explorer",
+          "state": {
+            "sortOrder": "alphabetical"
+          }
+        }
+      },
+      {
+        "id": "9b8ca2964831daad",
+        "type": "leaf",
+        "state": {
+          "type": "search",
+          "state": {
+            "query": "",
+            "matchingCase": false,
+            "explainSearch": false,
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical"
+          }
+        }
+      },
+      {
+        "id": "dc3d72ce41ce43d7",
+        "type": "leaf",
+        "state": {
+          "type": "tag",
+          "state": {
+            "sortOrder": "frequency",
+            "useHierarchy": true
+          }
+        }
+      },
+      {
+        "id": "adc1c8d4f2c62ec3",
+        "type": "leaf",
+        "state": {
+          "type": "all-properties",
+          "state": {
+            "sortOrder": "frequency",
+            "showSearch": false,
+            "searchQuery": ""
+          }
+        }
+      },
+      {
+        "id": "bf70294b53c2bc18",
+        "type": "leaf",
+        "state": {
+          "type": "bookmarks",
+          "state": {}
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "right": {
+    "id": "87428981e694bcb2",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "56dbdaf33609b318",
+        "type": "leaf",
+        "state": {
+          "type": "backlink",
+          "state": {
+            "file": "Süss/ApfelGrenadineRelish.md",
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical",
+            "showSearch": false,
+            "searchQuery": "",
+            "backlinkCollapsed": false,
+            "unlinkedCollapsed": true
+          }
+        }
+      },
+      {
+        "id": "fdd115b9d4ca27d5",
+        "type": "leaf",
+        "state": {
+          "type": "outgoing-link",
+          "state": {
+            "file": "Süss/ApfelGrenadineRelish.md",
+            "linksCollapsed": false,
+            "unlinkedCollapsed": true
+          }
+        }
+      },
+      {
+        "id": "30688f18e9298fac",
+        "type": "leaf",
+        "state": {
+          "type": "outline",
+          "state": {
+            "file": "Süss/ApfelGrenadineRelish.md"
+          }
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
+    }
+  },
+  "active": "6562d4c269c2a8f1",
+  "lastOpenFiles": [
+    "Süss/DulceDeLeche.md",
+    "Hauptgericht/PastaConLeSarde.md",
+    "ButtermilchKokosKuchen.md",
+    "Pasted image 20240601202937.png"
+  ]
+}

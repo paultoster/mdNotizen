@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Grid</title>
+</head><body><br/>
+Fr 18.01.2013 13:02:04<br/>
+<br/>
+Hallo zusammen,<br/>
+<br/>
+zur Info: Im Rahmen des Einparkassistenten benötigte ich eine Klasse, die Kollisionen beliebiger konvexer Polygone (beliebige Eckzahl) im 2D-Raum berechnet. Habe dafür unter common\modules\CollisionCheck eine entsprechende Klasse zur Verfügung gestellt. Sie berechnet optional auch die kürzeste Überschneidung der beiden Polygone und den kürzesten notwendigen Verschiebungsvektor, um die Polygone zu trennen.<br/>
+Durch einfache Erweiterung könnte die Klasse auch Kollisionen zwischen Kreisen und Kreisen sowie Polygonen und Kreisen berechnen.<br/>
+<br/>
+Des weiteren noch der Hinweis, dass unter common\modules\Helpfuncs einige ggf. allgemein brauchbare Funktionen/Klassen abgelegt sind, so z.B. zur Berechnung von Abständen zu Trajektorien, Extrapolation in Kennlinien (GetYFromX), Vektorrechnungen (Addition, Sub., Skalarprod. etc.) und anderen Kleinstfunktionen (deg2Rad, rpm2mps, signum, limit, num2str, str2num, etc.).<br/>
+<br/>
+Grüße, Dirk<br/>
+<br/>
+<br/>
+<br/>
+Hallo zusammen,<br/>
+<br/>
+unsere CarMaker-Schnittstelle hat neue Features erhalten:<br/>
+<br/>
+Bekanntlich kann man Tasks in der CarMaker.exe selbst integrieren oder angebunden über DDS außerhalb laufen lassen. Bisher hatte der Betrieb außerhalb zwei Einschränkungen:<br/>
+(1) Keine GlobalTime<br/>
+(2) Senden Tasks per CAN, sieht dies CarMaker nicht.<br/>
+<br/>
+Ich habe beide Einschränkungen nun behoben.<br/>
+<br/>
+(1) CarMaker sendet wenn gewünscht einen Kanal "Time&lt;COMPUTERNAME&gt;#CGlobalTimeMsg". Dadurch erhalten die Tasks automatisch die GlobalTime so, wie im Fahrzeug (dort heißen die Kanäle "TimeCAR_PC1" bis "TimeCAR_PC6".<br/>
+<br/>
+(2) Wenn man den dds2canTask für CarMaker übersetzt, dann wandelt dieser die von den Tasks via "canmsg_ex_bus0_out" gesendeten Daten in DDS-Kanäle um. Die Umsetzung muss man in diesem Task implementieren (habe ich für die ArbiLong/WarnTask-Botschaften 0x175/0x176 bereits gemacht).<br/>
+<br/>
+Um dies zu nutzen, muss man folgendes beachten:<br/>
+<br/>
+1. dds2canTask für CarMaker übersetzen und mitlaufen lassen. Dazu in dds2canTask.h folgende lokale Änderung machen:<br/>
+#if (1) &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; 0 in 1 ändern<br/>
+#define CARMAKER<br/>
+#include &lt;datatypes/Arbitration/CanMsg0x175.h&gt;<br/>
+#include &lt;datatypes/Arbitration/CanMsg0x176.h&gt;<br/>
+#include &lt;CANMessages/SALatLong5.h&gt;<br/>
+#include &lt;CANMessages/SALatLong6.h&gt;<br/>
+#endif<br/>
+<br/>
+2. CarMaker sagen, dass er Requests nicht von den internen Arbitrierern entgegen nimmt, sondern von außen.<br/>
+CarMakerIn.info: requests.external 0 -&gt; 1<br/>
+<br/>
+3. GlobalTime senden:<br/>
+Conti.info: ddsTx.loopTimeGlbTime 0 -&gt; 1 (jede loop senden)<br/>
+<br/>
+4. dds2can-Kanäle empfangen:<br/>
+Conti.info: ddsRx.readCanMsg0x175 0 -&gt; 1, ddsRx.readCanMsg0x176 0 -&gt; 1, etc.<br/>
+<br/>
+5. Dafür sorgen, dass obige CAN-Kanal-Signale korrekt an die CCarMakerIn-Klassen angebunden werden.<br/>
+<br/>
+Grüße, Dirk<br/>
+</body></html>

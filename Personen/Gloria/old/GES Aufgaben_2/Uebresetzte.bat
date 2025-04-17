@@ -1,0 +1,1 @@
+tesseract Bild.jpg TTT -l deu

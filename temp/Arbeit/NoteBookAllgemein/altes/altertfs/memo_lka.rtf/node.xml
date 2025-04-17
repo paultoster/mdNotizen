@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>memo_lka.rtf</string>
+  <key>nodeid</key><string>64b3cb71-effe-43c7-b476-633b8b68be81</string>
+  <key>modified_time</key><integer>1475227717</integer>
+  <key>version</key><integer>6</integer>
+  <key>payload_filename</key><string>memo_lka.rtf</string>
+  <key>content_type</key><string>application/octet-stream</string>
+  <key>created_time</key><integer>1475227717</integer>
+  <key>order</key><integer>2</integer>
+</dict>
+</node>

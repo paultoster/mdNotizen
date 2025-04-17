@@ -1,0 +1,8 @@
+Für ein Bestandsgebäude soll im Zuge von Modemnisierungsmaßnahmen die Heizungsanlage erneuert werden, Hierbei handelt es sich um eine Hütte in Straubing,
+
+Der Grundriss der Hütte und die Südancicht eind der Abbildung 8 zu entnehmen. Die Normaußentemperatur beträgt -14 °C. die Hütte soll auf eine Innentamperstur von 20 °C
+‚gebracht werden. Der mittlere U-Wert der Hütte betragt 0.32 En „ Die Luft in der Hütte wird einmal alle zwei Stunden ausgetauscht.
+
+Welchen prozentualen Anteil an der Heizlast stellen die Transmissionswärmeverluste dar? Nutzen Sie zur Berechnung die Formel zur Abschätzung der Norm-Heiziast für ein
+Gebäude. Geben Sie den Wert in Prozent auf eine Nachkommastelle gerundet an. Runden Sie benötigte Zwischenergebnisse auf drei Nachkommastellen.
+

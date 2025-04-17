@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>workflow</title>
+</head><body>CW46: Fr 22.11.2019 14:28-------------------------------------------------------------------------------------------------------------------<br/>
+<br/>
+&nbsp;<br/>
+<u><b>Branch naming rules:</b></u><br/>
+&nbsp;<br/>
+<b>&nbsp;</b><br/>
+&nbsp;<br/>
+<b>&nbsp; a) Release branch : release/&lt;name&gt;</b><br/>
+&nbsp;<br/>
+<b>&nbsp; b) Feature branch : feature/&lt;name&gt;</b><br/>
+&nbsp;<br/>
+<b>&nbsp; c) Hotfix branch &nbsp;: hotfix/&lt;name&gt;</b><br/>
+&nbsp;<br/>
+<b>&nbsp; d) Support branch : support/&lt;name&gt;</b><br/>
+&nbsp;<br/>
+&nbsp; <br/>
+&nbsp;<br/>
+<b>&nbsp; - &lt;name&gt; : 5 to 40 alphanumeric characters including dash</b><br/>
+&nbsp;<br/>
+<b>&nbsp; - all characters in lowercase</b><br/>
+&nbsp;<br/>
+&nbsp; <br/>
+&nbsp;<br/>
+<u>Examples of valid branch names according to the naming rules:</u><br/>
+&nbsp;<br/>
+&nbsp; <br/>
+&nbsp;<br/>
+&nbsp; a) release/brimley-2019<br/>
+&nbsp;<br/>
+&nbsp; b) feature/trajectory-planner-refactoring<br/>
+&nbsp;<br/>
+&nbsp; c) hotfix/vehicle-pose-unhandled-exception<br/>
+&nbsp;<br/>
+&nbsp; d) support/ecal-4-grid<br/>
+&nbsp;<br/>
+&nbsp; <br/>
+&nbsp;<br/>
+<u>Explanations of the branch naming rules:</u><br/>
+&nbsp;<br/>
+&nbsp;<br/>
+&nbsp;<br/>
+&nbsp; a) Several features are accumulated in this branch. Colloquially it is also called the integration branch in the GRID.<br/>
+&nbsp;<br/>
+&nbsp; b) Branch in which a feature for a GRID component is developed. In most cases this will be the right branch type for you.<br/>
+&nbsp;<br/>
+&nbsp; c) Bugfix branch which should flow back into all active release branches and into the master branch.<br/>
+&nbsp;<br/>
+&nbsp; d) Support branch where legacy components are needed that are no longer used in the current master branch.<br/>
+&nbsp;<br/>
+&nbsp;<br/>
+&nbsp;<br/>
+<b>The rules are only applied to newly created branches.</b>&nbsp;This means that existing branches that are already on the GitHub server remain unaffected by the new naming convention and can be updated as before. <b>Nevertheless we would appreciate it if the old branch names could be renamed according to the new naming rules.</b>&nbsp;This can be done either with a Git GUI tool or with the Git command line git branch -m &lt;oldname&gt; &lt;newname&gt;.<br/>
+&nbsp;<br/>
+&nbsp;<br/>
+&nbsp;<br/>
+<u><b>The new naming rules will be activated on Monday, 11.11.2019 at 11:11 CET.</b></u><b>&nbsp;From this point on, a git push of a newly created branch for the GRID Project that does not comply with the above naming convention, will automatically be rejected by the GitHub server.</b><br/>
+&nbsp; &nbsp; &nbsp;<br/>
+<br/>
+Mi 16.05.2019 14:28-------------------------------------------------------------------------------------------------------------------<br/>
+<br/>
+<br/>
+To make it short:<br/>
+Please read the handout!<br/>
+<br/>
+All pushed commits to the remote repository (http://github.conti.de/CTZS/GRID) will trigger an automated build for windows and linux.<br/>
+If your branch uses the name denomination (*/for/*, explained in the handout) it will also trigger a pull request for the merge into the target (usually master),<br/>
+after a successful build you can merge your branch into the master.<br/>
+The existing branches can be kept but you need to merge the master into your branches to get the latest workflow file updates.<br/>
+The existing branches are mentioned in the handout as "branches with manual creation of pull requests".<br/>
+<br/>
+You can get an overview of the build status of each branch and/or pull request here: http://jenkinsctzs.conti.de/job/GRID_Lifecycle/job/VerifySourceCode/<br/>
+IF you cant see anything in the Jenkinsview you need access, please contact your tooling domain.<br/>
+<br/>
+</body></html>

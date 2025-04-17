@@ -558,3 +558,9 @@
 | yellow4                 | #8B8B00 | RGB(139,139,0)   |
 
 ![](..\_bilder\PythonTkInterColoerList.jpg)
+
+
+
+see also here:
+
+[Python Tkinter Colors list](https://www.plus2net.com/python/tkinter-colors.php)

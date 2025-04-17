@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>LotusNotes</title>
+</head><body><br/>
+0.12.1&#09;killnotes<br/>
+&nbsp;<br/>
+Killnotes ist ein Programm, daß Notes in jedem Fall löscht, insbesondere, wenn notes hängen geblieben ist<br/>
+<br/>
+Das Programm befindet sich: C:\WINDOWS\KillNotes2.exe<br/>
+0.12.2&#09; password<br/>
+&nbsp;<br/>
+Password ändern in Notes:<br/>
+<br/>
+Datei -&gt; Extras -&gt; Benuttzer-ID<br/>
+<br/>
+0.12.3&#09;mobile<br/>
+&nbsp;<br/>
+Hr. Berthold, Thomas<br/>
+Zugang zum Lotus Notes Server<br/>
+über den CT RAS-Router ( ISDN/Analog )<br/>
+Ihre Daten für die Einwahl über ISDN - oder Analog - Modem ( DFÜ . Verbindung ):<br/>
+DFÜ . Einwahlnummer : 069 . 74386004<br/>
+Benutzer . Name : Nodesm26 o. Nodesm29<br/>
+Passwort : getmail25<br/>
+In den Eigenschaften eine .sichere Verbindung. wählen. (CHAP)<br/>
+<br/>
+Siehe D:\doku\teves\notes<br/>
+<br/>
+Hier die notwendigen Dinge, die zu tun sind um Notes-mobil mit unseren Notebooks ohne Novell zu sein:<br/>
+<br/>
+1. Herr Klute (3220) anrufen und einen Termin ausmachen, damit er Lotus Notes ohne Novell bei sich installieren kann. <br/>
+&nbsp; &nbsp; Dazu bekommt er das Notebook. und die Handy-CD (Treiber)<br/>
+&nbsp; &nbsp; Außerdem muß eine ID-File vom Novell-Rechner auf das Notebook kopert werden (C:\Programme\Lotus\Notes\Data\UserName.id auf C:\temp koperen)<br/>
+&nbsp; &nbsp; Außerdem wird Username und Passwort vom Windows und Passwort von Notes benötigt (Zettel).<br/>
+<br/>
+2. Nachdem Notes installiert ist &nbsp;bringt er es zu Herrn Kaduk (2068). Der macht das Notes mobil<br/>
+<br/>
+3. Dort abholen und man bekommt eine Username und Passwort für die Einwahl über DominoRasModem<br/>
+<br/>
+4. In die hosts-Liste (C:\WINNT\system32\drivers\etc\hosts) müssen die Server eingetragen werden:<br/>
+<br/>
+<br/>
+172.29.3.90 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;frlc001<br/>
+172.29.4.90 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;frlc002<br/>
+<br/>
+<br/>
+5. Wenn über Netzwerk Notes abgeglichen werden soll (vor einer Reise) kann über Hausnetzwerk geschehen. Das Hausnetzwerk angestöpseln und (wichtig)<br/>
+&nbsp; &nbsp; die feste IP-Adresse auf DHCP umgestellen. Notes starten und Büro als Arbeitsumgebung wählen. Den Replikator öffnen, Im Feld mit deinem Usernamen kann über Option &nbsp; &nbsp;<br/>
+&nbsp; &nbsp; eingestellt werden, ob alle Daten rüberkommen sollen oder nur der Header und ob der Abgleich in beiden Richtungen gehen soll. DAnach den Replikator starten<br/>
+<br/>
+6. Wenn mit Handy verbunden werden soll, beim Starten von Notes als Arbeitsumgebung wählen. Wieder den Replikator öffnen und vorgehen wie untter 5. beschrieben<br/>
+<br/>
+<br/>
+<br/>
+Meine id-File im Anhang war auf C:\ abgelegt<br/>
+&nbsp;<br/>
+&nbsp;<br/>
+0.12.4&#09; Zertifizierung<br/>
+&nbsp;<br/>
+Zur Info, falls das Problem auch bei Ihnen jemals aufteten sollte!<br/>
+<br/>
+Folgendes ist zum Zertifizieren von Lotus Notes zu tun:<br/>
+<br/>
+1) Lotus Notes starten<br/>
+2) "Datei" --&gt; "Extras" --&gt; "Benutzer ID ..." wählen<br/>
+3) Passwort eingeben<br/>
+4) "Zertifikate" anklicken<br/>
+5) "Zertifikat anfordern ..." wählen<br/>
+6) "Adresse ..." wählen<br/>
+7) "Global Addressbook" wählen<br/>
+7) "$UserAdmins_fr" eingeben und dann im Fenster anklicken<br/>
+8) auf den Knopf "An &gt;" drücken<br/>
+9) im rechten Auswahlfeld "$DomainAdmins" anwählen und "entfernen" klicken, so dass hier nur noch "$UserAdmins_fr" steht<br/>
+10) auf "OK" klicken<br/>
+11) auf "Senden" klicken<br/>
+12) etwa 10 Minuten warten<br/>
+13) es kommt eine eMail, mit Zertifikatinformationen. Öffnen!<br/>
+14) "Aktionen" --&gt; "Zertifikat annehmen ..." wählen<br/>
+<br/>
+Gruß,<br/>
+S. Ottmann<br/>
+<br/>
+Hallo Herr $CAS_FR_09,<br/>
+<br/>
+seit einigen Tagen erhalte ich beim Start von Lotus Notes folgende Meldung:<br/>
+<br/>
+&nbsp;<br/>
+Wenn ich wie oben angegeben das entsprechende Menü aufrufe, erscheint diese Meldung:<br/>
+<br/>
+&nbsp;<br/>
+Nach Druck auf Senden erscheint die Meldung:<br/>
+<br/>
+<br/>
+<br/>
+0.12.5&#09;Conti Phonebook<br/>
+Hallo und guten Morgen,<br/>
+<br/>
+wie sicher alle wissen, ist jeder Mitarbeiter selber verantwortlich, seine Daten im Conti Lotus Notes Phonebook - das sicher jeder benutzt - zu pflegen. Aufgrund der vielen Raum-Umbenennungen hier noch einmal eine kurze Anleitung: <br/>
+<br/>
+- das Conti-Phonebook öffnen<br/>
+- "Change user Data" links anwählen<br/>
+- die Daten entsprechend ergänzen/ändern<br/>
+- Password wird abgefragt<br/>
+ok - das war es. <br/>
+<br/>
+Sicher ist es sinnvoll, wenn als Jobtitle die Bezeichnung von der Visitenkarte verwendet wird.<br/>
+0.12.6&#09;INotes<br/>
+Mit INotes kann man über das CT Intranet seine E-Mails verwalten.<br/>
+<br/>
+Vorgehen:<br/>
+&#09;Browser im Intranet öffnen<br/>
+&#09;frlc001 eingeben und es öffnet sich die Seite : https://frlc001.fr.ge.conti.de/start.nsf<br/>
+&#09;Username und Paswort eingeben und fertig<br/>
+&nbsp;<br/>
+Passwort zu INotes ändern<br/>
+&nbsp;<br/>
+Mit INotes kann man über das CT Intranet seine E-Mails verwalten.<br/>
+<br/>
+Vorgehen:<br/>
+&#09;Browser im Intranet öffnen<br/>
+&#09;frlc001 eingeben und es öffnet sich die Seite : https://frlc001.fr.ge.conti.de/start.nsf<br/>
+&#09;Username und Paswort eingeben und fertig<br/>
+<br/>
+In LotusNotes (am Rechner daheim) öffnen<br/>
+<br/>
+-&gt; Datei -&gt; Datenbank -&gt; Öffnen -&gt; Server: &nbsp; &nbsp; &nbsp; &nbsp;frlc001 (vielleicht auch frlc002), <br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Datenbank: dir (doppelklicken).Set User Data =&gt; Es öffnet sich ein Tab,<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#09; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; darin dann mit Set Password Passwort ändern.<br/>
+<br/>
+0.12.7&#09;UMS-Funktion (Faxe per Notes empfangen und senden)<br/>
+<br/>
+1) Anleitung für den Fax Versand mit Lotus Notes über Unified<br/>
+Messaging<br/>
+Wenn ihr Notes Client für den Fax Versand per Unified Messaging freigeschaltet<br/>
+wurde, können Sie mit ihrem Notes Client Faxe verschicken bzw. empfangen.<br/>
+<br/>
+Anleitung für Lotus Notes Version 6:<br/>
+<br/>
+1. Erstellen Sie ein neues Memo, indem Sie in ihrem Notes Client auf den<br/>
+entsprechenden Button klicken.<br/>
+2. In das An/To: Feld tragen Sie die gewohnte Fax Nebenstelle ein (im Bild als<br/>
+XXXX dargestellt), gefolgt von @FAXG3@FR_UMS<br/>
+3. Die übrigen Felder können Sie mit beliebigem Text füllen. Sie können auch<br/>
+Textanhänge wie gewohnt an das Memo hängen, die dann ebenfalls per Fax<br/>
+versendet werden. Ebenso können zusätzliche Verteiler bzw. Einzeladressen<br/>
+hinzugenommen werden.<br/>
+4. Klicken Sie auf „Senden“ um das Fax abzuschicken.<br/>
+5. Hinweis: Office Dokumente (Word, Excel, usw.) werden so versendet, wie sie<br/>
+in der Vorschau von Microsoft Office dargestellt werden.<br/>
+2) Anleitung für den Fax Empfang mit Lotus Notes über Unified Messaging<br/>
+Damit Sie Faxe empfangen können, müssen Sie ihre UMS-Faxnummer bekannt<br/>
+geben. Dazu verwenden Sie bitte die folgende Rufnummer:<br/>
++49 69 7603 88 XXXX<br/>
+Beispiel:<br/>
+Ihre Nebenstelle ist 0123, dann lautet ihre Fax-Nummer: +49 69 7603 88 0123<br/>
+Wenn Sie ein Fax von extern empfangen, bekommen Sie eine eMail in ihre Lotus<br/>
+Notes Inbox, wie im folgenden abgebildet:<br/>
+Öffnen Sie die eMail, um den Inhalt des Fax zu sehen. Der Inhalt des Fax ist als<br/>
+Anhang (TIF-Bild) der Mail beigefügt. Öffnen Sie den Anhang wie unten abgebildet:<br/>
+<br/>
+3) Anleitung für den Empfang von Sprachnachrichten (Voice-Mail)<br/>
+mit Lotus Notes über Unified Messaging<br/>
+Sprachnachrichten, die während ihrer Abwesenheit auf ihre Mailbox gesprochen<br/>
+werden, bekommen Sie per eMail in ihre Lotus Notes Inbox.<br/>
+Das folgende Bild zeigt Ihnen, wie Sprachnachrichten in der Inbox aussehen:<br/>
+Öffnen Sie diese Mail wie gewohnt. Die Sprachnachricht ist als Anhang in Form einer<br/>
+WAV-Datei der Mail beigefügt. Öffnen Sie diese Mail wie unten abgebildet:<br/>
+<br/>
+Sollten Sie Probleme mit einer der hier beschriebenen Unified Messaging Funktionen<br/>
+haben, wenden Sie sich bitte an die Hotline unter 4444.<br/>
+<br/>
+Fr 02.07.2010<br/>
+Ab KW27 neue Version 8.5.1<br/>
+<br/>
+Notes WIKI:<br/>
+<br/>
+Weitere Informationen zu dem neuen Notes Client entnehmen Sie bitte dem Notes Wiki:<br/>
+https://frlc004.auto.contiwan.com/appl/Wiki/ND85_Wiki_German.nsf<br/>
+<br/>
+Zum Thema Sametime finden Sie hier weitergehende Informationen:<br/>
+https://frlc004.auto.contiwan.com/appl/Wiki/ND85_Wiki_German.nsf/dx/I._Sametime<br/>
+</body></html>

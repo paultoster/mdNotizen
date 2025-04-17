@@ -1,5 +1,31 @@
 # Konten abklappern
 
+- [ ] Weltsparen:
+
+- [ ] Wüstenrot
+
+- [ ] Deutsche Bank
+
+- [ ] Consors
+
+- [ ] Ing-Bank
+
+- [ ] Finanzagnetur
+
+- [ ] AKF-Bank
+
+- [ ] Banc Of Scotland
+
+- [ ] C24
+
+- [ ] SmartBrokerPlus
+
+- [ ] Credit Agricole 
+
+- [ ] Hanseatische Fidus Vermietungseunnahmen 
+
+- [ ] Kommunale Kredit Invest 
+
 14.09.24
 
 - [ ] Weltsparen Steuerbescheinigung kopiert auf M: 

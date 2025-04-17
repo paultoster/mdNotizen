@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Lenkwinkelregler-RPECU</title>
+</head><body>Di 16.05.2017 14:48<br/>
+<br/>
+Vorgehen.<br/>
+<br/>
+1) mit VPU2_stimulate_ext2_Fzg auf VPU2 geben<br/>
+<br/>
+2) version vpu2_park_demo_ver-1.1.4 ver5wenden, um Solllenkwinkel mit auszugeben<br/>
+<br/>
+3a) nur Vorsteuerung:<br/>
+<br/>
+Dazu folgende Parameter ausschalten:<br/>
+<br/>
+<br/>
+IPASparam.SwaCntrl3MODIGainDeltaDSwa = 0.0;<br/>
+IPASparam.SwaCntrl3MODDGainDeltaDSwa = 0.0;<br/>
+IPASparam.SwaCntrl3MODGainDSwaRefFac = 0.0;<br/>
+IPASparam.SwaCntrl3MODGainDSwaRefLowDynDeltaFac = 0.0;<br/>
+IPASparam.SwaCntrl3MODPGainDeltaDSwa = 0.0;<br/>
+<br/>
+IPASparam.SwaCntrl3MODDampFac = 0.0;</body></html>

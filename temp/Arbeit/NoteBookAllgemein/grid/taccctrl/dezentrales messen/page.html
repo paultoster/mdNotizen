@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>verteiltes Messen</title>
+</head><body>Liebe Kollegen,<br/>
+<br/>
+das dezentrale Messen ist nun möglich! Zur Einrichtung auf den Fahrzeugen sind folgende einmalige Schritte durchzuführen:<br/>
+<br/>
+- Die aktuellen Versionen von TaccClient (mind. V 1.25b) und TaccCtrl (mind. V 1.68a) müssen installiert sein.<br/>
+- folgende Flags/Statusvariablen müssen in den Tacc-Config-Files (AllTaskSuperviced_NN.ini, NoTaskSuperviced.ini) &nbsp;gesetzt oder über Options in TaccCtrl eingestellt werden:<br/>
+&#09;- MeasAllChs=2 (-&gt; all local Channels)<br/>
+&#09;- SynchroViaTacc=1<br/>
+&#09;- SynchroIsSlave=0 (nur in AllTaskSuperviced_NN.ini) bzw. SynchroIsSlave=1 (nur in NoTaskSuperviced.ini) <br/>
+- auf jedem Rechner muss es einen Ordner D:\meas geben. Ist dies nicht der Fall, muss er erstellt werden. Ist z.B. keine D-Partition vorhanden, muss ein virtuelles Laufwerk erstellt werden! In diesem Ordner werden die Messdaten dezentral auf jedem Rechner gespeichert (d:\meas\measurementXXX).<br/>
+- Für das Zusammenkopieren &nbsp;der Messdaten habe ich Batch-Files geschrieben. Diese findet Ihr in der aktuellen Grid-Version unter:<br/>
+&#09;.../Grid/build/bat/DecMeas<br/>
+- Daraus sollte der gesamte Ordner "meascollection" auf Laufwerk y kopiert werden. Von hieraus (y:\meascollection) sollten dann auch die Batch-Files gestartet werden. Hierfür erforderlich ist Robocopy. Dies muss auf dem ausführenden PC installiert sein (bzw. im Ordner WIndows\System32 abgelegt sein)<br/>
+<br/>
+Beim Messen ist folgendes zu beachten:<br/>
+<br/>
+- Das Starten der Messung erfolgt wie gewohnt über TaccCtrl auf PC1 (ggf. Flags/Statusvariable, s.o., noch einmal überprüfen)<br/>
+- Nach dem Abschluss der Messungen können mit den Batch-Files in &lt;y:\measurement&gt; mehrere (MergeSomeMeasurements.bat) oder auch alle Messungen (MergeAllMeasurements.bat) zusammenkopiert werden. <br/>
+- Die zusammengeführten Daten werden unter y:\meascollection\measurementXXX gespeichert. <br/>
+- Im Ordner (y:\meascollection) liegen auch Batch-Files zum Löschen der Messdaten auf den einzelnen PCs.<br/>
+<br/>
+Bei Fragen oder Anmerkungen, meldet Euch bitte bei mir. Viel Spaß beim Testen!<br/>
+<br/>
+Viele Grüße<br/>
+<br/>
+Benedikt<br/>
+</body></html>

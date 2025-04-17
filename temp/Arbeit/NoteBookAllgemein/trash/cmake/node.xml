@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>CMake</string>
+  <key>nodeid</key><string>3bbb0dfd-21f3-4622-97bf-e383e1aa37df</string>
+  <key>modified_time</key><integer>1523892012</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>text/xhtml+xml</string>
+  <key>created_time</key><integer>1523892012</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>order</key><integer>84</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

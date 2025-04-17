@@ -1,5 +1,24 @@
 # Rentenversicherung
 
+### 
+
+### 3.3.25: Folgende Informationen brauchen Sie für Ihren Rentenantrag:
+
+- Versicherungsnummer - diese
+   finden Sie z.B. auf Ihrer Renteninformation, Gehaltsabrechnung oder 
+  Ihrem Versicherungsnummernachweis.
+- Antragstellung durch eine dritte Person: Vollmacht oder Betreuungsurkunde
+- Kontonummer (IBAN)
+- Wie und wo sind Sie kranken- und pflegeversichert?
+- Geburtsurkunden Ihrer Kinder - auch bei Vätern wichtig für die Beiträge zur Pflegeversicherung der Rentner
+- Wenn Sie schwerbehindert sind: Schwerbehindertenausweis, Feststellungsbescheid.
+- ggf. Steueridentifikationsnummer
+- Wenn Sie eine Sozialleistung beziehen: Letzter Bescheid der ausstellenden Behörde.
+- Versicherungsunterlagen für noch fehlende Zeiten, z.B. Nachweise über Ausbildungszeiten.
+- Aktueller Versicherungsverlauf der Rentenversicherung (sofern vorhanden).  
+
+
+
 ### Deutsche Rentenversicherung
 
 - Auskunfts- und Beratungsstelle -  

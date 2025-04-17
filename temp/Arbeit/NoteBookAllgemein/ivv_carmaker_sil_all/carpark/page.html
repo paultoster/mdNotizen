@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CarPark</title>
+</head><body>CW29: Mi 24.07.2019 10:26-------------------------------------------------------------------------------------------------------------------<br/>
+<br/>
+TestRun in:<br/>
+<br/>
+&nbsp;D:\SiL\IVV_CarMaker_SiL_All\PV\Data\TestRun\HUD<br/>
+<br/>
+<br/>
+Änderung in IVV_Channels.info<br/>
+<br/>
+# Output channels:<br/>
+###############################################################<br/>
+Out.GodConvexHullObjectListPb &nbsp; &nbsp; = 1<br/>
+Out.HapsCommandUserPb &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 0<br/>
+Out.RoadModelInterfacePb &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# 1:Road 4.5 RMI ### hard-coded intersections # 2: basic looped (eight) # 3: Laatzen T-shaped # 4: Cloverleaf with turning left lane&#09;# 5 : Guerickestrasse-like with turning right lane<br/>
+Out.RoadModelInterface_MapBased &nbsp; = 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# 1:Road 4.5 RMI ### hard-coded intersections # 2: basic looped (eight) # 3: Laatzen T-shaped # 4: Cloverleaf with turning left lane&#09;# 5 : Guerickestrasse-like with turning right lane<br/>
+Out.TopViewLineMarkerPb &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# only the first 25 lines of a lane segment are detected<br/>
+Out.VehicleDynamicsInPb &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1<br/>
+Out.VehiclePosePb &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1<br/>
+<br/>
+Änderung in Sil_HUD.ecalsys<br/>
+<br/>
+99_Old_LLMServer (start for reading xodr maps and BE_patch) nicht starten</body></html>

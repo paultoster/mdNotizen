@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Protobuf-Vorgehen</title>
+</head><body>Mo 20.06.2016 08:53<br/>
+<br/>
+Vorgehen mit einer Protobuf-Botschaft für caf-Struktur<br/>
+<ul><li>HOWTO_Including_proto_files.docx beachten zum erstellen der Umgebung in Visual C++</li>
+<li>in protobuf-Filter die Protobuf-Beschreibung einfügen (z.B. VehiclePose.proto)</li>
+<li>in caf2Algo.h den Include (#include "VehicleMovement/VehiclePose.pb.h") einfügen (wobei dieser erst mit dem Compilier aus den proto-Files im Pfad Release bzw. Debug erstellt wird)</li>
+<li>in caf2Algo.h bei input declaration (extern CAFObj::CProtoMsg&lt;pb::VehicleMovement::VehiclePose&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RxVehiclePose;)</li>
+<li>in caf2Algo.cpp die definition (CAFObj::CProtoMsg&lt;pb::VehicleMovement::VehiclePose&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RxVehiclePose;)</li>
+<li>in caf2Algo.cpp in bool ContiAlgoInit() Anmeldung: ( &nbsp; &nbsp;if (!RxVehiclePose.Register( CAF::COMRX, "VehiclePose")) return false; RxVehicleDynamics.SetTimeout( 0.5); )</li>
+<li>in caf2Algo.cpp in bool Caf2Algo_Loop() Aufruf:</li>
+<li></li>
+</ul>
+</body></html>

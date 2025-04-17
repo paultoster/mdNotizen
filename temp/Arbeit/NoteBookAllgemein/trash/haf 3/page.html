@@ -1,0 +1,864 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>HAF</title>
+</head><body><br/>
+Mo 24.11.328 09:11:46<br/>
+<br/>
+GMV-Messungen mit Datalyser<br/>
+<br/>
+1 &nbsp; &nbsp; &nbsp;Spurwechsel 70 km/h 0.0025 1/m<br/>
+2 &nbsp; &nbsp; &nbsp;Spurwechsel 70 km/h 0.0036 1/m<br/>
+3 &nbsp; &nbsp; &nbsp;Spurwechsel 70 km/h 0.0057 1/m<br/>
+<br/>
+<br/>
+<br/>
+Fr 21.11.325 13:42:14<br/>
+<br/>
+GMV-Messung:<br/>
+<br/>
+1-3 &nbsp; &nbsp;Spurwechsel 70 km/h &nbsp; 0.0025 1/m<br/>
+4-6 &nbsp; &nbsp;Spurwechsel 70 km/h &nbsp; 0.00360 1/m, letzte Messung wurde nach rechts gelenkt<br/>
+7 &nbsp; &nbsp; &nbsp; Spurwechsel 70 km/h &nbsp; 0.00570 1/m,<br/>
+8-9 &nbsp; &nbsp; Spurwechsel 70 km/h &nbsp; 0.00570 1/m, mue-Limit = 1.3 (von 0.9)<br/>
+10 &nbsp; &nbsp; &nbsp;Spurwechsel 70 km/h &nbsp; 0.00570 1/m, mue-Limit = 1.1 (von 0.9)<br/>
+11 &nbsp; &nbsp; &nbsp;Kurve &nbsp; 60 km/h &nbsp;0.002 !/m<br/>
+12 &nbsp; &nbsp; &nbsp;Kurve &nbsp; 80 km/h &nbsp;0.002 1/m<br/>
+13 &nbsp; &nbsp; &nbsp;Kurve &nbsp; 80 km/h &nbsp;0.003 1/m<br/>
+14 &nbsp; &nbsp; &nbsp;Kurve &nbsp; 80 km/h &nbsp;0.004 1/m zu langsam<br/>
+15 &nbsp; &nbsp; &nbsp;Fehlmessung<br/>
+16 &nbsp; &nbsp; &nbsp;Kurve &nbsp; 80 km/h &nbsp;0.004 1/m<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Fr 07.11.311 10:25:33<br/>
+<br/>
+Shift_to_high_gear_top_limit 100<br/>
+Shift_to_high_gear_bottom_limit 100<br/>
+HADXparam.KcKpVelFac 0.8<br/>
+HADXparam.KcKdVelFac 1.2<br/>
+HADXparam.KcKpPosFac 1.0<br/>
+HADXparam.KcAccRefFacPlus 0.8<br/>
+HADXparam.KcAccRefFacMinus 0..8<br/>
+<br/>
+<br/>
+<br/>
+Hallo Thomas,<br/>
+<br/>
+falls bei der Inbetriebnahme Pendelungen sichtbar werden, als erstes zu Punkt 3 gehen und die Parametrierung dort rückgängig machen bzw. anheben.<br/>
+<br/>
+In der eingecheckten Version sind folgende Parameter geändert:<br/>
+<br/>
+1) DYC_Kappa_A2_Factor,die Gewichtung von kappa_punkt in der Vorsteuerung zur Minimierung dynamischer Regelfehler, ist in den letzten Versionen zwar bereits auf 50% reduziert (DYC_Kappa_A2_Factor = 1 entspricht dabei 50%), evtl. macht aber eine weitere Reduktion Sinn, aufgrund der Sättigung werden Spurwechsel ohnhin dynamische Regelfehler besitzen. Ein Wert bis runter auf von 0 ist ein Versuch wert, dabei sollte die Seitenabweichung bei Kurvenein- und -ausfahrt auf starken Einbruch hin kontrolliert werden.<br/>
+<br/>
+2) DYC_State_Filter_Time_Constant (kontinuierliches Filter des Kappa-Sollwertes) wurde von 0.1 auf 0.15 erhöht, Einheit in Sekunden. Die Kappa-Filterung scheint neben der kappa_punkt-Gewichtung die wirksamste Methode zur Beruhigung zu sein, auch hohe Werte (wir hatten auch schon Werte von 0.6 bzw 1 s eingestellt) gefährden nicht die Regelkreistabilität. Idealerweise muss die zeitliche Kappa-Vorausschau aber auf 2 x DYC_State_Filter_Time_Constant angepasst werden, bei 0.15 zB theoretisch auf 0.3 s, Fehlanpassungen durch geringere Vorauschau (wg begrenzter Pufferlänge) führen zu dynamischem Regelfehler vor allem bei dynamischen Spurwechseln, auf der M1 evtl. von untergeordneter Bedeutung und daher evtl. in Kauf zu nehmen...<br/>
+&nbsp;<br/>
+3) HEC_Delta_Psi_Weighting von 1 auf 0.6 reduziert. Das Delta_Psi-Signal weist höheren Rauschanteil als Delta_Ys auf, durch diese Maßnahmen wird Delta_Psi gegenüber Delta_Ys quasi schwächer gewichtet. Mögliche Auswirkungen: schwächere Dämpfung der Lateralregelung (in der Simulation nur in geringem Umfang erkennbar) und Zunahme der Pendelungen. Bei Zunahme der Pendelungen oder schwacher Dämpfung (erkennbar am Überschwingen der Seitenabweichung bei Störung am Lenkrad) HEC_Delta_Psi_Weighting wieder auf höhere Werte 0.6 ...1 setzen.<br/>
+Sollte nur für HEC_Delta_Psi_Weighting = 1 zufriedenstellendes Pendel- und Dämpfungsverhalten realisiert werden können, als Not-Maßnahme Parameter HEC_Kp von derzeit 1 auf kleinere Werte setzen. Ein Wert von 0.5 dürfte die Schmerzgrenze sein, HEC_Kp stellt quasi die Kreisverstärkung des kinematischen Reglers dar, geringe Werte reduzieren die Dynamik und vor allem die Fähigkeit zur Störgrößenausregelung (vor allem auch im Hinblick auf die Offsetgrößen).<br/>
+<br/>
+Als weitere Not-Maßnahme ist die Reduktion von SAC_kp = 5; zu nennen, dem kp-Wert des Lenkwinkelreglers. Hier besteht neben reduzierter Dynamik und Störfestigkeit vor allem die Gefahr instabilen Regelverhaltens mit der Notwendigkeit der Anpassung der Gierratenrückführung.<br/>
+&nbsp;<br/>
+5) LAT_Delta_Psi_Filter_Coeff (diskrete Tiefpass-Filterung von Delta_Psi) von 0.4 auf 0.15 reduziert, die Entsprechung des Koeffizienten zur Filterzeitkonstante sind<br/>
+<br/>
+<img src="image 5.png" /><br/>
+<br/>
+In der Offline-Simulation greifen erst weitaus kleinere Koeffizienten (0.02 ... 0.05) und beruhigen das Signal, in der closed Loop Simulation in Carmaker nimmt dann allerdings die Regelkreis-Dämpfung immer mehr ab.<br/>
+<br/>
+Idealerweise kann HEC_Delta_Psi_Weighting wieder auf 1 gesetzt werden und die ganze Stör-Problematik durch dieses Filter behoben werden. Wie immer ;) besteht die Schwierigkeit darin, einen günstigen Kompromiss zu finden...<br/>
+<br/>
+<br/>
+6) LDC_Controller_Mode ist in den letzten Versionen von 2324 auf 276 gesetzt, d.h. delta_ys wird dadurch nicht mehr durch delta_psi gestützt. Testweise könnte man LDC_Controller_Mode wieder auf 2324 setzen, womöglich gibt es trotz Störanteil von delta_psi ein günstiges Verhalten durch das PT1-Verhalten des Filters. <br/>
+<br/>
+Berechtigtes Potential zur Reduzierung der durch delta_ys hervorgerufenen Störungen hat auch die Wahl von LDC_Controller_Mode = 1300 (entspricht Verdopplung der Länge des delta_ys-Filters)<br/>
+<br/>
+&nbsp;<br/>
+7) LAT_Oc_Ki von 0.005 auf 0.02 erhöht. Der Faktor entspricht quasi der Lernrate der Offsetkalibrierung, diese wurde damit von ca 300s / 0.2Grad Lenkwinkeloffset auf 75s / 0.2Grad Lenkwinkeloffset reduziert. Maßnahme ist in der Simulation unauffällig, evt. sind sogar weitaus höhere Werte möglich (in der Simulation ist auch ein Wert von 1 vertretbar), messbare Zunahme der Pendelungen allerdings ab LAT_Oc_Ki &gt; 0.1.<br/>
+<br/>
+8) Das Problem der extremen Seitenabweichung bei Kurveneinfahrt evtl. durch weitere Erhöhung der Kappa-Vorausschau und damit frühes Anlenken reduzieren, um den Preis, dass die Trj verschliffen wird.<br/>
+<br/>
+Sollte ich morgen nicht am Platz sein, besser auf dem Handy anrufen: 0176-97592403<br/>
+<br/>
+Messungen<br/>
+<br/>
+Ah_M1_Runden_<br/>
+<br/>
+<br/>
+<br/>
+2014/10/30<br/>
+<br/>
+Messung B 3 mit RT3000 Gierrate<br/>
+Messung B 4 mit ICM Gierrate<br/>
+<br/>
+<br/>
+2014/10/28<br/>
+<br/>
+GMV<br/>
+<br/>
+Problem mit Trajektorienvorgabe bei Pf_Laengs_Kurve_80_KP45_1.asc<br/>
+<br/>
+<br/>
+<br/>
+Messung 1: &nbsp; &nbsp; 60 kmh, &nbsp;KpPos = 1.0 &nbsp; &nbsp; KpVel = 1.0 KdVel = 0.0 &nbsp;schwingt etwas in der Ebene<br/>
+Messung2 &nbsp; &nbsp; &nbsp; 60 kmh, &nbsp;KpPos = 0.75<br/>
+Messung8: &nbsp; &nbsp; &nbsp;60 kmh &nbsp; KpPos = 1.0 &nbsp; &nbsp; KpVel = 0.75 KdVel = 0.2<br/>
+<br/>
+Messung13 &nbsp; &nbsp;60 kmh, &nbsp; KpPos = 0.6 &nbsp; &nbsp; KpVel = 1.5 KdVel = 0.75 &nbsp;(0.6)<br/>
+<br/>
+Messung16 &nbsp; &nbsp;80 kmh, &nbsp; &nbsp;KpPos = 0.7 &nbsp; &nbsp; KpVel = 1.5 KdVel = 1.0<br/>
+<br/>
+Messung22 &nbsp; &nbsp;100 kmh, &nbsp; &nbsp;KpPos = 0.8 &nbsp; &nbsp; KpVel = 1.5 KdVel = 1.1<br/>
+<br/>
+Messung25 &nbsp; &nbsp;120 kmh, &nbsp; &nbsp;KpPos = 0.9 &nbsp; &nbsp; KpVel = 1.5 KdVel = 1.2<br/>
+<br/>
+<br/>
+2014/10/27<br/>
+<br/>
+Pf_Laengs_ANull_8.asc &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Moment zu null geworden?<br/>
+Pf_Laengs_ANull_9.asc<br/>
+Pf_Laengs_ANull_10.asc &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;sehr hohe Längsfehler warum?<br/>
+<br/>
+2014/10/23<br/>
+<br/>
+Pf_Laengs_60_80_100_nurvel_1: &#09;&#09;Erste Messung PREDICTION_TIME_POS[0] = 32000, PREDICTION_TIME stellt sich alleine ein<br/>
+Pf_Laengs_60_80_100_nurvel_2: &#09;&#09;PREDICTION_TIME_POS[0] = 32000, PREDICTION_TIME_VEL[0] = 2000, erst HAng, dann Ebene<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; schwingt stärker, und bei t=66 geht der Regler auf Schleppmoment??<br/>
+Pf_Laengs_60_80_100_nurvel_3: &#09;&#09;PREDICTION_TIME_POS[0] = 32000, PREDICTION_TIME_VEL[0] = 1000, erst HAng, dann Ebene<br/>
+<br/>
+<br/>
+<br/>
+Fr 17.10.2014 09:03:45<br/>
+<ul><li>4699 Passwort für FUSI-Off</li>
+</ul>
+<br/>
+<br/>
+Auf ZGW mit Internetexplorer Eintellungen durchführen<br/>
+<br/>
+eigenen Rechner: 192.168.1.101<br/>
+<br/>
+http://192.168.1.10/GWNG-Master<br/>
+<br/>
+Passwort 2677<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Di 14.10.2014 07:52:55<br/>
+<br/>
+<br/>
+Messungen Stop and Go, 3. Messung bei zweiten Anfahren wieder lange gewartet<br/>
+<br/>
+Konstant50kmh 2 und 3 war nichts<br/>
+<br/>
+Konstant70kmh 4, 5 ,7 und 8 waren nichts<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+&nbsp; &nbsp;LIN: &nbsp; &nbsp; &#09;&#09;i0=0, nord=2: &nbsp; &nbsp; index[0]=index0,index[1]=index0+1<br/>
+&nbsp; &nbsp;BSPL: &nbsp;&#09;&#09;i0=0, nord=4: &nbsp; &nbsp; index[0]=index0,index[1]=index0+1,index[2]=index0+2,index[3]=index0+3<br/>
+&nbsp; &nbsp;BSPLM1: &nbsp;&#09;i0=1, nord=4: &nbsp; &nbsp; index[0]=index0-1,index[1]=index0,index[2]=index0+1,index[3]=index0+2<br/>
+&nbsp; &nbsp;MIT6: &nbsp; &#09;&#09;i0=2, nord=6: &nbsp; &nbsp; index[0]=index0-2,index[1]=index0-1,index[2]=index0,index[3]=index0+1,index[4]=index0+2,index[5]=index0+3<br/>
+<br/>
+&nbsp; &nbsp;LIN: &nbsp; &nbsp; &#09;&#09;i0=0, nord=2: &nbsp; &nbsp; indexPre[0]=index0&#09;&#09;&#09;&#09;&#09;&#09;&#09;&#09;&#09;indexAct[0]=index0+1<br/>
+&nbsp; &nbsp;BSPL: &nbsp;&#09;&#09;i0=0, nord=4: &nbsp; &nbsp; indexPre[0]=index0&#09;&#09;&#09;&#09;&#09;&#09;&#09;&#09;&#09;indexAct[0]=index0+1,indexAct[1]=index0+2,indexAct[3]=index0+3<br/>
+&nbsp; &nbsp;BSPLM1: &nbsp;&#09;i0=1, nord=4: &nbsp; &nbsp; indexPre[0]=index0-1,indexPre[1]=index0&#09;&#09;&#09;&#09;&#09;indexAct[0]=index0+1,indexAct[1]=index0+2<br/>
+&nbsp; &nbsp;MIT6: &nbsp; &#09;&#09;i0=2, nord=6: &nbsp; &nbsp; indexPre[0]=index0-2,indexPre[1]=index0-1,indexPre[2]=index0&#09;indexAct[0]=index0+1,indexAct[1]=index0+2,indexAct[2]=index0+3<br/>
+<br/>
+Do 25.09.2014 09:22:48<br/>
+<ul><li>&nbsp;Längere Trajektorie ausprobieren</li>
+<li>&nbsp;Vorausschau rausnehmen &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FctParam.TrajDTProjectKappa = 150</li>
+<li>&nbsp;Laufzeitmessung</li>
+<li>dy-Filter:</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Falls der Algo nicht lernen will, SAC_Delta_Ys_Error_Thrs auf größere Werte setzen, z.B. von derzeit 0.1 auf 0.2 &nbsp; =&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;LAT_Lateral_Controller_P.SAC_Delta_Ys_Error_Thrs_Value</li>
+<li style="list-style-type: none">Ausgabe Lernwerte auf CAN &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FctParam.CanMessSendTypeCAN1 = 511 -&gt; 1023</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">LDC_Controller_Mode = &nbsp;276 (default-Wert) bedeutet Mittelung von delta_ys über 16 Werte. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;LAT_Lateral_Controller_P.LDC_Controller_Mode_Value</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Die beiden Alternativ-Filter wären:</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">1) Rekonstruktion von delta_ys aus delta_psi: &nbsp; &nbsp; LDC_Controller_Mode = &nbsp;2324</li>
+<li style="list-style-type: none">Dieser Filter ist noch nicht final abgestimmt, dennoch bitte mal testen, kann zum Aufschwingen führen.</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">2) Mittelwert über 32 Werte: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;LDC_Controller_Mode = &nbsp;1300</li>
+<li style="list-style-type: none">Dieser Filter macht alles platt, allerdings deutlich erhöhtes Risiko des Aufschwingens.</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Falls keine Verbesserung sichtbar, dann bitte DYC_State_Filter_Time_Constant von derzeit 0.1 auf zB 0.3 versuchsweise erhöhen. &nbsp;=&gt; &nbsp;LAT_Lateral_Controller_P.DYC_State_Filter_Time_Constant_Value</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">PREDICTION_TIME_POS[0] &nbsp;= 2500 ms &nbsp;für Positionsregelung : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=&gt; &nbsp;PREDICTION_TIME_POS[0]</li>
+<li style="list-style-type: none">innerhalb dieser Zeit sollte die aktuelle Positionsabweichung ausgeregelt &nbsp;werden, </li>
+<li style="list-style-type: none">je kleiner desto starker wird Positionsreglung gewichtet.</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">&nbsp;Prediction_time_max &nbsp; &nbsp; &nbsp; = (5000); /* Pretiction_time in ms]*/ &nbsp;für DV-regelung in quasistationär Fahrten</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">&nbsp;Prediction_time_min &nbsp; &nbsp; &nbsp; = (1000); /* Pretiction_time in ms]*/ für DV-regelung in Beschleunigungs- oder Bremsmavönern</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Messung</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Messungen C:</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">1) VPU5-Ausgabe eingeschaltet, &nbsp;SAC_Delta_Ys_Error_Thrs = 0.2 eingestellt, da bei erster Fahrt keine Daten gespeichert wurden</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Prediction_time_max &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 6000</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Messung 1 + 2 LDC_Controller_Mode = &nbsp;276</li>
+<li style="list-style-type: none">Messung 3 + 4 LDC_Controller_Mode = &nbsp;2324</li>
+<li style="list-style-type: none">Messung 5 + 6 LDC_Controller_Mode = &nbsp;1300</li>
+<li style="list-style-type: none">Messung 7 gemischt 276/2324/1300, dann 1300 in der 1. Kurve bis 2. Kurve</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Messung 8 10 ms 276 </li>
+<li style="list-style-type: none">Messung 9 20 ms 276</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Messung 10 (in Messung 11 ist Lenkung ausgestiegen )</li>
+<li style="list-style-type: none">Messung 11+12 Lenkung war schon ausgestiegen</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Mess 14: 20 ms 2324 in der Kurve ist mehrmals ausgesetzt auch bei Wechsel von links in rechts</li>
+<li style="list-style-type: none">Mess 15: 14 20 ms 2324 gut durhcgekommen</li>
+<li style="list-style-type: none">Mess 16: 14 20 ms 2324 gut durhcgekommen</li>
+<li style="list-style-type: none">Mess 17: nio</li>
+<li style="list-style-type: none">Mess 18: 14 20 ms 2324 gut durhcgekommen Trajektorie mit RT3000 Lenkrad sehr ruhig</li>
+<li style="list-style-type: none">Mess 19: 14 20 ms 2324 gut durhcgekommen Trajektorie mit RT3000 Lenkrad sehr ruhig</li>
+<li style="list-style-type: none">Mess 20: 14 20 ms 2324 mit Selbstlokalisierung, auch ruhig</li>
+<li style="list-style-type: none">Mess 20: 14 20 ms 2324 mit Selbstlokalisierung, auch ruhig</li>
+<li style="list-style-type: none">Mess 21: 14 20 ms 2324 mit Selbstlokalisierung, auch ruhig</li>
+<li style="list-style-type: none">Mess 22: 14 20 ms 2324 mit Selbstlokalisierung, Puffer einmal leer gelaufen, auch ruhig</li>
+<li style="list-style-type: none">Mess 23</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">kuenstliche Trajektorie mit Kuenstliche_Trajektorie_M1_140925_1.asc hat nicht funktioniert</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">-----------------------------------------------------------------------------------</li>
+<li style="list-style-type: none">A: Status </li>
+<li style="list-style-type: none">Konnte nicht aktiviert werden, da zu starker Drift in Lokalisation</li>
+<li style="list-style-type: none">-----------------------------------------------------------------------------------</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">PREDICTION_TIME_POS[0] = 3000 &nbsp; &nbsp; &nbsp;Ist zu langsam beim Annähern</li>
+<li style="list-style-type: none">Prediction_time_max &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 6000</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Messung B_6</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">PREDICTION_TIME_POS[0] = 2500 &nbsp; &nbsp; &nbsp; </li>
+<li style="list-style-type: none">Prediction_time_max &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 7000 im hinteren Teil 2000</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Messung B_7</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">LDC_Controller_Mode = &nbsp;2324</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Dieser Mode brint subjektiv etwas mehr Ruhe</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Messung_B_8</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">PREDICTION_TIME_POS[0] = 2500 &nbsp; &nbsp; &nbsp; </li>
+<li style="list-style-type: none">Prediction_time_max &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 2000</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Überleneken und schlechtes hochbeschleunigen </li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">PREDICTION_TIME_POS[0] = 2500</li>
+<li style="list-style-type: none">Prediction_time_max &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 2000</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Messung_B_9: Gerade mit am Ende Rauslenken</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">LDC_Controller_Mode = &nbsp;1300</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Dieser Mode scheint mir etwas langwelliger zu schwingen</li>
+</ul>
+<br/>
+Do 18.09.2014 13:44:03<br/>
+<br/>
+Output &nbsp; ADP_Factor_Filt[17]<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ADP_N_Table[17]<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ADP_Factor_Table[17]<br/>
+140918_Ah_M1_closedLoop<br/>
+<br/>
+F3 Zucken in der Lenkung in der Kurve<br/>
+<br/>
+<br/>
+Versuchsreiche D hat von Trajektorie funktioniert, aber die gedämpfte Lenkung ist noch aufgespielt !!<br/>
+Messung D 3: Buffer läuft voll<br/>
+<br/>
+<br/>
+Mi 17.09.2014 17:29:34<br/>
+<br/>
+Messung 2 Abschalten &lt; 17:29 Uhr<br/>
+<br/>
+Di 16.09.2014 13:45:03<br/>
+<br/>
+BC_Mode Betriebscontroller:<br/>
+<br/>
+<img src="image 4.png" /><br/>
+<br/>
+HAD_ON_COLLOSIONAVAIDANCE &nbsp;=&gt; &nbsp;Sicherheitsbetriebe Ausweichen Bremsen mit z.B. BCU<br/>
+HAD_ON_SAFE_STATE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=&gt; Funktionale Sicherheitsstate Abbremsen mit 0.2 g, wenn Bremse ausgefallen,. dann Mmit Booster<br/>
+HAD_ON_EMERGENCY &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=&gt; Nothalten, weil Fahrer nicht übernimmt Abbremsen auf STandstreifen (normal)<br/>
+<br/>
+<br/>
+Do 11.09.2014 09:41:44<br/>
+Ascheim Tests<br/>
+<br/>
+5 Vorausschau 20 ms &nbsp;DYC_Kappa_A2_Factor = 0.8<br/>
+<br/>
+6: + 2000 Prediction Time Längsregelung<br/>
+<br/>
+Mi 10.09.2014 12:03:06<br/>
+Ascheim Tests<br/>
+<br/>
+Messung B<br/>
+<br/>
+ab 5: Aussetzer VPU ??? wurde untersucht, Quick-Hack ging daneben, was zu einem Resetten der VPU führte<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Messung 8 Aussetzer Vorrausschau 20<br/>
+<br/>
+Messung 9 Vaoraussschau 15<br/>
+<br/>
+Messung 10 Vorrausschau 15, &nbsp;In der Geraden starker Ruckler, Vor der Kurve Lenkung ausgestiegen<br/>
+<br/>
+Messung 11 Zucken beim rausfahren aus vordere Kuve<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Zuccken in der Geraden zurück<br/>
+<br/>
+Messung 13 2.9 vor<br/>
+<br/>
+Messung 14 LAT_Lateral_Controller_P.DYC_Kappa_A2_Factor_Gain =.8<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hintere Kurve<br/>
+<br/>
+Mo 08.09.2014 13:56:40<br/>
+<br/>
+=============================================================================================<br/>
+Hallo Georg,<br/>
+<br/>
+weiter unten siehst du die Gradienten Schwelle. Fürs Bremsen wäre es dann &nbsp;-10 000 Nm/s.<br/>
+<br/>
+Die Druckübersetzung war 23.47 Nm/bar VA und 12.86 Nm/bar HA<br/>
+<br/>
+Ansonsten sollen 10 bar = 0.1 g entsprechend, was nur ungefähr stimmen kann<br/>
+<br/>
+<br/>
+Mit freundlichen Grüßen/Best regards,<br/>
+<br/>
+Thomas Berthold<br/>
+Electronics Software<br/>
+Advanced Engineering<br/>
+<br/>
+Continental &nbsp;<br/>
+Division Chassis and Safety<br/>
+<br/>
+Guerickestr. 7<br/>
+D-60488 Frankfurt/M., Germany<br/>
+P.O Box 90 01 20<br/>
+D- 60441 Frankfurt/M., Germany <br/>
+<br/>
+Phone: ++49 69 76 03 - 30 52<br/>
+Fax: &nbsp; &nbsp; &nbsp; ++49 69 76 03 - 38 20<br/>
+Mobil: &nbsp; &nbsp;+49 151 64117982<br/>
+Email: &nbsp; Thomas.Berthold@continental-corporation.com<br/>
+http://www.continental-corporation.com<br/>
+&lt;$$402!&gt;<br/>
+_____________<br/>
+----- Weitergeleitet von Thomas Berthold/fr/eu/au/cag am 05.09.2014 13:42 -----<br/>
+<br/>
+Von:&#09;Hagen Boehmert/usr/cag<br/>
+An:&#09;Thomas Berthold/fr/eu/au/cag@CONTI07, <br/>
+Datum:&#09;04.09.2014 14:14<br/>
+Betreff:&#09;Antwort: HAF: Brems-Komfortschellen<br/>
+<br/>
+<br/>
+Hallo Thomas,<br/>
+<br/>
+die Informationen habe ich nochmal aufgearbeitet. Hier die Übersicht und zur Vollständigkeit die auch die Sicherheits-Charakteristik:<br/>
+<br/>
+Komfort-Charakteristik<br/>
+ &gt; -0,5 G für 200 ms<br/>
+Gradientenlimitierung - 10 000 Nm/s und + 15 0000 Nm/s<br/>
+Haltedruck im Stand 50 Bar<br/>
+&nbsp;<br/>
+Sicherheits-Charakteristik<br/>
+ &gt; Tabelle für 200 ms<br/>
+[km/h]&#09; &nbsp; &nbsp; &nbsp; &nbsp;[G]<br/>
+0 - 50&#09; &nbsp; &nbsp; &nbsp; &nbsp;-1,54<br/>
+50,29 - 120&#09;-0,71<br/>
+-120,02 - 300&#09;-0,66<br/>
+<br/>
+&nbsp;<br/>
+Reihenfolge Wichtig:<br/>
+a. Qualifier QU_TAR_BRTORQ_SUM<br/>
+b. Bremsrequest TAR_BRTORQ_SUM<br/>
+&nbsp;<br/>
+Bei Abschaltung irreversibel bis Klemmenwechsel<br/>
+<br/>
+- Hagen<br/>
+<br/>
+Hallo Thomas,<br/>
+<br/>
+Komfort-Schnittstelle max. 0,5 G für 200ms. Im Fahrzeug liegt das bei ca. TAR_BRTORQ_SUM.phys = -3000<br/>
+<br/>
+Für Details lass uns morgen nochmal tel.<br/>
+<br/>
+- Hagen<br/>
+<br/>
+====================================================================================<br/>
+<br/>
+Do 04.09.2014 14:37:12<br/>
+<br/>
+keine Messung<br/>
+<br/>
+<br/>
+<span style="font-family: monospace">&nbsp; /* CAN-Input-Daten */<br/>
+&nbsp; /*=================*/<br/>
+&nbsp;<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VxVehicle; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: VxVehicle, u: m/s] */<br/>
+<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; YawRate; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: YawRate, u: rad/s ] */ /* [rad/s] Yawrate offset compensated */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; PitchRate; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: PitchRate, u: rad/s ] */ /* [rad/s] Pitchrate offset compensated */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RollRate; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: RollRate, u: rad/s ] */ /* [rad/s] Rollrate offset compensated */<br/>
+<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AxVehicle; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: AxVehicle, u: m/s/s ] */ /* [m/s2] VehicleAcceleration &nbsp; */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AyVehicle;&#09;&#09;&#09;&#09;&#09; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: AyVehicle, u: m/s/s] */ /*Fahrzeugquerbeschleunigung im Schwerpunkt - positiv: links */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AzVehicle; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: AzVehicle, u: m/s/s] */ /*Fahrzeughochbeschleunigung im Schwerpunkt */<br/>
+<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; V_OMEGA_Wheel_FL; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: V_RPM_Wheel_FL, u: rad/s ] */ /* Wheelrotionspeed FL &nbsp;*/<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; V_OMEGA_Wheel_FR; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: V_RPM_Wheel_FR, u: rad/s ] */ /* Wheelrotionspeed FR &nbsp;*/<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; V_OMEGA_Wheel_RL; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: V_RPM_Wheel_RL, u: rad/s ] */ /* Wheelrotionspeed RL &nbsp;*/<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; V_OMEGA_Wheel_RR; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: V_RPM_Wheel_RR, u: rad/s ] */ /* Wheelrotionspeed RR &nbsp;*/<br/>
+<br/>
+&nbsp; ui16_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;WheelPulseCount_FL;&#09;&#09; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: WheelPulseCount_FL ] */ /* RIZ_HL: WheelPulseCounter FL */ <br/>
+&nbsp; ui16_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;WheelPulseCount_FR;&#09;&#09; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: WheelPulseCount_FR ] */ /* RIZ_HR: WheelPulseCounter FR */<br/>
+&nbsp; ui16_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;WheelPulseCount_RL;&#09;&#09; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: WheelPulseCount_RL ] */ /* RIZ_HL: WheelPulseCounter RL */ <br/>
+&nbsp; ui16_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;WheelPulseCount_RR;&#09;&#09; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: WheelPulseCount_RR ] */ /* RIZ_HR: WheelPulseCounter RR */<br/>
+<br/>
+<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SteeringWheelAngle; &#09; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: SteeringWheelAngle, u: rad ] */ /* [rad] &nbsp; EPS: Steering Wheel Angle - positive: left */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SteeringWheelAngleSpeed; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: SteeringWheelAngleSpeed, u: rad/s ] */ /* {rad/s] EPS: Steering Wheel Angle Speed - positive: left */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DriverSteeringTorque; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: DriverSteeringTorque, u: N*m ] */ /* [N*m] &nbsp; &nbsp; &nbsp;driver steering torque */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; EPSStatus; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: EPSStatus ] */ /* &nbsp;Status EPS &nbsp;*/<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; EPSInterfaceStatus; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: EPSInterfaceStatus ] */ /* &nbsp;Status EPS Interface &nbsp;*/<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; EPSMotorTorque; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: EPSMotorTorque, u: N ] */ /* &nbsp;EPS Motor Torque &nbsp;*/<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RackSteerForce; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: RackSteerForce, u: kN ] */ /* [kN] &nbsp; &nbsp; &nbsp;driver steering torque */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VehicleDir;&#09; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: VehicleDir ] */ /* - &nbsp; &nbsp;Vehicle moving direction */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ST_DRVDIR_DVCH; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: ST_DRVDIR_DVCH ] */ /* - BMW moving direction */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ActualGear;&#09;&#09;&#09;&#09; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: ActualGear ] */ /* GIC: Actual-Gaer */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ST_GRSEL_DRV; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: ST_GRSEL_DRV ] */ /* BMW Gear */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AccelPedalTravel; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: AccelPedalTravel, u: Percent ] */ /* % */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AccelPedalTravelVirt; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: AccelPedalTravelVirt, u: Percent ] */ /* % virtual, maximum (ACC,Driver)*/<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AccelPedalState; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: AccelPedalState ] */ /* digit */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; EngineState; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: EngineState ] */ /* digit */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DriveDemandState; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: DriveDemandState ] */ /* &nbsp;if intervention allowed */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DriveTorqueAxle; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: DriveTorqueAxle, u: N*m ] */ /* [N*m] driving torque from DME */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DriveTorqueAxleMax; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: DriveTorqueAxleMax, u: N*m ] */ /* [N*m] driving torque Maximum from DME */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DriveDragTorqueAxleTOP; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: DriveDragTorqueAxleTOP, u: N*m ] */ /* [N*m] driving drag torque from DME Bottom */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DriveDragTorqueAxleBOT; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: DriveDragTorqueAxleBOT, u: N*m ] */ /* [N*m] driving drag torque from DME Bottom */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DriveDragTorqueAxleMAX; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: DriveDragTorqueAxleMAX, u: N*m ] */ /* [N*m] driving drag torque from DME Bottom */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DriveTrainRatio; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: DriveTrainRatio ] */ /* ratio from Engine to Wheel */<br/>
+&nbsp; <br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BrakeTorqueAxle; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: BrakeTorqueAxle, u: N*m ] */ /* [N*m] &nbsp;actual Brake torque from EBS &nbsp;*/<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BrakeDriverTorque; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: BrakeDriverTorque, u: N*m ] */ /* #RTAS: [n: DriveDragTorqueAxleTOP, u: N*m ] */ /* driver brake wish */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ECBAStatus; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: ECBAStatus ] */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GMVStatus; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: GMVStatus ] */<br/>
+&nbsp; bool_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ABS_Active;&#09;&#09;&#09;&#09;&#09; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: ABS_Active ] */ /* VOLLBRE: ABS active (ABS regel alle 4 Räder) */<br/>
+&nbsp; bool_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ESP_Active;&#09; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: ESP_Active ] */ /* ESP_INFO_BL: ESP Infolampe flashing */<br/>
+&nbsp; bool_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;TCS_Active;&#09;&#09;&#09; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: TCS_Active ] */ /* AMR_AKT_ESP active (Antriebsmomentregelung aktiv) */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; IgnitionState; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: IgnitionState ] */ /* digit */<br/>
+<br/>
+&nbsp; /* HAF_T1 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TestRequestTimer; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* enum &nbsp;Timer zur zusätzlichen Überwachung des Test-Inputs */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TestRequestedValue; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* - scaled value from CAN-Input */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TestRequestedType; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* enum &nbsp;0: no fkt, 1: steerwheeltorque, 2:AxleTorqueEngine, 3:BrakeTorque */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TestRequestedStatus; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* enum &nbsp;0: no demand, 1: demand set */<br/>
+<br/>
+&nbsp; /* VBox */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VBoxLatitude; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* rad &nbsp; Latitude */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VBoxLongitude; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* rad &nbsp; Longitude */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VBoxHeading; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* rad &nbsp; HeadingAngle VBox */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VBoxCanInpStatus; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* enum &nbsp;Status zur Berechnung Position */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VBoxTimer1; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* enum &nbsp;Timer zur zusätzlichen Überwachung der VBox */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VBoxTimer2;<br/>
+&nbsp; <br/>
+&nbsp; /* HAF_BC */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BetrCtrlTimer; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* enum Betriebscontroller Timer zur zusätzlichen Überwachung */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BetrCtrlAliveCounter; &nbsp; &nbsp; &nbsp; &nbsp; /* enum Betriebscontroller AliveConunter */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BetrCtrlMode; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* enum Betriebscontroller FCT_BC_MODE_* */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BetrCtrlTakeOverOverrideden; &nbsp;/* enum Betriebscontroller Test-Driver override */<br/>
+<br/>
+<br/>
+&nbsp; /* HAF_F1 */<br/>
+&nbsp; #define FCT_TRAJ_EXPECTED_MAX_VALUES &nbsp; &nbsp; &nbsp; (71) &nbsp; /* &nbsp; &nbsp; &nbsp; maximal zu erwartende Anzahl von Punkte */<br/>
+&nbsp; ui32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;TrajTimer_ms; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* enum &nbsp;Timer in ms zur zusätzlichen Überwachung der Trajektorie */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajReadState; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* enum &nbsp;Zustand Einlesen */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajActive; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* 0/1 &nbsp; Anforderung Aktiv */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajNPoints; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* enum &nbsp;Anzahl der einzulesenden Punkte */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajNPointsLL; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* enum &nbsp;last loop */<br/>
+&nbsp; i16_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajNPointsM; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* enum Mittelwert */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajEndFlagSet;<br/>
+&nbsp; ui32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;TrajTimeStamp[FCT_TRAJ_EXPECTED_MAX_VALUES]; &nbsp;/* µs &nbsp; &nbsp;Timestamp der Trajektorie */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajISet[FCT_TRAJ_EXPECTED_MAX_VALUES]; &nbsp; &nbsp; &nbsp; /* enum &nbsp;Sammelstelle wer welchen Vektor beschrieben, für jeden Multiplexor wird += 1 gerechnet */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajX[FCT_TRAJ_EXPECTED_MAX_VALUES]; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* m &nbsp; &nbsp; Trajektorien-Punkte X-Koordinate */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajY[FCT_TRAJ_EXPECTED_MAX_VALUES]; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* m &nbsp; &nbsp; Trajektorien-Punkte Y-Koordinate */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajVel[FCT_TRAJ_EXPECTED_MAX_VALUES]; &nbsp; &nbsp; &nbsp; &nbsp;/* m/s &nbsp; vel Trajectory */ <br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajAcc[FCT_TRAJ_EXPECTED_MAX_VALUES]; &nbsp; &nbsp; &nbsp; &nbsp;/* m/s/s acc Trajectory */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajTheta[FCT_TRAJ_EXPECTED_MAX_VALUES]; &nbsp; &nbsp; &nbsp;/* rad &nbsp; theta Trajectory */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajKappa[FCT_TRAJ_EXPECTED_MAX_VALUES]; &nbsp; &nbsp; &nbsp;/* 1/m &nbsp; &nbsp; kappa Trajectory */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrajKappaP[FCT_TRAJ_EXPECTED_MAX_VALUES]; &nbsp; &nbsp; /* (1/m)/s dkappa Trajectory */<br/>
+<br/>
+&nbsp; /* TimeStamp */<br/>
+&nbsp; ui32_t &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;TimeStamp_ms; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* ms &nbsp; &nbsp;Zeitstempel von CAN */<br/>
+</span><br/>
+<span style="font-family: monospace"><br/>
+&nbsp; /* Error States */<br/>
+&nbsp; /*==============*/<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; YawRate &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 00 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; PitchRate &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 01 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; RollRate &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 02 */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; VxVehicle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 03 */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AxVehicle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 04 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AyVehicle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 05 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AzVehicle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 06 */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; OmegaWheel &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 07 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; WheelPulse &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 08 */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; SteeringWheelAngle &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 09 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; SteeringWheelAngleSpeed &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 10 */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriverSteeringTorque &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 11 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; EPSStatus &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 12 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; EPSInterfaceStatus &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 13 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; EPSMotorTorque &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 14 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; RackSteerForce &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 15 */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; VehicleDir &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 16 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; ActualGear &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 17 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AccelPedalTravel &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 18 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AccelPedalTravelVirt &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 19 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AccelPedalState &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 20 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; EngineState &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 21 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveDemandState &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 22 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveTorqueAxle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 23 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveTorqueAxleMax &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 24 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveDragTorqueAxleTOP &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 25 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveDragTorqueAxleBOT &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 26 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveDragTorqueAxleMax &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 27 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveTrainRatio &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 28 */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; BrakeTorqueAxle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 29 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; BrakeDriverTorque &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 30 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; GMVStatus &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 31 */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; IgnitionState &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 32 */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; TimeStamp_ms &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 33 */<br/>
+<br/>
+&nbsp; /* intern */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; Trajectory &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 34 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; Hardware &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 35 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; HADOFunc &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 36 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; HADXFunc &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 37 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; HADYFunc &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 38 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; TRAJFunc &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 39 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; ECBAStatus &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 40 */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; BetrCtrl &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 41 */<br/>
+<br/>
+<br/>
+&nbsp; /* CAN-Output-Daten */<br/>
+&nbsp; /*==================*/<br/>
+<br/>
+&nbsp; /* AliveCounter M1, M2, M3 */<br/>
+&nbsp; ui8_t AliveCounterHAF_M1;<br/>
+&nbsp; ui8_t AliveCounterHAF_M2;<br/>
+&nbsp; ui8_t AliveCounterHAF_M3;<br/>
+&nbsp; ui8_t AliveCounterHAF_VPU_F;<br/>
+&nbsp; ui8_t CounterXCPDemand;<br/>
+<br/>
+&nbsp; /* Output HADX */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp;EngineTorqReqAxle; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: EngineTorqReqAxle, u: N*m ] */ /* [N*m] &nbsp; EngineTorque Request DEM &nbsp; &nbsp; &nbsp; &nbsp;*/<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp;Status_EngineTorqReqAxle; &nbsp; /* #RTAS: [n: Status_EngineTorqReqAxle ] */ /* - &nbsp; &nbsp; &nbsp;Status EngineTorque Request DEM FCT_REQ_STAT_OFF,FCT_REQ_STAT_ON */ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp;BrakeTorqReqAxle; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: BrakeTorqReqAxle, u: N*m ] */ /* [N*m] &nbsp; BrakeTorqe Request EBS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp;Status_BrakeTorqReqAxle; &nbsp; &nbsp;/* #RTAS: [n: Status_BrakeTorqReqAxle ] */ /* - &nbsp; &nbsp; &nbsp;Status BrakeTorqe Request EBS FCT_REQ_STAT_OFF,FCT_REQ_STAT_COMFORT,FCT_REQ_STAT_SECURE,FCT_REQ_STAT_COMFORT_DOF,FCT_REQ_STAT_SECURE_DOF &nbsp;*/<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp;Status_Send_QU_BrakeTorqReqAxle; &nbsp; &nbsp;/* Status für Komfort oder secure Bremsen */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* Zustände: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* FCT_REQ_STAT_OFF &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* FCT_REQ_STAT_COMFORT_START &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* FCT_REQ_STAT_COMFORT &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* FCT_REQ_STAT_COMFORT_END &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* FCT_REQ_STAT_SECURE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/<br/>
+&nbsp; <br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp;Status_SSM; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* - &nbsp; &nbsp; Status Stillstandsmangemanet &nbsp;FCT_REQ_STAT_OFF,FCT_REQ_STAT_ON */<br/>
+<br/>
+&nbsp; /* Output HADY */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp;SteerWheelTorqueReq; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: SteerWheelTorqueReq, u: N*m ] */ /* [N*m] &nbsp; requested Steerwheel torque EPS */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp;Status_SteerWheelTorqueReq; /* #RTAS: [n: Status_SteerWheelTorqueReq ] */ /* - &nbsp; &nbsp; &nbsp;Status requested Steerwheel torque EPS FCT_REQ_STAT_OFF,FCT_REQ_STAT_ON */ &nbsp;<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp;Status_DiffBrakeTorqueReq; &nbsp;/* #RTAS: [n: Status_DiffBrakeTorqueReq ] */ /* - &nbsp; &nbsp; &nbsp;Status requested Soll Differenz Bremsmoment EPS FCT_REQ_STAT_OFF,FCT_REQ_STAT_ON */ &nbsp;<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp;DiffBrakeTorqueReqFA; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: DiffBrakeTorqueReqFA, u: N*m ] */ /* [N*m] &nbsp; Soll_Differenz_Bremsmoment_Vorderachse_Giermomentverteilung: Einzustellendes Raddifferenzbremsmoment der Giermomentverteilung an der Vorderachse. Ein positiver Wert erzeugt ein linksdrehendes Giermoment über die Vorderachse. */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp;DiffBrakeTorqueReqRA; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: DiffBrakeTorqueReqRA, u: N*m ] */ /* [N*m] &nbsp; Soll_Differenz_Bremsmoment_Hinterachse_Giermomentverteilung: Einzustellendes Raddifferenzbremsmoment der Giermomentverteilung an der Hinterachse. Ein positiver Wert erzeugt ein linksdrehendes Giermoment über die Hinterachse. */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp;FactorCompensDriveTrain; &nbsp; &nbsp;/* #RTAS: [n: FactorCompensDriveTrain, u: m/m ] */ /* - &nbsp; &nbsp; &nbsp;Faktor_Soll_Kompensation_Antrieb_Giermomentverteilung */<br/>
+<br/>
+&nbsp; /* VPU-Fusi */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; VPUFusiErrStatusBuffer[FCT_VPU_FUSI_BUFFER_N_VALUES]; &nbsp; <br/>
+<br/>
+&nbsp; /* Odometrie */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; XRAOdo; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* Diese Größe ist auf die positive Länge von FCT_ODO_XY_DELTA_MODULO gebracht worden */ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; YRAOdo; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* Diese Größe ist auf die positive Länge von FCT_ODO_XY_DELTA_MODULO gebracht worden */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; ThetaOdo; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* Diese Größe ist auf die plus/minus FCT_ODO_THETA_PI gebracht worden */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; BetaRAOdo; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* Diese Größe ist auf Minimum/Maximum +/- FCT_ODO_BETA_MAX gebracht worden */<br/>
+&nbsp; ui32_t &nbsp; &nbsp; &nbsp; &nbsp;TimeStampOdo; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: TimeStampOdo ] */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; FehlerStatusOdo; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: FehlerStatusOdo ] */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; XRASigmaOdo; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: XRASigmaOdo, u: m ] */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; YRASigmaOdo; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: YRASigmaOdo, u: m ] */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; ThetaSigmaOdo; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* #RTAS: [n: ThetaSigmaOdo, u: rad ] */<br/>
+&nbsp; f32_t &nbsp; &nbsp; &nbsp; &nbsp; BetaRASigmaOdo; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* #RTAS: [n: BetaRASigmaOdo, u: rad ] */<br/>
+<br/>
+&nbsp; /* Motion Controller Mode */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; MotCtrlMode; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* enum Motioncontroller FCT_MC_MODE_* */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; &nbsp; MotCtrlErrStatusBuffer[FCT_VPU_FUSI_BUFFER_N_VALUES]; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br/>
+</span><br/>
+Mi 03.09.2014 14:17:22<br/>
+<br/>
+<br/>
+Hallo Thomas, <br/>
+<br/>
+FYI, habe die Autocode-Files des Lat-Regler mit den M1-tauglichen Parametern <br/>
+SAC_Pid_kd = 0.04<br/>
+und<br/>
+DYC_State_Filter_Time_Constant = 0.1;<br/>
+eingecheckt.<br/>
+<br/>
+Als Tuning-Parameter dienen aktuell DYC_State_Filter_Time_Constant<br/>
+(Kappa-Filter, je größer, desto ruhiger der Lenkradwinkel und desto größer der dynamische Regelfehler, typ Wertebereich [0.025 ... 1] ) <br/>
+und<br/>
+DYC_Kappa_A2_Factor = 1;<br/>
+(Gewichtungsfaktor für Kappa_dot, je größer, umso mehr eilt das Fahrzeug gegenüber der Trajektorie vor, desto unruhiger wird aber auch der Lenkradwinkel störungsbedingt, typ Wertebereich [0 ... 2] ) <br/>
+Das aktuelle cai-File D:\VPU_HAF\cancmd_cfg\cancmd_HADY5.cai ist eingecheckt.<br/>
+<br/>
+<br/>
+Max4788!<br/>
+<br/>
+ZGW8: 192.168.11.18/GWNG-Master<br/>
+<br/>
+<br/>
+HAF On/Off<br/>
+<br/>
+<br/>
+<br/>
+Do 31.07.2014 13:10:00<br/>
+<br/>
+Transfer von Stefan Dreiseitel<br/>
+<br/>
+\\auto.contiwan.com\CAS\Loc\ffm2\DIDU0144\xxx_Transfer_xxx\<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Mi 30.07.2014 09:37:02<br/>
+<br/>
+neue Version für Mk100 auf Protpotypenfahrzeug flashen<br/>
+<br/>
+<br/>
+1. mit Xmit freischalten, schreibend flash.xmit <br/>
+2. Flash-Tool Freescale V6.14 verwenden<br/>
+3. Versionen liegen unter E:\dokumente\projekte\HAF\EBS,<br/>
+<br/>
+&nbsp; &nbsp; aktuelle Version ist AA3BAO00008<br/>
+<br/>
+<br/>
+Do 24.07.2014 09:12:15<br/>
+<br/>
+Von:&#09;Norbert Balbierer/usr/cag<br/>
+&#09;<br/>
+<br/>
+Hallo Thomas,<br/>
+<br/>
+das Prinzip ist folgendes:<br/>
+<br/>
+In jeder Trajektorien-Ros-Message ist drin:<br/>
+<br/>
+Zeitstempel<br/>
+70 Trajektorienpunkte<br/>
+<br/>
+rosbag38_stamp.txt enthält den Zeitstempel aller ROS-Messages aus dem Bag (rechte Spalte). In der linken Spalte ist die Reale Zeit, zu der die ROS-Message aufgezeichnet wurde. Zeitstempel und reale Zeit sollten annähernd gleich sein, mit ein paar ms Versatz.<br/>
+<br/>
+Die 70 Trajektorienpunkte in jeder einzelnen Message enthalten x,y,v,a,t (Sollzeit), kappa, kappa' und theta.<br/>
+Aufgrund des Textausgabeformates von rostopic echo gibt es Pro Wert (x,y,t,...) UND pro Trajektorienpunkt-Index (1..30 im Moment) ein .txt file, welches jeweils diesen Wert[Index] aus ALLEN (ca 110) aufgezeichneten ROS-Messages enthält. <br/>
+<br/>
+Also enthält beispielsweise x[5].txt den X-Wert des fünften Trajektorienpunktes aus allen aufgezeichneten ROS-Messages. Auch hier ist jeweils in der linken Spalte die reale Zeit aufgetragen. Da es ja immer die gleichen 110 ROS-messages sind, sind auch die Zeitpunkte in der linken Spalte in allen .txt Files die selben. &nbsp;Ist quasi eine gemeinsame Zeitachse über alle Trajektorien-ROS-messages.<br/>
+<br/>
+Die Ego-Werte entstammen einer anderen Ros-Message, haben also auch abweichende Zeiten, da z.B. die Dynamics-Nachricht deutlich häufiger kommt als die Trajektoriennachricht.<br/>
+<br/>
+Viele Grüße,<br/>
+Norbert<br/>
+<br/>
+<br/>
+Fr 18.07.2014 06:24:16<br/>
+<br/>
+<img src="image 3.png" /><br/>
+-&gt;<br/>
+<img src="image 2.png" /><br/>
+<br/>
+<br/>
+<br/>
+Mo 16.06.2014 11:33:15<br/>
+<br/>
+<br/>
+Issue 124<br/>
+<br/>
+Do 03.04.2014 09:17:50<br/>
+<br/>
+TortoiseGIT: Um auf Gerrit-Server-BMW pushen oder pullen zu können, benötige ich ein Password, dass in der Gerrit-Umgebung im Explorer geholt werden muss.<br/>
+Einloggen auf https://www.bmw-ft.de/confluence, dann in Gerrit, dann oben rechts Pfeil neben meinem Namen aufklappen und Settings auswählen.<br/>
+Dann unter HTTP Password das Passwort entnehmen und beim Pushen oder Pullen verwenden<br/>
+<br/>
+Do 17.03.2013<br/>
+<br/>
+Gerrit-Ordner angelgen, darunter sind die bei BMW eingecheckten Dateien von https://Thomas.Berthold@www.bmw-ft.de/gerrit/gwng_swe_haf_motioncontrol_vorabfahrzeug &nbsp; &nbsp;<br/>
+<br/>
+Mo 09.12.2013 11:08:08<br/>
+<br/>
+Lenkübersetzung aus den Messungen mit Vorabfahrzeug in Aschheim:<br/>
+<br/>
+<img src="image.png" /><br/>
+<br/>
+<br/>
+<br/>
+Mo 09.09.2013 17:07:42<br/>
+<br/>
+BMW-Gateway flashen:<br/>
+<br/>
+Tools: DHCP-Server dhcpsrv.exe mit IP für Verbindung zu Gateway auf dem Rechner: 192.168.1.1<br/>
+Funktioniert nicht mit meinem Windows-7 Rechner nicht möglicherweise lässt sich Firewall dafür nicht stoppen.<br/>
+<br/>
+Habe den DHCP-Server dhcpsrv.exe auf dem XP-Rechner gestartet, dann ging es. (D:\PortBMW\dhcpsrv2.3\dhcpsrv.exe starten)<br/>
+<br/>
+Flash-Tool: D:\PortBMW\CozyFlash_v1.10.1/CozyFlashGui.exe<br/>
+<br/>
+Zuerst Kontakt zu Gateway suchen option -&gt; Preferences<br/>
+Dann Version SWE Root: GW_Motion_V1 mit Ordnerstruktur ausgewählt (Browser), Zwei Item selected und Programm starten, d.h. runterladen:<br/>
+<br/>
+Ergebnis:<br/>
+<br/>
+Flashprogrammierung gestartet fuer 1 SG ...<br/>
+Reconnection Socket, takes up to 60s ...<br/>
+ECU '0x10': ---&gt; Starte Programmierung von ECU '0x10' nach LH v07 / SC6.7 auf SOCKET<br/>
+ECU '0x10': Fortschritt: 1 %<br/>
+Verbindung mit ZGW an IP "/192.168.1.4" reconnected!<br/>
+Reconnection Socket, takes up to 60s ...<br/>
+Verbindung mit ZGW an IP "/192.168.1.4" reconnected!<br/>
+ECU '0x10': Nutze erweiterte ResponsePending Zeiten in Prog-Session: 100s<br/>
+ECU '0x10': Fortschritt: 5 %<br/>
+ECU '0x10': Lade SWE swfl_0000092a_001_001_001.msr fuer ECU 0x10<br/>
+ECU '0x10': Datenvolumen der SWE 'swfl_0000092a_001_001_001.msr' von ECU '0x10' war 1572864 Byte ( 0x0 0x18 0x0 0x0 )<br/>
+ECU '0x10': Loesche SG 0x10 mit Index 0x80340 in 100 sec ... <br/>
+ECU '0x10': Fortschritt: 10 %<br/>
+ECU '0x10': Beginne Datentransfer fuer ECU 0x10<br/>
+ECU '0x10': Fortschritt: 13 %<br/>
+ECU '0x10': Fortschritt: 16 %<br/>
+ECU '0x10': Fortschritt: 19 %<br/>
+ECU '0x10': Fortschritt: 22 %<br/>
+ECU '0x10': Fortschritt: 25 %<br/>
+ECU '0x10': Fortschritt: 28 %<br/>
+ECU '0x10': Fortschritt: 31 %<br/>
+ECU '0x10': Fortschritt: 34 %<br/>
+ECU '0x10': Fortschritt: 37 %<br/>
+ECU '0x10': Fortschritt: 40 %<br/>
+ECU '0x10': Transferzeit fuer ECU '0x10': 0 min &nbsp;11 sec<br/>
+ECU '0x10': Transferrate fuer ECU '0x10': 142987 B/s<br/>
+ECU '0x10': Beginne Signaturcheck fuer ECU 0x10 ...<br/>
+ECU '0x10': Signaturcheck fuer ECU 0x10 ok!<br/>
+ECU '0x10': Fortschritt: 45 %<br/>
+ECU '0x10': Fortschritt: 100 %<br/>
+ECU '0x10': Programmierzeit : 0 min &nbsp;28 sec<br/>
+ECU '0x10': Steuergeraeteprogrammierung abgeschlossen! <br/>
+ECU '0x10': Lade SWE swfl_0000092b_002_007_002.msr fuer ECU 0x10<br/>
+ECU '0x10': Datenvolumen der SWE 'swfl_0000092b_002_007_002.msr' von ECU '0x10' war 131072 Byte ( 0x0 0x2 0x0 0x0 )<br/>
+ECU '0x10': Loesche SG 0x10 mit Index 0x20030 in 100 sec ... <br/>
+ECU '0x10': Fortschritt: 60 %<br/>
+ECU '0x10': Beginne Datentransfer fuer ECU 0x10<br/>
+ECU '0x10': Fortschritt: 63 %<br/>
+ECU '0x10': Fortschritt: 66 %<br/>
+ECU '0x10': Fortschritt: 69 %<br/>
+ECU '0x10': Fortschritt: 72 %<br/>
+ECU '0x10': Fortschritt: 75 %<br/>
+ECU '0x10': Fortschritt: 78 %<br/>
+ECU '0x10': Fortschritt: 81 %<br/>
+ECU '0x10': Fortschritt: 84 %<br/>
+ECU '0x10': Fortschritt: 87 %<br/>
+ECU '0x10': Fortschritt: 90 %<br/>
+ECU '0x10': Transferzeit fuer ECU '0x10': 0 min &nbsp;1 sec<br/>
+ECU '0x10': Transferrate fuer ECU '0x10': 131072 B/s<br/>
+ECU '0x10': Beginne Signaturcheck fuer ECU 0x10 ...<br/>
+ECU '0x10': Signaturcheck fuer ECU 0x10 ok!<br/>
+ECU '0x10': Fortschritt: 95 %<br/>
+ECU '0x10': Programmingdependencies von ECU '0x10' erfuellt.<br/>
+ECU '0x10': Writing VIN: 87 66 65 77 85 57 49 48 51 48 67 54 57 57 54 51 49 <br/>
+Reconnection Socket, takes up to 60s ...<br/>
+Verbindung mit ZGW an IP "/192.168.1.4" reconnected!<br/>
+ECU '0x10': Programmierung von ECU 0x10 erfolgreich. SessionState = 0x1 0x82<br/>
+ECU '0x10': Fortschritt: 100 %<br/>
+ECU '0x10': Programmierzeit : 0 min &nbsp;14 sec<br/>
+ECU '0x10': Steuergeraeteprogrammierung abgeschlossen! <br/>
+Reconnection Socket, takes up to 60s ...<br/>
+Verbindung mit ZGW an IP "/192.168.1.4" reconnected!<br/>
+Programmierzeit insgesamt: 1 min &nbsp;45 sec<br/>
+<br/>
+<br/>
+*********************************************************************<br/>
+<br/>
+***** SessionStatistics for ECU's: 0x10, &nbsp;*****<br/>
+Alle Steuergeraete erfolgreich programmiert!<br/>
+Programmierzeit insgesamt: 1 min &nbsp;45 sec<br/>
+<br/>
+***** Erfolgreich ****<br/>
+0) Programmierstatistik fuer ECU 'ZGW_Test' (EcuId = 0x10) auf Bussystem SOCKET<br/>
+Anzahl der programmierten SW-Einheiten: 2<br/>
+Ergebnis: Programmingdependencies von ECU '0x10' erfuellt.<br/>
+SWE &nbsp; e r f o l g r e i c h &nbsp;!<br/>
+&nbsp;Datenvolumen der SWE 'swfl_0000092a_001_001_001.msr' von ECU '0x10' war 1572864 Byte ( 0x0 0x18 0x0 0x0 )<br/>
+&nbsp;Transferzeit fuer ECU '0x10': 0 min &nbsp;11 sec<br/>
+&nbsp;Transferrate fuer ECU '0x10': 142987 B/s<br/>
+&nbsp;Programmierzeit : 0 min &nbsp;28 sec<br/>
+SWE &nbsp; e r f o l g r e i c h &nbsp;!<br/>
+&nbsp;Datenvolumen der SWE 'swfl_0000092b_002_007_002.msr' von ECU '0x10' war 131072 Byte ( 0x0 0x2 0x0 0x0 )<br/>
+&nbsp;Transferzeit fuer ECU '0x10': 0 min &nbsp;1 sec<br/>
+&nbsp;Transferrate fuer ECU '0x10': 131072 B/s<br/>
+&nbsp;Programmierzeit : 0 min &nbsp;14 sec<br/>
+<br/>
+<br/>
+*********************************************************************<br/>
+Warnung: socket closed<br/>
+&nbsp; <br/>
+<br/>
+Mo 09.09.2013 10:23:38<br/>
+<br/>
+Zugang zu dem Croud-Server<br/>
+<br/>
+<br/>
+anbei die neue Serveradresse für unsere HAF Toolkette.<br/>
+<a href="https://212.89.106.130">https://212.89.106.130</a><br/>
+Sie können sich ab sofort mit Ihrem Benutzernamen einloggen<br/>
+Für die erste Anmeldung gehen Sie bitte auf <a href="https://212.89.106.130/crowd">https://212.89.106.130/crowd</a>. Danach dann bitte auf die obige Domain.<br/>
+&nbsp; &nbsp;<br/>
+<br/>
+so, wie telefonisch besprochen, hier der Workaround um den Zugriff auf den HAF-Server zu ermöglichen. Die Anleitung ist für IE, aber da im wesentlichen nur ein manueller Proxy gesetzt wird, dürfte sich das leicht auf andere Browser übertragen lassen.<br/>
+<br/>
+1. Extras -&gt; Internetoptionen -&gt; Registerreiter "Verbindungen"<br/>
+2. LAN-Einstellungen<br/>
+3. Haken bei "Automatisches Konfigurationsskript verwenden" entfernen<br/>
+4. Unten bei "Proxyserver" als Adresse "con-ffm-asg-01.conti.de" und als Port 8080 eintragen.<br/>
+<br/>
+Wie gesagt, das ist nur ein Workaround. Eine globale Lösung seitens der Conti-IT bei der dann das Routing mit Ziel HAF-Server immer über Frankfurt (bzw. halt einen festen Proxy) läuft, scheint möglich.. Ich versuche, das in die Wege zu leiten. Sobald das geklärt ist, spreche ich mit Bernhard noch ab, welcher IP-Bereich dann wirklich freigeschaltet werden muss.<br/>
+<br/>
+<br/>
+Zugang mit Thomas.Berthold / Barcelona01<br/>
+</body></html>

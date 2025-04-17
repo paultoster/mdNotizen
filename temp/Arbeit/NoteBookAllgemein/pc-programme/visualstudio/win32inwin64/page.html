@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Win32InWin64</title>
+</head><body>Die Vorgehensweise um eigene Tasks im VisualStudio umzustellen, ist grob wie folgt:<br/>
+<br/>
+- bei Build / ConfigurationManager / ActiveSolutionPlatform "x64" auswählen<br/>
+- im gleichen Dialog die eigene Task suchen<br/>
+- dort auf Platform klicken und &lt;New&gt; auswählen<br/>
+- dort newPlatform=x64 und "copy settings from"="win32" wählen: ACHTUNG: unbedingt die Box "Create new solution platform" ausschalten. (Ansonsten wird für alle Tasks die neue Platform angelegt)<br/>
+- Dialog schließen<br/>
+- Leider werden nicht alle Einstellung von "WIN32" richtig übernommen. Daher sind noch Adaptionen erforderlich, die in den Projekt-Properties zu ändern sind:<br/>
+&#09;- General / Output Directory: &#09;Die Einstellung von "win32" übernehmen, also: $(SolutionDir)..\build\Tasks\bin\<br/>
+&#09;- General / Intermediate Directory: $(Configuration)64\<br/>
+&#09;Diese Änderungen sollten bei Tasks, die auf XXCafTaskTemplate beruhen, ausreichen. Es kann aber nicht schaden, die restlichen Einstellungen für Win32 und x64 mal zu vergleichen.<br/>
+- Statt CafRunner.exe muß man nun die CafRunner64.exe verwenden. Ansonsten ist alles gleich.<br/>
+</body></html>

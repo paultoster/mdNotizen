@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>HILLenkrad</title>
+</head><body><br/>
+PC hat IP 192.168.0.100<br/>
+Unsere Roadbox hat IP 192.168.0.241 mit Namen rt1<br/>
+<br/>
+telnet rt1<br/>
+user: hil<br/>
+password: CarMaker<br/>
+<br/>
+<br/>
+(genauso root,CarMaker)<br/>
+<br/>
+CarMaker starten von &nbsp;PC &nbsp;mit Roadbox rt1 und gelichzeitigem Verbinden<br/>
+<br/>
+C:\IPG\hil\win32-xeno-3.0.7\bin\CM_HIL.exe . -apphost rt1 -connect<br/>
+<br/>
+Ausführen in c:\CM_Projects\HIL<br/>
+<br/>
+<br/>
+src/CarMaker.xeno &nbsp; &nbsp;Muß Attribut versteckt haben , damit Unix es als executable erkennt<br/>
+<br/>
+<br/>
+<b><u>Grundsätzliches</u></b><br/>
+<br/>
+Der Simulator besteht momentan TextFormatHilfe drei Komponenten: Lenkungssimulator (Sensodrive), Echtzeit-Rechner (X-Pack 4 Road Box), Steuer- und Anzeigerechner. <br/>
+Der Lenkungssimulator wird per CAN am Echtzeitrechner angeschlossen. Über eine gekreiztes LAN-Kabel erfolgt die Anbindung zwischen Echtzeit- und Steuerrechner. <br/>
+-&gt; Darauf achten, dass am X-Pack der UNTERE Netz-Anschluss verwendet wird (näher am VGA-Anschluss). <br/>
+Der X-Pack ist im Grunde ein Intel-PC, auf dem ein Echtzeit-Linux läuft. Da er keine Festplatte besitzt, bootet der Rechner über LAN. Die Simulations <br/>
+Executable wird ebenfalls per LAN vom Steuerrechner geladen. <br/>
+Der Windows PC mit der IPG-Installation muß die Firewall abgeschaltet haben, oder der Port muss freigegeben werden (wie??) <br/>
+Installations CD ist gezippt unter TZE-Server:\Tools\_Common_PC\IPG\HIL\CD-CarMakerHIL-xeno.zip zu finden <br/>
+Ein Beispiel Projekt mit Modelle für das Sensorrad liegt unter TZE-Server:\Tools\_Common_PC\IPG\HIL\CM_Projects.zip zu finden <br/>
+Einrichtung des Steuerrechners<br/>
+Zuerst muss die HIL-Version von CarMaker ("xeno") installiert werden. Ein korrektes Licence-File muss nach "etc" kopiert werden. <br/>
+Das HIL-Projekt muss auf den Rechner kopiert werden. (siehe oben) <br/>
+Steuerrechner per LAN mit X-Pack verbinden. <br/>
+Der Netzwerkkarte des Steuerrechner muss eine feste IP zugewiesen werden. <br/>
+Nun muss das CarMaker/HIL Realtime System Setup ausgeführt werden (benötigt Admin-Rechte). <br/>
+Sollte hier eine Fehlermeldung bzgl. eines falsch gesetzten Registry-Schlüssels erscheinen, diesen entsprechend ändern. Danach den Steuerrechner zuerst neu starten, sonst wird die Änderung nicht übernommen! <br/>
+Im Setup muss nun noch die Subnet Mask gesetzt werden (255.255.255.0). Dann die unten im Menü aufgeführten Standard-Verzeichnisse überprüfen. <br/>
+Nun muss man das Echtzeitsystem bekannt geben. Dafür ein neues System hinzufügen ("+" drücken) (Vorsicht eventuell Firewall abschalten). <br/>
+Das Echtzeitsystem einschalten. Es müsste nun seine MAC-Adresse an den Steuerrechner senden. Dieser vergibt dem System daraufhin eine IP (vorgeschlagene kann verwendet werden). Zum Prüfen des korrekten Hochlaufens des X-Pack kann am VGA-Port ein Monitor angeschlossen werden. Bei Problemen kann das Log-File hilfreich sein ("Program Files\dhcp"). <br/>
+Damit der CarMaker auf dem Steuerrechner immer gleich das korrekte Projekt läd und sich mit dem HIl verbindet, die Verknüpfung wie folgt modifizieren: <br/>
+cm_hil.exe . -apphost rt1 -connect Ausführen in: [Projektordnerpfad] Der Punkt nach cm_hil.exe ist wichtig. <br/>
+Dadurch, in Verbindung mit dem "Ausführen in"-Pfad, startet CarMaker immer im korrekten Projekt. Zudem muss das File "boot.rt1" (Ort?) korrekt ausgefüllt sein. <br/>
+Manuelles Login auf dem X-Pack<br/>
+In Windows-Kommandozeile "telnet rt1" ausführen. User: "hil", Passwort: "CarMaker" (genauso root/CarMaker, wird aber normalerweise nicht mit gearbeitet) <br/>
+Dann kann man per Linux-Befehlen auf dem X-Pack in das Projektverzeichnis und den Unterordner "src" wechseln. <br/>
+Sonstiges<br/>
+Kopiert man den HIL-Projektordner und bekommt danach Probleme mit dem Starten des X-Pack, dann kann dies daran liegen, dass das xeno-Executable in \src auf dem X-Pack nicht als "executable" gesetzt ist. Um dies sicherzustellen, muss das File auf dem Windows-Steuerrechner als "Versteckt" markiert sein (da es in Windows kein Executable-Flag gibt). <br/>
+In der IPG-Gui muss das Lenkrad über Instruments aktiviert werden (Schaltfläche unten rechta) , ist aber nornmalerweise eingeschaltet. <br/>
+Einbinden von weiteren Aktuatoren eigenen Modellen<br/>
+Das X-Pack hat 4 CAN-Kanäle. Über einen entsprechenden Adapter lassen sich somit 3 weitere CANs ansprechen (um z.B. Cockpit, Bremse, Gaspedal, etc. anzubinden). <br/>
+Die Kommunikation wird über die Files io.c und io.h (unter \src) eingebunden. <br/>
+Eigene Modell (z.B. Regler) müssen über die c-Schnittstelle eingebunden werden (hauptsächlich über user.c und user.h im \src-Verzeichnis). <br/>
+Simulinkmodelle können als s-Funktion in die c-Schnittstelle über "RegisterModell" eingebunden werden (-&gt; CarMaker-Doku oder 1-Tages-Training). <br/>
+Nach dem Einbinden eigener Module muss das Projekt neu kompiliert werden. Dazu wird ein GNU-Compiler mitgeliefert. Diesen mit dem "Makefile" aufrufen (Inhalt Makefile vorher prüfen). <br/>
+<br/>
+<br/>
+</body></html>

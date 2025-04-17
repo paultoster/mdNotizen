@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CafRunner</title>
+</head><body>Fr 03.08.2018 08:17<br/>
+<br/>
+CAFafRunner im Debug Mode laufen lassen und bis zu einer bestimmten Zeit laufen lassen:<br/>
+<br/>
+<br/>
+<b>D:\GitGrid\internal\/Tools/CAFRunner/CafRunner.exe --dll $(TargetPath) -p --ReplayPosEnd 45.8 &nbsp;--PauseAtEnd 1<br/>
+</b><br/>
+<br/>
+Fr 05.01.2018 10:07<br/>
+<br/>
+Von Thomas Groten Dorst:<br/>
+<br/>
+A new version of CafRunner / CafPlayer is available with improvements mainly for usability:<br/>
+<br/>
+- CafRunner introduces a "new" type of file which contains configuration data for CafRunner *.caf. By double clicking on such files, CafRunner is started and the configured algo is executed.<br/>
+Caf-files are nearly the same as the well know "*.ini" files - except that they contain some additional information like the path to the algo-dll(s) and some options when running in Player-mode. <br/>
+The installation of the new functionality is done in the background when starting CafRunner in the current way. The new functionality is an add-on to the existing methods of configuration.<br/>
+CafRunner (Menu "File / save configuration") provides a command for generating a .caf file for the algorithm currently running in CafRunner. This has an option which allows you to create a snapshot of all the configuration settings with all the parameters of your algorithm, so that no further configuration-files (like e.g. vehicle.ini) are needed. This snapshot may be usefull when testing an algo with different configuration settings.<br/>
+This snapshot is also saved when doing a measurement in the car. In this special case CafRunner adapts some settings to prepare it for using it in Replay-mode. So in the end with double-clicking on the saved &lt;algo&gt;.caf within a measurement you can easily start the algo with the same conditions like in the car and directly see its behaviour in the replay of the measurement &nbsp;(probably you have to adjust the path to your local copy of the algo.dll first). <br/>
+<br/>
+- CafPlayer stores the last six measurements used as input for the replay (Menu "File"). So it is easier to work with several measurements. Another benefit: If you start CafPlayer it automatically preselects the last used measurement, so you can start the replay with only one click.<br/>
+<br/>
+<br/>
+A more detailed list of changes can be seen in the "? / About" or in the help-file "cafrunner.chm / Versionhistory".<br/>
+<br/>
+The new version is - as always - automatically distributed via SVN.<br/>
+If you have questions or requests for new features, please do not hesitate to contact me.<br/>
+<br/>
+</body></html>

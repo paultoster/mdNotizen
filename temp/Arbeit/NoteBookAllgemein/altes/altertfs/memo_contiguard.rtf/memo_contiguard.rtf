@@ -1,0 +1,1491 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0\fmodern Cambria;}{\f1\fswiss\fprq2\fcharset0 Arial;}{\f2\fnil\fcharset0 Courier New;}{\f3\fscript\fprq8\fcharset0 Courier New;}{\f4\fnil\fcharset0 Fixedsys;}{\f5\fswiss\fcharset0 Arial;}{\f6\froman\fprq2\fcharset0 Times New Roman;}{\f7\fnil\fcharset0 Arial;}{\f8\fnil\fprq2\fcharset2 Wingdings;}{\f9\fmodern\fprq1\fcharset0 Courier New;}{\f10\fswiss\fprq2\fcharset0 System;}{\f11\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red23\green54\blue93;\red54\green95\blue145;\red79\green129\blue189;\red0\green0\blue0;\red255\green0\blue0;\red0\green0\blue255;\red0\green147\blue0;\red51\green102\blue255;\red165\green42\blue0;\red139\green0\blue0;\red0\green128\blue0;}
+{\stylesheet{ Normal;}{\s1 heading 1;}{\s2 heading 2;}}
+{\*\generator Msftedit 5.41.21.2500;}\viewkind4\uc1\pard\lang1033\f0\fs52\par
+\cf1 memo\cf0\par
+\par
+\cf2\b\fs28 1.1 Contiguerd\cf0\b0\par
+\par
+\cf3\b\fs26 1.1.1 TB\cf0\b0\par
+\par
+\cf4\b\f1\fs20 Fr 10.07.2009\par
+\par
+\cf5 Problem ACC-Beschleunigung nicht mehr m\'f6glich\cf4  genauer analysiert:\par
+\par
+Der Motor geht manchmal in den Fehlermode, wenn ACC durch Brembet\'e4tigung abgeschaltet wird. Bei der Messung bei der es zum Fehler kommt (siehe Canalysermessung Messung 090708/tmp0.asc, mit ACC_bug_detect.cfg) kommt es auch (nicht zum gleichen Zeitpunkt) zur Meldung Eingriff durch Z\'fcndverstellung nicht io (ST_TORQ_AVL). In einer anderen Messung (090709/ACC_ENGINE_FAILURE1.asc) ist der Fehler bei gleicher Fahrsituation nicht mehr aufgetreten. Dabei kommt es auch nicht zu der Meldung Eingriff durch Z\'fcnverstellung nicht io .\par
+\par
+Der Motor geht bei Fehler in einen Fehlerzustand ST_DMEA_SWO=1 und drei Loops sp\'e4ter wird auch ST_RCPT_ENG_ACC gesetzt. Es ist bis zum n\'e4chsten Z\'fcndungslstart kein ACC m\'f6glich, auch wenn der Fehler ST_DMEA_SWO sich wieder zur\'fcck setzen sollte, was wir noch nicht untersucht haben, auch nicht warum ST_DMEA_SWO gesetzt wird.\par
+\par
+Die Erkl\'e4rungen zu den Signalen aus E60_PT_V27_PU09-04.rtf:\par
+\par
+\pard\nowidctlpar ST_DMEA_SWO: (Botschaft TORQUE_1,0xA8) \cf0\lang1031\fs18 Status_DME/ACC_Abschaltung , \b0 Mit dieser Information signalisiert die DME dem ACC-Modul eine Abschaltung auf Grund eines motorinternen Fehlers. Das Signal wird erst nach der Quittierung durch das ACC-Modul mit Hilfe des Signals Status_ACC_Abschaltung_System_DME r\'fcckgesetzt.\par
+Siehe hierzu auch Lastenheft "E65 ACC-SCU Funktion und Schnittstellen".\par
+\pard\cf4\lang1033\b\fs20\par
+ST_RCPT_ENG_ACC : (Botschaft TORQUE_1,0xA8) \cf0\lang1031\fs18 Status_Quittierung_Motor_ACC, \b0 Die Motorsteuerung setzt die Zust\'e4nde 01b und 10b entsprechend Lastenheft "E65 ACC-SCU Funktion und Schnittstellen". Plausibilit\'e4tsfehler und Akrivit\'e4tsfehler sind hierbei irreversibel und bleiben f\'fcr den gesamten Fahrzyklus gesetzt\par
+\par
+\b\fs20  Das Signal \b0\fs18 Status_ACC_Abschaltung_System_DME \b\fs20 wird von EBS geschickt und bleibt aber dauerhaft auf 2 ( System IO)\par
+\par
+\pard\nowidctlpar ST_ACC_SWO_SYS_DME: \cf4\lang1033 (Botschaft DREHMOMENT_ANF_ACC,0xB7) \cf0\lang1031\fs18 Status_ACC_Abschaltung_System_DME, \b0 Hier wird \'fcbertragen, ob das System in Ordnung ist oder ob ein Fehler erkannt wurde, der zu einer Abschaltung des Gesamtsystems f\'fchrt.\par
+\pard\b\fs20\par
+Wir sollten ausprobieren, ob wird mit quittieren des Motorfehlers den Plausibilit\'e4tsfehler verhindern k\'f6nnen und den Motorfehler wieder zur\'fccksetzen k\'f6nnen.\par
+\par
+\pard{\pntext\f11\'B7\tab}{\*\pn\pnlvlblt\pnf11\pnindent0{\pntxtb\'B7}}\fi-360\li360\cf6 Dazu mu\'df mit Combase die TORQUE_1 Botschaft ge\'e4ndert werden, da das Signal \lang1033 ST_DMEA_SWO nicht eingelesen wird.\par
+{\pntext\f11\'B7\tab}Dann mu\'df der Code angepa\'dft werden und das Signal \lang1031 ST_ACC_SWO_SYS_DME bedient werden.\lang1033\par
+\lang1031{\pntext\f11\'B7\tab}Dazu mu\'df ich MKS vielleicht auf einen anderen Rechner installieren, da Unterschiede zwischen ADAS und EBS bestehen, dann auch die Tools installieren.\lang1033\par
+\pard\cf4\par
+\par
+Do 02.07.2009\par
+\par
+Problem kein Beschleunigung mehr im ACC-Mode bei wieder anfahren.\par
+\par
+Der Motor geht in einen Fehler:\par
+\par
+Signal ST_RCPT_ENG_ACC = 0 alles okay = 1 Plausibilit\'e4ts/Aktivierungsfehler\par
+in Botschaft TORQUE_1\par
+\par
+Untersuchen, in \cf0\lang1031\b0\fs18 DREHMOMENT_ANF_ACC\cf4\lang1033\b\fs20  wird ST_ACC_MOD_DME gesetzt um h\'f6here Dynamik bei override zu erreichen, m\'f6glicherweise hat das einen Zusammenhang\cf5\f2\fs22\par
+\cf0\f3\par
+\cf4\f2 Di 18.11.2008\par
+\par
+Version 78 erstellt: \par
+\par
+\pard{\pntext\f11\'B7\tab}{\*\pn\pnlvlblt\pnf11\pnindent0{\pntxtb\'B7}}\fi-360\li360 Cartronicschnittstelle erweitert um TVB (2 neue bits)\par
+{\pntext\f11\'B7\tab}TVB wird mit Verz\'f6gerung geregelt, au\'dferdem wird im LDC mit RDU-Beschleunigung geregelt ge\'e4ndert auf ABS-ACC\par
+\pard\par
+noch zu erledigen:\par
+\cf0\b0\f1\fs20\par
+\pard{\pntext\f11\'B7\tab}{\*\pn\pnlvlblt\pnf11\pnindent0{\pntxtb\'B7}}\fi-360\li360\cf5 timeout im TVB setzen, wenn keine Botschaft mehr kommt\par
+{\pntext\f11\'B7\tab}Druck im Stillstand schneller halten (kein 30 bar mehr ansteigen lassen) \b\f2\fs22\par
+\pard\par
+\cf4 Mi 08.10.2008\par
+\par
+Messungen mit Version 75, Problem war ACC und TVB\'fcberlagerung, wenn ACC in SSM geht, wird manchmal Gas gegeben, das ist behoben!\par
+\par
+Messungen: E:\\mess\\das\\contiguard\\2008_10_10_F_TZ2222_ACC_TVB_stehen\\2008_10_08_F_TZ2222_ACC_TVB004.dl2\par
+\par
+Probleme mit dem Wiederanfahren!!\par
+\par
+Mi 01.10.2008\par
+\par
+Messungen 2008_10_01_F_TZ2222_ACC0001 - 7\par
+\par
+\pard{\pntext\f11\'B7\tab}{\*\pn\pnlvlblt\pnf11\pnindent0{\pntxtb\'B7}}\fi-360\li360 ACC abzuschalten w\'e4hrend TVB war eine schlechte Idee a) der Zustand wird zur\'fcckgemeldet an VPU b) Wenn TVB einen bis Stillstand runterbremst, geht Bremse nicht in Stillstandsmanagement und l\'f6st gleich wieder, auch wenn ACC angechaltet war.\par
+{\pntext\f11\'B7\tab}ACC ist nicht richtig wirder angefahren, was wahrscheinlich ACC-Problem ist, (keine Freiraumerkennung)\par
+{\pntext\f11\'B7\tab}Jetzt wird in Version 75 das Motormoment auf null gesetzt, wenn TVB an bei ACC normal und Go_control_mode_on aus ssm (siehe CodeAnder)\par
+\pard\cf0\f3\par
+\cf4\f2 Di 30.09.2008\par
+\par
+Contiguard\par
+\par
+Messung mit ACC und vorausfahrendem Fahrzeug\par
+\par
+Problem bei Messung 2008_09_29_F_TZ2222_ACC009.dl2\par
+\par
+\pard{\pntext\f11\'B7\tab}{\*\pn\pnlvlblt\pnf11\pnindent0{\pntxtb\'B7}}\fi-360\li360 Fahrzeug sollte wiederanfahren, da VorFzg losgefahren, wird aber im stillstand gehalten. VPU sendet -0.19 m/s/s, d.h VPU will nicht anfahren. \cf5 Problem VPU\cf4\par
+{\pntext\f11\'B7\tab}Nach Gassto\'df f\'e4hrt Fahrzeug mit ACC an (~8.9 sec). \cf5 Aber LAC_STATUS.LAC_ERROR_STATE wird gesetzt, warum\cf4  \cf6 => LAC_STATUS_LAC_ERROR_STATE wird gesetzt wenn LAC_CONTROL_ERROR kleiner -LAC_CONTROL_BAND ist und hat keine weitere Auswirkung (komisch) \par
+\cf4{\pntext\f11\'B7\tab}Im TVB bleibt ACC an, und auch bei ACC-Anfordrung 0 m/s/S, wird beschleunigt, da TVB aktive bremst(~20.26 sec). \cf5 Kein ACCC w\'e4hrend TVB-Bremsen? \cf6 => Um in LVC_MODE_SELECT_DETERMINE_STATE(void) ein den Mode SET_MODE_SELECT_STATUS(Mode_select_sate,Only_torque_demands); w\'e4hrend TVB zu bekommen, mu\'df\cf5  \cf6 Get_lac_arb_service_id_arb_winner() == No_lac_arb_accel_demand gesetzt sein. Wird bei TVB als APIA_EXTERN_STATE.APIA_IN_OPERATION=1, aber nicht gemacht. \cf7 Dies k\'f6nnte in LAC_ACCEL_ARBITRATION_DEMAND(void) an der Stelle Special conditions gemacht werden. Testen\par
+\pard\cf5\par
+\cf4 Mi 17.09.2008\cf5\par
+\par
+\cf0 Contiguard:\par
+Problem Abschalten ACC im Stillstand nicht okay\par
+L\'f6sung gefunden bei mode_seslct() eingef\'fcgt, aber erst einaml\par
+\cf4 ausgestrappt um mit TVB zu testen\par
+\par
+TVB testen\par
+\par
+1) Dynamikvergleich mit Testszenario 3 erstellen \par
+2) Im Stillstand wird der Druck nicht eingefroren, sollte gemacht werden\par
+\par
+Mi 03.09.2008\par
+\par
+Auswertung Messungen 2.9.08 nachmittags:\par
+\par
+Anhalten mit ACC und einem vorrausfahrendem Fahrzeug \par
+ACC-Regelung mit VPU\par
+Beschleunigungsregelung mit L\'e4ngsbeschleunigungssensor oder aus Referenzgeschwindigkeit generierte Beschleunigung\par
+\par
+CanCmd,cancmdACCcontrol.ini\par
+\par
+2008_09_02_F_TZ2222_ACC+VPU_M1.dl2\par
+Regelung auf L\'e4ngsbeschleunigungssensor\par
+\par
+Hier kommt es zu einem Testpuls f\'fcr den Beschleunigungssensor im Stehen, dabei zeigt der Sensor 20 m/s/s an. => Erkennung auf Uphill SSM_SSP_STATE=4\par
+und der Druck wird hochgerampt. Hier aber nur auf ~20 bar da gleich wieder angefahren wird. Hat in diser Situation keine Aswirkung, m\'f6gliche Auswirkung l\'e4ngere L\'f6sezeit aus h\'f6herem Druck.\par
+\par
+2008_09_02_F_TZ2222_ACC+VPU_M2.dl2 ...\par
+2008_09_02_F_TZ2222_ACC+VPU_M4.dl2\par
+Regelung auf L\'e4ngsbeschleunigungssensor\par
+\par
+Wegen Problem Freiraummerkennung ist Fahrer selbst angefahren\par
+\par
+2008_09_02_F_TZ2222_ACC+VPU_M5.dl2\par
+2008_09_02_F_TZ2222_ACC+VPU_M6.dl2 l\'e4nger gestanden\par
+2008_09_02_F_TZ2222_ACC+VPU_M7.dl2 nicht ganz zum Stehen gekommen\par
+2008_09_02_F_TZ2222_ACC+VPU_M5.dl2\par
+\par
+Regelung auf L\'e4ngsbeschleunigungssensor\par
+\par
+Regelung hat gut funktioniert\par
+\par
+2008_09_02_F_TZ2222_ACC+VPU_M9.dl2\par
+2008_09_02_F_TZ2222_ACC+VPU_M10.dl2\par
+2008_09_02_F_TZ2222_ACC+VPU_M11.dl2\par
+Regelung auf ABS_VEHICLE_ACCELERATION\par
+\par
+kein deutlicher Unterschied zu LGAS_VEHACC_ABS, Regelung ist dadurch nicht erkennbar schlechter.\par
+\par
+\pard{\pntext\f11\'B7\tab}{\*\pn\pnlvlblt\pnf11\pnindent0{\pntxtb\'B7}}\fi-360\li360\cf5 Beschr\'e4nkung 1.5 m/s/s rausnehmen\cf4\par
+\cf5{\pntext\f11\'B7\tab}Sensorselbsttest im Stehen f\'fcr zur uphillerkennung\cf4\par
+\cf5{\pntext\f11\'B7\tab}RDU-Beschleunigungssignal LVC_REF_ACCEL_RDU wird nicht mehr f\'fcr LAC benutzt, ist das okay\cf4\par
+\cf5{\pntext\f11\'B7\tab}LGAS_VEHACC_ABS bei Anfahren nutzen und dann auf ABS_VEHICLE_ACCELERATION gehen (wegen Hang)\cf4\par
+\pard\par
+Di 02.09.2008\par
+\par
+Auswertung Messungen 2.9.08 vormittags:\par
+\par
+CanCmd,cancmdACCcontrol.ini\par
+\par
+2008_09_02_F_TZ2222_ACC009.dl2\par
+\par
+ACC-Fahrt mit vorasufahrendem Fahrzeug, kommt zum Stehen und f\'e4hrt an\par
+\par
+Fahrzeug kommt zum stehen LDC geht raus (LDC_STATUS.LDC_ACTIVE) SSM geht rein (ACC_STATUS.ACC_REQUEST_IN_OPERATION. Kurzzeitg wird ACC_STATUS.ACC_REQUEST_IN_OPERATION=\cf0 Go_control_mode_on (3) gesetzt, da ACC mit 0.03 m/s/S kurz beschleunigen will. Dadurch wird die Bremse gel\'f6st, fast bis auf null. Ansonsten normales Verhalten.\par
+\par
+2008_09_02_F_TZ2222_ACC008.dl2\par
+\par
+gleiches Problem, nur das die Beschleunigung auf 0.21 m/s/s kurz ansteigt.\par
+\par
+2008_09_02_F_TZ2222_ACC006.dl2\par
+\par
+Beim Anfahren rampt der Druck raus h\'e4lt aber noch ganz kurz 1 bar bis er ganz raus geht. Wahrscheinlich kaum zu sp\'fcren\par
+\par
+2008_09_02_F_TZ2222_ACC005.dl2\par
+\par
+sieht gut aus\par
+\par
+2008_09_02_F_TZ2222_ACC004.dl2\par
+\cf4\par
+Hier kommt kurze Beschleunigung bevor die Bremse in Stillstandsmanagement geht\par
+\par
+Do 28.08.2008\par
+\par
+\par
+Get_standstill_demand()\par
+Hold_vehicle_mode_on\par
+\par
+SET_SSM_REQUEST()\par
+\par
+Di 26.08.2008\par
+\par
+\cf5 Problem Stillstand, Stillstandsz\'e4hler\cf4\par
+Probleme mit dem ACC_STANDSTILL_TIMER dieser wird mit dem Parameter \par
+Lvc_acc_max_hold_time_ss = 200 (acc.hdb) abgefragt und ACC wird dann stillgelegt.\par
+\par
+Im alten Code wurde dies in den Code auf 12000 ge\'e4ndert (2 min)\par
+\par
+\cf7 => Ich \'e4ndere den Parameter in PACS auf 12000\par
+\par
+\par
+\cf5 Problem Beschleunigungssignal im ACC bei Anfahren\par
+\cf7\par
+\cf4 LAC_VEHICLE_ACCELERATION_FIL: wird auf LVC_REF_ACCEL_RDU gesetzt\par
+Dieses Signal schwingt manchmal stark \'fcber\par
+\par
+LAC_VEHICLE_ACCELERATION_FIL32 lac_fun.c (6240)\par
+\par
+Mit Drive off k\'f6nnte die Verz\'f6gerung gesteuert werden. Erst Sensor, dann ABS\par
+Drive off status wird nicht gesetzt, weil Stillstandsmanagement nicht funktioniert\par
+\par
+\cf5 Problem Stillstandmanagement\par
+\cf4\par
+Gearcode bzw. BUS_GEAR_CODE ist nicht gesetzt und damit wird das Getriebe auf manual gesetzt.\par
+\par
+#define Get_gear_code()                    BUS_GEAR_CODE                                          /*@ NAME: GEARCODE    @*/\par
+\par
+\par
+\cf0 Do 21.08.2008\par
+\par
+Problem ACC-Regelung mit VPU:\par
+\par
+\cf5 1) Der Druck beim Losfahren wollen ist nicht schnell genug draussen.\par
+2) Thomas regelt auf LGas (gefilterter L\'e4ngsbeschleunigung), wenn genau 1.5 m/s/s angefordert und v < 15 km/h, ansonsten wird auf das RDU-Signal geregelt, was zu \'dcberschwingern neigt\par
+\tab Die VPU will aber zuBeginn maximal 1.2 m/s/s.\par
+\tab Im Sensorfusionsfahrzeug ist die L\'e4ngsbeschleunigung quasi null\par
+Fr 22.08.2008:\par
+3) Das L\'e4ngsbeschleunigungssignal zeigt das Querbeschleunigungssignal mit leichter Differenz zur Querbeschleunigungssensorsignal\par
+\cf0\par
+\cf7 1) Sensorkluster \'fcberpr\'fcfen\par
+2) LGAs zuerst nehmen beim anfahren, dann das ABS_VEHICLE_ACCELERATION (aus Raddrehzahlen nehmen), da damit auch keine Neigung mit in das Signal kommt, nicht so stark \'fcberschwingt \par
+\par
+\par
+\par
+\cf4 Cartronic-Schnittstelle erweietern f\'fcr APIA-Regelung mit Beschleunigungsanforderung\par
+\par
+\par
+\par
+\cf7 Bit8 verwenden, um einen APIA-Eingriff anzuzeigen\par
+\cf4\par
+Fr 22.08.2008\par
+\par
+Messungen APA mit Set-Speed\par
+\par
+Mo 25.08.2008\par
+\par
+CFG_APIA_EXTERN in config96.h:\par
+\par
+\par
+/* masks for CFG_APIA_EXTERN */\par
+#define Apia_extern_interface                           (CFG_APIA_EXTERN & 0x07)\par
+#define Apia_extern_var_req_conf                       ((CFG_APIA_EXTERN & 0x08)>0)\par
+#define Apia_extern_fix_req_conf                       ((CFG_APIA_EXTERN & 0x10)>0)\par
+#define Apia_extern_warning_jerks_conf                 ((CFG_APIA_EXTERN & 0x20)>0)\par
+#define Apia_extern_sens_req_conf                      ((CFG_APIA_EXTERN & 0x40)>0)\par
+#define Apia_extern_rab_conf                           ((CFG_APIA_EXTERN & 0x80)>0)\par
+\par
+/* Apia interface types */\par
+#define Apia_no_interface                (0)\par
+#define Apia_pressure_interface          (1)\par
+#define Apia_torque_interface            (2)\par
+#define Apia_decel_interface             (3)\par
+#define Apia_accel_interface             (4)\par
+\par
+\par
+Apia_extern_interface == Apia_no_interface, damit wird der Typ festgelegt\par
+\par
+urspr\'fcngliches Interface:\par
+\par
+CFG_APIA_EXTERN = 217\tab\tab\tab II0I I00I\tab\tab => \tab 1.-3. bit:Druckinteface\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab 4.    bit:Apia_extern_var_req_conf                       \par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab 5.    bit:Apia_extern_fix_req_conf\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab 7.    bit:Apia_extern_sens_req_conf                      \par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab 8.    bit:Apia_extern_rab_conf                           \par
+bisher verwendet:\par
+\par
+CFG_APIA_EXTERN = 9\tab\tab\tab 0000 I00I\tab\tab => \tab 1.-3. bit:Druckinteface\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab 4.    bit:Apia_extern_var_req_conf                       \par
+\par
+\par
+mit Beschleunigung:\par
+\par
+CFG_APIA_EXTERN = 27\tab\tab\tab 000I I0II\tab\tab => \tab 1.-3. bit:Verz\'f6gerungsinteface\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab 4.    bit:Apia_extern_var_req_conf                       \par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab 5.    bit:Apia_extern_fix_req_conf (prefille)\par
+\par
+\par
+\cf0\f4 Fr 15.08.2008\par
+\par
+Apia Prefill in config96.h aktivieren:\par
+\par
+#define CFG_APIA_EXTERN                          11 => 17\par
+                                       I0II => II0II\par
+\par
+Das 5. bit wird f\'fcr den Strap Apia_extern_fix_req_conf benutzt\par
+\par
+Der Parameter Lvc_apia_precharge_decel_level1 mu\'df noch eingebracht werden\par
+\par
+\cf5 Mit diesem Strap wird der Prefill  trotzdem nach einer Verz\'f6gerung berechnet 0.5 m/s/s z.B. Das ist unbefriedigend\cf0 .\par
+\par
+\cf7 Als L\'f6sung habe ich den den Parameter Lvc_apia_precharge_decel_level1  auf 1 gestellt (0.01 m/s/s) damit auf jeden fall ausgel\'f6st wird und in die Funktion LVC_LDC_BRAKE_DEMAND_CALC(void) bei prefill nach dem Parameter Lvc_apia_precharge_pres_level1 den Druck eingestellt (siehe unten)\par
+\cf0\par
+\par
+\cf6\f3\fs16 void LVC_LDC_BRAKE_DEMAND_CALC(void)\par
+\{\par
+  LVC_LDC_PRESSURE_DEMAND =  INTLIM(\par
+                                       (signed_int32_t) LDC_BRAKE_OFFSET\par
+                                     + (LDC_OPEN_LOOP_PART_SC32/Ldc_sf_lsb0_0001_to_lsb0_01)\par
+                                     #if (Ldc_slope_part_enabled)\par
+                                     + (signed_int32_t) LDC_SLOPE_PART\par
+                                     #endif /*(Ldc_slope_part_enabled)*/\par
+                                     #if (Ldc_engine_comp_enabled)\par
+                                     + (signed_int32_t) LDC_ENG_COMP_PART\par
+                                     #endif /*(Ldc_engine_comp_enabled)*/\par
+                                     + (signed_int32_t) LDC_PROPORTIONAL_PART\par
+                                     #if (Ldc_decel_grd_ctrl_opt)\par
+                                     + (signed_int32_t) LDC_DECEL_GRD_CTRL_PART\par
+                                     #endif /* #if (Ldc_decel_grd_ctrl_opt) */\par
+                                     #if (Ldc_low_speed_enabled)\par
+                                     + (signed_int32_t) LDC_SPEED_COMP_PART\par
+                                     #endif /*(Ldc_low_speed_enabled)*/\par
+                                     + (LDC_INTEGRAL_PART / Ldc_sf_int_part)\par
+                                   );\par
+\par
+  /* TBert 15.08.08 Prefilladaptation */\par
+#if (Apia_extern_fix_req_conf)\par
+  if (GET_LVC_APIA_FIX_REQ() == 1)\par
+      LVC_LDC_PRESSURE_DEMAND = MAX(LVC_LDC_PRESSURE_DEMAND,Lvc_apia_precharge_pres_level1);\par
+  else if (GET_LVC_APIA_FIX_REQ() == 2)\par
+      LVC_LDC_PRESSURE_DEMAND = MAX(LVC_LDC_PRESSURE_DEMAND,Lvc_apia_precharge_pres_level2);\par
+#endif\par
+\f4\fs22\par
+\f3\fs16\} /*LVC_LDC_BRAKE_DEMAND_CALC*/\par
+\cf0\f4\fs22\par
+Mi 13.08.2008\par
+\par
+Mit dem Modul DsModTestScen habe ich Testszenarien definiert, die ACC antreiben, bremsen, TVB und Kombination ACC und TVB machen. Durch Parameter einstellbar\par
+\cf4\f3\par
+\cf0\f4 Di 12.08.2008\par
+\par
+Weitere Parameter aus AXABAG \'fcbernommen, um den neuen Code zum Laufen zu bringen\par
+Auf Vereichnis AX3BAR_new_w_bag sind die neuen LVC-Files enthalten\par
+AX\'a7BAR_old_wo_bag, ist der letzte Stand, dieser ist auch eingecheckt\par
+\par
+\cf4\f3 Fr 01.08.2008\par
+\par
+Nach Telefonat mit Martin Kallnik, soll ich Module aus AXABAG f\'fcr apia und ldc \'fcbernehmen. Ich mache einen Vergleich mit der Softcheckpoints f\'fcr LVC ( AX3BAR00071 mit AXABAG00308) und untersuche die Unterschiede:\par
+\par
+(Mit Check Out und unter Options No Log teste ich diese Versionen als working revision)\par
+\par
+\cf0\lang1031\b0\f5\fs24 LVC/acc_customers.c: unsere Revison, da \'c4nderungen mit der Override\par
+LVC/acc_customers.h: von AXABAG \'fcbernommen, deutliche \'c4nderungen\par
+LVC/acc_fun.c: AXABAG \'fcbernommen und unsere \'c4nderung bei \'fcberlagerung ACC mit APIA-Eingriffen \'fcbernommen\par
+LVC/apia_fun.c:  unsere Revision behalten, da nur unsere \'c4nderungen bez\'fcglich der Busgr\'f6\'dfen relevant sind, andere \'c4nderungen sind nicht zu finden. Wir benutzen Get_cms_var_req_value() anstatt Get_apia_var_req_value()\par
+LVC/apia_fun.h: unsere Revision behalten, da keine \'c4nderung, aber ein Fehler enthalten (wirkt sich dann nicht aus, wenn CFG_PRC eingestellt ist)\par
+\par
+LVC/drive_away_serv_fun.h: AXABAG \'fcbernommen, sind m\'f6glicherweise auch neue Variablen definiert, mu\'df man sehen\par
+LVC/drive_away_services.c: AXABAG \'fcbernommen\par
+LVC/drive_away_services.c: AXABAG \'fcbernommen\par
+\par
+LVC/lac_fun.c: AXABAG \'fcbernommen, mit unseren \'c4nderungen modifiziert\par
+LVC/lac_fun.h: AXABAG \'fcbernommen, keine modifiziert\par
+\par
+LVC/lvc_conf.zip: \'c4nderungen der lvc_conf.h werden per hand gemacht siehe Ausdruck\par
+\par
+LVC/lvc_conf_def.h: von AXABAG \'fcbernommen\par
+\par
+LVC/mode_select.c: von AXABAG \'fcbernommen, hier wird VMO_EST_REFERENCE_VELOCITY benutzt anstatt LVC_SSM_STAT_DYN_VELOCITY mu\'df dan \'fcberpr\'fcft werden.\par
+\par
+LVC/ssm.h: Von AXABAG \'fcbernommen\par
+LVC/ssm_fun.c: von AXABAG \'fcbernommen\par
+LVC/ssm_hold_ctrl.c: von AXABAG \'fcbernommen\par
+LVC/ssm_stop_ctrl.c: von AXABAG \'fcbernommen\par
+LVC/ssm_stop_ctrl.h: von AXABAG \'fcbernommen\par
+\lang1033\b\f4\fs22\par
+\cf4\f3\par
+Fr 01.08.2008\par
+Verz\'f6gerungsanforderung wird im LDC umgesetzt\par
+\par
+ldc_fun.c\par
+\par
+LDC_REFERENCE_DECELERATION wird \par
+\par
+\par
+Test mit gleicher Sprungantwort von TVB und ACC \par
+\par
+\pard{\pntext\f11\'B7\tab}{\*\pn\pnlvlblt\pnf11\pnindent0{\pntxtb\'B7}}\fi-360\li360\cf5 TVB ist deutlich langsamer gegen\'fcber direkter Druckanforderung\par
+{\pntext\f11\'B7\tab}TVB hat, wenn kein Prefill gemacht wird (\'fcber Verz\'f6gerungsschnittstelle), dann deutliche Verz\'f6gerung, bis Regelung anspringt.\par
+\pard\cf4\par
+\cf0 Mo 28.07.08:\par
+\par
+Im aktuellen Code nachverfolgen, wie von Verz\'f6gerungsanforderung es zur \par
+Druckanforderung kommt.\par
+\par
+\cf4 Busgr\'f6\'dfe zuweisen\cf6\par
+\cf0\par
+\cf6 BUS_CMS_VAR_REQ_VALUE\cf0\tab\tab\tab\tab\tab ccs_b2k.c\par
+\cf6 BUS_CMS_VAR_REQ_ENABLE\cf0\par
+\par
+\par
+\cf4\'dcbergabefunktion\cf0\par
+\cf6 GET_LVC_APIA_VAR_REQ_VALUE()\cf0\tab\tab\tab apia.h\par
+\par
+In\par
+\par
+APIA_DECELERATION_REQ() wird \tab\tab\tab\par
+\par
+-\cf6 GET_LVC_APIA_VAR_REQ_VALUE() \par
+\cf4 an \par
+\par
+\cf6 SET_LAC_ACC_ARB_CMD(Apia_extern_accel_req_enable, apia_temp_accel_request)\par
+\par
+\cf4\'fcbergeben.\par
+\par
+In \cf6 LVC_MAIN() \cf4 wird\par
+\par
+\cf6 LAC_ACCEL_ARBITRATION_DEMAND(); \cf4 aufgerufen\par
+\par
+und in \cf6 LAC_ARB_ACCELERATION_DEMAND \cf4\'fcbergeben\par
+\par
+Au\'dferdem wird in \cf6 SET_LAC_ARB_STATUS()\cf4\tab\tab\tab\tab lac_arb.c\par
+\par
+\cf6 LAC_ARB_STATUS.LAC_ARB_MODE \cf4 gesetzt\par
+\par
+\par
+\cf6 LAC_ARB_ACCELERATION_DEMAND \cf4 wierd an \par
+\par
+\cf6 LAC_ARB_REQUESTED_VEH_ACCEL_MIN \cf4 und\par
+\cf6 LAC_ARB_REQUESTED_VEH_ACCEL_MAX \cf4\'fcbergeben, aber eigentlich nur, wenn \par
+\par
+\par
+\cf6 GET_LAC_ARB_STATUS(Lac_arb_mode) \cf4 == \cf6 Acc_accel_req_enable \cf4 ist\par
+\par
+und nicht wenn \cf6 Apia_extern_accel_req_enable \cf4 ist.\par
+\f2\par
+\cf0\f3\par
+Do 24.07.08:\par
+\par
+AX3BAR-Code \'c4nderung der Schnitstelle auf Verz\'f6gerung\par
+\par
+Sollverz\'f6gerung wird nicht richtig umgesetzt.\par
+\par
+In GET_LVC_APIA_VAR_REQ_STATE(void)wird\par
+APIA_EXTERN_ACTIVITY_STATE.APIA_VARIABLE_REQUEST_STATE nicht gesetzt\par
+\par
+=> in SET_LVC_APIA_VAR_REQ_STATE(void)\par
+\par
+wird APIA_EXTERN_ACTIVITY_STATE.APIA_VARIABLE_REQUEST_STATE gesetzt.\par
+\par
+Sollverz\'f6gerung funktioniert prinzipiell, ist ein bischen langesam\par
+Probleme bei Dynamik\par
+\par
+\par
+\par
+\par
+\par
+\f2\par
+\b0\f0\fs26\par
+\cf3\b 1.1.2 ACC\cf0\b0\par
+\par
+\lang2057\ul\f6\fs24 LVC_MAIN\ulnone ()\par
+\pard\li720\ul -> ACC_MAIN\ulnone ()\par
+\pard\par
+\pard\li1440\ul -> LVC_ACC_DRIVER_ACCEL\ulnone ()\par
+\pard\tab\tab\tab\par
+\tab\tab\tab\lang1033 DRIVER_REQUESTED_ENGINE_TORQUE =\par
+\pard\fi720  \tab\tab\tab BUS_DRIVER_REQ_ENGINE_TORQUE\par
+\par
+\tab\tab STATUS_GASPEDAL_POSITION_STATE = ? (Virtuelles GAspedal)\par
+\tab\tab\par
+\tab\tab Set_acc_status_accel_override(1/0)        \par
+\pard\fi720\li2160 (ACC_STATUS1.ACC_DRIV_ACCEL_OVERRIDE = (1/0))\par
+\pard\par
+\pard\li1440\ul -> ACC_STATE_MONITORING\ulnone ()\par
+\pard\li2160\par
+-> \ul ACC_CAL_INTERN_BITS\ulnone ()\par
+\par
+\pard\tab\tab\tab\tab Set_acc_parking_brake(0)                \par
+\pard\fi720\li2880 ACC_STATUS2.ACC_PARKING_BRAKE = (x)\par
+\pard\tab\tab\tab\tab\par
+\tab\tab\tab\tab ACC_ACTUAL_BRAKE_TORQUE =  VMO_TOTAL_BRAKE_TORQUE\par
+\par
+\tab\tab\tab\tab Set_acc_max_brake_temp_exceeded(1/0)\par
+\par
+\tab\tab\tab\tab Set_acc_slip_detected(1/0)\par
+\par
+\tab\tab\tab\tab Set_acc_spin_detected(1/0)\par
+\par
+\tab\tab\tab\tab Set_acc_abs_cycle(1/0)\par
+\par
+\tab\tab\tab\tab Set_acc_block_detected(1/0) blocking wheels\par
+\par
+\tab\tab\tab\tab Set_acc_drv_off(1/0)\par
+\par
+\tab\tab\tab\tab ACC_STATUS3.ACC_ACTIVATION_REQ_VALID = 1/0\par
+\par
+\tab\tab\tab\tab ACC_DCC_BUS_QUALIFIER = 1/0\par
+\par
+\tab\tab\tab\tab\par
+\tab\tab\tab\lang2057\ul Acc_transition_no_error_to_reversible\ulnone () \cf5 Hier k\'f6nnte ev. ein Abschalten eingestellt \par
+\pard\li6480       werden\cf0\par
+\pard\tab\tab\tab Set_acc_error_state(Acc_no_error/Acc_reversible_error);\par
+\tab\tab\tab\tab\par
+\pard\li2160 ACC_STATE.ACC_ERROR_STATE_MACHINE_STATE\par
+\pard\par
+\tab\tab\tab Set_acc_error_suppress_active(1/0);\par
+\par
+\par
+\tab\tab -> \ul ACC_SET_SSM_REQUEST\ulnone ()\par
+\tab\tab\tab Set_acc_ssm_request(0)                  (ACC_STATUS2.ACC_SSM_REQUEST = (0))\par
+\par
+\tab\tab -> \ul ACC_CAL_INTERN_ACCEL_REQ\ulnone ()\par
+\par
+\tab\tab\tab LVC_ACC_REQUESTED_VEH_ACCEL_MIN begrenzen\par
+\tab\tab\tab LVC_ACC_REQUESTED_VEH_ACCEL_MAX begrenzen\par
+\par
+\tab\tab\tab\lang1031 ACC_INTERN_REQ_ACCELERATION setzen innerhalb des Min/MAX-Bandes\par
+\par
+\pard\li2160\lang2057 ->  \ul SET_LAC_ACC_ARB_CMD\ulnone (Acc_accel_req_enable,\par
+\pard\fi720\li3600                ACC_INTERN_REQ_ACCELERATION);\par
+\par
+LAC_ARB_CMD_QUEUE[i].REQ_ACC_CMD = \par
+\tab ACC_INTERN_REQ_ACCELERATION\par
+\par
+LAC_ARB_CMD_QUEUE[LACi].SERVICE_ID =\par
+\tab Acc_accel_req_enable\par
+\par
+\pard\tab\tab -> \ul ACC_CAL_INTERN_ACCEL_REQ_GRAD\ulnone ()\par
+\par
+\tab\tab\tab ACC_DEMAND_GRADIENT_MIN\par
+\tab\tab\tab ACC_DEMAND_GRADIENT_MAX\par
+\par
+\tab\tab -> \ul ACC_FAILSAFE\ulnone ()\par
+\par
+\pard\fi720 -> APIA_MAIN()\par
+\par
+\tab APIA_LOCATION = Apia_extern;\par
+\par
+\tab -> APIA_STATE_MONITORING();\par
+\par
+\tab\tab APIA_EXTERN_STATUS.APIA_ERROR_STATE_MACHINE_STATE\par
+\par
+\tab\tab -> APIA_NO_ERROR_TO_IRREVERSIBLE()\par
+\tab\tab -> APIA_NO_ERROR_TO_REVERSIBLE()\par
+\par
+\tab -> \ul APIA_DECELERATION_REQ\ulnone ()\par
+\par
+\tab\tab hier wird nichts gemacht\par
+\par
+-> SSP_MAIN()\par
+\tab\par
+\tab GET_VARCOD_SOFT_STOP() = 0 Ist nicht variantencodiert\par
+-> LAC_ACCEL_ARBITRATION_DEMAND()\par
+\par
+\tab => hier eventuell wenn \par
+\par
+\tab\lang1031 LAC_ARB_ACCELERATION_DEMAND = Minimum aller Beschleunigunganforderung\par
+\par
+\pard\li1440 LAC_ARB_STATUS.LAC_ARB_MODE = Acc_accel_req_enable (1)  wird auf die Service-ID \par
+\pard\fi720\li5040 gesetzt\par
+\pard\fi720\par
+\tab\lang2057 LAC_ARB_REQUESTED_VEH_ACCEL_MIN = LAC_ARB_ACCELERATION_DEMAND\par
+\par
+\tab LAC_ARB_REQUESTED_VEH_ACCEL_MAX = LAC_ARB_ACCELERATION_DEMAND\par
+\par
+\tab\ul GET_ACC_ACCELERATION_CTRL_OPTIONS\ulnone ()\par
+\par
+-> \ul LVC_MODE_SELECT_DETERMINE_STATE\ulnone ()\par
+\par
+\tab if( LAC_ARB_STATUS.LAC_ARB_MODE  != No_lac_arb_accel_demand(0) ) \par
+\par
+\tab\tab MODE_SELECT_STATUS.MODE_SELECT_STATE = Acceleration_demands(2)\par
+\tab else if ( APIA_EXTERN_ACTIVITY_STATE.APIA_VARIABLE_REQUEST_STATE ==\par
+\tab\tab\tab Apia_state_active(1) )\par
+\par
+\pard\fi720\li720\tab MODE_SELECT_STATUS.MODE_SELECT_STATE = Only_torque_demands(1)\par
+\par
+\pard\li1440\lang1031 Wir f\'fcr RAMPOUT Funktion benutzt\par
+\cf5\par
+\cf0\lang2057 -> LVC_MODE_SELECT_ACTUATOR_CHOICE()\par
+\cf5\par
+\pard\li2160\cf0 if( APIA_EXTERN_STATUS.APIA_IN_OPERATION == Apia_active(1) )\par
+\tab MODE_SELECT_STATUS.LVC_ACTUATOR_CHOICE = Act_type_etr(1)\par
+\tab MODE_SELECT_STATUS.PREVIOUS_ACTIVE_FCT = Apia_function(2)\par
+\par
+ansonsten default ist\par
+\par
+\tab MODE_SELECT_STATUS.LVC_ACTUATOR_CHOICE = Act_type_etr(1)\par
+\tab MODE_SELECT_STATUS.PREVIOUS_ACTIVE_FCT = 0\par
+\par
+\lang1031 ACC wird nicht rein arbitriert\par
+\cf5\par
+\pard\li720\cf0\lang2057 -> SSM_MAIN()\par
+\pard\par
+\pard\li1440 SSM_STATE_CONF.SIGNAL.NOT_VALID=True\par
+\par
+SSM ist nicht in Betrieb\par
+\par
+\pard\li720 -> LAC_MAIN()\par
+\par
+\pard\li1440 -> LVC_LAC_ACTIVE()\par
+\pard\li2160\par
+if( LAC_ARB_STATUS.LAC_ARB_MODE == Acc_accel_req_enable(1) )\par
+\par
+\tab LAC_STATUS.LAC_ACTIVE = True(1)\par
+else\par
+\par
+\tab LAC_STATUS.LAC_ACTIVE = False(0)\par
+\par
+\pard\li1440 -> LVC_LAC_SET_CONTROL_BAND()\par
+-> LVC_LAC_GEAR_SHIFT_DETECTED()\par
+-> LVC_LAC_DETERMINE_ACTUATOR()\par
+\par
+\par
+\pard\fi720\tab\tab -> LVC_LAC_DET_LAC_FRICTION_DEMAND()\par
+\par
+\tab\tab\tab LAC_STATUS1.LAC_FRICTION_DEMAND = 1\par
+\par
+ \tab  \tab switch (GET_LAC_STATUS(Lac_mode)) \{\tab\par
+\par
+\par
+\tab\tab       case Friction_ramp_mode:\par
+           \tab\tab\tab if (!GET_LAC_STATUS(Lac_friction_demand))\par
+             \tab\tab\{\par
+               \tab\tab SET_LAC_STATUS(Lac_mode,Engine_torque_control_on);\par
+\par
+\pard\li2880 LAC_REQUESTED_TORQUE       = Get_lvc_actual_tf_torque();\par
+LAC_REQUESTED_TORQUE       = MAX(LAC_REQUESTED_TORQUE,Get_lac_friction_axle_torque());\par
+\pard\li1440\par
+-> LVC_LAC_INIT_VARIABLE()\par
+\par
+\tab If( LAC_STATUS.LAC_ACTIVE && !LAC_STATUS2.LAC_ACTIVE_LAST_LOOP )\par
+\par
+\tab\tab LAC_STATUS.LAC_MODE = Engine_torque_control_on(1)\par
+\par
+\tab\tab If( without stillstandsmanager sssm )\par
+\par
+\tab\tab\tab LAC_REQUESTED_TORQUE       = LVC_ACUTUAL_TF_TORQUE\par
+\par
+\par
+\cf8\tab\tab\lang1031 Der Integralwert wird dann danach berechnet Init_integral_part_sc32() \par
+\tab\tab\lang1033 LVC_ACTUAL_TF_TORQUE = VMO_ACTUAL_TF_TORQUE = \par
+\pard\fi720\li5040 TCS_ACTUAL_TF_TORQUE\par
+\pard\li1440\par
+\cf0\par
+\lang2057 -> LVC_LAC_CONTROL_ALGORITHM()\par
+\par
+\tab -> LVC_LAC_DET_HOLD_INT_PART_FLAG()\par
+\par
+\tab -> LVC_LAC_CALC_INT_PART()\par
+\par
+\pard\li2160 LAC_ACCEL_REQUEST_FIL = \par
+LAC_REQUESTED_TORQUE_BUS = \par
+\par
+\cf5\par
+\pard\li720\cf0 -> LDC_MAIN()\par
+\par
+-> ACC_CAL_INTERN_TOR_REQ()\par
+\par
+-> ACC_CAL_BUS_STATUS_BITS()\par
+\par
+-> ACC_ARBITRATE_ENGINE_TOR_REQ()\par
+\par
+\tab\cf6\lang1031 Hier GET_LVC_APIA_STATUS() einbringen und Moment zu null setzen\par
+\par
+\cf0\tab\lang2057 if(       ACC_STATE.ACC_STATE_MACHINE_STATE == Acc_normal(3)\par
+               &&  LAC_STATUS.LAC_ACTIVE = True(1)\par
+               )\par
+\tab\{\par
+\par
+\tab\tab LVC_REQ_AX_TORQUE  = LAC_REQUESTED_TORQUE_BUS;                                                        \par
+          \tab\tab LVC_REQ_ENG_TORQUE = LAC_REQUESTED_ENGINE_TORQUE;\par
+\par
+\cf8           \tab\tab if( GET_LVC_APIA_STATUS(Apia_extern, Apia_in_operation)== Apia_active )\par
+          \tab\tab\{\par
+            \tab\tab LVC_REQ_AX_TORQUE  = 0;                                                        \par
+            \tab\tab LVC_REQ_ENG_TORQUE = 0;\par
+          \tab\tab\}\par
+\cf0\tab\}\par
+\tab\lang1031 Das wird dan weitergegeben an ETA_TORQUE\par
+\par
+\pard\li1440\lang2057 ETA_SET_TQ_REQUEST ( Eta_acc_id, Tq_axle, LVC_REQ_AX_TORQUE, \par
+\pard\fi720\li3600 LVC_REQ_AX_TORQUE,Eta_longitudinal_ctrl, 1, Eta_increase );\par
+\pard\li720\par
+\par
+-> APIA_EXTERN_CAL_INTERN_TOR_REQ()\par
+\par
+-> LVC_STATE_MACHINE()\par
+\par
+\tab\lang1031 Arbirtiert die Bremsmomente aus AAC und externer Eingriff (TVB)\par
+\par
+\lang2057 -> SET_RAMPOUT_VARIABLES()\par
+\pard\cf5\tab\tab\par
+\par
+\tab\tab\par
+\pard\li1440\cf0\par
+\par
+\par
+\pard\li2160\par
+\pard\li1440\par
+\par
+\par
+\pard\fi720\par
+\tab\tab\par
+\par
+\tab\par
+\par
+\tab\par
+\tab\tab\par
+\tab\tab\par
+\par
+\tab\par
+\pard\par
+\par
+\par
+\tab\tab\tab\par
+\pard\fi720\li3600\par
+\pard\par
+\tab\tab\tab\par
+\par
+\tab\tab\tab\par
+\tab\tab\tab\tab\par
+\pard\li2160\par
+\par
+\pard\par
+\pard\li2160\par
+\pard\fi720\par
+\tab\tab\par
+\par
+\par
+\par
+\par
+\pard\cf7\lang1033\b\f2\fs22\par
+\cf0\par
+\b0\f0\fs26\par
+\cf3\b 1.1.3 SSM\cf0\b0\par
+\par
+\b\f2\fs22 Mo 18.08.2008\par
+\par
+Auf der Suche in der SSM-Funktion, warum der Druck nicht gehalten wird\par
+\par
+LVC_STANSTILL_MANAGER_DETERMINE_STATE() Diese Funktion untersuchen\par
+\par
+Das Fahrzeugmodell kommt nicht zum stehen\par
+\par
+\par
+LVC_MODE_SELECT_DETERMINE_STATE(void) wird ssm angestossen glaube ich !!!\par
+\par
+ACC_STATUS2.ACC_SSM_REQUEST\par
+\b0\f0\fs26\par
+\cf3\b 1.1.4 Variablen\cf0\b0\par
+\par
+\b\f2\fs22 STANDSTILL_STATUS.STANDSTILL_MODE = Ssm_off            (0)\par
+\tab\tab\tab\tab\tab\tab Stop_vehicle_mode_on  (1)             \par
+\tab\tab\tab\tab\tab\tab Hold_vehicle_mode_on  (2)             \par
+\tab\tab\tab\tab\tab\tab Go_control_mode_on    (3)             \par
+\tab\tab\tab\tab\tab\tab Creep_vehicle_mode_on (4)             \par
+\tab\tab\tab\tab\tab\tab Parking_mode_on       (5) \par
+\tab\tab\tab\tab\tab\tab Ramp_out_mode_on      (6)\par
+\par
+LAC_STATUS.LAC_MODE = Engine_torque_control_on  (0x01)\par
+\tab\tab\tab\tab Brake_pressure_control_on (0x02)\par
+\tab\tab\tab\tab Brake_prefil_control_on   (0x03)\par
+\tab\tab\tab\tab No_actuator_control_on    (0x04)\par
+\tab\tab\tab\tab Friction_ramp_mode        (0x05)\par
+\par
+\par
+LAC_STATUS3.LAC_REQUEST_MODE = Deactivate_ldc    (0)\par
+\tab\tab\tab\tab\tab    Activate_ldc_ctrl (1)\par
+\tab\tab\tab\tab\tab    Activate_prefill  (2)\par
+\tab\tab\tab\tab\tab    Activate_ramp_off (3)\par
+\par
+LAC_STATUS3.\par
+\par
+MODE_SELECT_STATUS.MODE_SELECT_STATE = \par
+No_demands                              (0x00)\par
+Only_torque_demands                     (0x01)\par
+Acceleration_demands                    (0x02)\par
+Standstill_demands                      (0x03)\par
+Ramp_out_demands                        (0x04)\par
+\par
+\par
+\cf4 LAC_VEHICLE_ACCELERATION_FIL\tab verwendete BIst-Beschleunigung\par
+LAC_VEHICLE_ACCELERATION_FIL32   32bit -Gr\'f6\'dfe\par
+\par
+\par
+\par
+\par
+SSM_SSP_REQUESTED_TORQUE\par
+\par
+\par
+SSM_SSP_STATE = \par
+Ssm_ssp_init                       (0)\par
+Ssm_ssp_soft_stop_decrease         (1)\par
+Ssm_ssp_emergency_stop             (2)\par
+Ssm_ssp_soft_pressure_increase     (3)\par
+Ssm_ssp_uphill_prehold             (4)\par
+Ssm_ssp_pressure_freeze            (5)\par
+\par
+\par
+\par
+Uphill-Problematik:\par
+\par
+signed_int16_t             LVC_SSM_TERRAIN_ACCEL;               /*@ LSB:0.0005 UNIT:m/s\'b2 NAME:SSMTERRACC REM:Terrain caused longitudinal acceleration @*/\par
+\par
+\par
+ACC Ein- und Ausschalten:\par
+\par
+dbc: ACCMode: byte0 bit3,bit4\par
+\par
+signal = 0 \par
+BUS_ENGINE_STATUS.ACC_OVERRIDE = False;\par
+BUS_ACC_STATUS.ACC_CANCELED    = False;\par
+BUS_ACC_STATUS.ACC_ACTIVE      = 0;\par
+\par
+signal = 1\par
+BUS_ENGINE_STATUS.ACC_OVERRIDE = False;\par
+BUS_ACC_STATUS.ACC_CANCELED    = False;\par
+BUS_ACC_STATUS.ACC_ACTIVE      = 1;\par
+\par
+signal = 2 \par
+BUS_ENGINE_STATUS.ACC_OVERRIDE = True;\par
+BUS_ACC_STATUS.ACC_CANCELED    = False;\par
+BUS_ACC_STATUS.ACC_ACTIVE      = 1;\par
+\par
+signal = 3\par
+BUS_ENGINE_STATUS.ACC_OVERRIDE = False;\par
+BUS_ACC_STATUS.ACC_CANCELED    = True;\par
+BUS_ACC_STATUS.ACC_ACTIVE      = 1;\par
+\par
+\par
+\cf0\b0\f4\fs20\par
+\f0\fs26\par
+\cf3\b 1.1.5 CodeAender\cf0\b0\par
+\par
+\highlight5\b\f2\fs22 Version 73:\par
+\highlight0 Fr 15.08.2008\par
+\par
+Um im \cf5 Apia ein Prefill \cf0 Druckgesteuert durch zuf\'fchren, und nicht \'fcber Beschleunigungsregelung wird in LVC_LDC_BRAKE_DEMAND_CALC(void) folgendes hinten angeh\'e4ngt:\par
+\par
+#if (Apia_extern_fix_req_conf)\par
+  if (GET_LVC_APIA_FIX_REQ() == 1)\par
+      LVC_LDC_PRESSURE_DEMAND = MAX(LVC_LDC_PRESSURE_DEMAND,Lvc_apia_precharge_pres_level1);\par
+  else if (GET_LVC_APIA_FIX_REQ() == 2)\par
+      LVC_LDC_PRESSURE_DEMAND = MAX(LVC_LDC_PRESSURE_DEMAND,Lvc_apia_precharge_pres_level2);\par
+#endif\par
+\par
+Mo 18.08.2008\par
+\par
+Um \cf5 TVB-Dynamik\cf0  bei Regelung auf Beschkleunigung zu erh\'f6hen wird in \par
+LVC_LDC_CALC_DECEL_REQUEST(void)auf Apia-Aktivit\'e4t abgefragt \par
+GET_LVC_APIA_STATUS(Apia_extern,Apia_in_operation) == Apia_active.\par
+Dann wird die Filterzeit, die f\'fcr die Sollanforderung verwendet wird auf 1/4 verkleinert\par
+\par
+\par
+Mi 17.09.2008\par
+\par
+Wenn \cf5 ACC abgeschaltet wird w\'e4hrend SSM\cf0 , schaltet SSM nicht ab:\par
+Clr_ssm_request(); in Funktion void LVC_MODE_SELECT_DETERMINE_STATE(void)\par
+eingebaut\par
+\par
+  switch (GET_MODE_SELECT_STATUS(Mode_select_sate))\par
+    \{\par
+      case No_demands:\par
+          /* TBert 17.09.08 reset ssm-request */\par
+          if( Get_active_function() )\par
+            Clr_ssm_request();\par
+          break;\par
+\par
+Do 18.09.2008\par
+\par
+\cf5 TVB in standstill \cf0 Druck will immer weiter steigen bei Verz\'f6gerungsanforderung:\par
+\par
+In LVC_LDC_SPECIAL_SITUATIONS(void) wird Intpart im standstill begrenzt:\par
+\par
+    if( GET_VEHICLE_STANDSTILL_INFO(Secure_signal) ) \par
+    \{\par
+\par
+        if( \cf9 GET_LVC_APIA_STATUS(Apia_extern,Apia_in_operation) == Apia_active \cf0 )\par
+            LDC_INTEGRAL_PART = DbgLdcIntegralHoldVal * Ldc_sf_int_part;\par
+\par
+\tab     else \cf10 if(LDC_INTEGRAL_PART > 3000 * Ldc_sf_int_part)  ) /* 30 bar */\par
+\tab\tab\tab LDC_INTEGRAL_PART = 3000 * Ldc_sf_int_part;\par
+\cf0     \}\par
+    else\par
+    \{\par
+        /* TBert 18.09.08 Standstill hold value during apia */\par
+        DbgLdcIntegralHoldVal = LDC_INTEGRAL_PART/Ldc_sf_int_part;\par
+    \}\par
+\par
+\cf10 braun\cf0  war bisher \par
+\par
+Di 30.09.2008\par
+\par
+\highlight5 Version 74:\par
+\highlight0\par
+In Funktion\par
+void LAC_ACCEL_ARBITRATION_DEMAND(void)\par
+/********************** Disable ACC ************************************************/\par
+  #if ((CFG_ACC >= 3) || (CFG_CC >=3))\par
+  /* TBert 30.09.08 disable ACC during TVB */\par
+  if ( GET_LVC_APIA_STATUS(Apia_extern, Apia_in_operation)== Apia_active )\par
+    \{\par
+      disable_service_id |= (1 << Acc_accel_req_enable);\par
+    \}\par
+  #endif /* #if ((CFG_ACC >= 3) || (CFG_CC >=3)) */\par
+/********************** Disable DBF ************************************************/\par
+(habe ich aber wieder rausgenommen, da in ccs_b2k ACC generell abgeschaltet wird, nur zur Info\par
+hier gespeichert)\par
+\par
+\par
+void ACC_ARBITRATE_ENGINE_TOR_REQ(void)\par
+\tab\tab   /* TBert 20.02.08 Set Engine torque to zero if TVB will apply brake */\par
+\tab\tab   #if( CFG_APIA_EXTERN )\par
+\tab\tab   if( GET_LVC_APIA_STATUS(Apia_extern,Apia_in_operation) == Apia_active )\par
+\tab\tab   \{\par
+\tab\tab\tab\tab LVC_REQ_AX_TORQUE  = 0;                                                        \par
+\tab\tab\tab\tab LVC_REQ_ENG_TORQUE = 0;\par
+\tab\tab   \}\par
+\tab\tab   #endif\par
+(habe ich aber wieder rausgenommen, da in ccs_b2k ACC generell abgeschaltet wird, nur zur Info\par
+hier gespeichert)\par
+\par
+\par
+Mi 01.10.2008\par
+\par
+\highlight5 Version  75:\par
+\highlight0\par
+In void ACC_ARBITRATE_ENGINE_TOR_REQ(void) (acc_fun.c) die Abfrage auf Apiaeingriff wieder eingef\'fchrt\par
+\tab\tab   /* TBert 20.02.08 Set Engine torque to zero if TVB will apply brake */\par
+\tab\tab   #if( CFG_APIA_EXTERN )\par
+\tab\tab   if( GET_LVC_APIA_STATUS(Apia_extern,Apia_in_operation) == Apia_active )\par
+\tab\tab   \{\par
+\tab\tab\tab\tab LVC_REQ_AX_TORQUE  = 0;                                                        \par
+\tab\tab\tab\tab LVC_REQ_ENG_TORQUE = 0;\par
+\tab\tab   \}\par
+\tab\tab   #endif\par
+\par
+aber auch f\'fcr den FAll, dass GET_STANSTILL_MANAGER_STATUS(Standstill_status) == Go_control_mode_on\par
+gilt. D.h. ich fange eine Motormoment ab a) bei normalem ACC und b) bei Go_control_mode_on, wenn Apia aktiv ist.\par
+\par
+Die \'c4nderungen im ccs_b2k.c habe ich wieder r\'fcckg\'e4ngig gemacht\par
+void GET_ACC_MODE(unsigned_int16_t signal)\par
+   /* TBert 30.09.08 deactivate ACC during APIA brakeintervention */\par
+   /* simple solution, because problems during ssm                */\par
+   if(  APIA_EXTERN_STATUS.APIA_IN_OPERATION == Apia_in_operation )\par
+     Set_bus_acc_active(False);\par
+\highlight5\par
+Version  77:\par
+\highlight0\par
+In ccs_bsk.c wird die APIA2BRAKE-Botschaft nicht mehr benutzt die Signal Activierung, Request und Prfill sind in die CArtronic-Botschaft gewandert.\par
+\par
+\highlight5 Version  78:\par
+\highlight0\par
+In ldc_fun.c wird in LVC_LDC_CALC_VEHICLE_DECEL() wird anstatt\par
+\par
+  if (Lvc_lac_development_para20)\par
+    \{\par
+      /* use always LVC_REF_ACCEL_RDU */\par
+      LDC_VEHICLE_DECELERATION_FIL32 = -LVC_REF_ACCEL_RDU*1000;\par
+      LDC_VEHICLE_DECELERATION_FIL   = -LVC_REF_ACCEL_RDU;\par
+\par
+    \}\par
+\par
+das ABS-Signal verwendet:\par
+\par
+\par
+  if (Lvc_lac_development_para20)\par
+    \{\par
+      /* TBert 17.11.08 use always ABS_VEHICLE_ACCELERATION */\par
+      LDC_VEHICLE_DECELERATION_FIL32 = (signed_int32_t)(ABS_VEHICLE_ACCELERATION)*(signed_int32_t)(-0.01*9.807 / 0.00005);\par
+      LDC_VEHICLE_DECELERATION_FIL   = LDC_VEHICLE_DECELERATION_FIL32/1000;\par
+\par
+    \}\par
+\b0\f0\fs26\par
+\cf3\b 1.1.6 CanCmd\cf0\b0\par
+\par
+\lang1031\b\f2\fs22 Parameter f\'fcr CanCmd, um AX3BAR-Code (5-er BMWs zu flashen):\par
+\par
+\par
+\par
+\par
+\lang1033\par
+\b0\f0\fs28\par
+\cf2\b 1.2 IQF\cf0\b0\par
+\par
+\cf3\b\fs26 1.2.1 Versionen\cf0\b0\par
+\par
+\cf3\b\fs22 1.2.1.1 00_Messungen\cf0\b0\par
+\par
+\lang1031\f7\fs18 Do 01.04.2010\par
+\par
+Querregler\par
+\par
+\pard{\pntext\f11\'B7\tab}{\*\pn\pnlvlblt\pnf11\pnindent0{\pntxtb\'B7}}\fi-360\li360 Factoren 20/20 in Parameter einarbeiten\par
+{\pntext\f11\'B7\tab}Solllenkmoment begrenzen\par
+{\pntext\f11\'B7\tab}rechte virtual wall beschauen Unterschied zu links (Messung mit Enrico)\par
+\pard\par
+Lenkwinkelregler\par
+\par
+\pard{\pntext\f11\'B7\tab}{\*\pn\pnlvlblt\pnf11\pnindent0{\pntxtb\'B7}}\fi-360\li360 Rauslenken rechts besser als links\par
+{\pntext\f11\'B7\tab}Vorsteuerung korrigieren\par
+{\pntext\f11\'B7\tab}Code geradeziehen\par
+\pard\par
+\par
+30 km/h:\par
+\par
+1 Nm:\tab\tab 5.5 deg\par
+1.5 Nm                 11.0 deg\par
+2.0 Nm                20 deg\par
+2.5 Nm                57 deg\par
+\par
+\par
+-1 Nm                  -10 deg\par
+-1.5                      -6 deg\par
+-2.0 Nm              -17 deg\par
+-2.5 Nm             47 deg\par
+\par
+45 km/h:\par
+\par
+-1.0                     -5 deg\par
+-1.5                    -5 deg\par
+-2.0                    -12.5 deg\par
+-2.5 Nm             -30 deg\par
+\par
+1.0                     5.5 deg\par
+1.5                    10   deg\par
+2.0                    12.5 deg\par
+2.5                     30.5 deg\par
+\par
+\par
+60 km/h\par
+\par
+1.0                    4.0 deg\par
+1.5                    8.5 deg\par
+2.0                     10 deg\par
+2.5 Nm              21.5 deg\par
+\par
+-1                  -1.5 deg\par
+-1.5                 -3\par
+-2.0                 -7.5\par
+-2.5                  -19.5                     \par
+\par
+\par
+Mi 31.03.2010\par
+\par
+Lenkwinkelregler \par
+\par
+30/40 km/h :\par
+\par
+ff-Anteil 0.025 - 0.05\par
+D-Anteil 0.3\par
+\par
+\par
+60 km :\par
+\par
+zur\'fclck uaf 0.1\par
+ff-Anteil 0.025 - 0.05\par
+\par
+\par
+Messung1 30 km/h\par
+Messung2 45 km/h\par
+Messung3 60 km/h\par
+Messung4 60 km/h\par
+Messung5 50 km/h r\'fcckw\'e4rts\par
+\par
+messung6 linie r\'fcckweg\par
+\par
+\par
+\par
+\par
+Di 30.03.2010 19:00\par
+07-08 30 km/h \par
+\'e4hnlich nur kein Kontakt\par
+\par
+measurement09 45 km/h \par
+zu eng in der Kurve (geschnitten) \par
+Kontakt in der Rechtskur ve \par
+\par
+measurement10 45 km/h \par
+zu eng in der Kurve (geschnitten) \par
+etwas unruhig Pendeln am Ende\par
+\par
+measurement11 60 km/h\par
+kein Eingrif zu Beginn\par
+ \par
+measurement12 60 km/h\par
+Eingriff zu sp\'e4t\par
+\par
+measurement13 45 km/h\par
+Gradient auf 150 dNm/s\par
+nicht geschwungen, aber Kontakt\par
+ \par
+\par
+Di 30.03.2010\par
+\par
+Anpassung Fahrerlenkerkennung:\par
+\par
+InerDeltaTorIntUppLim 0.5\par
+DrvSTeTorSecUppLim   2.0\par
+DrvSteTorHYst    0.1\par
+\par
+HAndmoment an virtual wall geht nicht raus??\par
+\par
+Durchfahrt durch Baustelle:\par
+\par
+Messung measurement13 30 km/h:\par
+\par
+Am Ende an der Baustellenwand wird es eng\par
+Ruckartiges rauslenken\par
+\par
+measurement14: 45 km/h\par
+Baustelle sp\'e4t erkannt \par
+Am Anfang war dann das Moment null\par
+Am Ende ging es\par
+\par
+measurement15 45 km/h wiederholt\par
+BAustelle gut erkannt\par
+Am Ende bei Zufahrt auf Baustelle (Ausfahrt) ruckartig weggelenkt\par
+\par
+measurement17: 60 km/h \par
+Zusp\'e4t nach links  gelenkt und dann ruck artig nach rechts zu weit in die BArken (Eingriff)\par
+\par
+measurement18: 60 km/h gleiches Problem \par
+Zusp\'e4t nach links  gelenkt und dann ruck artig nach rechts zu weit in die BArken (Eingriff)\par
+\par
+\par
+\par
+\par
+Mo 22.02.2010\par
+\par
+Messungen mit Durchfahren der BAustelle von Wolfgang:\par
+\par
+canalyzer_2010.2.22_12.50.10.asc\par
+canalyzer_2010.2.22_12.51.54.asc\par
+canalyzer_2010.2.22_12.53.25.asc\par
+canalyzer_2010.2.22_12.54.39.asc\par
+canalyzer_2010.2.22_13.1.38.asc\par
+canalyzer_2010.2.22_13.2.55.asc\par
+canalyzer_2010.2.22_13.4.21.asc\par
+canalyzer_2010.2.22_13.5.42.asc\par
+canalyzer_2010.2.22_13.6.11.asc\par
+canalyzer_2010.2.22_13.7.13.asc\par
+canalyzer_2010.2.22_13.7.31.asc\lang1033\par
+\par
+Fr 31.07.2009\par
+\par
+\cf5 Probleme in Messungen:\par
+\par
+=> Messung Continuous_2009.07.23_at_14.48.15.rec t = 49.6 s\par
+\par
+LA_HC_STATE toggelt von 4 (lca_mode) zu 0 (inactive). Es ist nicht zu erkennen,\par
+da\'df irgendeine Bedingung dazu erf\'fcllt wird\par
+\par
+\par
+=> Messung Continuous_2009.07.23_at_14.44.54.rec Zeipunkt t=1.681 s\par
+\par
+wird INHIBIT-Bit gesetzt, warum?\par
+\par
+Eigentlich bleibt nur, das der lenkwinkel > 100 ist, Ist das so, Warum drin\par
+\par
+\par
+\cf0\par
+\par
+\par
+\par
+Fr 24.04.2009\par
+\par
+Pferdsfelderprobung Fusions-BMW\par
+\par
+LKA auf Baustelle funktioniert so leidlich.\par
+\par
+Probleme: Abstand nach links und nach rechts wird unterschiedlich gemessen\par
+\par
+Parallel fahren und anhalten um manuell zu messen\par
+\par
+Baustelle rechts:\par
+\par
+dyR (noch Fahrt/fastStillstand)\tab Handgemessen\tab\tab Differenz\par
+\par
+-0.88 / -0.88 m\tab\tab\tab -1.44 m\tab\tab\tab -0.56 / -0.56\par
+-0.90 / -0.8 m\tab\tab\tab -1.17 m\tab\tab\tab -0.27 / -0.37\par
+-0.97 / -0.9 m\tab\tab\tab -1.28 m\tab\tab\tab -0.31 / -0.38\par
+\par
+Baustelle links\par
+\par
+dyL (noch Fahrt/fast Stillstand)\par
+\par
+1.60 / 0.76 m\tab\tab\tab 1.61 m\tab\tab\tab 0.01  / 0.85\par
+0.80 / 0.30 m\tab\tab\tab 1.50 m\tab\tab\tab 0.70  / 1.20\par
+1.43 / 0.72 m\tab\tab\tab 1.40 m\tab\tab\tab -0.03 / 0.68\par
+\par
+Markierungabstand \'e4ndert sich bei geringen Geschwindigkeiten\par
+rechts ist das Fahrzeug (bei Fahrt) im Mittel 0.38 m zunahe gesch\'e4tzt, links zwar 0.23 m, aber 2 von 3 fast exakt.\par
+\par
+Das scheint auch der Grund zu sein, das einmal weglenken machmal okay ist und manchmal zu stark.\par
+Nur mit Hinzunahme des dynamischen Anteils aus Lenkwinkel wird das Moment rechtzeitiger wieder weggenommen (Der Fahrer lenkt bereits weg, aber das Fahrzeug braucht bis es sich wegdreht oder wegbewegt), hat aber zur folge, das bei Loslassen des Lenkrades das Lenkrad sich zur\'fcckdreht .\par
+\par
+Es sollte die Fordl\'f6sung auf Lenkwinkel zu regeln versucht werden.\par
+\par
+\par
+\par
+\par
+Do 25.02.2010\par
+\par
+ToDo\par
+\par
+- Sollwenkwinkel aus IQF abstimmen f\'fcr kleine GEschwindigkeiten am Ende der GAsse kommt er oft falsch\par
+- Anteil am Lenkmoment mit Curvature bei geringen GEschwindigkeiten erh\'f6hen (testen)\par
+- Fahrereingriff detektieren 1. T\'e4gheitsmoment ber\'fccksichtigen 2. Detektionsstrategie entwickeln\par
+- Mit Fahrereingriff I-Anteil im kaskadierten Regler zulassen und Abkingen lassen, wenn Fahrer eingrgeift\par
+- D\'e4mpfungsglied bei LKA, um ein zustarkes Lenken zu verhindern.\par
+\par
+\par
+Fr 26.02.2010\par
+\par
+Versuche Querregelung mit PAssat, Durhcfahrt durch die GAsse:\par
+\par
+Messungen:\par
+canalyzer_2010.2.25_18.29.6.asc\par
+canalyzer_2010.2.25_18.28.19.asc\par
+\par
+- Gassenerkennung kommt am Anfang ein Aussetzer, d.h. kurzzeitig wird nach links die Gasse verlegt\par
+  => Messungen nochmal wiederholen,  um zu schauen, ob es immer auftritt\par
+\par
+- Wolfgang lenkt ein, bevor die Gasse erkannt wird. Warum, glaubt erst in der Gasse gelenkt zu haben.\par
+\par
+\par
+\par
+\f0\fs22\par
+\cf3\b 1.2.1.2 01\cf0\b0\par
+\par
+\lang1031\f7\fs18 BMW\par
+IQF VPU4 Version 201003151335\par
+\lang1033 Out VPU2 Version 201003301237\par
+\f0\fs22\par
+\cf3\b 1.2.1.3 01_Messungen_virt_wall_const_yaw\cf0\b0\par
+\par
+\lang1031\f7\fs18 Messungen 1002301700\par
+\par
+BMW\par
+\par
+Wiederholungsmessung Virtual Wall mit drei verschiedenen Winkel auf virtual wall gefahren\par
+\par
+Kommentar  WOlfgang:\par
+\par
+\f1\fs24 Ann\'e4herung an Wand\par
+\par
+5\'b0\par
+\par
+\lang2057 10 kph\tab measurement 22\tab\tab i.O.\par
+20 kph\tab measurement 23\tab\tab i.O. \par
+30 kph\tab measurement 24\tab\tab i.O. \par
+40 kph\tab measurement 25\tab\tab i.O.\par
+50 kph\tab measurement 26\tab\tab i.O. \par
+60 kph\tab measurement 27\tab\tab mitlenken\par
+60 kph\tab measurement 28\tab\tab i.O.\par
+\par
+\par
+10\'b0\par
+\par
+10 kph\tab measurement 29\tab\tab knapp\par
+20 kph\tab measurement 30\tab\tab i.O. \par
+30 kph\tab measurement 31\tab\tab mitgelenkt \par
+30 kph\tab measurement 32\tab\tab i.O.\par
+40 kph\tab measurement 33\tab\tab mitgelenkti.O. \par
+40 kph\tab measurement 34\tab\tab mitlenken\par
+\par
+\par
+15\'b0\par
+\par
+10 kph\tab measurement 36\tab\tab i.O.\par
+20 kph\tab measurement 37\tab\tab i.O. \par
+\lang1031 30 kph\tab measurement 38\tab\tab mitgelenkt \par
+30 kph\tab measurement 39\tab\tab mitgelenkt\par
+\par
+\par
+\f7\fs18\par
+\lang1033\f0\fs22\par
+\cf3\b 1.2.1.4 01_Auswertung_virt_wall_const_yaw\cf0\b0\par
+\par
+\f7\fs24\par
+1003301700/Messung 22: vt_05grad_10kmh.mat  => Fehlaanregelung, deswegen abschneiden ab t0 = 17 s  \tab\tab  =>  05grad_01.mat\par
+1003301700/Messung 23: vt_05grad_20kmh.mat  => geht einigerma\'dfen etwas Kurve vorhanden\tab\tab\tab\tab  =>  05grad_02.mat\par
+1003301700/Messung 24: vt_05grad_30kmh.mat  => Fehlaanregelung, deswegen abschneiden ab t0 = 6 s\tab\tab  =>  05grad_03.mat\par
+1003301700/Messung 25: vt_05grad_40kmh.mat  => Fehlaanregelung, deswegen abschneiden ab t0 = 6 s\tab\tab  =>  05grad_04.mat\par
+1003301700/Messung 26: vt_05grad_50kmh.mat  => Fehlaanregelung, deswegen abschneiden ab t0 = 6 s\tab\tab  =>  05grad_05.mat\par
+1003301700/Messung 28: vt_05grad_60kmh.mat  => Fehlaanregelung, deswegen abschneiden ab t0 = 6 s\tab\tab  =>  05grad_06.mat\par
+( obwohle Kurvenradius zu klein, hat es keinen Einflu\'df, da wegen psi schon dynamischer Anteil in S\'e4ttingung)\par
+\par
+1003301700/Messung 29: vt_10grad_10kmh.mat  => Fehlaanregelung, deswegen abschneiden ab t0 = 15 s  \tab\tab =>  10grad_01.mat\par
+1003301700/Messung 30: vt_10grad_20kmh.mat  => geht einigerma\'dfen etwas Kurve vorhanden\tab\tab\tab\tab =>  10grad_02.mat\par
+1003301700/Messung 32: vt_10grad_30kmh.mat  => geht einigerma\'dfen\tab\tab\tab\tab\tab\tab\tab =>  10grad_03.mat\par
+( obwohle Kurvenradius zu klein, hat es keinen Einflu\'df, da wegen psi schon dynamischer Anteil in S\'e4ttingung)\par
+\cf5 1003301700/Messung 33: vt_10grad_40kmh.mat  => nicht verwenden, da psi-Anteil zu klein(psi nicht aufgebaut)\par
+\cf0\par
+\cf5 1003301700/Messung 36: vt_15grad_10kmh.mat  => nicht verwenden, da psi-Anteil zu klein(psi nicht aufgebaut) und Kurve \'fcberwiegt radius von 70-80 m \'fcber mehrere Sekunden\par
+\cf0 1003301700/Messung 37: vt_15grad_20kmh.mat  => Fehlaanregelung, deswegen abschneiden ab t0 = 13 s\tab\tab =>  15grad_01.mat\par
+\par
+\par
+Aus erster Messreihe:\par
+\par
+W:/mess/canalyser/contiguard/100319 Messung Wolfgang Pferdsfeld/05Grad/canalyzer 2010.3.17 15.05.45.mat         =>   05grad \par
+\par
+geht in Ordnung, psi ist aufgebaut, \par
+\par
+\par
+\par
+\par
+\par
+\fs18\par
+\fs24\par
+\par
+\par
+\par
+\f0\fs22\par
+\cf3\b 1.2.1.5 02\cf0\b0\par
+\par
+\lang1031\f7\fs18 Hand moment wird falsch eingelesen nach links\par
+\par
+Signal wird abgeschnitten und m\'f6glicherweise falsch gecastet (von anderen Signalumrechnungen \'fcbernommen)\par
+\par
+\par
+\par
+F\'fcr die kommende \'c4nderung: (f\'fcr morgen zu riskant)\par
+=========================================\par
+\par
+Max-Bildung zwischen LKA/LCA:\par
+\par
+Rampenbegrenzung sortieren   Dec-Rampe f\'fcr LKA\par
+\tab\tab\tab           LCA Regelteil und vorsteuerung seperat\par
+\tab\tab\tab           bei EIngriff Fahrer Rampe in RefTorquecalculation, wo alles \par
+\tab\tab\tab\tab zusammengef\'fchrt\par
+\tab\tab\tab           Fahrer\'fcbernahme aus Damping raus, weil in RefTorquecalculation\par
+Rampenbegrenzung alle auf float Nm/s einheitlich\par
+Limitierung genausso\par
+\par
+Wie ist Linie von boundary zu unterscheiden IntervType?\lang1033\par
+\f0\fs22\par
+\cf3\b 1.2.1.6 03_100503\cf0\b0\par
+\par
+\lang1031\f7\fs18 Mo 03.05.2010\par
+\par
+Pferdsfeldwoche\par
+\par
+Beginn mit Version \par
+IQF  100502 und \par
+IPAS VPU2_CG_OUT_BMW_Version/10050308\par
+\lang1033\par
+\f0\fs28\par
+\cf2\b 1.3 VPU\cf0\b0\par
+\par
+\cf3\b\fs26 1.3.1 Canbotschaften\cf0\b0\par
+\par
+\pard\keepn\s2\fi-576\li576\sb240\sa60\tx576\lang1031\b\i\f1\fs28 1.1\tab Vorgehen um eine CAN-Botschaft einzulesen und auszuwerten\par
+\pard\b0\i0\fs24 (hier auf CAN0 )\par
+\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923\cf4\lang2057\fs20 can.h:\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923\cf0\lang1031 CAN.h  \lang2057\f8\'e0\lang1031\f1  Anzahl der zu empfangenden Messages anpassen\par
+\cf6\f9 #define\cf0  CAN_NUM_OF_APPL_RX_MSGS_0 \lang2057\f1\par
+\pard\intbl\cf6\lang1031\f9 #define\cf0  CAN_NUM_OF_APPL_RX_MSGS_1   \par
+\pard\intbl\ri923\cf4\lang2057\f1\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923 can_config_ch0.h:\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923\lang1031 union \cf0\f9 CANPreCpFifo0_t \f1 erweitern, um auf Signal zugreifen zu k\'f6nnen, ansonsten byte-weise selbst auswerten\f9 :\par
+\par
+\pard\intbl   _c_mLenkhilfe_3_msgType        mLenkhilfe_3;        \cf11 // VW-Passat-Lenkung\par
+\cf0   _c_mLenkhilfe_2_alt_msgType    mLenkhilfe_2_alt;    \cf11 // VW-Passat-Lenkung\par
+\cf0   _c_mLenkhilfe_2_msgType        mLenkhilfe_2;        \cf11 // VW-Passat-Lenkung\par
+\cf0   _c_mLenkhilfe_1_msgType        mLenkhilfe_1;        \cf11 // VW-Passat-Lenkung\par
+\cf0   _c_mKombi_1_msgType            mKombi_1;            \cf11 // VW-Passat-Lenkung\par
+\cf0   _c_mGate_Komf_1_msgType        mGate_Komf_1;        \cf11 // VW-Passat-Lenkung\par
+\cf0   _c_mLW_1_msgType               mLW_1;               \cf11 // VW-Passat-Lenkung\par
+\pard\intbl\ri923\cf0\f1 ( Die Typen sind in drv_par.h definiert )\par
+\par
+\lang2057 Bzw. CAN_CONFIG_CH1.h  Union erweitern\par
+\lang1031\f9 CANPreCpFifo1_t\par
+\f1\par
+define von Reload-makros (wird nur bei ch0 benutzt):\par
+\pard\intbl\cf6\f9 #define\cf0  CAN0_LENKHILFE_3_RELOAD           ( (ui16_t)1000 + 1u )\par
+\cf6 #define\cf0  CAN0_LENKHILFE_2_ALT_RELOAD       ( (ui16_t)1000 + 1u )\par
+\cf6 #define\cf0  CAN0_LENKHILFE_2_RELOAD           ( (ui16_t)1000 + 1u )\par
+\cf6 #define\cf0  CAN0_LENKHILFE_1_RELOAD           ( (ui16_t)1000 + 1u )\par
+\cf6 #define\cf0  CAN0_KOMBI_1_RELOAD               ( (ui16_t)1000 + 1u )\par
+\cf6 #define\cf0  CAN0_GATE_KOMF_1_RELOAD           ( (ui16_t)1000 + 1u )\par
+\cf6 #define\cf0  CAN0_LW_1_RELOAD                  ( (ui16_t)1000 + 1u )\par
+\cf4\lang2057\f1\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923 canext_.h:\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923\lang1031 Hier die Struktur \cf0\f9 CAN0InputData_t \f1 erweitern:\par
+\pard\intbl\f9   ui8_t               StatusInfoCanId0D0;\par
+  ui8_t               StatusInfoCanId6D5;\par
+  ui8_t               StatusInfoCanId3D2;\par
+  ui8_t               StatusInfoCanId3D0;\par
+\pard\intbl\ri923\cf4\f1\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923\lang2057 can_process_rx_ch0.c:\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\cf0\lang1031 Timeout Funktionen deklarieren und definieren:\par
+\cf6\f9 void\cf0  CANTimeoutID0D0(\cf6 void\cf0 );  \cf11 /* mLenkhilfe_3 */\par
+\par
+\f1 Liste erweitern:\f9  \par
+\cf0 CANIdStatus0,                 CAN0InputData_t definiert in canext_.h\par
+CANHandleByMsgCellList0_c,    CanRxmLenkhilfe_3 z.B. definiert in can_par.h\par
+CANRxMsgTimeoutCntrResetValues0_c, \fs16 CAN0_LENKHILFE_3_RELOAD z.B.definiertin \cf4\lang2057\f1 can_process_tx_ch0.h\cf0\lang1031\f9\par
+\fs20   \par
+\f1 Definieren:\par
+\cf11\f9 /* TBert 31.08.09 */\par
+/* mLenkhilfe_3 */\par
+\cf6 void\cf0  CANTimeoutID0D0(\cf6 void\cf0 )\par
+\{\par
+\}\cf11\par
+\pard\intbl\ri923\cf4\f1\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923 can_vdset_ch0.c:\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\cf11\f9 Deklaration Funktion\par
+/* mLenkhilfe_3 */\par
+\cf6 static\cf0  \cf6 void\cf0  CANRx0_ID0D0h(\cf6 const\cf0  CANPreCpFifo0_t *CANFifoPtr, ui8_t MsgNum);\par
+\pard\intbl\ri923\cf4\f1\par
+\lang2057 Liste\par
+\pard\intbl\cf0\lang1031\f9 CANRxDataFct0_t \cf6 const\cf0  CANRxDataFct0_c[CAN_NUM_OF_APPL_RX_MSGS_0] =\par
+\pard\intbl\ri923\cf4\f1 erweitern mit den Funktionsnamen\par
+\par
+und Funktion definieren:\par
+\pard\intbl\cf11\f9 /* mLenkhilfe_3 */\par
+\cf6 static\cf0  \cf6 void\cf0  CANRx0_ID0D0h(\cf6 const\cf0  CANPreCpFifo0_t *CANFifoPtr, ui8_t MsgNum)\par
+\{\par
+\}\par
+\f1 Die Signale k\'f6nnen in die Struktur \f9 CAN1InputData_t \f1 eingetragen werden. Wird mit Variable \f9 CAN1InputData \f1\par
+\pard\intbl\ri923\cf4 verwendet.\par
+\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923\cell\row\pard\li-360\ri923\par
+\pard\keepn\s2\fi-576\li576\sb240\sa60\tx576\cf0\b\i\fs28 1.2\tab Vorgehen um eine CAN-Botschaft zu senden\par
+\pard\ri923\b0\i0\fs24\par
+\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923\cf4\lang2057\fs20 can_process_tx_ch0.c:\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\cf0\lang1031 Deklaration:\par
+\cf6\f9 void\cf0  CANSendID6D0(\cf6 void\cf0 );\par
+\pard\intbl\ri923\cf4\f1\par
+AufrufFunktion eventuell einf\'fchren:\par
+\pard\intbl\cf6\f9 void\cf0  VDATASendDataCanCan10ms( \cf6 const\cf0  VDATAVehicleControlDataCan_t * \cf6 const\cf0  VDATASendDataCanP)\par
+\{\par
+  CANSendID6D0();\par
+\}\par
+\pard\intbl\ri923\cf4\f1\par
+Sendefunktion definieren:\par
+\pard\intbl\cf6\f9 void\cf0  CANSendID6D0(\cf6 void\cf0 )\par
+\{\par
+\}\par
+\pard\intbl\ri923\cf4\f1\par
+Aufruffunktion in  platzieren:\par
+\pard\intbl\cf6\f9 void\cf0  CANProcessTxCh0(\cf6 void\cf0 )\par
+\pard\intbl\ri923\cf4\{\par
+    \'85\par
+\pard\intbl\cf0     VDATASendDataCanCan10ms(&VDATASendDataCan);\par
+    \'85\par
+\pard\intbl\ri923\cf4\lang2057\}\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\ri923\f1\cell\row\trowd\trgaph70\trleft-108\trbrdrl\brdrs\brdrw10 \trbrdrt\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trpaddl70\trpaddr70\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw10\brdrs\clbrdrt\brdrw10\brdrs\clbrdrr\brdrw10\brdrs\clbrdrb\brdrw10\brdrs \cellx10135\pard\intbl\par
+\par
+\par
+\cell\row\pard\cf0\lang1033\f7\fs18\par
+\pard\fi-360\ri923\lang2057\ul\b\f1\fs20 Tool Geny :\par
+\b0\par
+\lang1031\ulnone .dbc File anpassen\par
+\pard\fi708\ri923 Rx und Tx einstellen; \par
+Rx steht bei Signal\par
+Tx bei Botschaft\par
+\pard\fi-360\ri923\tab |_ > generieren mit  \i D\fs16 :\\Projekte\\VPU_ACC_TVB\\codegen\\can\\genyconfig\\canconfiguration.gny\i0\fs20\par
+\tab\tab\tab DBC-File aktualisieren mit  \i\fs16\'84geny\\Configuration\\Upgrade database\ldblquote\i0\par
+\fs20\tab\tab\par
+\pard\li-360\ri923\lang2057 Datei can_par.c manuell anpassen: ca. line 1720     \par
+\pard\fi1068\li-360\ri923     \tab NmPrecopy  ersetzen mit CAN_RANGE_FCT_DUMMY\par
+\pard\fi1068\li348\ri923 MK_RX_RANGE_MASK auf (0x00),\par
+\pard\li-360\ri923\tab\tab\tab\lang1036 MK_RX_RANGE_CODE auf (0x00),\par
+\pard\fi-360\ri923\par
+\pard\li-360\ri923\lang2057 Headerdatei    can_dbc_defs_ch0.h und can_dbc_defs_ch1.h\par
+\lang1031 mit gencanheader erzeugen und nach src\\can\\dc_chassis kopieren\par
+\par
+\pard\fi-360\ri923  C-Files kopieren:  can*,drv*,v_* zusammen 9 Files nach src\\can\\dc_chassis\par
+\par
+\pard\lang1033\f7\fs18\par
+\par
+\par
+\pard\f0\fs26\par
+\cf3\b 1.3.2 CanCmd\cf0\b0\par
+\par
+\lang1031\f7\fs18 aus dem Projekt erzeugtes ef-File einladen\par
+\par
+Einstellung:\par
+\par
+\pard\li-360\ri923\f1\fs20 XCP verwenden. \par
+Einstellung:\par
+\lang2057 CanIdentifier Send (Laptop): 0x63C        (VPU2 CG_OUT mit IPAS)\par
+Receive(Controller): 0x507                    (VPU2 CG_OUT mit IPAS)\par
+\par
+force length of CMD-Frame = 8 \tab\tab ja\par
+Seed & Key \tab\tab\tab\tab ja\par
+Seed & Key Algorithm -> \tab\tab VPU\par
+\pard\lang1033\f7\fs18\par
+\par
+\pard\lang1031\b\f10\fs20\par
+}
+ 

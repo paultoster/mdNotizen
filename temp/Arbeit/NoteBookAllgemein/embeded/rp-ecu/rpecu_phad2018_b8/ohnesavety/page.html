@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>OhneSavety</title>
+</head><body>CW39: Di 25.09.2018 08:33-------------------------------------------------------------------------------------------------------------------<br/>
+<br/>
+In &nbsp;proj_config_B8_PHAD2018.h einstellen:<br/>
+<br/>
+#define ENABLE_DEBUG_LAT_LONG_SAFETY&#09;&#09;TSK_OFF&#09;&#09;// enable to us debug features for lateral control, longitudinal control and the safety itself<br/>
+#define USE_PlausibilityHealthAndValueCheck&#09;&#09;TSK_OFF&#09;&#09;// enable to use Highly automated driving&amp;parking Safety<br/>
+#define USE_DRIVERINTERVENTIONDETECTION&#09;TSK_OFF&#09;&#09;// enable to use the DriverInterventionDetection: If intervention is detected for more then xy seconds, disable CAN output to actuators<br/>
+#define USE_PHAD2018_LSM_HSM_switching&#09;&#09;TSK_OFF&#09;&#09;// enable to use FuSi mode switching between LSM and HSM (low/high speed maneuvering =&gt; means automated driving and automated parking)<br/>
+#define&#09;ALLOW_ONLY_LSM_MODE&#09;&#09;&#09;TSK_OFF&#09;&#09;// if this is enabled, HSM mode is not available =&gt; e.g. for parking only demos<br/>
+#define USE_AP_EBRAKE&#09; &nbsp; &nbsp;&#09;&#09;&#09;&#09;TSK_OFF&#09;&#09;// if enabled, provide E-Brake feature<br/>
+<br/>
+<br/>
+<img src="image.png" /></body></html>

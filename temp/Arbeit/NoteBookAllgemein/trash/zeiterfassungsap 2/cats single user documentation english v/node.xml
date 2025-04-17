@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>CATS Single User Documentation English v4 2017.pdf</string>
+  <key>payload_filename</key><string>cats single user documentation english v.pdf</string>
+  <key>nodeid</key><string>28fa87af-ea51-47ca-a094-032be5992f61</string>
+  <key>modified_time</key><integer>1506084216</integer>
+  <key>order</key><integer>1</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>application/pdf</string>
+  <key>created_time</key><integer>1506084216</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

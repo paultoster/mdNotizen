@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Installation auf Windows</title>
+</head><body>1) Ethernet einrichten<br/>
+<br/>
+&nbsp;Auf dem eigenen Rechner muß ein Ethernet eingerichtet werden mit:<br/>
+<ul><li style="list-style-type: none">192.0.0.xxx &nbsp; &nbsp; &nbsp; xxx sollte &gt; 200</li>
+<li style="list-style-type: none">255.255.255.0</li>
+</ul>
+<br/>
+2) Firewall aus machen<br/>
+<br/>
+3) In der Datei C:\ProgramData\eCAL\network.ini müssen folgende Parameter eingestellt sein:<br/>
+<ul><li style="list-style-type: none">network_enabled &nbsp; &nbsp; = true</li>
+<li style="list-style-type: none">multicast_ttl &nbsp; &nbsp; &nbsp; = 3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(oder größer)</li>
+</ul>
+<br/>
+4) Es müssen für ecalySys routes eingerichtet werden (ob beide gebraucht werden weiß ich nicht)<br/>
+<ul><li style="list-style-type: none">in einem &nbsp;command-Fenster eingeben:</li>
+</ul>
+<ul><li style="list-style-type: none">route add -p 192.0.0.0 mask 255.255.255.0 192.0.0.xxx &nbsp; &nbsp; &nbsp;(Hinweis von Jonas)</li>
+<li style="list-style-type: none">route add -p 239.0.0.0 mask 255.255.255.0 192.0.0.xxx &nbsp; &nbsp; &nbsp;(Hinweis von Kerstin)</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">route print zum Anzeigen</li>
+</ul>
+<br/>
+<br/>
+<br/>
+5) Fahrzeug muss Zündung an sein und der HMI-PC sollte laufen (bin nicht ganz sicher ob notwendig)<br/>
+&nbsp; &nbsp; Drive-PX1/2 anschalten über System On im Bedien-Monitor<br/>
+<br/>
+6) ecalSys auf dem Notebook mit Datei: "F_TZ_4500_TopView.ecalsys" starten <br/>
+<ul><li style="list-style-type: none">Es muss dann in dem rechten Fenster das eigene Notebook und der HMI-PC angezeigt sein. </li>
+<li style="list-style-type: none">(Oder man startet den ecalMonitor, dort müssen dann in Hosts auch alle tegras zu sehen sein)</li>
+<li style="list-style-type: none">(Wenn tegra oder hmi-PC nicht erscheint, dann habe ich es mit Windows abmelden und anmelden erreicht)</li>
+<li style="list-style-type: none"></li>
+</ul>
+7) Mit ecalsys könne alle tasks gestart<br/>
+<ul><li style="list-style-type: none">Für Odometrie-Test wurden die Tasks gestartet:</li>
+<li style="list-style-type: none"><ul><li>cangwHmiCan</li>
+<li>cangwRt4000</li>
+<li>cangwSystemCan</li>
+<li>VehileAbstractionProvider</li>
+</ul>
+</li>
+<li style="list-style-type: none"></li>
+</ul>
+A) Tool ModaXterm installiert (download vom Internet), wenn man neue Softe installieren will<br/>
+<br/>
+B) Einrichten ModaXterm:<br/>
+<ul><li>Tool starten</li>
+<li>Rechter Mausklick auf "user sessions" und mit new session ein SSH - Fenster wählen</li>
+<li>Remote Host 192.0.0.111 &nbsp; für tegra eintragen (zweite Session mit 192.0.0.112)</li>
+<li>Specify username mit nvidia beszeichnen</li>
+</ul>
+<img src="image.png" width="700" height="497" /><br/>
+<br/>
+<br/>
+C) Man kann das debian- File hochladen auf die entsprechende drivePX<br/>
+<br/>
+D) starten der installation mit z.B.<br/>
+<br/>
+&nbsp;&#09;sudo dpkg -i dpx2-grid-master-457_arm64.deb<br/>
+<br/>
+C) oder man kopiert eine einzelne Task:<br/>
+<br/>
+&nbsp;&#09;sudo cp task_name /algos/bin<br/>
+<br/>
+D) oder einzelne ini-Files:<br/>
+<br/>
+&nbsp;&#09;sudo cp datei.ini /algos/build/ini<br/>
+<br/>
+</body></html>

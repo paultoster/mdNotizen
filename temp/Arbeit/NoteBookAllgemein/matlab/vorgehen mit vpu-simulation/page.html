@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Vorgehen mit VPU-Simulation</title>
+</head><body>Do 24.04.2014 12:22:56<br/>
+<br/>
+Aufteilen der CAN-Daten-Verarbeitung und Simulation. Folgende Module machen:<br/>
+<br/>
+CAN-Messung byteweise einlesen:&#09;<span style="font-family: monospace">b = ReadCANBytes(filename,IDs,Channels); oder</span><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#09;<span style="font-family: monospace">b = ReadCANBytes(filename);</span><br/>
+<br/>
+mit<ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><span style="font-family: monospace"><li style="list-style-type: none">b(i).time</li>
+<li style="list-style-type: none">b(i).id </li>
+<li style="list-style-type: none">b(i).channel </li>
+<li style="list-style-type: none">b(i).len</li>
+<li style="list-style-type: none">b(i).bytes(1:dlc)</li>
+<li style="list-style-type: none">b(i).receive</li>
+<li style="list-style-type: none"></li>
+</span></ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br/>
+Signale bilden&#09;&#09;&#09;&#09;&#09;<span style="font-family: monospace">e = BuildSignalsFromCANBytes(b,dbcFiles,channels,Ssig);<br/>
+</span><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><span style="font-family: monospace"><li style="list-style-type: none">&nbsp; &nbsp; Ssig(i).name_in &nbsp; &nbsp; &nbsp;= 'signal name';</li>
+<li style="list-style-type: none">&nbsp; &nbsp; Ssig(i).unit_in &nbsp; &nbsp; &nbsp;= 'dbc unit'; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(default '')</li>
+<li style="list-style-type: none">&nbsp; &nbsp; Ssig(i).lin_in &nbsp; &nbsp; &nbsp; = 0/1; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (default 0)</li>
+<li style="list-style-type: none">&nbsp; &nbsp; Ssig(i).name_sign_in = 'signal name for sign'; &nbsp;(default '')</li>
+<li style="list-style-type: none">&nbsp; &nbsp; Ssig(i).name_out &nbsp; &nbsp; = 'output signal name'; &nbsp; &nbsp;(default name_in)</li>
+<li style="list-style-type: none">&nbsp; &nbsp; Ssig(i).unit_out &nbsp; &nbsp; = 'output unit'; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (default 'unit_in')</li>
+<li style="list-style-type: none">&nbsp; &nbsp; Ssig(i).comment &nbsp; &nbsp; &nbsp;= 'description'; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (default '')</li>
+</span><li style="list-style-type: none"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br/>
+VPU Simulieren vollständig&#09;&#09;&#09;<span style="font-family: monospace">e = mex_SIM_CAN_XXX(b,q);<br/>
+</span><span style="font-family: monospace">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; q.xxx Funtionsspezifische Parameter<br/>
+</span><br/>
+Fkt-Modul als ganzes simulieren&#09;&#09;[<span style="font-family: monospace">dout,uout,cout] = mex_SIM_XXX(time,din,uin,p);<br/>
+</span><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><span style="font-family: monospace"><li style="list-style-type: none">&nbsp;din.xyname = vektor</li>
+<li style="list-style-type: none">&nbsp;uin.xyname = 'Einheit'</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">&nbsp;Parameter</li>
+<li style="list-style-type: none">&nbsp;p.type &nbsp; &nbsp; = 'single','vector','string',['table','1dtable']</li>
+<li style="list-style-type: none">&nbsp;p.val &nbsp; &nbsp; &nbsp;= 10.0, &nbsp; &nbsp;[0;2;3], 'abc',</li>
+<li style="list-style-type: none">&nbsp;p.xval &nbsp; &nbsp; = &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[0;2;4;6;8;10]</li>
+<li style="list-style-type: none">&nbsp;p.yval &nbsp; &nbsp; = &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[10;2;1;4;9;20]</li>
+<li style="list-style-type: none">&nbsp;p.unit &nbsp; &nbsp; = 'einheit'</li>
+<li style="list-style-type: none">&nbsp;p.xunit &nbsp; &nbsp;= 'x-einheit'</li>
+<li style="list-style-type: none">&nbsp;p.yunit &nbsp; &nbsp;= 'y-einheit'</li>
+<li style="list-style-type: none">&nbsp;p.comment &nbsp;= 'Kommentar'</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none"></li>
+</span></ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+Fkt-Modul step-weise simulieren&#09;&#09;[<span style="font-family: monospace">dout,uout,cout] = mex_SIM_STEP_XXX(type,ti,din,uin,p);<br/>
+</span><span style="font-family: monospace"><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; type = 'i' &nbsp; init mit p<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'l' &nbsp; loop mit time(1) und din.xyname(1)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'d' &nbsp; beenden<br/>
+</span></body></html>

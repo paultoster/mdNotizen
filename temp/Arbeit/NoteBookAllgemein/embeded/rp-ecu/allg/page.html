@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>allg</title>
+</head><body><br/>
+http://frd2ahjg/svn/tze/Projects/ContiGuard/dbc-files/CruisingChauffeur/PHAD2018/System-CAN/System-CAN_PHAD2018.dbc<br/>
+<br/>
+<br/>
+Mi 08.11.2017 08:53<br/>
+<br/>
+Blinkeransteuerung Passat B8<br/>
+<br/>
+Liebe Kollegen,<br/>
+<br/>
+bisher hatten wir noch keine Blinkeransteuerung im B8 Passat um durch das Grid (oder eine andere Quelle) die Blinker ansteuern zu können.<br/>
+Jürgen hatte die Idee wie man das machen kann, ich habe nun die Gateway-Software dazu geschrieben.<br/>
+<br/>
+Was braucht man?<br/>
+Eine RPECU (Dana oder Miranda)<br/>
+Eine Quelle die die CAN Botschaft SaLatLongF auf dem System-CAN/Privat-CAN schickt<br/>
+<br/>
+Was muss gemacht werden?<br/>
+1) Den K-CAN vor dem SMLS (Schalter Modul Lenksäule) Steuergerät auftrennen.<br/>
+2) K-CAN (Fahrzeugseitig) &#09;&#09;an CAN0 der RPECU anschließen<br/>
+3) K-CAN (SMLS-seitig) mit 120Ohm &#09;an CAN1 der RPECU anschließen<br/>
+4) System-CAN/Privat-CAN &#09;&#09;an CAN2 der RPECU anschließen<br/>
+5) RPECU an KL15 anschließen<br/>
+<br/>
+Funktionsweise:<br/>
+Wird in der SaLatLongF Botschaft 'links', 'recht' oder 'hazard' (Warnblinken) angefordert werden die Blinker des Fahrzeugs entsprechend aktiviert/deaktiviert FALLS(!) zu diesem Zeitpunkt keine manuelle Blinkeransteuerung vorliegt.<br/>
+Liegt eine systeminitiierte Blinkeransteuerung vor und man möchte diese als Fahrer beenden, einfach in die Richtung des aktiven Blinkers 1x Tipp-Blinken (bei Warnblinken ist die Richtung egal), der Blinker geht dann sofort bis zur nächsten systeminitiierten Blinkeransteuerung (neue Anforderung) aus.<br/>
+Zum Übersteuern einer systeminitiierten Blinkeransteuerung einfach den Blinker betätigen.<br/>
+<br/>
+Für die SW-Developer:<br/>
+Um die Gateway SW zu bauen das Projekt "rpecu_ad_b8" aktualisieren und das TARGET_VEHICLE auf TRGT_B8_BLINKER definieren.<br/>
+SW in Eclipse bauen und DANA_RTOS_TC1793.elf aus "\rpecu_ad_b8\platform_sw\rpecu\iROM_DANA\" flashen, keine RTAS Module nötig.<br/>
+<br/>
+Viele Grüße<br/>
+Marian<br/>
+____________________<br/>
+<br/>
+<br/>
+<br/>
+Mo 27.03.2017 13:54<br/>
+<br/>
+Info von Marian<br/>
+<br/>
+Hallo zusammen,<br/>
+<br/>
+ich habe eine sub-Konfiguration für den 2015 im ad_demo Repository erstellt.<br/>
+Die Sub-Konfig macht den Code für die zusätzlich eingebaute DANA, die sich um SC13 und M2XPro kümmert.<br/>
+<br/>
+Dazu im Ordner "rpecu_ad_demo\project_config" im File "vehicle_type.h" das "TARGET_VEHICLE" auf "TRGT_TZ_2015_M2XPro" stellen.<br/>
+Im Eclipse Rechtsklick auf das Projekt &nbsp;"Index -&gt; Rebuild" nicht vergessen.<br/>
+<br/>
+...aber wahrscheinlich baut das eh niemand ausser mir :)<br/>
+</body></html>

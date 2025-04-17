@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>EBS</title>
+</head><body>B/-Passate mit MQB-Software<br/>
+<br/>
+<br/>
+SW auf MK100 flashen:<br/>
+<br/>
+<br/>
+<br/>
+- K-Line über Pegelwandler an PC anschliessen<br/>
+&nbsp; (K-Line-Kabel (ISOK) liegt hinten rechts am Rack) <br/>
+&nbsp; 12V anschliessen, Main an.<br/>
+<br/>
+- Programm "XMIT" starten<br/>
+- Heartbeat (Herzsymbol) anschalten<br/>
+- Conn-2 write drücken<br/>
+- Zündung einschalten bzw. Zündungswechsel durchführen<br/>
+- im LOG-Fenster Verbindung prüfen ("No errors found")<br/>
+- "N Flash" (in Liste linkes Fenster) durch Doppelklicken ausführen<br/>
+- Mit "OK" best.<br/>
+<br/>
+- Download der entsprechenden SW mit Rechtsklick, Senden an: "Download_347.bat" starten<br/>
+&nbsp; SW aus Ordnern SW/Serien SW/geänderte SW<br/>
+&nbsp; !!Geänderte SW: Version ...05.elf verwenden<br/>
+&nbsp; Serien SW: MQ6RAJ00307.elf<br/>
+- Command-Fenster öffnet sich, Download sollte beginnen.<br/>
+- Wenn Download fertig, mit Enter beenden, Fenster schliesst sich.<br/>
+<br/>
+- Zündung aus<br/>
+- NotAus aus<br/>
+- NotAus an<br/>
+<br/>
+- Zündung an<br/>
+- Kontrolle ob Fehlerlämpchen im Kombi alle aus.<br/>
+<br/>
+<br/>
+Batch-File: DownloadTool_TI_3.47.bat in SendTo Ordner mit dem richtigen Ziel einstellen und ausführen<br/>
+<br/>
+C:<br/>
+cd \DownloadTool_TI_3.47<br/>
+download.exe pvf %1 USB COM KLINE<br/>
+rem download.exe pvf %1 USB com4 KLINE<br/>
+rem download.exe pvf %1 KLINE com4<br/>
+cd..<br/>
+cl<br/>
+<br/>
+<br/>
+</body></html>

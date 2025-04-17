@@ -44,4 +44,6 @@ Etwas warme Milch zur Eigelbmasse geben, verrühren und dann die Mischung zur Mi
 
 Im vorgeheizten Ofen 30-35 Minuten backen. Herausnehmen und abkühlen lassen.
 
+Anstatt mit Puderzucker können auch ein paar dünne Zitronenscheiben in etwas Wasser (2 El) mit etwas Zucker (1 EL) und einem Schuss Limoncello gekocht auf den Kuchen garniert werden. 
+
 Zubereitungszeit: 25 Minuten, Wartezeit: 30 Minuten Backzeit: 30-35 Minuten

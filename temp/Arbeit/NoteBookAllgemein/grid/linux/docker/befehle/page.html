@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Befehle</title>
+</head><body>allgemein<br/>
+==================================================================================================<br/>
+docker ps -a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=&gt; zeigt die angelegen Container an<br/>
+docker images &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =&gt; zeigt die Images an (Mit Asuführen eines Images entsteht ein Container), geschieht ausserhalb von dokcer<br/>
+docker pull name &nbsp; &nbsp; &nbsp; =&gt; zeiht ein Image<br/>
+<br/>
+==================================================================================================<br/>
+1) Docker_get_started runterladen:<br/>
+<br/>
+$ git clone http://github.conti.de/CTZS/Docker_Get_Started Docker_Get_Started<br/>
+<br/>
+oder für Update./r&#09;<br/>
+<br/>
+$ git pull &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;im Verzeichnis<br/>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<br/>
+2) Docker Image runterladen aus Linux<br/>
+<br/>
+<div style="text-align: left"><span style="font-family: SFMono-Regular"><span style="font-size: 10pt">$ docker pull eu-test.artifactory.conti.de:5015/artifactory/c_chs_ctzs_docker_l/yadi-x86-base</span></span></div><span style="font-size: 10pt">&nbsp; &nbsp; &nbsp;image ziehen</span><br/>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<br/>
+3) Docker &nbsp;Starten:<br/>
+<br/>
+Gehe zu Docker_Get_strated/docker_scripts<br/>
+<br/>
+starten: <br/>
+<br/>
+./docker_container_run.sh base &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=&gt; [ubuntu_xenial:2018.02.28]root@570120a39d46:/&gt; <br/>
+<br/>
+[ubuntu_xenial:2018.02.28]root@570120a39d46:/&gt; exit &nbsp;stoppen<br/>
+<br/>
+cd /home/tftbe1/Grid/_build_TopView &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;$HOME geht nicht cd _b&#09;<br/>
+<br/>
+oder:<br/>
+<br/>
+./run_docker.sh mit &nbsp; &lt;source /home/tftbe1/Docker_Get_Started/docker_scripts/docker_container_run.sh base&gt;<br/>
+cd<br/>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<br/>
+4) cmake inDocker ac)<br/>
+<br/>
+<br/>
+&gt; cd /home/tftbe1/GRID &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cd ~/GRID or cd $HOME/GRID &nbsp; funktioniert nicht<br/>
+<br/>
+&gt; mkdir _buildTopView &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ProjectName z.B. TopView<br/>
+&nbsp; <br/>
+&gt; cd _buildTopView<br/>
+&nbsp; <br/>
+&gt; cmake ../src/ -DGRID_CURRENT_PROJECT=&lt;ProjectName&gt; -DGRID_BUILD_TESTS=&lt;ON|OFF&gt; -DGRID_BUILD_GUI=&lt;ON|OFF&gt; <ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"></li>
+<li style="list-style-type: none">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Options for &lt;ProjectName&gt;: ADDemo | IsaAcc | PeopleMover | Sense | TopView </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none">=&gt; TopView: &nbsp; cmake ../src -DGRID_CURRENT_PROJECT=TopView -DGRID_BUILD_TESTS=OFF -DGRID_BUILD_GUI=OFF</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">=&gt; HUD: &nbsp; cmake ../src -DGRID_CURRENT_PROJECT=HolisticUrbanDriving -DGRID_BUILD_TESTS=OFF -DGRID_BUILD_GUI=OFF</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li style="list-style-type: none"></li>
+</ul>
+</li>
+</ul>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<br/>
+&nbsp;5) compile und link<br/>
+&gt; make -j$(nproc) &nbsp;<br/>
+<br/>
+oder <br/>
+<br/>
+&gt; make modul &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(Dann wir auf einem Kern nacheinander kompiliert)<br/>
+&gt; make clean &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Löscht alle objs<br/>
+<br/>
+<br/>
+<br/>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<br/>
+6) Erweiterung mit shared libraries:<br/>
+<br/>
+Ich habe im VMPLayer mein Windows-Verzeichnis D:\GitGrid\Grid_xy als GRID in Linux eingebunden (siehe VMWare)<br/>
+<br/>
+Im Verzeichnis /home/tftbe1/Docker_Get_Started/docker_scripts/docker_container_run.sh habe ich folgende Änderung gemacht<br/>
+.<br/>
+.<br/>
+.<br/>
+MNT_V="--volume /mnt/hgfs/:/home/mounted_volumes"<br/>
+MNT_V2="--volume /mnt/hgfs/GRID:/home/tftbe1/GRID"<br/>
+DR_PAR="docker run -ti --device /dev/dri/card0 --device /dev/dri/renderD128 --env DISPLAY=${DISPLAY} --volume ${XAUTHORITY}:/tmp/Xauthority --env XAUTHORITY=/tmp/Xauthority --volume /tmp/.X11-unix/X0:/tmp/.X11-unix/X0"<br/>
+<br/>
+START_PARAS="$DR_PAR $USR_HOME $MNT_V $MNT_V2"<br/>
+.<br/>
+.<br/>
+.<br/>
+<br/>
+Dadurch wird ein zweites Volumen in Docker eingebunden .</body></html>

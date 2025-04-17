@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>FehlerCodes</title>
+</head><body><span style="font-family: monospace">typedef struct {<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; YawRate &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 00 */ &nbsp;/* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; PitchRate &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 01 */ &nbsp;/* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; RollRate &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 02 */ &nbsp;/* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; VxVehicle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 03 */ &nbsp;/* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AxVehicle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 04 */ &nbsp;/* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AyVehicle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 05 */ &nbsp;/* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AzVehicle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 06 */ &nbsp;/* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; OmegaWheel &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 07 */ &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; WheelPulse &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 08 */ &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; SteeringWheelAngle &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 09 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; SteeringWheelAngleSpeed &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 10 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriverSteeringTorque &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 11 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; EPSStatus &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 12 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; EPSInterfaceStatus &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 13 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_EPS_NOT_AVAILABLE &nbsp; (0x02) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; EPSMotorTorque &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 14 */ &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; RackSteerForce &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 15 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; VehicleDir &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 16 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; ActualGear &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 17 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AccelPedalTravel &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 18 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AccelPedalTravelVirt &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 19 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; AccelPedalState &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 20 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; EngineState &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 21 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveDemandState &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 22 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveTorqueAxle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 23 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveTorqueAxleMax &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 24 */ &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveDragTorqueAxleTOP &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 25 */ &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveDragTorqueAxleBOT &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 26 */ &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveDragTorqueAxleMax &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 27 */ &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; DriveTrainRatio &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 28 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; BrakeTorqueAxle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 29 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; BrakeDriverTorque &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 30 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; GMVStatus &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 31 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_GMV_NOT_AVAILABLE &nbsp; (0x02) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; IgnitionState &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; &nbsp; &nbsp; &nbsp; &nbsp; /* 32 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01) */<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; TimeStamp_ms &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 33 */ &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; Trajectory &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 34 */ &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* FCT_ERR_STATUS_TRAJ_TOO_MANY_POINTS &nbsp; (0x02) */<br/>
+<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; Hardware &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 35 */ &nbsp; /* FCT_ERR_STATUS_HARDWARE_STATE_OVERVOLTAGE &nbsp; &nbsp; &nbsp;(0x02)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_HARDWARE_STATE_UNDERVOLTAGE &nbsp; &nbsp; (0x04)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_HARDWARE_STATE_OVERTEMPERATURE &nbsp;(0x08)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_HARDWARE_STATE_UNDERTEMPERATURE (0x10)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; HADOFunc &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 36 */ &nbsp; /* FCT_ERR_STATUS_HADO_CAN_GATEWAY &nbsp; &nbsp; &nbsp;(0x02)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_HADO_CAN_TIMESTAMP &nbsp; &nbsp;(0x04)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; HADXFunc &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 37 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (0x01)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_HADX_CAN_GATEWAY &nbsp; &nbsp; &nbsp;(0x02)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_HADX_NO_ECBA_COMFORT &nbsp;(0x04)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_HADX_NO_ECBA &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(0x08)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; HADYFunc &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 38 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (0x01)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_HADY_CAN_GATEWAY &nbsp; &nbsp; &nbsp;(0x02)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_HADY_EPS_ERR &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(0x04)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; TRAJFunc &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 39 */ &nbsp; /* FCT_ERR_STATUS_TRAJ_CAN_FUNCTION &nbsp; &nbsp; (0x02)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_TRAJ_UNVOLLSTAENDIG &nbsp; (0x04)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; ECBAStatus &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 40 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (0x01)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_ECBA_COMFORT_NOT_AVAILABLE &nbsp;(0x02)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_ECBA_NOT_AVAILABLE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(0x04)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (0x20)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; BetrCtrl &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 41 */ &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) <br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; Fusi_VPU &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 42 */ &nbsp; /* FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) <br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+&nbsp; ui8_t &nbsp; &nbsp; &nbsp; BCU4 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; &nbsp; &nbsp; &nbsp; &nbsp; /* 43 */ &nbsp; /* FCT_ERR_STATUS_INVALID &nbsp; &nbsp; (0x01)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_TIMEOUT &nbsp; &nbsp; (0x20) <br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_CHECKSUM &nbsp; &nbsp;(0x40)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FCT_ERR_STATUS_COUNTER &nbsp; &nbsp; (0x80)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */<br/>
+} serr_t;<br/>
+</span></body></html>

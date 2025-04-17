@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>memo_zerodrag.rtf</string>
+  <key>nodeid</key><string>40787b23-fceb-472d-898e-12d8c26aeaae</string>
+  <key>modified_time</key><integer>1475227780</integer>
+  <key>version</key><integer>6</integer>
+  <key>payload_filename</key><string>memo_zerodrag.rtf</string>
+  <key>content_type</key><string>application/octet-stream</string>
+  <key>created_time</key><integer>1475227780</integer>
+  <key>order</key><integer>4</integer>
+</dict>
+</node>

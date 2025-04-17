@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>RoadModel</title>
+</head><body><br/>
+CW07: Di 19.02.2019 13:41-------------------------------------------------------------------------------------------------------------------<br/>
+<br/>
+Dear road model interface users,<br/>
+<br/>
+I’ve added a deprecated-warning to RoadModelInterface.h. Probably, some of your modules throw this compiler warning now:<br/>
+&nbsp;<br/>
+The old CRoadModelInterface class has its own data structure similar to structs::Road:RoadModelInterface for historical reasons.<br/>
+To use the helper methods of CRoadModelInterface, it was necessary to copy the data from pb::Road::RoadModelInterface or structs::Road:: RoadModelInterface to CRoadModelInterface.<br/>
+Since this is not very efficient, I’ve moved the helper methods from common/datatypes_proto/helper/Road/RoadModelInterface.h<br/>
+to the utilities_road_model library, where Daniel Dube and Thomas Lingenau already implemented RMI helper functions. <br/>
+The converted helper functions are directly using structs::Road::RoadModelInterface now.<br/>
+<br/>
+How can I get rid of the deprecated warnings?<br/>
+1.&#09;Delete all includes of common/datatypes_proto/helper/Road/RoadModelInterface.h<br/>
+2.&#09;Change your code and use structs::Road::RoadModelInterface/Road/Lane… instead of CRoadModelInterface/CRoad/CLane…<br/>
+3.&#09;Include common/Libraries/utilities_road_model/utilities_road_model/include/utilities_road_model/road_model/road_model_defs.h<br/>
+where you can find all enums. Adding the enums to the RoadModelInterface.proto was unfortunately no option. <br/>
+Too many castings would have been necessary in your code, e.g. when you’re working with road/lane properties.<br/>
+4.&#09;If you’re using old helper methods of RoadModelInterface.h, add utilities_road_model library to your project’s cmake.txt and make sure that there is no dependency to old proto_helper library (uses RoadModelInterface.h).<br/>
+You can find the converted helper methods under common/Libraries/utilities_road_model/utilities_road_model/include/utilities_road_model/road_model/road_model_helpfuncs.h<br/>
+5.&#09;If you’re using RMI visualisation, use visualization_rmi_struct library instead of old visualization_rmi library and include<br/>
+common/modules/visualisation/RmiStructVisu.h <br/>
+<br/>
+@RMI-Publishers:<br/>
+I’ve added signal “rmi_version” to RoadModelInterface.proto. Please set this signal with utilities_road_model::RMI_Version (road_model_defs.h).<br/>
+<br/>
+Additional Info:<br/>
+I had to switch off “treats warning as errors” for the following projects. After you’ve solved warning C4996, please reactivate /WX.<br/>
+ACCObjectIdentification<br/>
+ADEventLogger<br/>
+BackEndDataCollector<br/>
+IntelligentAcc<br/>
+LLMToRoadModelInterface<br/>
+ManeuverPlanner<br/>
+TaccConv<br/>
+TrafficLightApp<br/>
+VehiclePath2Rmi<br/>
+croads_rww<br/>
+croads_ssvw<br/>
+<br/>
+If you have any questions, please don’t hesitate to ask me.<br/>
+<br/>
+Best regards,<br/>
+<br/>
+Johannes Eck<br/>
+Advanced Engineering - Software &amp; Controls<br/>
+Systems &amp; Technology<br/>
+<br/>
+Continental<br/>
+Division Chassis &amp; Safety<br/>
+Guerickestr. 7, 60488 Frankfurt/Main, Germany<br/>
+<br/>
+Phone: +49 69 7603 6573<br/>
+Mobile: +49 151 64118016<br/>
+Fax: +49 69 7603 88 6573<br/>
+E-Mail: Johannes.Eck@continental-corporation.com<br/>
+<br/>
+&lt;$$402!&gt;<br/>
+<br/>
+</body></html>

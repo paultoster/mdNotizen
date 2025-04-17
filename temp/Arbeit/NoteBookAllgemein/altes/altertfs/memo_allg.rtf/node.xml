@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>memo_allg.rtf</string>
+  <key>nodeid</key><string>43ab7195-6ea3-42d3-9bd2-195ab8708513</string>
+  <key>modified_time</key><integer>1475227710</integer>
+  <key>version</key><integer>6</integer>
+  <key>payload_filename</key><string>memo_allg.rtf</string>
+  <key>content_type</key><string>application/octet-stream</string>
+  <key>created_time</key><integer>1475227710</integer>
+  <key>order</key><integer>1</integer>
+</dict>
+</node>

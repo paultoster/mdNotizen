@@ -1,0 +1,519 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0\fmodern Cambria;}{\f1\froman\fprq2\fcharset0 Times New Roman;}{\f2\fswiss\fprq2\fcharset0 Arial;}{\f3\fmodern\fprq1\fcharset0 Courier New;}{\f4\froman\fprq2\fcharset2 Symbol;}{\f5\froman\fprq2\fcharset0 Times;}{\f6\fnil\fcharset0 Courier New;}{\f7\fswiss\fprq2\fcharset0 System;}}
+{\colortbl ;\red23\green54\blue93;\red54\green95\blue145;\red79\green129\blue189;\red0\green0\blue0;\red0\green0\blue255;\red0\green0\blue187;\red0\green0\blue139;\red0\green255\blue255;\red153\green204\blue255;}
+{\*\generator Msftedit 5.41.21.2500;}\viewkind4\uc1\pard\lang1033\f0\fs52\par
+\cf1 python\cf0\par
+\par
+\cf2\b\fs28 1.1 re\cf0\b0\par
+\par
+\cf3\b\fs26 1.1.1 tut_kuchling\cf0\b0\par
+\par
+\cf4\f1\fs24\par
+\pard\sb100\sa100\qc\kerning36\b\f2\fs43 Regular Expression HOWTO\par
+\kerning0\f1\fs36 A.M. Kuchling\b0\fs24\par
+\f2 amk@amk.ca\f1\par
+\pard\sb100\sa100\b\f2\fs29 Abstract:\par
+\pard\b0\f1\fs24 This document is an introductory tutorial to using regular expressions in Python with the \f3\fs20 re\f1\fs24  module. It provides a gentler introduction than the corresponding section in the Library Reference. \par
+This document is available from \cf0\f2 http://www.amk.ca/python/howto\cf4\f1 . \par
+\pard\sb100\sa240\par
+\pard\sb100\sa100\b\f2\fs36 Contents \par
+\pard\b0\f4\fs20\'b7\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" }}{\fldrslt{\cf6\ul 1 Introduction}}}\cf4\ulnone\f1\fs24  \par
+\f4\fs20\'b7\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000300000000000000000" }}{\fldrslt{\cf6\ul 2 Simple Patterns}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000310000000000000000" }}{\fldrslt{\cf6\ul 2.1 Matching Characters}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000320000000000000000" }}{\fldrslt{\cf6\ul 2.2 Repeating Things}}}\cf4\ulnone\f1\fs24  \par
+\f4\fs20\'b7\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000400000000000000000" }}{\fldrslt{\cf6\ul 3 Using Regular Expressions}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000410000000000000000" }}{\fldrslt{\cf6\ul 3.1 Compiling Regular Expressions}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000420000000000000000" }}{\fldrslt{\cf6\ul 3.2 The Backslash Plague}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000430000000000000000" }}{\fldrslt{\cf6\ul 3.3 Performing Matches}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000440000000000000000" }}{\fldrslt{\cf6\ul 3.4 Module-Level Functions}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000450000000000000000" }}{\fldrslt{\cf6\ul 3.5 Compilation Flags}}}\cf4\ulnone\f1\fs24  \par
+\f4\fs20\'b7\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000500000000000000000" }}{\fldrslt{\cf6\ul 4 More Pattern Power}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000510000000000000000" }}{\fldrslt{\cf6\ul 4.1 More Metacharacters}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000520000000000000000" }}{\fldrslt{\cf6\ul 4.2 Grouping}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000530000000000000000" }}{\fldrslt{\cf6\ul 4.3 Non-capturing and Named Groups}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000540000000000000000" }}{\fldrslt{\cf6\ul 4.4 Lookahead Assertions}}}\cf4\ulnone\f1\fs24  \par
+\f4\fs20\'b7\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000600000000000000000" }}{\fldrslt{\cf6\ul 5 Modifying Strings}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000610000000000000000" }}{\fldrslt{\cf6\ul 5.1 Splitting Strings}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000620000000000000000" }}{\fldrslt{\cf6\ul 5.2 Search and Replace}}}\cf4\ulnone\f1\fs24  \par
+\f4\fs20\'b7\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000700000000000000000" }}{\fldrslt{\cf6\ul 6 Common Problems}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000710000000000000000" }}{\fldrslt{\cf6\ul 6.1 Use String Methods}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000720000000000000000" }}{\fldrslt{\cf6\ul 6.2 match() versus search()}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000730000000000000000" }}{\fldrslt{\cf6\ul 6.3 Greedy versus Non-Greedy}}}\cf4\ulnone\f1\fs24  \par
+\f3\fs20 o\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000740000000000000000" }}{\fldrslt{\cf6\ul 6.4 Not Using re.VERBOSE}}}\cf4\ulnone\f1\fs24  \par
+\f4\fs20\'b7\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000800000000000000000" }}{\fldrslt{\cf6\ul 7 Feedback}}}\cf4\ulnone\f1\fs24  \par
+\f4\fs20\'b7\tab\f1\fs24{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "SECTION000900000000000000000" }}{\fldrslt{\cf6\ul About this document ...}}}\cf4\ulnone\f1\fs24  \par
+\pard\sb100\sa100\kerning36\b\f2\fs43 1 Introduction \par
+\kerning0\b0\f1\fs24 The \f3\fs20 re\f1\fs24  module was added in Python 1.5, and provides Perl-style regular expression patterns. Earlier versions of Python came with the \f3\fs20 regex\f1\fs24  module, which provides Emacs-style patterns. Emacs-style patterns are slightly less readable and don't provide as many features, so there's not much reason to use the \f3\fs20 regex\f1\fs24  module when writing new code, though you might encounter old code that uses it. \par
+Regular expressions (or REs) are essentially a tiny, highly specialized programming language embedded inside Python and made available through the \f3\fs20 re\f1\fs24  module. Using this little language, you specify the rules for the set of possible strings that you want to match; this set might contain English sentences, or e-mail addresses, or TeX commands, or anything you like. You can then ask questions such as ``Does this string match the pattern?'', or ``Is there a match for the pattern anywhere in this string?''. You can also use REs to modify a string or to split it apart in various ways. \par
+Regular expression patterns are compiled into a series of bytecodes which are then executed by a matching engine written in C. For advanced use, it may be necessary to pay careful attention to how the engine will execute a given RE, and write the RE in a certain way in order to produce bytecode that runs faster. Optimization isn't covered in this document, because it requires that you have a good understanding of the matching engine's internals. \par
+The regular expression language is relatively small and restricted, so not all possible string processing tasks can be done using regular expressions. There are also tasks that \i can\i0  be done with regular expressions, but the expressions turn out to be very complicated. In these cases, you may be better off writing Python code to do the processing; while Python code will be slower than an elaborate regular expression, it will also probably be more understandable. \par
+\kerning36\b\f2\fs43 2 Simple Patterns \par
+\kerning0\b0\f1\fs24 We'll start by learning about the simplest possible regular expressions. Since regular expressions are used to operate on strings, we'll begin with the most common task: matching characters. \par
+For a detailed explanation of the computer science underlying regular expressions (deterministic and non-deterministic finite automata), you can refer to almost any textbook on writing compilers. \par
+\b\f2\fs36 2.1 Matching Characters \par
+\b0\f1\fs24 Most letters and characters will simply match themselves. For example, the regular expression \f3\fs20 test\f1\fs24  will match the string "\f3\fs20 test\f1\fs24 " exactly. (You can enable a case-insensitive mode that would let this RE match "\f3\fs20 Test\f1\fs24 " or "\f3\fs20 TEST\f1\fs24 " as well; more about this later.) \par
+There are exceptions to this rule; some characters are special, and don't match themselves. Instead, they signal that some out-of-the-ordinary thing should be matched, or they affect other portions of the RE by repeating them. Much of this document is devoted to discussing various metacharacters and what they do. \par
+Here's a complete list of the metacharacters; their meanings will be discussed in the rest of this HOWTO. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 . ^ $ * + ? \{ [ ] \\ | ( )\par
+\pard\sb100\sa100\cf4\f1\fs24 The first metacharacters we'll look at are "\f3\fs20 [\f1\fs24 " and "\f3\fs20 ]\f1\fs24 ". They're used for specifying a character class, which is a set of characters that you wish to match. Characters can be listed individually, or a range of characters can be indicated by giving two characters and separating them by a "\f3\fs20 -\f1\fs24 ". For example, \f3\fs20 [abc]\f1\fs24  will match any of the characters "\f3\fs20 a\f1\fs24 ", "\f3\fs20 b\f1\fs24 ", or "\f3\fs20 c\f1\fs24 "; this is the same as \f3\fs20 [a-c]\f1\fs24 , which uses a range to express the same set of characters. If you wanted to match only lowercase letters, your RE would be \f3\fs20 [a-z]\f1\fs24 . \par
+Metacharacters are not active inside classes. For example, \f3\fs20 [akm$]\f1\fs24  will match any of the characters "\f3\fs20 a\f1\fs24 ", "\f3\fs20 k\f1\fs24 ", "\f3\fs20 m\f1\fs24 ", or "\f3\fs20 $\f1\fs24 "; "\f3\fs20 $\f1\fs24 " is usually a metacharacter, but inside a character class it's stripped of its special nature. \par
+You can match the characters not within a range by \i complementing\i0  the set. This is indicated by including a "\f3\fs20 ^\f1\fs24 " as the first character of the class; "\f3\fs20 ^\f1\fs24 " elsewhere will simply match the "\f3\fs20 ^\f1\fs24 " character. For example, \f3\fs20 [^5]\f1\fs24  will match any character except "\f3\fs20 5\f1\fs24 ". \par
+Perhaps the most important metacharacter is the backslash, "\f3\fs20\\\f1\fs24 ". As in Python string literals, the backslash can be followed by various characters to signal various special sequences. It's also used to escape all the metacharacters so you can still match them in patterns; for example, if you need to match a "\f3\fs20 [\f1\fs24 " or "\f3\fs20\\\f1\fs24 ", you can precede them with a backslash to remove their special meaning: \f3\fs20\\[\f1\fs24  or \f3\fs20\\\\\f1\fs24 . \par
+Some of the special sequences beginning with "\f3\fs20\\\f1\fs24 " represent predefined sets of characters that are often useful, such as the set of digits, the set of letters, or the set of anything that isn't whitespace. The following predefined special sequences are available: \par
+\pard\f3\fs20\\d\f1\fs24  \par
+\pard\li720 Matches any decimal digit; this is equivalent to the class \f3\fs20 [0-9]\f1\fs24 . \par
+\pard\f3\fs20\\D\f1\fs24  \par
+\pard\li720 Matches any non-digit character; this is equivalent to the class \f3\fs20 [^0-9]\f1\fs24 . \par
+\pard\f3\fs20\\s\f1\fs24  \par
+\pard\li720 Matches any whitespace character; this is equivalent to the class \f3\fs20 [ \\t\\n\\r\\f\\v]\f1\fs24 . \par
+\pard\f3\fs20\\S\f1\fs24  \par
+\pard\li720 Matches any non-whitespace character; this is equivalent to the class \f3\fs20 [^ \\t\\n\\r\\f\\v]\f1\fs24 . \par
+\pard\f3\fs20\\w\f1\fs24  \par
+\pard\li720 Matches any alphanumeric character; this is equivalent to the class \f3\fs20 [a-zA-Z0-9_]\f1\fs24 . \par
+\pard\f3\fs20\\W\f1\fs24  \par
+\pard\li720 Matches any non-alphanumeric character; this is equivalent to the class \f3\fs20 [^a-zA-Z0-9_]\f1\fs24 . \par
+\pard\sb100\sa100 These sequences can be included inside a character class. For example, \f3\fs20 [\\s,.]\f1\fs24  is a character class that will match any whitespace character, or "\f3\fs20 ,\f1\fs24 " or "\f3\fs20 .\f1\fs24 ". \par
+The final metacharacter in this section is \f3\fs20 .\f1\fs24 . It matches anything except a newline character, and there's an alternate mode (\f3\fs20 re.DOTALL\f1\fs24 ) where it will match even a newline. "\f3\fs20 .\f1\fs24 " is often used where you want to match ``any character''. \par
+\b\f2\fs36 2.2 Repeating Things \par
+\b0\f1\fs24 Being able to match varying sets of characters is the first thing regular expressions can do that isn't already possible with the methods available on strings. However, if that was the only additional capability of regexes, they wouldn't be much of an advance. Another capability is that you can specify that portions of the RE must be repeated a certain number of times. \par
+The first metacharacter for repeating things that we'll look at is \f3\fs20 *\f1\fs24 . \f3\fs20 *\f1\fs24  doesn't match the literal character "\f3\fs20 *\f1\fs24 "; instead, it specifies that the previous character can be matched zero or more times, instead of exactly once. \par
+For example, \f3\fs20 ca*t\f1\fs24  will match "\f3\fs20 ct\f1\fs24 " (0 "\f3\fs20 a\f1\fs24 "characters), "\f3\fs20 cat\f1\fs24 " (1 "\f3\fs20 a\f1\fs24 "), "\f3\fs20 caaat\f1\fs24 " (3 "\f3\fs20 a\f1\fs24 "characters), and so forth. The RE engine has various internal limitations stemming from the size of C's \f3\fs20 int\f1\fs24  type, that will prevent it from matching over 2 billion "\f3\fs20 a\f1\fs24 " characters; you probably don't have enough memory to construct a string that large, so you shouldn't run into that limit. \par
+Repetitions such as \f3\fs20 *\f1\fs24  are \i greedy\i0 ; when repeating a RE, the matching engine will try to repeat it as many times as possible. If later portions of the pattern don't match, the matching engine will then back up and try again with few repetitions. \par
+A step-by-step example will make this more obvious. Let's consider the expression \f3\fs20 a[bcd]*b\f1\fs24 . This matches the letter "\f3\fs20 a\f1\fs24 ", zero or more letters from the class \f3\fs20 [bcd]\f1\fs24 , and finally ends with a "\f3\fs20 b\f1\fs24 ". Now imagine matching this RE against the string "\f3\fs20 abcbd\f1\fs24 ". \par
+\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx602\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1673\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10168\pard\intbl\qc\b\f2 Step\~\cell\pard\intbl Matched\~\cell Explanation\~\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx602\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1673\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10168\pard\intbl\qc\b0\f1 1\cell\pard\intbl\f3\fs20 a\f1\fs24\cell The \f3\fs20 a\f1\fs24  in the RE matches.\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx602\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1673\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10168\pard\intbl\qc 2\cell\pard\intbl\f3\fs20 abcbd\f1\fs24\cell The engine matches \f3\fs20 [bcd]*\f1\fs24 , going as far as it can, which is to the end of the string.\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx602\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1673\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10168\pard\intbl\qc 3\cell\pard\intbl\i Failure\i0\cell The engine tries to match \f3\fs20 b\f1\fs24 , but the current position is at the end of the string, so it fails.\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx602\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1673\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10168\pard\intbl\qc 4\cell\pard\intbl\f3\fs20 abcb\f1\fs24\cell Back up, so that \f3\fs20 [bcd]*\f1\fs24  matches one less character.\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx602\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1673\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10168\pard\intbl\qc 5\cell\pard\intbl\i Failure\i0\cell Try \f3\fs20 b\f1\fs24  again, but the current position is at the last character, which is a "\f3\fs20 d\f1\fs24 ".\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx602\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1673\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10168\pard\intbl\qc 6\cell\pard\intbl\f3\fs20 abc\f1\fs24\cell Back up again, so that \f3\fs20 [bcd]*\f1\fs24  is only matching "\f3\fs20 bc\f1\fs24 ".\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx602\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1673\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10168\pard\intbl\qc 6\cell\pard\intbl\f3\fs20 abcb\f1\fs24\cell Try \f3\fs20 b\f1\fs24  again. This time but the character at the current position is "\f3\fs20 b\f1\fs24 ", so it succeeds.\cell\row\pard\sb100\sa100 The end of the RE has now been reached, and it has matched "\f3\fs20 abcb\f1\fs24 ". This demonstrates how the matching engine goes as far as it can at first, and if no match is found it will then progressively back up and retry the rest of the RE again and again. It will back up until it has tried zero matches for \f3\fs20 [bcd]*\f1\fs24 , and if that subsequently fails, the engine will conclude that the string doesn't match the RE at all. \par
+Another repeating metacharacter is \f3\fs20 +\f1\fs24 , which matches one or more times. Pay careful attention to the difference between \f3\fs20 *\f1\fs24  and \f3\fs20 +\f1\fs24 ; \f3\fs20 *\f1\fs24  matches \i zero\i0  or more times, so whatever's being repeated may not be present at all, while \f3\fs20 +\f1\fs24  requires at least \i one\i0  occurrence. To use a similar example, \f3\fs20 ca+t\f1\fs24  will match "\f3\fs20 cat\f1\fs24 " (1 "\f3\fs20 a\f1\fs24 "), "\f3\fs20 caaat\f1\fs24 " (3 "\f3\fs20 a\f1\fs24 "'s), but won't match "\f3\fs20 ct\f1\fs24 ". \par
+There are two more repeating qualifiers. The question mark character, \f3\fs20 ?\f1\fs24 , matches either once or zero times; you can think of it as marking something as being optional. For example, \f3\fs20 home-?brew\f1\fs24  matches either "\f3\fs20 homebrew\f1\fs24 " or "\f3\fs20 home-brew\f1\fs24 ". \par
+The most complicated repeated qualifier is \f3\fs20\{\i\f5 m\i0\f3 ,\i\f5 n\i0\f3\}\f1\fs24 , where \i\f5 m\i0\f1  and \i\f5 n\i0\f1  are decimal integers. This qualifier means there must be at least \i\f5 m\i0\f1  repetitions, and at most \i\f5 n\i0\f1 . For example, \f3\fs20 a/\{1,3\}b\f1\fs24  will match "\f3\fs20 a/b\f1\fs24 ", "\f3\fs20 a//b\f1\fs24 ", and "\f3\fs20 a///b\f1\fs24 ". It won't match "\f3\fs20 ab\f1\fs24 ", which has no slashes, or "\f3\fs20 a////b\f1\fs24 ", which has four. \par
+You can omit either \i\f5 m\i0\f1  or \i\f5 n\i0\f1 ; in that case, a reasonable value is assumed for the missing value. Omitting \i\f5 m\i0\f1  is interpreted as a lower limit of 0, while omitting \i\f5 n\i0\f1  results in an upper bound of infinity -- actually, the 2 billion limit mentioned earlier, but that might as well be infinity. \par
+Readers of a reductionist bent may notice that the three other qualifiers can all be expressed using this notation. \f3\fs20\{0,\}\f1\fs24  is the same as \f3\fs20 *\f1\fs24 , \f3\fs20\{1,\}\f1\fs24  is equivalent to \f3\fs20 +\f1\fs24 , and \f3\fs20\{0,1\}\f1\fs24  is the same as \f3\fs20 ?\f1\fs24 . It's better to use \f3\fs20 *\f1\fs24 , \f3\fs20 +\f1\fs24 , or \f3\fs20 ?\f1\fs24  when you can, simply because they're shorter and easier to read. \par
+\kerning36\b\f2\fs43 3 Using Regular Expressions \par
+\kerning0\b0\f1\fs24 Now that we've looked at some simple regular expressions, how do we actually use them in Python? The \f3\fs20 re\f1\fs24  module provides an interface to the regular expression engine, allowing you to compile REs into objects and then perform matches with them. \par
+\b\f2\fs36 3.1 Compiling Regular Expressions \par
+\b0\f1\fs24 Regular expressions are compiled into \f3\fs20 RegexObject\f1\fs24  instances, which have methods for various operations such as searching for pattern matches or performing string substitutions. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> import re\par
+>>> p = re.compile('ab*')\par
+>>> print p\par
+<re.RegexObject instance at 80b4150>\par
+\pard\sb100\sa100\cf4\fs20 re.compile()\f1\fs24  also accepts an optional \i\f5 flags\i0\f1  argument, used to enable various special features and syntax variations. We'll go over the available settings later, but for now a single example will do: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile('ab*', re.IGNORECASE)\par
+\pard\sb100\sa100\cf4\f1\fs24 The RE is passed to \f3\fs20 re.compile()\f1\fs24  as a string. REs are handled as strings because regular expressions aren't part of the core Python language, and no special syntax was created for expressing them. (There are applications that don't need REs at all, so there's no need to bloat the language specification by including them.) Instead, the \f3\fs20 re\f1\fs24  module is simply a C extension module included with Python, just like the \f3\fs20 socket\f1\fs24  or \f3\fs20 zlib\f1\fs24  module. \par
+Putting REs in strings keeps the Python language simpler, but has one disadvantage which is the topic of the next section. \par
+\b\f2\fs36 3.2 The Backslash Plague \par
+\b0\f1\fs24 As stated earlier, regular expressions use the backslash character ("\f3\fs20\\\f1\fs24 ") to indicate special forms or to allow special characters to be used without invoking their special meaning. This conflicts with Python's usage of the same character for the same purpose in string literals. \par
+Let's say you want to write a RE that matches the string "\f3\fs20\\section\f1\fs24 ", which might be found in a L\super\fs20 A\nosupersub\fs24 T\fs20 E\fs24 X file. To figure out what to write in the program code, start with the desired string to be matched. Next, you must escape any backslashes and other metacharacters by preceding them with a backslash, resulting in the string "\f3\fs20\\\\section\f1\fs24 ". The resulting string that must be passed to \f3\fs20 re.compile()\f1\fs24  must be \f3\fs20\\\\section\f1\fs24 . However, to express this as a Python string literal, both backslashes must be escaped \i again\i0 . \par
+\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1576\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx5332\pard\intbl\qc\b\f2 Characters\~\cell\pard\intbl Stage\~\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1576\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx5332\pard\intbl\qc\b0\f3\fs20\\section\f1\fs24\cell\pard\intbl Text string to be matched\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1576\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx5332\pard\intbl\qc\f3\fs20\\\\section\f1\fs24\cell\pard\intbl Escaped backslash for \f3\fs20 re.compile\f1\fs24\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1576\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx5332\pard\intbl\qc\f3\fs20 "\\\\\\\\section"\f1\fs24\cell\pard\intbl Escaped backslashes for a string literal\cell\row\pard\sb100\sa100 In short, to match a literal backslash, one has to write \f3\fs20 '\\\\\\\\'\f1\fs24  as the RE string, because the regular expression must be "\f3\fs20\\\\\f1\fs24 ", and each backslash must be expressed as "\f3\fs20\\\\\f1\fs24 " inside a regular Python string literal. In REs that feature backslashes repeatedly, this leads to lots of repeated backslashes and makes the resulting strings difficult to understand. \par
+The solution is to use Python's raw string notation for regular expressions; backslashes are not handled in any special way in a string literal prefixed with "\f3\fs20 r\f1\fs24 ", so \f3\fs20 r"\\n"\f1\fs24  is a two-character string containing "\f3\fs20\\\f1\fs24 " and "\f3\fs20 n\f1\fs24 ", while \f3\fs20 "\\n"\f1\fs24  is a one-character string containing a newline. Frequently regular expressions will be expressed in Python code using this raw string notation. \par
+\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1736\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3207\pard\intbl\qc\b\f2 Regular String\~\cell Raw string\~\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1736\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3207\pard\intbl\qc\b0\f3\fs20 "ab*"\f1\fs24\cell\f3\fs20 r"ab*"\f1\fs24\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1736\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3207\pard\intbl\qc\f3\fs20 "\\\\\\\\section"\f1\fs24\cell\f3\fs20 r"\\\\section"\f1\fs24\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1736\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3207\pard\intbl\qc\f3\fs20 "\\\\w+\\\\s+\\\\1"\f1\fs24\cell\f3\fs20 r"\\w+\\s+\\1"\f1\fs24\cell\row\pard\sb100\sa100\b\f2\fs36 3.3 Performing Matches \par
+\pard\b0\f1\fs24 Once you have an object representing a compiled regular expression, what do you do with it? \f3\fs20 RegexObject\f1\fs24  instances have several methods and attributes. Only the most significant ones will be covered here; consult {\field{\*\fldinst{HYPERLINK "http://www.python.org/doc/lib/module-re.html" }}{\fldrslt{\cf6\ul the Library Reference}}}\cf4\ulnone\f1\fs24  for a complete listing. \par
+\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9111\pard\intbl\qc\b\f2 Method/Attribute\~\cell\pard\intbl Purpose\~\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9111\pard\intbl\qc\b0\f3\fs20 match()\f1\fs24\cell\pard\intbl Determine if the RE matches at the beginning of the string.\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9111\pard\intbl\qc\f3\fs20 search()\f1\fs24\cell\pard\intbl Scan through a string, looking for any location where this RE matches.\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9111\pard\intbl\qc\f3\fs20 findall()\f1\fs24\cell\pard\intbl Find all substrings where the RE matches, and returns them as a list.\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9111\pard\intbl\qc\f3\fs20 finditer()\f1\fs24\cell\pard\intbl Find all substrings where the RE matches, and returns them as an iterator.\cell\row\pard\sb100\sa100\f3\fs20 match()\f1\fs24  and \f3\fs20 search()\f1\fs24  return \f3\fs20 None\f1\fs24  if no match can be found. If they're successful, a \f3\fs20 MatchObject\f1\fs24  instance is returned, containing information about the match: where it starts and ends, the substring it matched, and more. \par
+\pard You can learn about this by interactively experimenting with the \f3\fs20 re\f1\fs24  module. If you have Tkinter available, you may also want to look at \f2 Tools/scripts/redemo.py\f1 , a demonstration program included with the Python distribution. It allows you to enter REs and strings, and displays whether the RE matches or fails. \f2 redemo.py\f1  can be quite useful when trying to debug a complicated RE. Phil Schwartz's {\field{\*\fldinst{HYPERLINK "http://kodos.sourceforge.net" }}{\fldrslt{\cf6\ul Kodos}}}\cf4\ulnone\f1\fs24  is also an interactive tool for developing and testing RE patterns. This HOWTO will use the standard Python interpreter for its examples. \par
+First, run the Python interpreter, import the \f3\fs20 re\f1\fs24  module, and compile a RE: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 Python 2.2.2 (#1, Feb 10 2003, 12:57:01)\par
+>>> import re\par
+>>> p = re.compile('[a-z]+')\par
+>>> p\par
+<_sre.SRE_Pattern object at 80c3c28>\par
+\pard\sb100\sa100\cf4\f1\fs24 Now, you can try matching various strings against the RE \f3\fs20 [a-z]+\f1\fs24 . An empty string shouldn't match at all, since \f3\fs20 +\f1\fs24  means 'one or more repetitions'. \f3\fs20 match()\f1\fs24  should return \f3\fs20 None\f1\fs24  in this case, which will cause the interpreter to print no output. You can explicitly print the result of \f3\fs20 match()\f1\fs24  to make this clear. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p.match("")\par
+>>> print p.match("")\par
+None\par
+\pard\sb100\sa100\cf4\f1\fs24 Now, let's try it on a string that it should match, such as "\f3\fs20 tempo\f1\fs24 ". In this case, \f3\fs20 match()\f1\fs24  will return a \f3\fs20 MatchObject\f1\fs24 , so you should store the result in a variable for later use. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> m = p.match( 'tempo')\par
+>>> print m\par
+<_sre.SRE_Match object at 80c4f68>\par
+\pard\sb100\sa100\cf4\f1\fs24 Now you can query the \f3\fs20 MatchObject\f1\fs24  for information about the matching string. \f3\fs20 MatchObject\f1\fs24  instances also have several methods and attributes; the most important ones are: \par
+\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8104\pard\intbl\qc\b\f2 Method/Attribute\~\cell\pard\intbl Purpose\~\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8104\pard\intbl\qc\b0\f3\fs20 group()\f1\fs24\cell\pard\intbl Return the string matched by the RE\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8104\pard\intbl\qc\f3\fs20 start()\f1\fs24\cell\pard\intbl Return the starting position of the match\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8104\pard\intbl\qc\f3\fs20 end()\f1\fs24\cell\pard\intbl Return the ending position of the match\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8104\pard\intbl\qc\f3\fs20 span()\f1\fs24\cell\pard\intbl Return a tuple containing the (start, end) positions of the match\cell\row\pard\sb100\sa100 Trying these methods will soon clarify their meaning: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> m.group()\par
+'tempo'\par
+>>> m.start(), m.end()\par
+(0, 5)\par
+>>> m.span()\par
+(0, 5)\par
+\pard\sb100\sa100\cf4\fs20 group()\f1\fs24  returns the substring that was matched by the RE. \f3\fs20 start()\f1\fs24  and \f3\fs20 end()\f1\fs24  return the starting and ending index of the match. \f3\fs20 span()\f1\fs24  returns both start and end indexes in a single tuple. Since the \f3\fs20 match\f1\fs24  method only checks if the RE matches at the start of a string, \f3\fs20 start()\f1\fs24  will always be zero. However, the \f3\fs20 search\f1\fs24  method of \f3\fs20 RegexObject\f1\fs24  instances scans through the string, so the match may not start at zero in that case. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> print p.match('::: message')\par
+None\par
+>>> m = p.search('::: message') ; print m\par
+<re.MatchObject instance at 80c9650>\par
+>>> m.group()\par
+'message'\par
+>>> m.span()\par
+(4, 11)\par
+\pard\sb100\sa100\cf4\f1\fs24 In actual programs, the most common style is to store the \f3\fs20 MatchObject\f1\fs24  in a variable, and then check if it was \f3\fs20 None\f1\fs24 . This usually looks like: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 p = re.compile( ... )\par
+m = p.match( 'string goes here' )\par
+if m:\par
+    print 'Match found: ', m.group()\par
+else:\par
+    print 'No match'\par
+\pard\sb100\sa100\cf4\f1\fs24 Two \f3\fs20 RegexObject\f1\fs24  methods return all of the matches for a pattern. \f3\fs20 findall()\f1\fs24  returns a list of matching strings: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile('\\d+')\par
+>>> p.findall('12 drummers drumming, 11 pipers piping, 10 lords a-leaping')\par
+['12', '11', '10']\par
+\pard\sb100\sa100\cf4\fs20 findall()\f1\fs24  has to create the entire list before it can be returned as the result. In Python 2.2, the \f3\fs20 finditer()\f1\fs24  method is also available, returning a sequence of \f3\fs20 MatchObject\f1\fs24  instances as an iterator. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> iterator = p.finditer('12 drummers drumming, 11 ... 10 ...')\par
+>>> iterator\par
+<callable-iterator object at 0x401833ac>\par
+>>> for match in iterator:\par
+...     print match.span()\par
+...\par
+(0, 2)\par
+(22, 24)\par
+(29, 31)\par
+\pard\sb100\sa100\cf4\b\f2\fs36 3.4 Module-Level Functions \par
+\b0\f1\fs24 You don't have to produce a \f3\fs20 RegexObject\f1\fs24  and call its methods; the \f3\fs20 re\f1\fs24  module also provides top-level functions called \f3\fs20 match()\f1\fs24 , \f3\fs20 search()\f1\fs24 , \f3\fs20 sub()\f1\fs24 , and so forth. These functions take the same arguments as the corresponding \f3\fs20 RegexObject\f1\fs24  method, with the RE string added as the first argument, and still return either \f3\fs20 None\f1\fs24  or a \f3\fs20 MatchObject\f1\fs24  instance. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> print re.match(r'From\\s+', 'Fromage amk')\par
+None\par
+>>> re.match(r'From\\s+', 'From amk Thu May 14 19:12:10 1998')\par
+<re.MatchObject instance at 80c5978>\par
+\pard\sb100\sa100\cf4\f1\fs24 Under the hood, these functions simply produce a \f3\fs20 RegexObject\f1\fs24  for you and call the appropriate method on it. They also store the compiled object in a cache, so future calls using the same RE are faster. \par
+Should you use these module-level functions, or should you get the \f3\fs20 RegexObject\f1\fs24  and call its methods yourself? That choice depends on how frequently the RE will be used, and on your personal coding style. If a RE is being used at only one point in the code, then the module functions are probably more convenient. If a program contains a lot of regular expressions, or re-uses the same ones in several locations, then it might be worthwhile to collect all the definitions in one place, in a section of code that compiles all the REs ahead of time. To take an example from the standard library, here's an extract from \f2 xmllib.py\f1 : \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 ref = re.compile( ... )\par
+entityref = re.compile( ... )\par
+charref = re.compile( ... )\par
+starttagopen = re.compile( ... )\par
+\pard\sb100\sa100\cf4\f1\fs24 I generally prefer to work with the compiled object, even for one-time uses, but few people will be as much of a purist about this as I am. \par
+\b\f2\fs36 3.5 Compilation Flags \par
+\b0\f1\fs24 Compilation flags let you modify some aspects of how regular expressions work. Flags are available in the \f3\fs20 re\f1\fs24  module under two names, a long name such as \f3\fs20 IGNORECASE\f1\fs24 , and a short, one-letter form such as \f3\fs20 I\f1\fs24 . (If you're familiar with Perl's pattern modifiers, the one-letter forms use the same letters; the short form of \f3\fs20 re.VERBOSE\f1\fs24  is \f3\fs20 re.X\f1\fs24 , for example.) Multiple flags can be specified by bitwise OR-ing them; \f3\fs20 re.I | re.M\f1\fs24  sets both the \f3\fs20 I\f1\fs24  and \f3\fs20 M\f1\fs24  flags, for example. \par
+Here's a table of the available flags, followed by a more detailed explanation of each one. \par
+\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1456\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9110\pard\intbl\qc\b\f2 Flag\~\cell\pard\intbl Meaning\~\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1456\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9110\pard\intbl\qc\b0\f3\fs20 DOTALL\f1\fs24 , \f3\fs20 S\f1\fs24\cell\pard\intbl Make \f3\fs20 .\f1\fs24  match any character, including newlines\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1456\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9110\pard\intbl\qc\f3\fs20 IGNORECASE\f1\fs24 , \f3\fs20 I\f1\fs24\cell\pard\intbl Do case-insensitive matches\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1456\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9110\pard\intbl\qc\f3\fs20 LOCALE\f1\fs24 , \f3\fs20 L\f1\fs24\cell\pard\intbl Do a locale-aware match\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1456\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9110\pard\intbl\qc\f3\fs20 MULTILINE\f1\fs24 , \f3\fs20 M\f1\fs24\cell\pard\intbl Multi-line matching, affecting \f3\fs20 ^\f1\fs24  and \f3\fs20 $\f1\fs24\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx1456\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9110\pard\intbl\qc\f3\fs20 VERBOSE\f1\fs24 , \f3\fs20 X\f1\fs24\cell\pard\intbl Enable verbose REs, which can be organized more cleanly and understandably.\cell\row\pard\b\f3\fs20 I\b0\f1\fs24  \par
+\b\f3\fs20 IGNORECASE\b0\f1\fs24  \par
+\pard\li720 Perform case-insensitive matching; character class and literal strings will match letters by ignoring case. For example, \f3\fs20 [A-Z]\f1\fs24  will match lowercase letters, too, and \f3\fs20 Spam\f1\fs24  will match "\f3\fs20 Spam\f1\fs24 ", "\f3\fs20 spam\f1\fs24 ", or "\f3\fs20 spAM\f1\fs24 ". This lowercasing doesn't take the current locale into account; it will if you also set the \f3\fs20 LOCALE\f1\fs24  flag. \par
+\pard\b\f3\fs20 L\b0\f1\fs24  \par
+\b\f3\fs20 LOCALE\b0\f1\fs24  \par
+\pard\li720 Make \f3\fs20\\w\f1\fs24 , \f3\fs20\\W\f1\fs24 , \f3\fs20\\b\f1\fs24 , and \f3\fs20\\B\f1\fs24 , dependent on the current locale. \par
+\pard\li720\sb100\sa100 Locales are a feature of the C library intended to help in writing programs that take account of language differences. For example, if you're processing French text, you'd want to be able to write \f3\fs20\\w+\f1\fs24  to match words, but \f3\fs20\\w\f1\fs24  only matches the character class \f3\fs20 [A-Za-z]\f1\fs24 ; it won't match "\f3\fs20\'e9\f1\fs24 " or "\f3\fs20\'e7\f1\fs24 ". If your system is configured properly and a French locale is selected, certain C functions will tell the program that "\f3\fs20\'e9\f1\fs24 " should also be considered a letter. Setting the \f3\fs20 LOCALE\f1\fs24  flag when compiling a regular expression will cause the resulting compiled object to use these C functions for \f3\fs20\\w\f1\fs24 ; this is slower, but also enables \f3\fs20\\w+\f1\fs24  to match French words as you'd expect. \par
+\pard\b\f3\fs20 M\b0\f1\fs24  \par
+\b\f3\fs20 MULTILINE\b0\f1\fs24  \par
+(\f3\fs20 ^\f1\fs24  and \f3\fs20 $\f1\fs24  haven't been explained yet; they'll be introduced in section\~{\field{\*\fldinst{HYPERLINK "http://www.amk.ca/python/howto/regex/regex.html" \\\\\\\\l "more-metacharacters" }}{\fldrslt{\cf6\ul 4.1}}}\cf4\ulnone\f1\fs24 .) \par
+\pard\li720\sb100\sa100 Usually \f3\fs20 ^\f1\fs24  matches only at the beginning of the string, and \f3\fs20 $\f1\fs24  matches only at the end of the string and immediately before the newline (if any) at the end of the string. When this flag is specified, \f3\fs20 ^\f1\fs24  matches at the beginning of the string and at the beginning of each line within the string, immediately following each newline. Similarly, the \f3\fs20 $\f1\fs24  metacharacter matches either at the end of the string and at the end of each line (immediately preceding each newline). \par
+\pard\b\f3\fs20 S\b0\f1\fs24  \par
+\b\f3\fs20 DOTALL\b0\f1\fs24  \par
+\pard\li720 Makes the "\f3\fs20 .\f1\fs24 " special character match any character at all, including a newline; without this flag, "\f3\fs20 .\f1\fs24 " will match anything \i except\i0  a newline. \par
+\pard\b\f3\fs20 X\b0\f1\fs24  \par
+\b\f3\fs20 VERBOSE\b0\f1\fs24  \par
+\pard\li720 This flag allows you to write regular expressions that are more readable by granting you more flexibility in how you can format them. When this flag has been specified, whitespace within the RE string is ignored, except when the whitespace is in a character class or preceded by an unescaped backslash; this lets you organize and indent the RE more clearly. It also enables you to put comments within a RE that will be ignored by the engine; comments are marked by a "\f3\fs20 #\f1\fs24 " that's neither in a character class or preceded by an unescaped backslash. \par
+\pard\li720\sb100\sa100 For example, here's a RE that uses \f3\fs20 re.VERBOSE\f1\fs24 ; see how much easier it is to read? \par
+\pard\li1200\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 charref = re.compile(r"""\par
+ &[#]\tab\tab      # Start of a numeric entity reference\par
+ (\par
+   [0-9]+[^0-9]      # Decimal form\par
+   | 0[0-7]+[^0-7]   # Octal form\par
+   | x[0-9a-fA-F]+[^0-9a-fA-F] # Hexadecimal form\par
+ )\par
+""", re.VERBOSE)\par
+\pard\li720\sb100\sa100\cf4\f1\fs24 Without the verbose setting, the RE would look like this: \par
+\pard\li1200\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 charref = re.compile("&#([0-9]+[^0-9]"\par
+                     "|0[0-7]+[^0-7]"\par
+                     "|x[0-9a-fA-F]+[^0-9a-fA-F])")\par
+\pard\li720\sb100\sa100\cf4\f1\fs24 In the above example, Python's automatic concatenation of string literals has been used to break up the RE into smaller pieces, but it's still more difficult to understand than the version using \f3\fs20 re.VERBOSE\f1\fs24 . \par
+\pard\sb100\sa100\kerning36\b\f2\fs43 4 More Pattern Power \par
+\kerning0\b0\f1\fs24 So far we've only covered a part of the features of regular expressions. In this section, we'll cover some new metacharacters, and how to use groups to retrieve portions of the text that was matched. \par
+\b\f2\fs36\~ \line 4.1 More Metacharacters \par
+\b0\f1\fs24 There are some metacharacters that we haven't covered yet. Most of them will be covered in this section. \par
+Some of the remaining metacharacters to be discussed are \i zero-width assertions\i0 . They don't cause the engine to advance through the string; instead, they consume no characters at all, and simply succeed or fail. For example, \f3\fs20\\b\f1\fs24  is an assertion that the current position is located at a word boundary; the position isn't changed by the \f3\fs20\\b\f1\fs24  at all. This means that zero-width assertions should never be repeated, because if they match once at a given location, they can obviously be matched an infinite number of times. \par
+\pard\f3\fs20 |\f1\fs24  \par
+\pard\li720 Alternation, or the ``or'' operator. If A and B are regular expressions, \f3\fs20 A|B\f1\fs24  will match any string that matches either "\f3\fs20 A\f1\fs24 " or "\f3\fs20 B\f1\fs24 ". \f3\fs20 |\f1\fs24  has very low precedence in order to make it work reasonably when you're alternating multi-character strings. \f3\fs20 Crow|Servo\f1\fs24  will match either "\f3\fs20 Crow\f1\fs24 " or "\f3\fs20 Servo\f1\fs24 ", not "\f3\fs20 Cro\f1\fs24 ", a "\f3\fs20 w\f1\fs24 " or an "\f3\fs20 S\f1\fs24 ", and "\f3\fs20 ervo\f1\fs24 ". \par
+\pard\li720\sb100\sa100 To match a literal "\f3\fs20 |\f1\fs24 ", use \f3\fs20\\|\f1\fs24 , or enclose it inside a character class, as in \f3\fs20 [|]\f1\fs24 . \par
+\pard\f3\fs20 ^\f1\fs24  \par
+\pard\li720 Matches at the beginning of lines. Unless the \f3\fs20 MULTILINE\f1\fs24  flag has been set, this will only match at the beginning of the string. In \f3\fs20 MULTILINE\f1\fs24  mode, this also matches immediately after each newline within the string. \par
+\pard\li720\sb100\sa100 For example, if you wish to match the word "\f3\fs20 From\f1\fs24 " only at the beginning of a line, the RE to use is \f3\fs20 ^From\f1\fs24 . \par
+\pard\li1200\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> print re.search('^From', 'From Here to Eternity')\par
+<re.MatchObject instance at 80c1520>\par
+>>> print re.search('^From', 'Reciting From Memory')\par
+None\par
+\pard\cf4\fs20 $\f1\fs24  \par
+\pard\li720 Matches at the end of a line, which is defined as either the end of the string, or any location followed by a newline character. \par
+\pard\li1200\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> print re.search('\}$', '\{block\}')\par
+<re.MatchObject instance at 80adfa8>\par
+>>> print re.search('\}$', '\{block\} ')\par
+None\par
+>>> print re.search('\}$', '\{block\}\\n')\par
+<re.MatchObject instance at 80adfa8>\par
+\pard\li720\sb100\sa100\cf4\f1\fs24 To match a literal "\f3\fs20 $\f1\fs24 ", use \f3\fs20\\$\f1\fs24  or enclose it inside a character class, as in \f3\fs20 [$]\f1\fs24 . \par
+\pard\f3\fs20\\A\f1\fs24  \par
+\pard\li720 Matches only at the start of the string. When not in \f3\fs20 MULTILINE\f1\fs24  mode, \f3\fs20\\A\f1\fs24  and \f3\fs20 ^\f1\fs24  are effectively the same. In \f3\fs20 MULTILINE\f1\fs24  mode, however, they're different; \f3\fs20\\A\f1\fs24  still matches only at the beginning of the string, but \f3\fs20 ^\f1\fs24  may match at any location inside the string that follows a newline character. \par
+\pard\f3\fs20\\Z\f1\fs24  \par
+\pard\li720 Matches only at the end of the string. \par
+\pard\f3\fs20\\b\f1\fs24  \par
+\pard\li720 Word boundary. This is a zero-width assertion that matches only at the beginning or end of a word. A word is defined as a sequence of alphanumeric characters, so the end of a word is indicated by whitespace or a non-alphanumeric character. \par
+\pard\li720\sb100\sa100 The following example matches "\f3\fs20 class\f1\fs24 " only when it's a complete word; it won't match when it's contained inside another word. \par
+\pard\li1200\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile(r'\\bclass\\b')\par
+>>> print p.search('no class at all')\par
+<re.MatchObject instance at 80c8f28>\par
+>>> print p.search('the declassified algorithm')\par
+None\par
+>>> print p.search('one subclass is')\par
+None\par
+\pard\li720\sb100\sa100\cf4\f1\fs24 There are two subtleties you should remember when using this special sequence. First, this is the worst collision between Python's string literals and regular expression sequences. In Python's string literals, "\f3\fs20\\b\f1\fs24 " is the backspace character, ASCII value 8. If you're not using raw strings, then Python will convert the "\f3\fs20\\b\f1\fs24 " to a backspace, and your RE won't match as you expect it to. The following example looks the same as our previous RE, but omits the "\f3\fs20 r\f1\fs24 " in front of the RE string. \par
+\pard\li1200\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile('\\bclass\\b')\par
+>>> print p.search('no class at all')\par
+None\par
+>>> print p.search('\\b' + 'class' + '\\b')  \par
+<re.MatchObject instance at 80c3ee0>\par
+\pard\li720\sb100\sa100\cf4\f1\fs24 Second, inside a character class, where there's no use for this assertion, \f3\fs20\\b\f1\fs24  represents the backspace character, for compatibility with Python's string literals. \par
+\pard\f3\fs20\\B\f1\fs24  \par
+\pard\li720 Another zero-width assertion, this is the opposite of \f3\fs20\\b\f1\fs24 , only matching when the current position is not at a word boundary. \par
+\pard\sb100\sa100\b\f2\fs36 4.2 Grouping \par
+\b0\f1\fs24 Frequently you need to obtain more information than just whether the RE matched or not. Regular expressions are often used to dissect strings by writing a RE divided into several subgroups which match different components of interest. For example, an RFC-822 header line is divided into a header name and a value, separated by a "\f3\fs20 :\f1\fs24 ". This can be handled by writing a regular expression which matches an entire header line, and has one group which matches the header name, and another group which matches the header's value. \par
+Groups are marked by the "\f3\fs20 (\f1\fs24 ", "\f3\fs20 )\f1\fs24 " metacharacters. "\f3\fs20 (\f1\fs24 " and "\f3\fs20 )\f1\fs24 " have much the same meaning as they do in mathematical expressions; they group together the expressions contained inside them. For example, you can repeat the contents of a group with a repeating qualifier, such as \f3\fs20 *\f1\fs24 , \f3\fs20 +\f1\fs24 , \f3\fs20 ?\f1\fs24 , or \f3\fs20\{\i\f5 m\i0\f3 ,\i\f5 n\i0\f3\}\f1\fs24 . For example, \f3\fs20 (ab)*\f1\fs24  will match zero or more repetitions of "\f3\fs20 ab\f1\fs24 ". \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\lang1031\f3\fs22 >>> p = re.compile('(ab)*')\par
+\lang1033 >>> print p.match('ababababab').span()\par
+(0, 10)\par
+\pard\sb100\sa100\cf4\f1\fs24 Groups indicated with "\f3\fs20 (\f1\fs24 ", "\f3\fs20 )\f1\fs24 " also capture the starting and ending index of the text that they match; this can be retrieved by passing an argument to \f3\fs20 group()\f1\fs24 , \f3\fs20 start()\f1\fs24 , \f3\fs20 end()\f1\fs24 , and \f3\fs20 span()\f1\fs24 . Groups are numbered starting with 0. Group 0 is always present; it's the whole RE, so \f3\fs20 MatchObject\f1\fs24  methods all have group 0 as their default argument. Later we'll see how to express groups that don't capture the span of text that they match. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile('(a)b')\par
+>>> m = p.match('ab')\par
+>>> m.group()\par
+'ab'\par
+>>> m.group(0)\par
+'ab'\par
+\pard\sb100\sa100\cf4\f1\fs24 Subgroups are numbered from left to right, from 1 upward. Groups can be nested; to determine the number, just count the opening parenthesis characters, going from left to right. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile('(a(b)c)d')\par
+>>> m = p.match('abcd')\par
+>>> m.group(0)\par
+'abcd'\par
+>>> m.group(1)\par
+'abc'\par
+>>> m.group(2)\par
+'b'\par
+\pard\sb100\sa100\cf4\fs20 group()\f1\fs24  can be passed multiple group numbers at a time, in which case it will return a tuple containing the corresponding values for those groups. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22   \par
+>>> m.group(2,1,2)\par
+('b', 'abc', 'b')\par
+\pard\sb100\sa100\cf4\f1\fs24 The \f3\fs20 groups()\f1\fs24  method returns a tuple containing the strings for all the subgroups, from 1 up to however many there are. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22   \par
+>>> m.groups()\par
+('abc', 'b')\par
+\pard\sb100\sa100\cf4\f1\fs24 Backreferences in a pattern allow you to specify that the contents of an earlier capturing group must also be found at the current location in the string. For example, \f3\fs20\\1\f1\fs24  will succeed if the exact contents of group 1 can be found at the current position, and fails otherwise. Remember that Python's string literals also use a backslash followed by numbers to allow including arbitrary characters in a string, so be sure to use a raw string when incorporating backreferences in a RE. \par
+For example, the following RE detects doubled words in a string. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile(r'(\\b\\w+)\\s+\\1')\par
+>>> p.search('Paris in the the spring').group()\par
+'the the'\par
+\pard\sb100\sa100\cf4\f1\fs24 Backreferences like this aren't often useful for just searching through a string -- there are few text formats which repeat data in this way -- but you'll soon find out that they're \i very\i0  useful when performing string substitutions. \par
+\b\f2\fs36 4.3 Non-capturing and Named Groups \par
+\b0\f1\fs24 Elaborate REs may use many groups, both to capture substrings of interest, and to group and structure the RE itself. In complex REs, it becomes difficult to keep track of the group numbers. There are two features which help with this problem. Both of them use a common syntax for regular expression extensions, so we'll look at that first. \par
+Perl 5 added several additional features to standard regular expressions, and the Python \f3\fs20 re\f1\fs24  module supports most of them. It would have been difficult to choose new single-keystroke metacharacters or new special sequences beginning with "\f3\fs20\\\f1\fs24 " to represent the new features without making Perl's regular expressions confusingly different from standard REs. If you chose "\f3\fs20 &\f1\fs24 " as a new metacharacter, for example, old expressions would be assuming that "\f3\fs20 &\f1\fs24 " was a regular character and wouldn't have escaped it by writing \f3\fs20\\&\f1\fs24  or \f3\fs20 [&]\f1\fs24 . \par
+The solution chosen by the Perl developers was to use \f3\fs20 (?...)\f1\fs24  as the extension syntax. "\f3\fs20 ?\f1\fs24 " immediately after a parenthesis was a syntax error because the "\f3\fs20 ?\f1\fs24 " would have nothing to repeat, so this didn't introduce any compatibility problems. The characters immediately after the "\f3\fs20 ?\f1\fs24 " indicate what extension is being used, so \f3\fs20 (?=foo)\f1\fs24  is one thing (a positive lookahead assertion) and \f3\fs20 (?:foo)\f1\fs24  is something else (a non-capturing group containing the subexpression \f3\fs20 foo\f1\fs24 ). \par
+Python adds an extension syntax to Perl's extension syntax. If the first character after the question mark is a "\f3\fs20 P\f1\fs24 ", you know that it's an extension that's specific to Python. Currently there are two such extensions: \f3\fs20 (?P<\i\f5 name\i0\f3 >...)\f1\fs24  defines a named group, and \f3\fs20 (?P=\i\f5 name\i0\f3 )\f1\fs24  is a backreference to a named group. If future versions of Perl 5 add similar features using a different syntax, the \f3\fs20 re\f1\fs24  module will be changed to support the new syntax, while preserving the Python-specific syntax for compatibility's sake. \par
+Now that we've looked at the general extension syntax, we can return to the features that simplify working with groups in complex REs. Since groups are numbered from left to right and a complex expression may use many groups, it can become difficult to keep track of the correct numbering, and modifying such a complex RE is annoying. Insert a new group near the beginning, and you change the numbers of everything that follows it. \par
+First, sometimes you'll want to use a group to collect a part of a regular expression, but aren't interested in retrieving the group's contents. You can make this fact explicit by using a non-capturing group: \f3\fs20 (?:...)\f1\fs24 , where you can put any other regular expression inside the parentheses. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> m = re.match("([abc])+", "abc")\par
+>>> m.groups()\par
+('c',)\par
+>>> m = re.match("(?:[abc])+", "abc")\par
+>>> m.groups()\par
+()\par
+\pard\sb100\sa100\cf4\f1\fs24 Except for the fact that you can't retrieve the contents of what the group matched, a non-capturing group behaves exactly the same as a capturing group; you can put anything inside it, repeat it with a repetition metacharacter such as "\f3\fs20 *\f1\fs24 ", and nest it within other groups (capturing or non-capturing). \f3\fs20 (?:...)\f1\fs24  is particularly useful when modifying an existing group, since you can add new groups without changing how all the other groups are numbered. It should be mentioned that there's no performance difference in searching between capturing and non-capturing groups; neither form is any faster than the other. \par
+The second, and more significant, feature is named groups; instead of referring to them by numbers, groups can be referenced by a name. \par
+The syntax for a named group is one of the Python-specific extensions: \f3\fs20 (?P<\i\f5 name\i0\f3 >...)\f1\fs24 . \i\f5 name\i0\f1  is, obviously, the name of the group. Except for associating a name with a group, named groups also behave identically to capturing groups. The \f3\fs20 MatchObject\f1\fs24  methods that deal with capturing groups all accept either integers, to refer to groups by number, or a string containing the group name. Named groups are still given numbers, so you can retrieve information about a group in two ways: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile(r'(?P<word>\\b\\w+\\b)')\par
+>>> m = p.search( '(((( Lots of punctuation )))' )\par
+>>> m.group('word')\par
+'Lots'\par
+>>> m.group(1)\par
+'Lots'\par
+\pard\sb100\sa100\cf4\f1\fs24 Named groups are handy because they let you use easily-remembered names, instead of having to remember numbers. Here's an example RE from the \f3\fs20 imaplib\f1\fs24  module: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 InternalDate = re.compile(r'INTERNALDATE "'\par
+        r'(?P<day>[ 123][0-9])-(?P<mon>[A-Z][a-z][a-z])-'\par
+\tab r'(?P<year>[0-9][0-9][0-9][0-9])'\par
+        r' (?P<hour>[0-9][0-9]):(?P<min>[0-9][0-9]):(?P<sec>[0-9][0-9])'\par
+        \lang1031 r' (?P<zonen>[-+])(?P<zoneh>[0-9][0-9])(?P<zonem>[0-9][0-9])'\par
+        \lang1033 r'"')\par
+\pard\sb100\sa100\cf4\f1\fs24 It's obviously much easier to retrieve \f3\fs20 m.group('zonem')\f1\fs24 , instead of having to remember to retrieve group 9. \par
+Since the syntax for backreferences, in an expression like \f3\fs20 (...)\\1\f1\fs24 , refers to the number of the group there's naturally a variant that uses the group name instead of the number. This is also a Python extension: \f3\fs20 (?P=\i\f5 name\i0\f3 )\f1\fs24  indicates that the contents of the group called \i\f5 name\i0\f1  should again be found at the current point. The regular expression for finding doubled words, \f3\fs20 (\\b\\w+)\\s+\\1\f1\fs24  can also be written as \f3\fs20 (?P<word>\\b\\w+)\\s+(?P=word)\f1\fs24 : \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile(r'(?P<word>\\b\\w+)\\s+(?P=word)')\par
+>>> p.search('Paris in the the spring').group()\par
+'the the'\par
+\pard\sb100\sa100\cf4\b\f2\fs36 4.4 Lookahead Assertions \par
+\b0\f1\fs24 Another zero-width assertion is the lookahead assertion. Lookahead assertions are available in both positive and negative form, and look like this: \par
+\pard\f3\fs20 (?=...)\f1\fs24  \par
+\pard\li720 Positive lookahead assertion. This succeeds if the contained regular expression, represented here by \f3\fs20 ...\f1\fs24 , successfully matches at the current location, and fails otherwise. But, once the contained expression has been tried, the matching engine doesn't advance at all; the rest of the pattern is tried right where the assertion started. \par
+\pard\f3\fs20 (?!...)\f1\fs24  \par
+\pard\li720 Negative lookahead assertion. This is the opposite of the positive assertion; it succeeds if the contained expression \i doesn't\i0  match at the current position in the string. \par
+\pard\sb100\sa100 An example will help make this concrete by demonstrating a case where a lookahead is useful. Consider a simple pattern to match a filename and split it apart into a base name and an extension, separated by a "\f3\fs20 .\f1\fs24 ". For example, in "\f3\fs20 news.rc\f1\fs24 ", "\f3\fs20 news\f1\fs24 "is the base name, and "\f3\fs20 rc\f1\fs24 " is the filename's extension. \par
+The pattern to match this is quite simple: \par
+\f3\fs20 .*[.].*$\f1\fs24  \par
+Notice that the "\f3\fs20 .\f1\fs24 " needs to be treated specially because it's a metacharacter; I've put it inside a character class. Also notice the trailing \f3\fs20 $\f1\fs24 ; this is added to ensure that all the rest of the string must be included in the extension. This regular expression matches "\f3\fs20 foo.bar\f1\fs24 " and "\f3\fs20 autoexec.bat\f1\fs24 " and "\f3\fs20 sendmail.cf\f1\fs24 " and "\f3\fs20 printers.conf\f1\fs24 ". \par
+Now, consider complicating the problem a bit; what if you want to match filenames where the extension is not "\f3\fs20 bat\f1\fs24 "? Some incorrect attempts: \par
+\f3\fs20 .*[.][^b].*$\f1\fs24  \par
+The first attempt above tries to exclude "\f3\fs20 bat\f1\fs24 " by requiring that the first character of the extension is not a "\f3\fs20 b\f1\fs24 ". This is wrong, because the pattern also doesn't match "\f3\fs20 foo.bar\f1\fs24 ". \par
+\f3\fs20 .*[.]([^b]..|.[^a].|..[^t])$\f1\fs24  \par
+The expression gets messier when you try to patch up the first solution by requiring one of the following cases to match: the first character of the extension isn't "\f3\fs20 b\f1\fs24 "; the second character isn't "\f3\fs20 a\f1\fs24 "; or the third character isn't "\f3\fs20 t\f1\fs24 ". This accepts "\f3\fs20 foo.bar\f1\fs24 " and rejects "\f3\fs20 autoexec.bat\f1\fs24 ", but it requires a three-letter extension and won't accept a filename with a two-letter extension such as "\f3\fs20 sendmail.cf\f1\fs24 ". We'll complicate the pattern again in an effort to fix it. \par
+\f3\fs20 .*[.]([^b].?.?|.[^a]?.?|..?[^t]?)$\f1\fs24  \par
+In the third attempt, the second and third letters are all made optional in order to allow matching extensions shorter than three characters, such as "\f3\fs20 sendmail.cf\f1\fs24 ". \par
+The pattern's getting really complicated now, which makes it hard to read and understand. Worse, if the problem changes and you want to exclude both "\f3\fs20 bat\f1\fs24 " and "\f3\fs20 exe\f1\fs24 " as extensions, the pattern would get even more complicated and confusing. \par
+A negative lookahead cuts through all this: \par
+\f3\fs20 .*[.](?!bat$).*$\f1\fs24  \par
+The lookahead means: if the expression \f3\fs20 bat\f1\fs24  doesn't match at this point, try the rest of the pattern; if \f3\fs20 bat$\f1\fs24  does match, the whole pattern will fail. The trailing \f3\fs20 $\f1\fs24  is required to ensure that something like "\f3\fs20 sample.batch\f1\fs24 ", where the extension only starts with "\f3\fs20 bat\f1\fs24 ", will be allowed. \par
+Excluding another filename extension is now easy; simply add it as an alternative inside the assertion. The following pattern excludes filenames that end in either "\f3\fs20 bat\f1\fs24 " or "\f3\fs20 exe\f1\fs24 ": \par
+\f3\fs20 .*[.](?!bat$|exe$).*$\f1\fs24  \par
+\kerning36\b\f2\fs43 5 Modifying Strings \par
+\kerning0\b0\f1\fs24 Up to this point, we've simply performed searches against a static string. Regular expressions are also commonly used to modify a string in various ways, using the following \f3\fs20 RegexObject\f1\fs24  methods: \par
+\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clcbpat9\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10617\pard\intbl\qc\b\f2 Method/Attribute\~\cell\pard\intbl Purpose\~\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10617\pard\intbl\qc\b0\f3\fs20 split()\f1\fs24\cell\pard\intbl Split the string into a list, splitting it wherever the RE matches\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10617\pard\intbl\qc\f3\fs20 sub()\f1\fs24\cell\pard\intbl Find all substrings where the RE matches, and replace them with a different string\cell\row\trowd\trgaph15\trleft-15\trqc\trbrdrl\brdrdash\brdrw15 \trbrdrt\brdrdash\brdrw15 \trbrdrr\brdrdash\brdrw15 \trbrdrb\brdrdash\brdrw15 \trpaddl15\trpaddr15\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2002\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx10617\pard\intbl\qc\f3\fs20 subn()\f1\fs24\cell\pard\intbl Does the same thing as \f3\fs20 sub()\f1\fs24 , but returns the new string and the number of replacements\cell\row\pard\sb100\sa100\b\f2\fs36 5.1 Splitting Strings \par
+\b0\f1\fs24 The \f3\fs20 split()\f1\fs24  method of a \f3\fs20 RegexObject\f1\fs24  splits a string apart wherever the RE matches, returning a list of the pieces. It's similar to the \f3\fs20 split()\f1\fs24  method of strings but provides much more generality in the delimiters that you can split by; \f3\fs20 split()\f1\fs24  only supports splitting by whitespace or by a fixed string. As you'd expect, there's a module-level \f3\fs20 re.split()\f1\fs24  function, too. \par
+\trowd\trgaph10\trleft-10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\cellx671\cellx2965\pard\intbl\b\f3\fs20 split\b0\f1\fs24 (\cell\i\f5 string \i0\f1\fs27 [\i\f5\fs24 , maxsplit\f3\fs20  = 0\i0\f1\fs27 ]\fs24 )\cell\row\pard\li720 Split \i\f5 string\i0\f1  by the matches of the regular expression. If capturing parentheses are used in the RE, then their contents will also be returned as part of the resulting list. If \i\f5 maxsplit\i0\f1  is nonzero, at most \i\f5 maxsplit\i0\f1  splits are performed. \par
+\pard\sb100\sa100 You can limit the number of splits made, by passing a value for \i\f5 maxsplit\i0\f1 . When \i\f5 maxsplit\i0\f1  is nonzero, at most \i\f5 maxsplit\i0\f1  splits will be made, and the remainder of the string is returned as the final element of the list. In the following example, the delimiter is any sequence of non-alphanumeric characters. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile(r'\\W+')\par
+>>> p.split('This is a test, short and sweet, of split().')\par
+['This', 'is', 'a', 'test', 'short', 'and', 'sweet', 'of', 'split', '']\par
+>>> p.split('This is a test, short and sweet, of split().', 3)\par
+['This', 'is', 'a', 'test, short and sweet, of split().']\par
+\pard\sb100\sa100\cf4\f1\fs24 Sometimes you're not only interested in what the text between delimiters is, but also need to know what the delimiter was. If capturing parentheses are used in the RE, then their values are also returned as part of the list. Compare the following calls: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile(r'\\W+')\par
+>>> p2 = re.compile(r'(\\W+)')\par
+>>> p.split('This... is a test.')\par
+['This', 'is', 'a', 'test', '']\par
+>>> p2.split('This... is a test.')\par
+['This', '... ', 'is', ' ', 'a', ' ', 'test', '.', '']\par
+\pard\sb100\sa100\cf4\f1\fs24 The module-level function \f3\fs20 re.split()\f1\fs24  adds the RE to be used as the first argument, but is otherwise the same. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> re.split('[\\W]+', 'Words, words, words.')\par
+['Words', 'words', 'words', '']\par
+>>> re.split('([\\W]+)', 'Words, words, words.')\par
+['Words', ', ', 'words', ', ', 'words', '.', '']\par
+>>> re.split('[\\W]+', 'Words, words, words.', 1)\par
+['Words', 'words, words.']\par
+\pard\sb100\sa100\cf4\b\f2\fs36 5.2 Search and Replace \par
+\b0\f1\fs24 Another common task is to find all the matches for a pattern, and replace them with a different string. The \f3\fs20 sub()\f1\fs24  method takes a replacement value, which can be either a string or a function, and the string to be processed. \par
+\trowd\trgaph10\trleft-10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\cellx430\cellx3690\pard\intbl\b\f3\fs20 sub\b0\f1\fs24 (\cell\i\f5 replacement, string\i0\f1\fs27 [\i\f5\fs24 , count\f3\fs20  = 0\i0\f1\fs27 ]\fs24 )\cell\row\pard\li720 Returns the string obtained by replacing the leftmost non-overlapping occurrences of the RE in \i\f5 string\i0\f1  by the replacement \i\f5 replacement\i0\f1 . If the pattern isn't found, \i\f5 string\i0\f1  is returned unchanged. \par
+\pard\li720\sb100\sa100 The optional argument \i\f5 count\i0\f1  is the maximum number of pattern occurrences to be replaced; \i\f5 count\i0\f1  must be a non-negative integer. The default value of 0 means to replace all occurrences. \par
+\pard\sb100\sa100 Here's a simple example of using the \f3\fs20 sub()\f1\fs24  method. It replaces colour names with the word "\f3\fs20 colour\f1\fs24 ": \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile( '(blue|white|red)')\par
+>>> p.sub( 'colour', 'blue socks and red shoes')\par
+'colour socks and colour shoes'\par
+>>> p.sub( 'colour', 'blue socks and red shoes', count=1)\par
+'colour socks and red shoes'\par
+\pard\sb100\sa100\cf4\f1\fs24 The \f3\fs20 subn()\f1\fs24  method does the same work, but returns a 2-tuple containing the new string value and the number of replacements that were performed: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile( '(blue|white|red)')\par
+>>> p.subn( 'colour', 'blue socks and red shoes')\par
+('colour socks and colour shoes', 2)\par
+>>> p.subn( 'colour', 'no colours at all')\par
+('no colours at all', 0)\par
+\pard\sb100\sa100\cf4\f1\fs24 Empty matches are replaced only when they're not adjacent to a previous match. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile('x*')\par
+>>> p.sub('-', 'abxd')\par
+'-a-b-d-'\par
+\pard\sb100\sa100\cf4\f1\fs24 If \i\f5 replacement\i0\f1  is a string, any backslash escapes in it are processed. That is, "\f3\fs20\\n\f1\fs24 " is converted to a single newline character, "\f3\fs20\\r\f1\fs24 " is converted to a carriage return, and so forth. Unknown escapes such as "\f3\fs20\\j\f1\fs24 " are left alone. Backreferences, such as "\f3\fs20\\6\f1\fs24 ", are replaced with the substring matched by the corresponding group in the RE. This lets you incorporate portions of the original text in the resulting replacement string. \par
+This example matches the word "\f3\fs20 section\f1\fs24 " followed by a string enclosed in "\f3\fs20\{\f1\fs24 ", "\f3\fs20\}\f1\fs24 ", and changes "\f3\fs20 section\f1\fs24 " to "\f3\fs20 subsection\f1\fs24 ": \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile('section\{ ( [^\}]* ) \}', re.VERBOSE)\par
+>>> p.sub(r'subsection\{\\1\}','section\{First\} section\{second\}')\par
+'subsection\{First\} subsection\{second\}'\par
+\pard\sb100\sa100\cf4\f1\fs24 There's also a syntax for referring to named groups as defined by the \f3\fs20 (?P<name>...)\f1\fs24  syntax. "\f3\fs20\\g<name>\f1\fs24 " will use the substring matched by the group named "\f3\fs20 name\f1\fs24 ", and "\f3\fs20\\g<\i\f5 number\i0\f3 >\f1\fs24 " uses the corresponding group number. "\f3\fs20\\g<2>\f1\fs24 " is therefore equivalent to "\f3\fs20\\2\f1\fs24 ", but isn't ambiguous in a replacement string such as "\f3\fs20\\g<2>0\f1\fs24 ". ("\f3\fs20\\20\f1\fs24 " would be interpreted as a reference to group 20, not a reference to group 2 followed by the literal character "\f3\fs20 0\f1\fs24 ".) The following substitutions are all equivalent, but use all three variations of the replacement string. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> p = re.compile('section\{ (?P<name> [^\}]* ) \}', re.VERBOSE)\par
+>>> p.sub(r'subsection\{\\1\}','section\{First\}')\par
+'subsection\{First\}'\par
+>>> p.sub(r'subsection\{\\g<1>\}','section\{First\}')\par
+'subsection\{First\}'\par
+>>> p.sub(r'subsection\{\\g<name>\}','section\{First\}')\par
+'subsection\{First\}'\par
+\pard\sb100\sa100\cf4\i\f5\fs24 replacement\i0\f1  can also be a function, which gives you even more control. If \i\f5 replacement\i0\f1  is a function, the function is called for every non-overlapping occurrence of \i\f5 pattern\i0\f1 . On each call, the function is passed a \f3\fs20 MatchObject\f1\fs24  argument for the match and can use this information to compute the desired replacement string and return it. \par
+In the following example, the replacement function translates decimals into hexadecimal: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> def hexrepl( match ):\par
+...     "Return the hex string for a decimal number"\par
+...     value = int( match.group() )\par
+...     return hex(value)\par
+...\par
+>>> p = re.compile(r'\\d+')\par
+>>> p.sub(hexrepl, 'Call 65490 for printing, 49152 for user code.')\par
+'Call 0xffd2 for printing, 0xc000 for user code.'\par
+\pard\sb100\sa100\cf4\f1\fs24 When using the module-level \f3\fs20 re.sub()\f1\fs24  function, the pattern is passed as the first argument. The pattern may be a string or a \f3\fs20 RegexObject\f1\fs24 ; if you need to specify regular expression flags, you must either use a \f3\fs20 RegexObject\f1\fs24  as the first parameter, or use embedded modifiers in the pattern, e.g. \f3\fs20 sub("(?i)b+", "x", "bbbb BBBB")\f1\fs24  returns \f3\fs20 'x x'\f1\fs24 . \par
+\kerning36\b\f2\fs43 6 Common Problems \par
+\kerning0\b0\f1\fs24 Regular expressions are a powerful tool for some applications, but in some ways their behaviour isn't intuitive and at times they don't behave the way you may expect them to. This section will point out some of the most common pitfalls. \par
+\b\f2\fs36 6.1 Use String Methods \par
+\b0\f1\fs24 Sometimes using the \f3\fs20 re\f1\fs24  module is a mistake. If you're matching a fixed string, or a single character class, and you're not using any \f3\fs20 re\f1\fs24  features such as the \f3\fs20 IGNORECASE\f1\fs24  flag, then the full power of regular expressions may not be required. Strings have several methods for performing operations with fixed strings and they're usually much faster, because the implementation is a single small C loop that's been optimized for the purpose, instead of the large, more generalized regular expression engine. \par
+One example might be replacing a single fixed string with another one; for example, you might replace "\f3\fs20 word\f1\fs24 "with "\f3\fs20 deed\f1\fs24 ". \f3\fs20 re.sub()\f1\fs24  seems like the function to use for this, but consider the \f3\fs20 replace()\f1\fs24  method. Note that \f3\fs20 replace()\f1\fs24  will also replace "\f3\fs20 word\f1\fs24 " inside words, turning "\f3\fs20 swordfish\f1\fs24 " into "\f3\fs20 sdeedfish\f1\fs24 ", but the na\'efve RE \f3\fs20 word\f1\fs24  would have done that, too. (To avoid performing the substitution on parts of words, the pattern would have to be \f3\fs20\\bword\\b\f1\fs24 , in order to require that "\f3\fs20 word\f1\fs24 " have a word boundary on either side. This takes the job beyond \f3\fs20 replace\f1\fs24 's abilities.) \par
+Another common task is deleting every occurrence of a single character from a string or replacing it with another single character. You might do this with something like \f3\fs20 re.sub('\\n', ' ', S)\f1\fs24 , but \f3\fs20 translate()\f1\fs24  is capable of doing both tasks and will be faster that any regular expression operation can be. \par
+In short, before turning to the \f3\fs20 re\f1\fs24  module, consider whether your problem can be solved with a faster and simpler string method. \par
+\b\f2\fs36 6.2 match() versus search() \par
+\b0\f1\fs24 The \f3\fs20 match()\f1\fs24  function only checks if the RE matches at the beginning of the string while \f3\fs20 search()\f1\fs24  will scan forward through the string for a match. It's important to keep this distinction in mind. Remember, \f3\fs20 match()\f1\fs24  will only report a successful match which will start at 0; if the match wouldn't start at zero, \f3\fs20 match()\f1\fs24  will \i not\i0  report it. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> print re.match('super', 'superstition').span()  \par
+(0, 5)\par
+>>> print re.match('super', 'insuperable')    \par
+None\par
+\pard\sb100\sa100\cf4\f1\fs24 On the other hand, \f3\fs20 search()\f1\fs24  will scan forward through the string, reporting the first match it finds. \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> print re.search('super', 'superstition').span()\par
+(0, 5)\par
+>>> print re.search('super', 'insuperable').span()\par
+(2, 7)\par
+\pard\sb100\sa100\cf4\f1\fs24 Sometimes you'll be tempted to keep using \f3\fs20 re.match()\f1\fs24 , and just add \f3\fs20 .*\f1\fs24  to the front of your RE. Resist this temptation and use \f3\fs20 re.search()\f1\fs24  instead. The regular expression compiler does some analysis of REs in order to speed up the process of looking for a match. One such analysis figures out what the first character of a match must be; for example, a pattern starting with \f3\fs20 Crow\f1\fs24  must match starting with a "\f3\fs20 C\f1\fs24 ". The analysis lets the engine quickly scan through the string looking for the starting character, only trying the full match if a "\f3\fs20 C\f1\fs24 " is found. \par
+Adding \f3\fs20 .*\f1\fs24  defeats this optimization, requiring scanning to the end of the string and then backtracking to find a match for the rest of the RE. Use \f3\fs20 re.search()\f1\fs24  instead. \par
+\b\f2\fs36 6.3 Greedy versus Non-Greedy \par
+\b0\f1\fs24 When repeating a regular expression, as in \f3\fs20 a*\f1\fs24 , the resulting action is to consume as much of the pattern as possible. This fact often bites you when you're trying to match a pair of balanced delimiters, such as the angle brackets surrounding an HTML tag. The na\'efve pattern for matching a single HTML tag doesn't work because of the greedy nature of \f3\fs20 .*\f1\fs24 . \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> s = '<html><head><title>Title</title>'\par
+>>> len(s)\par
+32\par
+>>> print re.match('<.*>', s).span()\par
+(0, 32)\par
+>>> print re.match('<.*>', s).group()\par
+<html><head><title>Title</title>\par
+\pard\sb100\sa100\cf4\f1\fs24 The RE matches the "\f3\fs20 <\f1\fs24 " in "\f3\fs20 <html>\f1\fs24 ", and the \f3\fs20 .*\f1\fs24  consumes the rest of the string. There's still more left in the RE, though, and the \f3\fs20 >\f1\fs24  can't match at the end of the string, so the regular expression engine has to backtrack character by character until it finds a match for the \f3\fs20 >\f1\fs24 . The final match extends from the "\f3\fs20 <\f1\fs24 " in "\f3\fs20 <html>\f1\fs24 "to the "\f3\fs20 >\f1\fs24 " in "\f3\fs20 </title>\f1\fs24 ", which isn't what you want. \par
+In this case, the solution is to use the non-greedy qualifiers \f3\fs20 *?\f1\fs24 , \f3\fs20 +?\f1\fs24 , \f3\fs20 ??\f1\fs24 , or \f3\fs20\{\i\f5 m\i0\f3 ,\i\f5 n\i0\f3\}?\f1\fs24 , which match as \i little\i0  text as possible. In the above example, the "\f3\fs20 >\f1\fs24 " is tried immediately after the first "\f3\fs20 <\f1\fs24 " matches, and when it fails, the engine advances a character at a time, retrying the "\f3\fs20 >\f1\fs24 " at every step. This produces just the right result: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 >>> print re.match('<.*?>', s).group()\par
+<html>\par
+\pard\sb100\sa100\cf4\f1\fs24 (Note that parsing HTML or XML with regular expressions is painful. Quick-and-dirty patterns will handle common cases, but HTML and XML have special cases that will break the obvious regular expression; by the time you've written a regular expression that handles all of the possible cases, the patterns will be \i very\i0  complicated. Use an HTML or XML parser module for such tasks.) \par
+\b\f2\fs36 6.4 Not Using re.VERBOSE \par
+\b0\f1\fs24 By now you've probably noticed that regular expressions are a very compact notation, but they're not terribly readable. REs of moderate complexity can become lengthy collections of backslashes, parentheses, and metacharacters, making them difficult to read and understand. \par
+For such REs, specifying the \f3\fs20 re.VERBOSE\f1\fs24  flag when compiling the regular expression can be helpful, because it allows you to format the regular expression more clearly. \par
+The \f3\fs20 re.VERBOSE\f1\fs24  flag has several effects. Whitespace in the regular expression that \i isn't\i0  inside a character class is ignored. This means that an expression such as \f3\fs20 dog | cat\f1\fs24  is equivalent to the less readable \f3\fs20 dog|cat\f1\fs24 , but \f3\fs20 [a b]\f1\fs24  will still match the characters "\f3\fs20 a\f1\fs24 ", "\f3\fs20 b\f1\fs24 ", or a space. In addition, you can also put comments inside a RE; comments extend from a "\f3\fs20 #\f1\fs24 " character to the next newline. When used with triple-quoted strings, this enables REs to be formatted more neatly: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 pat = re.compile(r"""\par
+ \\s*                 # Skip leading whitespace\par
+ (?P<header>[^:]+)   # Header name\par
+ \\s* :               # Whitespace, and a colon\par
+ (?P<value>.*?)      # The header's value -- *? used to\par
+                     # lose the following trailing whitespace\par
+ \\s*$                # Trailing whitespace to end-of-line\par
+""", re.VERBOSE)\par
+\pard\sb100\sa100\cf4\f1\fs24 This is far more readable than: \par
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\cf7\f3\fs22 pat = re.compile(r"\\s*(?P<header>[^:]+)\\s*:(?P<value>.*?)\\s*$")\par
+\pard\sb100\sa100\cf4\kerning36\b\f2\fs43 7 Feedback \par
+\kerning0\b0\f1\fs24 Regular expressions are a complicated topic. Did this document help you understand them? Were there parts that were unclear, or Problems you encountered that weren't covered here? If so, please send suggestions for improvements to the author. \par
+The most complete book on regular expressions is almost certainly Jeffrey Friedl's \i Mastering Regular Expressions\i0 , published by O'Reilly. Unfortunately, it exclusively concentrates on Perl and Java's flavours of regular expressions, and doesn't contain any Python material at all, so it won't be useful as a reference for programming in Python. (The first edition covered Python's now-obsolete \f3\fs20 regex\f1\fs24  module, which won't help you much.) Consider checking it out from your library. \par
+\kerning36\b\f2\fs43 About this document ... \par
+\pard\kerning0\f1\fs24 Regular Expression HOWTO\b0  \par
+This document was generated using the {\field{\*\fldinst{HYPERLINK "http://saftsack.fs.uni-bayreuth.de/~latex2ht/" }}{\fldrslt{\cf6\ul\b LaTeX\b0 2\f3\fs20 HTML}}}\cf4\ulnone\f1\fs24  translator. \par
+{\field{\*\fldinst{HYPERLINK "http://saftsack.fs.uni-bayreuth.de/~latex2ht/" }}{\fldrslt{\cf6\ul\b LaTeX\b0 2\f3\fs20 HTML}}}\cf4\ulnone\f1\fs24  is Copyright \'a9 1993, 1994, 1995, 1996, 1997, {\field{\*\fldinst{HYPERLINK "http://cbl.leeds.ac.uk/nikos/personal.html" }}{\fldrslt{\cf6\ul Nikos Drakos}}}\cf4\ulnone\f1\fs24 , Computer Based Learning Unit, University of Leeds, and Copyright \'a9 1997, 1998, {\field{\*\fldinst{HYPERLINK "http://www.maths.mq.edu.au/~ross/" }}{\fldrslt{\cf6\ul Ross Moore}}}\cf4\ulnone\f1\fs24 , Mathematics Department, Macquarie University, Sydney. \par
+The application of {\field{\*\fldinst{HYPERLINK "http://saftsack.fs.uni-bayreuth.de/~latex2ht/" }}{\fldrslt{\cf6\ul\b LaTeX\b0 2\f3\fs20 HTML}}}\cf4\ulnone\f1\fs24  to the Python documentation has been heavily tailored by Fred L. Drake, Jr. Original navigation icons were contributed by Christopher Petrilli. \par
+\par
+\trowd\trgaph10\trleft-30\trqc\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\clcbpat9\cellx480\clvertalc\clcbpat9\cellx980\clvertalc\clcbpat9\cellx1480\clvertalc\clcbpat9\cellx11960\clvertalc\clcbpat9\cellx12460\clvertalc\clcbpat9\cellx12970\pard\intbl\b\f2\fs26\cell\cell\cell\pard\intbl\qc Regular Expression HOWTO\cell\pard\intbl\cell\cell\row\pard\b0\f1\fs24\par
+\i Release 0.05.\i0  \par
+\cf0\f2\fs20\par
+\b\f6\fs22\par
+\pard\f7\fs16\par
+}
+ 

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>LinuxBefehle</title>
+</head><body>Verzeichnis-struktur:<br/>
+==============================================================================================================================<br/>
+<br/>
+Debian Packet entpacken:<br/>
+<br/>
+sudo dpkg -i dpx2-grid-master-457_arm64.deb<br/>
+sudo dpkg -P holisticurbandriving &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;löschen<br/>
+sudo dpkg --list | grep hol &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Zeigt alle installierten Tasks mit hol*<br/>
+<br/>
+<br/>
+Verzeichnis-struktur:<br/>
+==============================================================================================================================<br/>
+<br/>
+/home/tftbe1:<br/>
+<br/>
+drwxr-xr-x &nbsp;2 tftbe1 domain_users &nbsp; &nbsp;4096 Mär 13 06:51 Bilder/<br/>
+-rw------- &nbsp;1 tftbe1 domain_users 4673536 Mär 21 14:44 core<br/>
+drwxr-xr-x &nbsp;5 tftbe1 domain_users &nbsp; &nbsp;4096 Apr &nbsp;4 11:29 Docker_Get_Started/<br/>
+drwxr-xr-x &nbsp;3 tftbe1 domain_users &nbsp; &nbsp;4096 Apr 26 14:57 Dokumente/<br/>
+drwxr-xr-x &nbsp;2 tftbe1 domain_users &nbsp; &nbsp;4096 Mär 13 06:51 Downloads/<br/>
+drwxr-xr-x &nbsp;2 tftbe1 domain_users &nbsp; &nbsp;4096 Mär 13 06:51 Musik/<br/>
+drwxr-xr-x &nbsp;2 tftbe1 domain_users &nbsp; &nbsp;4096 Mär 13 06:51 Öffentlich/<br/>
+drwxr-xr-x &nbsp;2 tftbe1 domain_users &nbsp; &nbsp;4096 Apr 20 14:21 Schreibtisch/<br/>
+lrwxrwxrwx &nbsp;1 tftbe1 domain_users &nbsp; &nbsp; &nbsp;18 Mär 13 06:51 Shares -&gt; /home/tftbe1/.gvfs<br/>
+drwxr-xr-x &nbsp;2 tftbe1 domain_users &nbsp; &nbsp;4096 Mär 13 06:51 Videos/<br/>
+drwxr-xr-x &nbsp;2 tftbe1 domain_users &nbsp; &nbsp;4096 Mär 13 06:51 Vorlagen/<br/>
+<br/>
+/home/tftbe1/Dokumente/GitGrid &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alle Git-Repros<br/>
+/home/tftbe1/Dokumente/GitGrid/Grid_trunk &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Grid-Master<br/>
+<br/>
+<br/>
+<br/>
+bash =============================================================================================================================<br/>
+<br/>
+<br/>
+<br/>
+Verzeichnisfreigabe =====================================================================================================================<br/>
+<br/>
+SMB-Freigabe für Windows<br/>
+==========================<br/>
+sudo gedit /etc/samba/smb.conf<br/>
+=&gt; am ende hinzufügen.<ul><li style="list-style-type: none">[lhome]</li>
+<li style="list-style-type: none">path = /</li>
+<li style="list-style-type: none">comment = root dir</li>
+<li style="list-style-type: none">inherits acls = Yes</li>
+<li style="list-style-type: none">read only = No</li>
+<li style="list-style-type: none">valid users = tftzs4 </li>
+</ul>
+<br/>
+sudo service smbd restart<br/>
+sudo cp /etc/samba/smb.conf /etc/sambe/smb.conf.bak<br/>
+<br/>
+&nbsp;acls = Yes<br/>
+<br/>
+allg<br/>
+===============================================================================================================<br/>
+$ htop &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Taskmanager auf Terminal Ebene<br/>
+<br/>
+===============================================================================================================<br/>
+<br/>
+compgen -c | grep -i 'whatever' &nbsp;<br/>
+<br/>
+The compgen -c will list all available commands under Linux....a lot. By using also grep you can filter only the ones which contain 'whatever'. For instance find every  eCal related command. <br/>
+<br/>
+===============================================================================================================<br/>
+<br/>
+Strg-r and write in a word &nbsp;<br/>
+<br/>
+Search in a the last terminal inputs<br/>
+<br/>
+</body></html>

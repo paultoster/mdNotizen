@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CAN-DBC</title>
+</head><body>Di 28.06.2016 07:12<br/>
+<br/>
+Von Jonas:<br/>
+Hallo zusammen,<br/>
+<br/>
+habe, nach Absprache mit Jürgen, die DBCs für die B8 Entwicklung vom Git wieder ins SVN zurück verlagert (betrifft FSI und ENSA CAN).<br/>
+Die für den PTSV bleiben im Git. <br/>
+<br/>
+Die weitere Entwicklung wird im SVN vollzogen, PTSV betreffende Änderungen ggf. nachgezogen.<br/>
+<br/>
+Link zum gemeinsamen Repo: http://frd2ahjg/svn/tze/Projects/ContiGuard/dbc-files<br/>
+<br/>
+Bitte beachtet: es ist unbedingt wichtig, dass wir gemeinsame Datenbasen für die verschiedenen Busse benutzen, da wir nur so die Software- und Projektvielfalt der Steuergeräte einigermaßen im überschaubaren Rahmen halten können.<br/>
+<br/>
+Es folgt eine Auflistung der wichtigsten Files:<br/>
+ContiGuard_VPU.dbc: ContiGuard privateCAN<br/>
+PQ35_46_ACAN_V5_3_6_Korrektur_F_20080118_MH.dbc: Antriebs CAN des B7 &nbsp;Passats aka. PT_CAN<br/>
+ENSA.dbc: ENSA CAN (ehemaliger FOD CAN)<br/>
+FSI.dbc: FSI CAN<br/>
+Passat_MQB/MQB_ACAN_KMatrix_V7.16F_20151104_MH.dbc: B8 Passat Antriebs CAN<br/>
+MQB_FCAN_KMatrix_V7.16F_20151104_MH.dbc: B8 Passat Fahrwerks CAN<br/>
+<br/>
+Info (an die nicht ContiGuardler):<br/>
+Es ist kein Problem, Nachrichten in die Datenbasen hinzuzufügen. Daher bitte keine zusätzlichen DBCs für einen der genannten CANs definieren.<br/>
+-&gt; Eine kurze Info an Marian, Jürgen oder mich genügt und wir nehmen die Daten in die bestehenden Files auf. Wenn es Geheimhaltungsgründe gibt, reservieren wir Euch die IDs mit Blankomessages.<br/>
+Sollten für Codegeneratoren Änderungen an den Sender-Empfänger Beziehungen notwendig sein, so könnte das File in einem anderen Ordner gebrancht und dort verändert werden.<br/>
+<br/>
+Viele Grüße, Jonas<br/>
+</body></html>

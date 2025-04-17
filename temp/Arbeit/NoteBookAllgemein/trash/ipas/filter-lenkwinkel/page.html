@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Filter-Lenkwinkel</title>
+</head><body>Schnelles Filtern des Lenkwinkels DSwaFiltFast<ul><li>Problem ist, das ein schnelle Filterung immer zu deutlichen Spitzen in dem Filtersignal der Lenkwinkelgeschw. kommt und damit bei der Dämpfung zu starken Gradientenänderungen, was wiederum zu Geräuschen führt.</li>
+<li>Hier habe ich jetzt eine variablen PT1-Filter mit variabler Zeitkonstante verwendet. Bei geringer Geschwindigkeit wird stark gefilter f = f0 = 1/T0 klein und bei hoher Geschwindigkeit wird schwach gefiltert f = f1 = 1/T1 groß. Außerdem wird die Lenkwinkelbeschleunigung gebildet, damit kann noch eine sehr schnelle Änderung detektiert werden und die Filterkonstante f wieder groß werden. </li>
+<li>Außerdem wird noch ein Mittelwertfilter angewendet wenn die Differenz vom vorletzten zu letzen Wert und aktuellen zu letztem unterschiedliche Vorzeichen haben. Damit werden die Spitzen noch etwas abgemildert. </li>
+</ul>
+<br/>
+<b>Pseudocode:</b><br/>
+<tt><br/>
+Input: &nbsp;SwaIn &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;gemessener Lenkwinkel (in Passat wird EPS-Lenkwinkel genutzt)<br/>
+State: &nbsp;SwaInL &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; letzter Wert gemessener Lenkwinkel<br/>
+State: &nbsp;DSwaFiltFastL &nbsp; &nbsp;letzter Wert Filterwinkelgeschw <br/>
+State: &nbsp;DSwaFiltFastLL &nbsp; vorletzter Wert Filterwinkelgeschw <br/>
+State: &nbsp;DDSwaFiltFast &nbsp; &nbsp;Filterwinkelbeschleunigung <br/>
+State: &nbsp;DDSwaFiltFastL &nbsp; letzter Wert Filterwinkelbeschleunigung <br/>
+State: &nbsp;DDSwaFiltFastLL &nbsp;vorletzter Wert Filterwinkelbeschleunigung <br/>
+Output: DSwaFiltFast &nbsp; &nbsp; gefileterte Lenkwinkelgeschw.<br/>
+Parameter: &nbsp;LoopTime &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 0.01 &nbsp;s &nbsp; &nbsp; &nbsp; Loopzeit<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FiltFastDSwaMax &nbsp; &nbsp; = 4 &nbsp; &nbsp; rad/s &nbsp; maximale Lenkwinkelgeschw. für f1<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FiltFastf0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 10 &nbsp; &nbsp;1/s &nbsp; &nbsp; Filterfrequenz starke Filterung<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FiltFastf1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 100 &nbsp; 1/s &nbsp; &nbsp; Filterfrequenz schwache Filterung<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FiltFastDDSwaMin &nbsp; &nbsp;= 10 &nbsp; &nbsp;rad/s/s minimale Lenkwinkelbeschl<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FiltFastDDSwaMax &nbsp; &nbsp;= 40 &nbsp; &nbsp;rad/s/s maximale Lenkwinkelbeschl<br/>
+variable: f,d<br/>
+Umspeichern<br/>
+-----------<br/>
+DSwaFiltFastLL &nbsp;= DSwaFiltFastL<br/>
+DSwaFiltFastL &nbsp; = DSwaFiltFast<br/>
+DDSwaFiltFastLL &nbsp;= DDSwaFiltFastL<br/>
+DDSwaFiltFastL &nbsp; = DDSwaFiltFast<br/>
+Bestimmung Filterkonstante anhand Lenkwinkelgeschw.<br/>
+---------------------------------------------------<br/>
+if( DSwaFiltFastL &lt; 0.0 ) d = -DSwaFiltFastL<br/>
+else &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;d = DSwaFiltFastL<br/>
+if( d &lt; FiltFastDSwaMax ) &nbsp; &nbsp; &nbsp; &nbsp; f = FiltFastf0 + (FiltFastf1-FiltFastf0) * d / FiltFastDSwaMax<br/>
+else &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;f = FiltFastf1<br/>
+Bestimmung Filterkonstante anhand Lenkwinkelbeschl.<br/>
+---------------------------------------------------<br/>
+if( DDSwaFiltFastL &lt; 0.0 ) d = -DDSwaFiltFastL<br/>
+else &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d = DDSwaFiltFastL<br/>
+if( d &gt; FiltFastDDSwaMax ) &nbsp; &nbsp; &nbsp; &nbsp; d = FiltFastf1<br/>
+else if( d &gt; FiltFastDDSwaMin ) &nbsp; &nbsp;d = FiltFastf0 + <br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(FiltFastf1-FiltFastf0) * (d - FiltFastDDSwaMin) / (FiltFastDDSwaMax-FiltFastDDSwaMin)<br/>
+else &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d = 0.0<br/>
+if( d &gt; f ) f = d<br/>
+d = exp( -LoopTime * f )<br/>
+Ableitung Lenkwinkel<br/>
+--------------------<br/>
+f = (SwaIn-SwaInL)/LoopTime<br/>
+Filterung<br/>
+---------<br/>
+DSwaFiltFast = DSwaFiltFastL * d + f * (1.-d)<br/>
+Mittelwertbildung<br/>
+-----------------<br/>
+d = DSwaFiltFastL - DSwaFiltFastLL<br/>
+f = DSwaFiltFast &nbsp;- DSwaFiltFastL<br/>
+if( d * f &lt; 0.0 ) DSwaFiltFast = (DSwaFiltFast+DSwaFiltFastL) * 0.5<br/>
+Ableitung Lenkwinkelgeschw.<br/>
+---------------------------<br/>
+DDSwaFiltFast = (DSwaFiltFast-DSwaFiltFastL)/LoopTime<br/>
+Mittelwertbildung<br/>
+-----------------<br/>
+d = DDSwaFiltFastL - DDSwaFiltFastLL<br/>
+f = DDSwaFiltFast &nbsp;- DDSwaFiltFastL<br/>
+if( d * f &lt; 0.0 ) DDSwaFiltFast = (DDSwaFiltFast+DDSwaFiltFastL) * 0.5<br/>
+<br/>
+</tt>Diagramm aus einer Messung:<br/>
+<img src="image.png" width="850" height="566" /></body></html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>python.rtf</string>
+  <key>nodeid</key><string>95859e61-a8b0-496d-a42a-bebe7411269b</string>
+  <key>modified_time</key><integer>1475227780</integer>
+  <key>version</key><integer>6</integer>
+  <key>payload_filename</key><string>python.rtf</string>
+  <key>content_type</key><string>application/octet-stream</string>
+  <key>created_time</key><integer>1475227780</integer>
+  <key>order</key><integer>5</integer>
+</dict>
+</node>

@@ -1,0 +1,1609 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0\fmodern Cambria;}{\f1\fnil\fcharset0 Arial;}{\f2\fnil\fprq1\fcharset0 Courier New;}{\f3\fswiss Helv;}{\f4\fswiss\fcharset0 Arial;}{\f5\fnil\fcharset0 Courier New;}{\f6\fswiss\fcharset0 Helv;}{\f7\fnil Arial;}{\f8\fswiss\fprq2\fcharset0 Arial;}{\f9\fswiss\fprq2\fcharset0 System;}{\f10\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red23\green54\blue93;\red54\green95\blue145;\red79\green129\blue189;\red0\green0\blue255;\red128\green128\blue128;\red0\green0\blue0;\red0\green147\blue0;\red0\green128\blue0;\red50\green205\blue50;\red255\green0\blue0;\red60\green179\blue113;\red255\green255\blue255;}
+{\*\generator Msftedit 5.41.21.2500;}\viewkind4\uc1\pard\lang1033\f0\fs52\par
+\cf1 memo\cf0\par
+\par
+\cf2\b\fs28 1.1 CSF265\cf0\b0\par
+\par
+\cf3\b\fs26 1.1.1 Simulink-Modell\cf0\b0\par
+\par
+\pard{\pntext\f1 1.\tab}{\*\pn\pnlvlbody\pnf1\pnindent0\pnstart1\pndec{\pntxta.}}
+\fi-360\li360\lang1031\f1\fs18 Parameter m\'fcssen als Eing\'e4nge reingef\'fchrt werden\lang1033\par
+\lang1031{\pntext\f1 2.\tab}L\'e4ngsbeschleunigung, Querbeschleunigung als Eingang definieren\lang1033\par
+\lang1031{\pntext\f1 3.\tab}Neue Input um vdy zu berechnen mit strap \f2\fs20 SMOD_CSF265_VA_VDY_INPUT in SModcsf265_fct_lat.h nicht vollst\'e4ndig. ( In can_process_rx_ch0.c bei Funktion Rte_COMCbk_VehicleLateralAcceleration(\cf4 void\cf0 ) abgebrochen, bei Weiterarbeit ab hier die vdata-Funktionen implementieren\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f1 4.\tab}Funktion \cf5 VDATASetIgnitionKeyType() nachziehen, da hier vdata emuliert wird\cf0\lang1033\f1\fs18\par
+\pard\f0\fs26\par
+\cf3\b 1.1.2 IPMA_FunctionalSpec_V004\cf0\b0\par
+\par
+\lang1031\f1\fs18 2.2 Warning Generator\par
+\par
+2.2.3 Warning Generator Transitions\par
+\par
+Parameter:\par
+\par
+LDWPauseTime\tab\tab PauseTime befor switching to Warning_Off\par
+LDWMaxDuration\tab\tab maximal Duration of LDW\par
+\par
+2.3 Intervention Generator\par
+\par
+2.3.3 Intervention Generator Transitions\par
+\par
+Parameter:\par
+\par
+LKAPauseTime\tab\tab PauseTime befor switching to Intervention_Off\par
+LKAMaxDuration\tab\tab maximal Duration of LKA intervention\par
+LKAMaxRelativeYawAngle\tab maximal relative yaw angle to switch on LCA_Active\par
+\par
+2.4 Reference Steering Angle Calculation\par
+\par
+2.4.4 Reference Front Wheel Steering Angle\par
+\par
+WB\tab\tab\tab wheel base (turnable ???)\par
+\par
+2.4.6 Angle Target Point Distance over Vehicle Speed\par
+\par
+LKAD0\tab\tab\tab minimum distance\par
+LKAFv\tab\tab\tab velocity dependend factor for distance\par
+LKAMaxDv                           maximal distance over vehicle speed\par
+LKAMinDv\tab\tab minimal distance over vehicle speed\par
+\par
+2.3.7 Angle Target Point Distance\par
+LKAFI\tab\tab\tab LKA intervention dependend Factor to  Angle Target Point \par
+\tab\tab\tab Distance over Vehicle Speed\par
+LKAFITime\tab\tab ramp time to ramp up and down LKAFI\par
+\par
+2.4.8 Lane Change Behaviour of Reference Angle\par
+\par
+LKALanecrossingOffset\tab offset when vehicle center is changing the lane to switch to \par
+\tab\tab\tab new reference angle\par
+\par
+2.4.9 Overlay Reference Steering Angle 40\par
+\par
+LKASwitchToRefSteer40\tab switch wich indicates to use Reference Steering Angle 40\par
+\par
+\par
+\lang1033\f0\fs26\par
+\cf3\b 1.1.3 WeeklyStatusMeeting-Focus\cf0\b0\par
+\par
+\pard\sl240\slmult0\cf6\f3\fs20 in case you need a dial in\par
+\f4 PASSCODE INFORMATION:\par
+Participant Passcode: 4622181\par
+PARTICIPANT ACCESS INFORMATION for this conference:\par
+GERMANY +49-69-2222-3142\par
+USA +1-210-795-0467\par
+PARTICIPANT PASSCODE: 4622181# (don't forget the "#"!!)\par
+\pard\cf0\f1\fs18\par
+\f0\fs26\par
+\cf3\b 1.1.4 bestehender LDW-Code\cf0\b0\par
+\par
+\cf3\b\fs22 1.1.4.1 sdl-Fileerstellen\cf0\b0\par
+\par
+\lang1031\f1\fs18 BaseDir: \cf4\b D:\\adcdev\\csf265base\cf0\b0\par
+\par
+Mit \cf4\b .\\4_sw\\dev\\appl\\mcu_master\\cmd\\fct_makesdl.cmd\par
+\cf0\lang1033\b0 wird ein sdl-File aus dem code erstellt in \cf4\b .\\4_sw\\dev\\appl\\mcu_master\\tmp\\appl_normal\\fct\\fct.sdl\par
+\par
+\cf0\b0 Dieses File mu\'df nach D:\\adcdev\\csf265base \cf4\b .\\7_tools\\mts_system\\mts_measurement\\sdl\\\par
+\par
+\b0 Mit\cf6  .\\7_tools\\mts_system\\mts_measurement\\ini\\create_csf2xx_cdl.bat wird f\'fcr die Simulation die passende sdl/cdl-File erzeugt\par
+\cf0\par
+\par
+\b\par
+\b0\f0\fs22\par
+\cf3\b 1.1.4.2 lka_code\cf0\b0\par
+\par
+\lang1031\f2\fs20 FCT_LAT_EXEC()\par
+\par
+\tab FCT_OPMODE will be set\par
+\par
+\tab\par
+\tab LKA_INIT() initialize LKA switch to diagnose\par
+\par
+\tab LKA_VDATA_INPUT()\par
+\tab LKA_CALCULATE()\par
+\tab LKA_VDATA_OUTPUT()\par
+\par
+\par
+\tab\par
+LKA_EXEC()\par
+\par
+\tab => LKA_LANE_DATA_PROCESSING()\par
+\par
+\tab\tab => LKA_ESTIMATE_CURVATURE_AHEAD()\par
+\par
+\tab\tab\tab Kurvenradius data->CURVATURE_AHEAD = f(LKA_T_CURVATURE_AHEAD [ms])\par
+\par
+\tab\tab => LKA_ESTIMATE_LATERAL_VELOCITY()\par
+\par
+\tab\tab\tab Filtern Quergeschwindigkeit (data->LATERAL_VELOCITY) auf null\par
+\par
+\cf4\tab\tab\tab Nur bei Spurwechsel wird auf null gefiltert, ansosnten wird der Rohwert \par
+\tab\tab\tab benutzt\par
+\cf0\par
+\tab\tab => LKA_ESTIMATE_DISTANCE_TO_LANE_MARK()\par
+\par
+\tab\tab\tab Abstand zur Markierung\par
+\par
+\tab\tab\tab data->MAX_DIST_TO_LANE_MARK   \cf4 = (Spurbreite - Fahrzeugbreite) / 2\cf0\par
+\tab\tab\tab data->DIST_TO_LANE_MARK_LEFT  = \cf4 (Spurbreite - Fahrzeugbreite) / 2 - Querabweichung\cf0\par
+\tab\tab\tab data->DIST_TO_LANE_MARK_RIGHT = \cf4 (Spurbreite - Fahrzeugbreite) / 2 + Querabweichung\cf0\par
+\par
+\tab\tab => LKA_SIMULATE_NEXT_CYCLE()\par
+\par
+\tab\tab\tab => LKA_COMPUTE_VIRTUAL_LANE_MARK() siehe unten\par
+\par
+\par
+\tab\tab\tab Wenn \par
+\tab\tab\tab sim_data.IN_LANE_RESET.AKT_STATUS == True\par
+\tab\tab\tab dann wird input->LANE_DATA.MARK_TYPE_LEFT/RIGHT \'fcbernommen in \par
+\tab\tab\tab data->LANE_DATA.MARK_TYPE_LEFT/RIGHT\par
+\par
+\tab\tab\tab\cf4 Damit wird ein pl\'f6tzlicher Wechsel der MARK_TYPES unterdr\'fcckt und zwar \par
+\tab\tab\tab solange bis der Fahrer wieder in der Spur ist, damit wird w\'e4hrend der \par
+\tab\tab\tab Unterdr\'fcckung auf die alte Spur geregelt \par
+\par
+\cf0\tab\tab => LKA_COMPUTE_VIRTUAL_LANE_MARK()\par
+\par
+\tab\tab\tab => LKA_TIME_TO_LINE_CROSSING()\par
+\par
+\tab\tab\tab\tab Berechnung data->TIME_ALERT_THRES_LEFT\par
+\tab\tab\tab\tab            data->TIME_ALERT_THRES_RIGH\par
+\cf4\tab\tab\tab\tab Time to lane crossing wird teilweise \'fcber Konstanten \par
+\tab\tab\tab\tab (Lka_sens_late,Lka_sens_early) oder (Lka_sens_adaptive)\'fcber\par
+\tab\tab\tab\tab Tabelle in Abh\'e4ngigkeit von MAX_DIST_TO_LANE_MARK wie \par
+\par
+\tab\tab\tab\tab bei 0 cm -> 0 ms \par
+\tab\tab\tab\tab bei 60 cm -> 500 ms, dar\'fcber konstant\par
+\cf0\par
+\tab\tab\tab => LKA_LATERAL_DEVIATION_DISPLACEMENT()\par
+\par
+\tab\tab\tab\tab calculate a deviation for the alert threshold calculation\par
+\tab                   due to an averaged lateral deviation resulting from \par
+          \tab\tab       constant driving at the edge of the street\par
+\par
+\tab\tab\tab\tab Berechnung data->LATERAL_DEVIATION_LEFT\par
+                                   data->LATERAL_DEVIATION_RIGHT\par
+\tab\tab\tab\tab aus input->AVERAGED_LATERAL_DEVIATION\par
+\tab\tab\tab\tab und zus\'e4tzlich input->LANE_DATA.MARK_WIDTH_LEFT/RIGHT\par
+\par
+\par
+\cf4\tab\tab\tab\tab Damit wird ein konstant aus der Spurmitte fahrender Fahrer\par
+\tab\tab\tab\tab und dabei der Markierung zu nahe kommend, die Warnlinie auf die \par
+\tab\tab\tab\tab Au\'dfenkante der Markierung gesetzt\par
+\tab\tab\tab\tab\par
+\tab\tab\tab\tab bei 30 cm AVERAGED_LATERAL_DEVIATION -> 0 cm  LATERAL_DEVIATION_LEFT/RIGHT\par
+\tab\tab\tab\tab bei 60 cm AVERAGED_LATERAL_DEVIATION -> 30 cm LATERAL_DEVIATION_LEFT/RIGHT\par
+\tab\tab\tab\tab\par
+\tab\tab\tab\tab wird hier begrenzt auf Linienbreite\par
+\tab\tab\tab\tab Wert links wie rechts positiv\par
+\par
+\cf0\tab\tab\tab\tab\par
+\tab\tab\tab => LKA_DLM_DISPLACEMENT()\par
+\par
+\tab\tab\tab\tab data->DLM_DISPLACEMENT_LEFT/RIGHT\par
+\tab\tab\tab\tab data->DLM_DISPLACEMENT_LEFT in Abh\'e4ngigkeit von\par
+\tab\tab\tab\tab Querbeschleunigung\par
+\par
+\cf4\tab\tab\tab\tab irgendwie zus\'e4tzliche Threshold aus Parameter innen und \par
+\tab\tab\tab\tab au\'dfen Kurvenschneiden\par
+\par
+\tab\tab\tab\tab inside:\par
+\tab\tab\tab\tab ay(c) = 0 mm/s/s    -> dy = 0 cm\par
+\tab\tab\tab\tab ay(c) = 2000 mm/s/s -> dy = 50 cm \par
+\tab\tab\tab\tab outside:\par
+\tab\tab\tab\tab ay(c) = 0 mm/s/s    -> dy = 0 cm\par
+\tab\tab\tab\tab ay(c) = 2000 mm/s/s -> dy = -15 cm\par
+\par
+\tab\tab\tab\tab bei Linkskurve c > 0\par
+\tab\tab\tab\tab DLM_DISPLACEMENT_LEFT -> inside value also positiv\par
+\tab\tab\tab\tab DLM_DISPLACEMENT_RIGHT -> outside value also negativ\par
+\tab\tab\tab\tab bei Rechtskurve c < 0\par
+\tab\tab\tab\tab DLM_DISPLACEMENT_LEFT -> outside value also negativ\par
+\tab\tab\tab\tab DLM_DISPLACEMENT_RIGHT -> inside value also positiv\par
+\cf0\tab\tab\tab\tab  \par
+\par
+\tab\tab\tab => LKA_TIME_MARGIN_DISPLACEMENT()\par
+\par
+\tab\tab\tab\tab data->DIST_TIME_MARGIN_LEFT\par
+\tab\tab\tab\tab data->DIST_TIME_MARGIN_RIGHT\par
+\par
+\tab\tab\tab\tab aus data->TIME_ALERT_THRES_LEFT * Quergeschw.\par
+\par
+\tab\tab\tab => LKA_LANE_WIDENING_DISPLACEMENT()\par
+\par
+\tab\tab\tab\tab data->LANE_WIDENING = f(Lka_lane_widening_curve,MAX_DIST_TO_LANE_MARK)\par
+\par
+\par
+\cf4\tab\tab\tab\tab Aufweitung der Spur, wenn zu schmal wird\par
+\par
+\tab\tab\tab\tab MAX_DIST_TO_LANE_MARK = 40 => LANE_WIDENING = 40 cm\par
+\tab\tab\tab\tab MAX_DIST_TO_LANE_MARK = 80 => LANE_WIDENING = 0 cm\par
+\cf0\par
+\par
+\tab\tab\tab => LKA_DETERMINE_ALERT_THRES()\par
+\par
+\tab\tab\tab\tab data->DIST_TO_ALERT_THRES_LEFT\par
+\tab\tab\tab\tab data->DIST_TO_ALERT_THRES_RIGH\par
+\par
+\tab\tab\tab\tab aus Aummen von \par
+                            data->DIST_TO_LANE_MARK_LEFT\par
+                            data->DIST_TIME_MARGIN_LEFT\par
+                            data->DLM_DISPLACEMENT_LEFT\par
+                            data->LATERAL_DEVIATION_LEFT\par
+                            data->LANE_WIDENING\par
+                            data->CUSTOM_DISPLACEM_LEFT\par
+\par
+\tab\tab\tab\tab in Abh\'e4ngigkeit von input->ALERT_SENS\par
+\tab\tab\tab\tab Lka_sens_adaptive:\par
+\tab\tab\tab       data->DIST_TO_ALERT_THRES_LEFT  \par
+\tab\tab\tab\tab = (distance_t)(data->DIST_TO_LANE_MARK_LEFT  \cf4 Freier Abstand links\par
+\cf0\tab\tab\tab\tab\tab\tab  + data->DIST_TIME_MARGIN_LEFT   \cf4 -|vy| * TLC\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab    Fzg nach links verringert margin links\par
+\tab\tab\tab\tab\tab\tab\tab                            Fzg nach rechts verringert nicht ???\cf0\par
+\tab\tab\tab\tab\tab\tab  + data->DLM_DISPLACEMENT_LEFT   \cf4 Innenkv (c>0) Aufweite (+)\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab    Aussenkv(c<0) Verring  (-)\cf0\par
+\tab\tab\tab\tab\tab\tab  + data->LATERAL_DEVIATION_LEFT  \cf4 Entsprechend mittlere Vesrschiebung aufweiten\cf0\par
+\tab\tab\tab\tab\tab\tab  + data->LANE_WIDENING           \cf4 Entsprechend kleinem freiem Abstand links vergr\'f6\'dfern\cf0\par
+\tab\tab\tab\tab\tab\tab  + data->CUSTOM_DISPLACEM_LEFT);\par
+\par
+\par
+\tab\tab\tab => LKA_DETERMINE_RESET_POSITION()\par
+\par
+\tab\tab\tab\tab Determine weather the vehicle is in the "safe zone"\par
+\par
+\tab\tab\tab\tab data->IN_LANE_RESET (True,False) setzen\par
+\par
+\tab\tab\tab\tab in Abh\'e4ngikeit von\par
+\tab\tab\tab\tab data->DIST_TO_ALERT_THRES_LEFT/RIGHT\par
+\tab\tab\tab\tab data->DIST_TO_LANE_MARK_LEFT/RIGHT\tab\tab\tab\tab\par
+\par
+\tab\tab\tab Es wird data->DIST_TO_ALERT_THRES_LEFT/RIGHT berechet\par
+\tab\tab\tab und data->IN_LANE_RESET gesetzt.\par
+\par
+\tab => LKA_DETERMINE_STATE()\par
+\par
+\tab\tab output->LDW_STATE setzen\par
+\par
+\tab\tab = Lka_status_off (0)\par
+\tab\tab = Lka_status_on_inactive (1)\par
+\tab\tab = Lka_status_on_active (2)\par
+\par
+\tab => LKA_MAIN_COORDINATOR()\par
+\tab\tab\par
+\tab\tab input->SUPPRESS_STATUS.SUPPRESS_LEFT/RIGHT\par
+\tab\tab input->SUPPRESS_STATUS.DRIVER_ACTIVE\par
+\tab\tab\par
+\tab\tab data->SUPPRESS_STATUS.SUPPRESS_ALERT_LEFT/RIGHT\par
+\par
+\tab\tab in Abh\'e4ngigkeit von input->DIE_DATA.DIE_P_LANE_CHANGE_LEFT/RIGHT\par
+                                input->DIE_DATA.DIE_P_DRIVER_DISTRACTION\par
+\par
+\par
+\tab\tab input->INPUT_STATUS.INHIBIT bei ABS/ESP setzen\par
+\lang1033\f1\fs18\par
+\tab => \lang1031\f2\fs20 LKA_LDW_MACHINE()\par
+\par
+\tab\tab => LKA_DETERMINE_ALERT()\par
+\par
+\tab\tab Wenn  data->DIST_TO_ALERT_THRES_LEFT/RIGHT <= 0\par
+            &&    data->LANE_DATA.MARK_TYPE_LEFT/RIGHT != Lane_mark_type_virtual\par
+            \par
+\tab\tab\tab SWITCH_SET_STATE(&data->ALERT_STATUS_LEFT/RIGHT, True);\par
+\par
+\tab\tab Au\'dferdem Abschalten nach Zeithysterese\par
+\par
+\tab => LKA_TRIGGER_ALERT()\par
+\par
+\tab\tab data->TRIGGER_STATE = Lka_trigger_ready\par
+                                = Lka_trigger_passive;\par
+                                = Lka_trigger_left\par
+\tab\tab\tab\tab\tab   = Lka_trigger_right\par
+\par
+\tab\tab DAnach wird output->OUTPUT_STATUS.ALERT_LEFT/RIGHT eingestellt\par
+\par
+\tab => LKA_TIME_ALERT()\par
+\par
+\tab\tab data->TIMING_STATE = Lka_timing_ready;\par
+                               = Lka_timing_suppress;\par
+                               = Lka_timing_warn_left\par
+                               = Lka_timing_warn_right\par
+\par
+\tab\tab Danach wird output->OUTPUT_STATUS.ALERT_LEFT/RIGHT eingestellt\par
+\par
+\tab Wie h\'e4ngt LKA_TRIGGER_ALERT() und LKA_TIME_ALERT()\par
+\par
+\tab => LKA_STATISTICS()\par
+\par
+\tab\tab => LKA_LDW_WARNINGS_STAT()\par
+\par
+\tab\tab F\'fcr was wird das benutzt\par
+\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\lang1033\f1\fs18\par
+\f0\fs22\par
+\cf3\b 1.1.4.3 Variablen\cf0\b0\par
+\par
+\cf4\lang1031\f2\fs20 typedef\cf0  \cf4 struct\cf0  \{\par
+  unsigned_int32_t  MTS_START_ALIGNMENT;\par
+  angle_t           ORIENTATION;\par
+  angle_t           ORIENTATION_STANDEV;\par
+  angle_t           PITCH;\par
+  angle_t           PITCH_STANDEV;\par
+  distance_t        LATERAL_DISPLACEMENT;\tab\tab\tab\tab\cf7 Querabweichung Spurmitte zu Fahrzeugmitte, Koordinatensystem \par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab auf Spurmitte\cf0\par
+  distance_t        LATERAL_DISPLACEMENT_STANDEV;\par
+  unsigned_int32_t  MTS_END_ALIGNMENT;\par
+\} lane_relative_position_t;\par
+\cf4\par
+\cf8 /*! @brief LKA input interface: input data*/\par
+\cf4 typedef\cf0  \cf4 struct\cf0  \{\par
+  unsigned_int32_t          MTS_START_ALIGNMENT;\par
+  lane_t                    LANE_DATA;\par
+  speedo_data_t             SPEEDOMETER;\par
+  lane_relative_position_t  LANE_REL_POS;\par
+  lka_alert_sensitivity_t   ALERT_SENS;\par
+  lka_alert_intensity_t     ALERT_INTENS;     \cf8 /* not used yet */\par
+\cf0   lka_blind_spot_input_t    BLIND_SPOT_INPUT; \cf8 /* not used yet */\par
+\cf0   lka_suppress_input_t      SUPPRESS_INPUT;\par
+  lka_lr_input_t            LR_INPUT;\par
+  lka_input_status_t        INPUT_STATUS;\par
+  die_data_t                DIE_DATA;\par
+  velocity_t                RAW_LATERAL_VELOCITY;\par
+  velocity_t                VEHICLE_VELOCITY;\par
+  distance_t                AVERAGED_LATERAL_DEVIATION;     \cf7 gemittelte Querabweichung Fahrzeug zur Surmitte, \par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab Koordinatensystem auf Spurmitte \cf0\par
+  die_mode_t                ALDW_MODE;\par
+  unsigned_int32_t          MTS_END_ALIGNMENT;\par
+\} lka_input_data_t;\par
+\cf4\par
+\par
+typedef\cf0  \cf4 struct\cf0  \{\par
+  unsigned_int32_t      MTS_START_ALIGNMENT;\par
+  lane_t                LANE_DATA;\par
+  switch_t              ALERT_STATUS_LEFT;\par
+  switch_t              ALERT_STATUS_RIGHT;\par
+  lka_suppress_status_t SUPPRESS_STATUS;  \par
+  unsigned_int16_t      ALERT_COUNTER;\par
+  unsigned_int16_t      SUPPRESS_ALERT_COUNTER;\par
+  distance_t            DIST_TO_ALERT_THRES_LEFT;\par
+  distance_t            DIST_TO_ALERT_THRES_RIGHT;\par
+  distance_t            LATERAL_DEVIATION_LEFT;\par
+  distance_t            LATERAL_DEVIATION_RIGHT;\par
+  distance_t            DLM_DISPLACEMENT_LEFT;\par
+  distance_t            DLM_DISPLACEMENT_RIGHT;\par
+  distance_t            DIST_TIME_MARGIN_LEFT;\par
+  distance_t            DIST_TIME_MARGIN_RIGHT;\par
+  distance_t            MAX_DIST_TO_LANE_MARK;\tab\tab\tab (\cf7 Spurbreite - Fahrzeugbreite)/2\cf0\par
+  distance_t            DIST_TO_LANE_MARK_LEFT;\par
+  distance_t            DIST_TO_LANE_MARK_RIGHT;\par
+  times_t               TIME_ALERT_THRES_LEFT;\par
+  times_t               TIME_ALERT_THRES_RIGHT;\par
+  velocity_t            LATERAL_VELOCITY;\tab\tab\tab\tab\cf7 gefilterte Quergeschwindigkeit \cf0\par
+  curvature_t           CURVATURE_AHEAD;\par
+  distance_t            LANE_WIDENING;\par
+  switch_t              IN_LANE_RESET;\par
+  switch_t              ALERT_TRIGGER_LEFT;\par
+  switch_t              ALERT_TRIGGER_RIGHT;\par
+  lka_trigger_state_t   TRIGGER_STATE;\par
+  lka_timing_state_t    TIMING_STATE;\par
+  times_t               ACTIVITY_TIMER;\par
+  distance_t            CUSTOM_DISPLACEM_LEFT;\par
+  distance_t            CUSTOM_DISPLACEM_RIGHT;\par
+  unsigned_int32_t      MTS_END_ALIGNMENT;\par
+\} lka_data_t;\par
+\lang1033\f1\fs18\par
+\f0\fs26\par
+\cf3\b 1.1.5 requirements\cf0\b0\par
+\par
+\cf3\b\fs22 1.1.5.1 Ford_LA_Features_v2p0_CONTI.mdl\cf0\b0\par
+\par
+\cf3\b\i 1.1.5.1.1 InterventionZoneManager\cf0\b0\i0\par
+\par
+\lang1031\f5\fs20 Input:\tab EgoLaneWidth\par
+\tab\tab Psi \par
+\tab\tab VehicleSpeed\par
+\tab\tab LateralAcceleration\par
+\tab\tab dy1\par
+\tab\tab dy2\par
+\par
+\par
+Parameter:\tab IntvZoneLaneWidth\tab\tab vector\par
+\tab\tab IntvZoneInner\tab\tab vector\par
+\tab\tab IntvZoneOuter           vector\par
+\tab\tab IntvVyFactor\tab\tab single\par
+\tab\tab IntvMaxVyShift\tab\tab single\par
+\tab\tab IntvAyFactor\tab\tab single\par
+\tab\tab IntvMaxAyShift          single\par
+\par
+Output:     InterventionZone \tab\tab (0,1,2,3,4)\par
+\par
+Monitor:    LeftInnerZoneBase  \par
+\tab\tab RightInnerZoneBase \par
+\tab\tab LeftDyPsi\par
+\tab\tab RightDyPsi\par
+\tab\tab LeftDyAy\par
+\tab\tab RightDyAy\par
+\tab\tab LeftInnerDyHyst\par
+\tab\tab RightInnerDyHyst \par
+\tab\tab LeftOuterDyHyst\par
+\tab\tab RightOuterDyHyst \par
+\tab\tab LeftInnerZone\par
+\tab\tab RightInnerZone\par
+\tab\tab LeftOuterZone\par
+\tab\tab RightOuterZone\par
+\par
+// Zone Calculator InnerZone\par
+//==========================\par
+\par
+// Base\par
+//=====\par
+LeftInnerZoneBase  = f(IntvZoneLaneWidth,IntvZoneInner,EgoLaneWidth)\par
+RightInnerZoneBase = LeftInnerZoneBase*(-1.0)\par
+\par
+// psi\par
+//====\par
+LeftDyPsi  = min(Psi * VehicleSpeed * IntvVyFactor,IntvMaxVyShift)\par
+RightDyPsi = max(Psi * VehicleSpeed * IntvVyFactor,-IntvMaxVyShift)\par
+\par
+\par
+// ay\par
+//===\par
+LeftDyAy   = max(LateralAcceleration * IntvAyFactor,-IntvMaxAyShift)\par
+RightDyAy  = min(LateralAcceleration * IntvAyFactor,IntvMaxAyShift)\par
+\par
+// Hysterese\par
+//==========\par
+if( InterventionZone & 0x01 )\par
+\tab LeftInnerDyHyst = IntvZoneHysth\par
+else\par
+\tab LeftInnerDyHyst = 0.0\par
+\par
+\par
+if( InterventionZone & 0x02 )\par
+\tab RightInnerDyHyst = IntvZoneHysth*(-1.0)\par
+else\par
+\tab RightInnerDyHyst = 0.0\par
+\par
+// Total\par
+//======\par
+LeftInnerZone  = LeftInnerZoneBase  + LeftDyPsi  + LeftDyAy + LeftInnerDyHyst \par
+RightInnerZone = RightInnerZoneBase + RightDyPsi + RightDyAy + RightInnerDyHyst \par
+\par
+// ZoneCalculator OuterZone\par
+//=========================\par
+\par
+// Base\par
+//=====\par
+LeftOuterZoneBase  = f(IntvZoneLaneWidth,IntvZoneOuter,EgoLaneWidth)\par
+RightOuterZoneBase = LeftOuterZoneBase*(-1.0)\par
+\par
+\par
+// Hysterese\par
+//==========\par
+if( InterventionZone & 0x04 )\par
+\tab LeftOuterDyHyst  = IntvZoneHysth\par
+\tab RightOuterDyHyst = IntvZoneHysth * (-1.0)\par
+else\par
+\tab LeftOuterDyHyst  = 0.0\par
+\tab RightOuterDyHyst = 0.0\par
+\par
+// Total\par
+//======\par
+LeftOuterZone  = LeftOuterZoneBase  + LeftDyAy + LeftOuterDyHyst  \par
+RightOuterZone = RightOuterZoneBase + RightDyAy + RightOuterDyHyst\par
+\par
+\par
+//=================\par
+// Zone Calculation\par
+//=================\par
+\par
+tmp1 = dy1 - VehicleWidth/2\par
+tmp2 = dy2 + VehicleWigth/2\par
+\par
+\par
+if(  LeftOuterZone  > tmp1\par
+  || RightOuterZone < tmp2 )\par
+\par
+\tab InterventionZone = 4\par
+\tab\par
+else \{\par
+\par
+\tab InterventionZone = 0;\par
+\par
+\tab if(  tmp1           <= LeftInnerZone\par
+  \tab   && LeftOuterZone  <= tmp1           )\par
+\par
+\tab\tab InterventionZone &= 0x01;\par
+\par
+\par
+\tab if(  tmp2            >= RightInnerZone\par
+        && RightOuterZone  >= tmp2            )\par
+\par
+\tab\tab InterventionZone &= 0x02;\par
+\par
+\}\par
+\f1\fs18\par
+\lang1033\par
+\f0\fs22\par
+\cf3\b 1.1.5.2 ipma_la_functional_spec_10\cf0\b0\par
+\par
+\cf3\b\fs26 1.1.6 tbd\cf0\b0\par
+\par
+\cf3\b 1.1.7 R302\cf0\b0\par
+\par
+\cf3\b\fs22 1.1.7.1 neustrukturierter Code\cf0\b0\par
+\par
+\lang1031\f5\fs20 lka_main.c:\tab LKA_EXEC(cycle_time, param, input, data, output)\par
+\par
+\tab\tab\tab LKA_DETERMINE_STATE(input,output)\par
+\tab\tab\tab\tab\par
+\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab output->LDW_STATE\par
+\tab\tab\tab\tab output->HC_STATE\par
+\tab\tab\tab\tab output->LC_STATE\par
+\par
+\tab\tab\tab LKA_LA_LANE_DATA_PROCESSING(cycle_time,param,input,data)\par
+\par
+\tab\tab\tab\tab LKA_ESTIMATE_CURVATURE_AHEAD (input, data)\par
+\tab\tab\tab\tab\tab\par
+\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab data->CURVATURE_AHEAD\par
+\par
+\tab\tab\tab\tab\f2 LKA_ESTIMATE_LATERAL_VELOCITY(cycle_time,input,data)\par
+\par
+\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab data->LATERAL_VELOCITY\f5\par
+\f1\fs18\tab\tab\tab\par
+\tab\tab\tab\tab\f2\fs20 LKA_ESTIMATE_DISTANCE_TO_LANE_MARK(param,input,data)\par
+\par
+\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab data->DIST_TO_LANE_MARK_LEFT\par
+\tab\tab\tab\tab\tab data->DIST_TO_LANE_MARK_RIGHT\par
+\tab\tab\tab\tab\tab data->DY_TO_LANE_MARK_LEFT\par
+\tab\tab\tab\tab\tab data->DY_TO_LANE_MARK_RIGHT\par
+\par
+\tab\tab\tab LKA_LDW_LANE_DATA_PROCESSING(cycle_time,param,input,data)\par
+\par
+\cf4\tab\tab\tab       #if CFG_FCT_USE_LKA_LDW_STRATEGY == LKA_LDW_INTERNAL_STRATEGY\par
+\par
+\cf0\tab\tab\tab\tab LKA_SIMULATE_NEXT_CYCLE(param,input,data)\par
+\par
+\tab\tab\tab\tab\tab LKA_COMPUTE_VIRTUAL_LANE_MARK(param,input,&(sim_data=*data))\par
+\tab\tab\tab\tab\tab\tab siehe unten\par
+\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab data->LANE_DATA.MARK_TYPE_LEFT\par
+\tab\tab\tab\tab\tab data->LANE_DATA.MARK_TYPE_RIGHT\par
+\par
+\tab\tab\tab\tab LKA_COMPUTE_VIRTUAL_LANE_MARK(param,input,data)\par
+\par
+\tab\tab\tab\tab\tab LKA_TIME_TO_LINE_CROSSING(input,data)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->TIME_ALERT_THRES_LEFT\par
+\tab\tab\tab\tab\tab\tab data->TIME_ALERT_THRES_RIGHT\par
+\par
+  \tab\tab\tab\tab\tab LKA_DLM_DISPLACEMENT(param,input,data)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->DLM_DISPLACEMENT_LEFT\par
+\tab\tab\tab\tab\tab\tab data->DLM_DISPLACEMENT_RIGHT\par
+\par
+  \tab\tab\tab\tab\tab LKA_TIME_MARGIN_DISPLACEMENT(param,data)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->DIST_TIME_MARGIN_LEFT\par
+\tab\tab\tab\tab\tab\tab data->DIST_TIME_MARGIN_RIGHT\par
+\par
+  \tab\tab\tab\tab\tab LKA_LANE_WIDENING_DISPLACEMENT(param,data)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->LANE_WIDENING\par
+  \cf8\par
+\cf0  \tab\tab\tab\tab\tab LKA_LATERAL_DEVIATION_DISPLACEMENT(param,input,data)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->LATERAL_DEVIATION_LEFT\par
+\tab\tab\tab\tab\tab\tab data->LATERAL_DEVIATION_RIGHT\par
+ \tab\tab\tab\tab\tab\par
+\tab\tab\tab\tab\tab LKA_DETERMINE_ALERT_THRES(input,data)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->DIST_TO_ALERT_THRES_LEFT\par
+\tab\tab\tab\tab\tab\tab data->DIST_TO_ALERT_THRES_RIGHT\cf8\par
+\par
+\cf0   \tab\tab\tab\tab\tab LKA_DETERMINE_RESET_POSITION(data)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->IN_LANE_RESET\par
+\tab\tab\tab\tab\tab\par
+\cf4\tab\tab\tab       #elif CFG_FCT_USE_LKA_LDW_STRATEGY == LKA_LDW_FORD_STRATEGY\par
+\par
+\cf0\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab data->LANE_DATA.MARK_TYPE_LEFT\par
+\tab\tab\tab\tab\tab data->LANE_DATA.MARK_TYPE_RIGHT\par
+\par
+\tab\tab\tab\tab\tab LKA_LDW_WARN_BASE_DISPL(input,data)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->WARN_BASE_DISPL_INNER\par
+\tab\tab\tab\tab\tab\tab data->WARN_BASE_DISPL_OUTER\par
+\par
+\tab\tab\tab\tab\tab LKA_LDW_WARN_LAT_VEL_DISPL(input,data)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->WARN_LAT_VEL_DISPL_LEFT\par
+\tab\tab\tab\tab\tab\tab data->WARN_LAT_VEL_DISPL_RIGHT\par
+\par
+\tab\tab\tab\tab\tab LKA_LDW_WARN_AY_DISPL(input,data)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->WARN_AY_DISPL_LEFT\par
+\tab\tab\tab\tab\tab\tab data->WARN_AY_DISPL_RIGHT\par
+\par
+\tab\tab\tab\tab\tab LKA_LDW_WARN_HYST_DISPL(data,output)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->WARN_HYST_INNER_LEFT\par
+\tab\tab\tab\tab\tab\tab data->WARN_HYST_INNER_RIGHT\par
+\tab\tab\tab\tab\tab\tab data->WARN_HYST_OUTER\par
+\par
+\tab\tab\tab\tab\tab LKA_LDW_DETERMINE_INTERV_THRES(data)\par
+\par
+\tab\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab\tab data->WARN_ZONE_LEFT_INNER\par
+\tab\tab\tab\tab\tab\tab data->WARN_ZONE_RIGHT_INNER\par
+\tab\tab\tab\tab\tab\tab data->WARN_ZONE_LEFT_OUTER\par
+\tab\tab\tab\tab\tab\tab data->WARN_ZONE_RIGHT_OUTER\par
+\par
+\tab\tab\tab\tab\tab\tab data->DIST_TO_WARN_THRES_LEFT_INNER\par
+\tab\tab\tab\tab\tab\tab data->DIST_TO_WARN_THRES_RIGHT_INNER\par
+\tab\tab\tab\tab\tab\tab data->DIST_TO_WARN_THRES_LEFT_OUTER\par
+\tab\tab\tab\tab\tab\tab data->DIST_TO_WARN_THRES_RIGHT_INNER\par
+\par
+\par
+\tab\tab\tab\tab\cf4 #endif\par
+\tab\tab\tab\par
+\tab\tab\tab\cf0 LKA_MAIN_COORDINATOR(input,data,cyle_time)\par
+\par
+\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab input->AVERAGED_LATERAL_DEVIATION\par
+\tab\tab\tab\tab input->SUPPRESS_INPUT.SUPPRESS_LEFT\par
+\tab\tab\tab\tab input->SUPPRESS_INPUT.SUPPRESS_RIGHT\par
+\tab\tab\tab\tab input->SUPPRESS_INPUT.DRIVER_ACTIVE\par
+\tab\tab\tab\tab data->SUPPRESS_STATUS.SUPPRESS_ALERT_LEFT\par
+\tab\tab\tab\tab data->SUPPRESS_STATUS.SUPPRESS_ALERT_RIGHT\par
+\tab\tab\tab\tab data->ACTIVITY_TIMER\par
+\tab\tab\tab\tab data->SUPPRESS_STATUS.SUPPRESS_HC_LEFT\par
+\tab\tab\tab\tab data->SUPPRESS_STATUS.SUPPRESS_HC_RIGHT\par
+\tab\tab\tab\tab data->SUPPRESS_STATUS.SUPPRESS_LC\par
+\tab\tab\tab\tab input->INPUT_STATUS.INHIBIT\par
+\par
+\tab\tab\tab LKA_LDW_MACHINE(cycle_time,input,data,output)\par
+\par
+\cf4\tab\tab\tab       #if CFG_FCT_USE_LKA_LDW_STRATEGY == LKA_LDW_INTERNAL_STRATEGY\par
+\cf0\tab\tab\tab\tab LKA_DETERMINE_ALERT(cycle_time, data)\par
+\par
+\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab data->ALERT_STATUS_LEFT  = True/False\par
+\tab\tab\tab\tab\tab data->ALERT_STATUS_RIGHT = True/False\par
+\par
+\tab\tab\tab\tab LKA_TRIGGER_ALERT(input, data, output)\par
+\par
+\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab data->ALERT_TRIGGER_LEFT  = True/False\par
+\tab\tab\tab\tab\tab data->ALERT_TRIGGER_RIGHT = True/False\par
+\tab\tab\tab\tab\tab data->TRIGGER_STATE = Lka_trigger_passive, Lka_trigger_ready\par
+\tab\tab\tab\tab\tab\tab\tab\tab     Lka_trigger_left, Lka_trigger_right\par
+\tab\tab\tab\tab\tab\par
+\par
+\tab\tab\tab\tab LKA_TIME_ALERT(cycle_time, data, output)\par
+\par
+\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab output->OUTPUT_STATUS.ALERT_LEFT  = True/False\par
+\tab\tab\tab\tab\tab output->OUTPUT_STATUS.ALERT_RIGHT = True/False\par
+\tab\tab\tab\tab\tab data->SUPPRESS_ALERT_COUNTER\par
+\tab\tab\tab\tab\tab data->ALERT_COUNTER\par
+\tab\tab\tab\tab\tab data->TIMING_STATE = Lka_timing_ready,Lka_timing_suppress,\par
+\tab\tab\tab\tab\tab\tab\tab\tab    Lka_timing_warn_left,Lka_timing_warn_right\par
+\cf4\tab\tab\tab       #elif CFG_FCT_USE_LKA_LDW_STRATEGY == LKA_LDW_FORD_STRATEGY\par
+\cf0\tab\tab\tab\tab LKA_DETERMINE_ALERT(cycle_time, data)\par
+\par
+\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab data->LA_LDW_WARN_STATE = La_ldw_warn_zone_between,\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab   La_ldw_warn_zone_left,\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab   La_ldw_warn_zone_right,\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab   La_ldw_warn_zone_both,\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab   La_ldw_warn_zone_out\par
+\tab\tab\tab\tab\tab data->ALERT_STATUS_LEFT  = True/False\par
+\tab\tab\tab\tab\tab data->ALERT_STATUS_RIGHT = True/False\par
+\par
+\tab\tab\tab\tab LKA_TRIGGER_ALERT(input, data, output)\par
+\par
+\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab output->LA_LDW_STATE = La_ldw_status_off,\par
+\tab\tab\tab\tab\tab\tab\tab\tab      La_ldw_status_inactive,\par
+\tab\tab\tab\tab\tab\tab\tab\tab      La_ldw_status_left,\par
+\tab\tab\tab\tab\tab\tab\tab\tab      La_ldw_status_right\par
+\tab\tab\tab\tab\tab output->OUTPUT_STATUS.ALERT_LEFT  = True/False\par
+\tab\tab\tab\tab\tab output->OUTPUT_STATUS.ALERT_RIGHT = True/False\par
+\tab\tab\tab\tab\tab\par
+\par
+\tab\tab\tab\tab LKA_TIME_ALERT(cycle_time, data, output)\par
+\par
+\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab data->ALERT_COUNTER\par
+\tab\tab\tab\tab\tab data->PAUSE_ALERT_COUNTER\par
+\tab\tab\tab\tab\tab data->TIMING_STATE = Lka_timing_ready,Lka_timing_suppress,\par
+\cf4\tab\tab\tab\tab #endif\par
+\cf0\par
+\tab\tab\tab LKA_STATISTICS(cycle_time, input, data, output)\par
+\par
+\tab\tab\tab\tab LKA_LDW_WARNINGS_STAT(cycle_time, input, data, output)\par
+\par
+\tab\tab\tab\tab\tab out:\par
+\tab\tab\tab\tab\tab output->STATISTICS.ODOMETER\par
+\tab\tab\tab\tab\tab output->STATISTICS.SYSTEM_ON_ODOMETER\par
+\tab\tab\tab\tab\tab output->STATISTICS.MIN_SPEED_ODOMETER\par
+\tab\tab\tab\tab\tab output->STATISTICS.LR_ACTIVE_ODOMETER\par
+\tab\tab\tab\tab\tab output->STATISTICS.SUPPRESS_ALERT_ODOMETER\par
+\tab\tab\tab\tab\tab output->STATISTICS.SUPPRESS_ALERT_LEFT_COUNTER\par
+\tab\tab\tab\tab\tab output->STATISTICS.SUPPRESS_ALERT_LEFT_COUNTER_ACTIVITY\par
+\tab\tab\tab\tab\tab output->STATISTICS.SUPPRESS_ALERT_LEFT_COUNTER_LCPROB\par
+\tab\tab\tab\tab\tab output->STATISTICS.SUPPRESS_ALERT_RIGHT_COUNTER\par
+\tab\tab\tab\tab\tab output->STATISTICS.SUPPRESS_ALERT_RIGHT_COUNTER_ACTIVITY\par
+\tab\tab\tab\tab\tab output->STATISTICS.SUPPRESS_ALERT_RIGHT_COUNTER_LCPROB\par
+\par
+\par
+\tab\tab\tab\tab\tab\par
+\par
+\tab\tab\tab\tab\par
+\par
+\par
+\par
+\par
+\par
+\tab\tab\tab\tab\tab\lang1033\f1\fs18\par
+\f0\fs22\par
+\cf3\b 1.1.7.2 OffenePunkteNachRelease\cf0\b0\par
+\par
+\lang1031\f1\fs18\par
+\par
+\lang1033\f0\fs22\par
+\cf3\b 1.1.7.3 noch zu kl\'e4ren\cf0\b0\par
+\par
+\pard{\pntext\f1 1.\tab}{\*\pn\pnlvlbody\pnf1\pnindent0\pnstart1\pndec{\pntxta.}}
+\fi-360\li360\lang1031\f1\fs18 welche Botschaften kommen in CD-Carline rein? (erledigt)\par
+{\pntext\f1 2.\tab}fkt.sdl f\'fcr neues release, wer macht das Einchecken?\par
+{\pntext\f1 3.\tab}fkt_lka_lines.dll, wurde ge\'e4ndert einchecken mit welchem Namen?\par
+\pard\par
+\lang1033\f0\fs26\par
+\cf3\b 1.1.8 R303\cf0\b0\par
+\par
+\cf3\b\fs22 1.1.8.1 ToDofromIPMASpec_V13\cf0\b0\par
+\par
+\lang1031\f1\fs18 Open Isues:\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\strike Ask Erik for all Inputs in the list(chapter 1.2) and make link in LKA_VDATA_INPUT()\par
+{\pntext\f10\'B7\tab}Parameterlist for Erik (flsp); ask for timing\par
+{\pntext\f10\'B7\tab}Communication Checker in LKA_VDATA_INPUT() implementieren (Erik nach den valid-bits f\'fcr checksum und rollingcounter fragen)\par
+\cf9{\pntext\f10\'B7\tab}=> valid-bit der Checksum zeigt an, ob checksum okay, keine gute L\'f6sung\strike0 , stimmt nicht es gibt ein checksummen signal (\cf0\f2\fs20 La_pscm_inputs.VDATALaActStatsCs)\cf9\f1\fs18 , dass das okay gibt\cf0\par
+\strike{\pntext\f10\'B7\tab}input signal conditionar implemtation\par
+\strike0{\pntext\f10\'B7\tab}go  over general manager\par
+\strike{\pntext\f10\'B7\tab}implementation suppression manager\par
+{\pntext\f10\'B7\tab}go over la zone manager (double parameter set, implemenation of lateral long term shifter)\par
+\strike0{\pntext\f10\'B7\tab}go over warning genarator\par
+\strike{\pntext\f10\'B7\tab}HMI setting controller\par
+{\pntext\f10\'B7\tab}suppression display manager\par
+\strike0{\pntext\f10\'B7\tab}debug signal \par
+\strike{\pntext\f10\'B7\tab}tunable parameter: timing parameterlist for erik, parameter-excel-list, implement in LKA_PAR_INIT()\par
+\strike0{\pntext\f10\'B7\tab}output signal conditionierer (checksum, rollingcounter => Erik, display statemachine)\par
+\strike{\pntext\f10\'B7\tab}at the end control all outputsignals\par
+\strike0{\pntext\f10\'B7\tab}Eprom-functions und Name\par
+\strike{\pntext\f10\'B7\tab}flsp-Parameter kommen wann einamal bei Initialisiereung oder fortlaufend\par
+\cf9\strike0{\pntext\f10\'B7\tab}=> flsp einmal, aber \'fcber xcp kann forllaufend ge\'e4ndert werden\par
+\pard\cf0\par
+\lang1033\f0\fs22\par
+\cf3\b 1.1.8.2 FragenAnFord\cf0\b0\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\lang1031\strike\f1\fs18 IPC.IgnKeyType_D_Actl neuer Input von CAN ?????? Ist wohl in C-Carline dbc, aber nicht in CD-Carline dbc \lang1033\par
+\cf7\lang1031\strike0{\pntext\f10\'B7\tab}=> f\'fcr CD-Carline IPC.IgnKeyType_D_Actl  = 1 annehmen\cf0\lang1033\par
+\lang1031\strike{\pntext\f10\'B7\tab}Parameter:\lang1033\par
+{\pntext\f10\'B7\tab}TS_LAController ist f\'fcr uns kein Parameter\par
+{\pntext\f10\'B7\tab}VehicleWidth, WheelBase ist nicht Teil flsp\par
+{\pntext\f10\'B7\tab}Einheit von PointDistanceRate is s anstatt 1/s\par
+\pard\strike0\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\strike EpasInvData_Suppressed geht wo rein, bzw. wird wie ber\'fccksichtigt?\cf7  \cf0\par
+\cf7\strike0{\pntext\f10\'B7\tab}=> Suppressionmanager\cf0\par
+\strike{\pntext\f10\'B7\tab}EpasInvData_Denied geht in LA_Failure_Stat  und mu\'df von Framework ber\'fccksichtigt werden. \par
+\cf7\strike0{\pntext\f10\'B7\tab}=> Ja, aber nicht in diesem release 3.03\cf0\par
+{\pntext\f10\'B7\tab}DefaultOn1,-2,DefaultOff1,-2 Sinn, Werte und verstellbarkeit\par
+\cf10{\pntext\f10\'B7\tab}=> wird noch beantwortet\cf0\par
+\strike{\pntext\f10\'B7\tab}Was geschieht mit der Popup-Fkt \par
+\cf7\strike0{\pntext\f10\'B7\tab}=> f\'e4llt weg, wird im Cluster abgehandelt\cf0\par
+{\pntext\f10\'B7\tab}Brauchen wir die Debug-Fkt in HMI-Controller \par
+\cf10{\pntext\f10\'B7\tab}=> habe ich vergessen\cf0\par
+\cf4\lang1031\f2\fs20{\pntext\f10\'B7\tab}La_bcm_outputs.VDATALaMenuEnblActl \cf0 habe ich nach \cf4 LKA_DATA.HMI_TRANSMIT.LA_SELECT \cf0\lang1033\f1\fs18 geschaltet, d.h wenn irgendeins selektiert, dann wird enable gesetzt (mdl ist constant auf 1)??\par
+\strike{\pntext\f10\'B7\tab}Outputsignal LaSwtchIndic_B_Req existiert in dbc nicht, mu\'df gekl\'e4rt werden, \par
+\strike0{\pntext\f10\'B7\tab}=> wird in release 3.03 nicht vorhanden sein \par
+\pard\par
+\par
+\f0\fs22\par
+\cf3\b 1.1.8.3 Input-Variable\cf0\b0\par
+\par
+\cf3\b 1.1.8.4 OffenePunkteNachRelease\cf0\b0\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\lang1031\f1\fs18 Signal LaSwtchIndic_B_Req wird nicht bedient, da in dbc noch nicht vorhanden\lang1033\par
+\lang1031{\pntext\f10\'B7\tab}Parameter LkaDecelSuppress wird nicht bedient, entspricht jetzt = -LkaAccelSuppress\lang1033 #\par
+\lang1031{\pntext\f10\'B7\tab}go over intervention generator\par
+{\pntext\f10\'B7\tab}go over reference angle calc (switching psi gain factor )\par
+{\pntext\f10\'B7\tab}hands off warning generator for lca\par
+\pard{\pntext\f1 1.\tab}{\*\pn\pnlvlbody\pnf1\pnindent0\pnstart1\pndec{\pntxta.}}
+\fi-360\li360\cf8\f2\fs20 LKA_OUTPUT_DATA.OUTPUT_STATUS.HANDS_OFF_DISP in lka_vdata_output() \cf0 ist nicht richtig programmiert\f1\fs18\par
+\f2\fs20{\pntext\f1 2.\tab}Skalierung von LA_REF_ANGLE_DX_HC_FAC und LA_REF_ANGLE_DX_LCA_FAC \'fcberpr\'fcfen, da Aufl\'f6sung erh\'f6ht\f1\fs18\par
+\f2\fs20{\pntext\f1 3.\tab}Berechnung mit La_ref_angle_dy_change_rate verbessern, da von time auf rate gewechselt\f1\fs18\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\lang1033 fct_lka_lines.dll Projekt einchecken!!\par
+\lang1031\f2\fs20{\pntext\f10\'B7\tab}Fct_opmode_diag_001 und Fct_opmode_diag_002 in FCT_LAT_EXEC() nicht gesetzt\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f10\'B7\tab}NVM-Variable: \lang1033\f1\fs18\par
+{\pntext\f10\'B7\tab}\par
+\lang1031{\pntext\f10\'B7\tab}IPMA_Internal_Status mu\'df nachgezogen werden, insbesondere HMI-Controller\lang1033\par
+\lang1031\f2\fs20{\pntext\f10\'B7\tab}Es gibt zwei Intensausgaben?? La_bcm_outputs.VDATALdwMenuIntnsActl und La_pscm_outputs.VDATALdwActvIntnsReq. Stimmt das und sind diese gleich zu behandeln\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f10\'B7\tab}Handsoffausgabe mu\'df Lka und Ldw verquicken (siehe Functional Request nach Version13)\lang1033\f1\fs18\par
+{\pntext\f10\'B7\tab}Refernce Winkel und Curvature haben keine SigStat in vdata_la, nachziehen\par
+\pard{\pntext\f1 1.\tab}{\*\pn\pnlvlbody\pnf1\pnindent0\pnstart1\pndec{\pntxta.}}
+\fi-360\li360\lang1031\f2\fs20 La_pscm_outputs.VDATALaRefAngReq und La_pscm_outputs.VDATALaCurvatureCalc mit null initialisieren, damit in LKA_VDATA_OUTPUT() und HC nicht gesetzt st\'e4ndig null zugewiesen wird\f1\fs18\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\lang1033 LA_Failure_Stat  in vdata_la vorbereiten\lang1031\par
+\lang1033{\pntext\f10\'B7\tab}LaSwtchIndic_B_Req   in vdatala vorbereiten\lang1031\par
+\lang1033{\pntext\f10\'B7\tab}Debug-Gr\'f6\'dfen bereitstellen\par
+\pard\f0\fs22\par
+\cf3\b 1.1.8.5 SuppressionDisplayManger\cf0\b0\par
+\par
+\lang1031\f1\fs18 Vorgehen aus dem autocodierten Code:\par
+\par
+\pard{\pntext\f1 1.\tab}{\*\pn\pnlvlbody\pnf1\pnindent0\pnstart1\pndec{\pntxta.}}
+\fi-360\li360 Funktion \cf4\f2\fs20 static\cf0  \cf4 void\cf0  SDM_output(int_T tid) aus dem c-Code kopieren (SDM war name des mdl-Files) und in lka_hmi.c gesetzt.\lang1033\f1\fs18\par
+\pard{\pntext\f1 1)\tab}{\*\pn\pnlvlbody\pnf1\pnindent0\pnstart1\pndec{\pntxta)}}
+\fi-360\li360\lang1031\f2\fs20 Funktionsheader \cf4 void\cf0  LA_SDM_CNTRL(\cf4 const\cf0  times_t cycle_time, la_sdm_input_t *input, la_sdm_state_t* state, unsigned_int8_t *actvstate) verwenden.\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f1 2)\tab}alle Variablen SDM_U.TS durch cycle_time ersetzten.\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f1 3)\tab}alle Variablen beginnend mit SDM_U. durch input-> ersetzen\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f1 4)\tab}Inputstruktur in lka.h \'e4ndern: siehe unten\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f1 5)\tab}Statestruktur aus SDM_types.h kopieren output und \'e4ndern\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f1 6)\tab}SDM_DWork.LKA_Disp. mit state-> ersetzen\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f1 7)\tab}Den letzten Teil SDM_Y.Out1 und UNUSED_PARAMETER rausl\'f6schen\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f1 8)\tab}Die Variable SDM_B.LxxActvStats_D_Req mit state->actvstate ersetzen und in Struktur includieren\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f1 9)\tab}uint8_T mit unsigned_int8_t ersetzen\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f1 10)\tab}defines includieren und SDM_IN_ in LA_SDM_ wandeln\lang1033\f1\fs18\par
+\pard\par
+\par
+\par
+\par
+4.============================================================================================\par
+\cf4\lang1031\f2\fs20 typedef\cf0  \cf4 struct\cf0  \{\par
+  uint8_T State;                       \cf8 /* '<Root>/State' */\par
+\cf0   uint8_T SuppState;                   \cf8 /* '<Root>/SuppState' */\par
+\cf0   real_T TS;                           \cf8 /* '<Root>/TS' */\par
+\cf0   boolean_T ReasBit0;                  \cf8 /* '<Root>/ReasBit0' */\par
+\cf0   boolean_T ReasBit3;                  \cf8 /* '<Root>/ReasBit3' */\par
+\cf0   boolean_T ReasBit4;                  \cf8 /* '<Root>/ReasBit4' */\par
+\cf0   boolean_T ReasBit6;                  \cf8 /* '<Root>/ReasBit6' */\par
+\cf0   real_T SuppMinDisplayTime;           \cf8 /* '<Root>/SuppMinDisplayTime' */\par
+\cf0   real_T EPASSuppWaitTime;             \cf8 /* '<Root>/EPASSuppWaitTime' */\par
+\cf0   real_T LaneWidthSuppWaitTime;        \cf8 /* '<Root>/LaneWidthSuppWaitTime' */\par
+\cf0   real_T VehAccSuppWaitTime;           \cf8 /* '<Root>/VehAccSuppWaitTime' */\par
+\cf0   real_T LineCaseSuppWaitTime;         \cf8 /* '<Root>/LineCaseSuppWaitTime' */\par
+\cf0   real_T FlickerDelay;                 \cf8 /* '<Root>/FlickerDelay' */\par
+\cf0   uint8_T Zone;                        \cf8 /* '<Root>/Zone' */\par
+\cf0\} ExternalInputs_SDM;\par
+\lang1033\f1\fs18  => \par
+\cf4\lang1031\f2\fs20 typedef\cf0  \cf4 struct\cf0  \{\par
+  unsinged_int8_t State;                        \cf8 /* '<Root>/State' */\par
+\cf0   unsinged_int8_t SuppState;                    \cf8 /* '<Root>/SuppState' */\par
+\cf0   unsinged_int8_t ReasBit0;                     \cf8 /* '<Root>/ReasBit0' */\par
+\cf0   unsinged_int8_t ReasBit3;                     \cf8 /* '<Root>/ReasBit3' */\par
+\cf0   unsinged_int8_t ReasBit4;                     \cf8 /* '<Root>/ReasBit4' */\par
+\cf0   unsinged_int8_t ReasBit6;                     \cf8 /* '<Root>/ReasBit6' */\par
+\cf0   times_t         SuppMinDisplayTime;           \cf8 /* '<Root>/SuppMinDisplayTime' */\par
+\cf0   times_t         EPASSuppWaitTime;             \cf8 /* '<Root>/EPASSuppWaitTime' */\par
+\cf0   times_t         LaneWidthSuppWaitTime;        \cf8 /* '<Root>/LaneWidthSuppWaitTime' */\par
+\cf0   times_t         VehAccSuppWaitTime;           \cf8 /* '<Root>/VehAccSuppWaitTime' */\par
+\cf0   times_t         LineCaseSuppWaitTime;         \cf8 /* '<Root>/LineCaseSuppWaitTime' */\par
+\cf0   times_t         FlickerDelay;                 \cf8 /* '<Root>/FlickerDelay' */\par
+\cf0   unsinged_int8_t Zone;                         \cf8 /* '<Root>/Zone' */\par
+\cf0\} la_sdm_input_t;\par
+\lang1033\f1\fs18\par
+5.==========================================================================================\par
+\cf4\lang1031\f2\fs20 typedef\cf0  \cf4 struct\cf0  \{\par
+  real_T Timer;\par
+  uint8_T is_GenSupp;\par
+  uint8_T is_Hold;\par
+  uint8_T is_NoSupp;\par
+  uint8_T is_NotActive;\par
+  uint8_T is_NotGenSupp;\par
+  uint8_T is_active_c11_SDM;\par
+  uint8_T is_c11_SDM;\par
+\} CSc11_SDM_ChartStruct;\par
+\lang1033\f1\fs18\par
+\f0\fs22\par
+\cf3\b 1.1.8.6 benutzte_Lane_Data\cf0\b0\par
+\par
+\lang1031\f2\fs20       \cf8 /*--------------------------------------*/\par
+\cf0       \cf8 /* get yaw angle Psi (ger.: Gierwinkel) */\par
+\cf0       \cf8 /*--------------------------------------*/\par
+\cf0       tmp = LRResults.fPsi;\par
+      tmp = tmp * Angle_s;\par
+      LKA_INPUT_DATA.LANE_REL_POS.ORIENTATION = (angle_t) tmp;\par
+\par
+\par
+      \cf8 /*--------------------------------------*/\par
+\cf0       \cf8 /* get yaw angle Psi standard deviation */\par
+\cf0       \cf8 /*--------------------------------------*/\par
+\cf10\tab Wir momentan nicht ausgewertet !!\cf0\par
+      tmp = LRResults.fSigma_Psi;\par
+      tmp = tmp * Angle_s;\par
+      LKA_INPUT_DATA.LANE_REL_POS.ORIENTATION_STANDEV = (angle_t) tmp;\par
+\par
+\par
+      \cf8 /*--------------------------------------------------*/\par
+\cf0       \cf8 /* get y-position relative to lane center in meters */\par
+\cf0       \cf8 /*--------------------------------------------------*/\par
+\cf0       tmp = LRResults.fYEgo;\par
+      tmp = tmp * Distance_s;\par
+      LKA_INPUT_DATA.LANE_REL_POS.LATERAL_DISPLACEMENT = (distance_t) tmp; \cf8 /* unit: cm */\cf0  \par
+\par
+      \cf8 /*-----------------------------------*/\par
+\cf0       \cf8 /* get y-position standard deviation */\par
+\cf0       \cf8 /*-----------------------------------*/\par
+\cf10\tab Wir momentan nicht ausgewertet !!\cf0\par
+      tmp = LRResults.fSigma_YEgo;\par
+      tmp = tmp * Distance_s;\par
+      LKA_INPUT_DATA.LANE_REL_POS.LATERAL_DISPLACEMENT_STANDEV = (distance_t) tmp; \cf8 /* unit: cm */\cf0  \par
+\par
+\par
+      \cf8 /*------------------------------------*/\par
+\cf0       \cf8 /* get estimated lane width in meters */\par
+\cf0       \cf8 /*------------------------------------*/\par
+\cf0       tmp = LRResults.fB0m;\par
+      tmp = tmp * Distance_s;\par
+      LKA_INPUT_DATA.LANE_DATA.LANE_WIDTH = (distance_t) tmp;\par
+\par
+      \cf8 /*---------------------------------------------*/\par
+\cf0       \cf8 /* get estimated lane width standard deviation */\par
+\cf0       \cf8 /*---------------------------------------------*/\par
+\cf10\tab Wir momentan nicht ausgewertet !!\cf0\par
+      tmp = LRResults.fSigma_B0m;\par
+      tmp = tmp * Distance_s;\par
+      LKA_INPUT_DATA.LANE_DATA.LANE_WIDTH_STANDEV = (distance_t) tmp;\par
+\par
+\par
+      \cf8 /*---------------------------------------------------------------*/\par
+\cf0       \cf8 /* get estimated horizontal lane curvature 1st order in 1/meters */\par
+\cf0       \cf8 /*---------------------------------------------------------------*/\par
+\cf0       tmp = LRResults.fC0hm;\par
+      tmp = tmp * Curvature_s;\par
+      LKA_INPUT_DATA.LANE_DATA.CURVATURE = (curvature_t) tmp;\par
+\par
+      \cf8 /*------------------------------------------------------------*/\par
+\cf0       \cf8 /* get estimated horizontal lane curvature standard deviation */\par
+\cf0       \cf8 /*------------------------------------------------------------*/\par
+\cf10\tab Wir momentan nicht ausgewertet !!\cf0\par
+      tmp = LRResults.fSigma_C0hm;\par
+      tmp = tmp * Curvature_s;\par
+      LKA_INPUT_DATA.LANE_DATA.CURVATURE_STANDEV = (curvature_t) tmp;\par
+\par
+\par
+      \cf8 /*----------------------------------------------------------*/\par
+\cf0       \cf8 /* get estimated lane curvature gradient in 1/meters/meters */\par
+\cf0       \cf8 /*----------------------------------------------------------*/\par
+\cf0       tmp = LRResults.fC1hm;\par
+      tmp = tmp * Curvature_s;\par
+      LKA_INPUT_DATA.LANE_DATA.CURVATURE_GRADIENT = (gradient_t) tmp;\par
+\par
+      \cf8 /*----------------------------------------------------------*/\par
+\cf0       \cf8 /* get estimated lane curvature gradient standard deviation */\par
+\cf0       \cf8 /*----------------------------------------------------------*/\par
+\cf10\tab Wir momentan nicht ausgewertet !!\cf0\par
+      tmp = LRResults.fSigma_C1hm;\par
+      tmp = tmp * Curvature_s;\par
+      LKA_INPUT_DATA.LANE_DATA.CURVATURE_GRADIENT_STANDEV = (gradient_t) tmp;\par
+\par
+\par
+      \cf8 /*------------------------------------------*/\par
+\cf0       \cf8 /* get pitch angle Theta (ger.: Nickwinkel) */\par
+\cf0       \cf8 /*------------------------------------------*/\par
+\cf10\tab Wir momentan nicht ausgewertet !!\cf0\par
+      tmp = LRResults.fTheta;\par
+      tmp = tmp * Angle_s;\par
+      LKA_INPUT_DATA.LANE_REL_POS.PITCH = (angle_t) tmp;\par
+\par
+      \cf8 /*--------------------------------------*/\par
+\cf0       \cf8 /* get pitche  Theta standard deviation */\par
+\cf0       \cf8 /*--------------------------------------*/\par
+\cf0  \cf10\tab Wir momentan nicht ausgewertet !!\cf0\par
+     tmp = LRResults.fSigma_Theta;\par
+      tmp = tmp * Angle_s;\par
+      LKA_INPUT_DATA.LANE_REL_POS.PITCH_STANDEV = (angle_t) tmp;\par
+\par
+\par
+      \cf8 /*--------------------------------*/\par
+\cf0       \cf8 /* get lane data quality (unit 1) */\par
+\cf0       \cf8 /*--------------------------------*/\par
+\cf0       tmp = LRResults.fConfRaw;\par
+      tmp = tmp * Scale_100;\par
+      LKA_INPUT_DATA.LANE_DATA.PREDICTION_QUALITY = (quality_t) tmp;\par
+\par
+        \cf8 /*----------------------*/\par
+\cf0         \cf8 /* get lateral velocity */\par
+\cf0         \cf8 /*----------------------*/\par
+\cf10\tab Wir momentan nicht ausgewertet, k\'f6nnte aber eventuell ein Thema sein, \par
+\tab wenn Psi nicht gutgenig ist !!\cf0\par
+        tmp = LRResults.fdYdT;\par
+        tmp = tmp * Velocity_s;\par
+        LKA_INPUT_DATA.RAW_LATERAL_VELOCITY = (velocity_t) tmp;\par
+\par
+      \cf8 /*-------------------------*/\par
+\cf0       \cf8 /* get camera status input */\par
+\cf0       \cf8 /*-------------------------*/\par
+\cf0       \cf4 if\cf0  (LRResults.bSystemAvailable == True)\par
+      \{\par
+        LKA_INPUT_DATA.LR_INPUT.LR_ACTIVE = True;\par
+      \}\par
+      \cf4 else\par
+\cf0       \{\par
+        LKA_INPUT_DATA.LR_INPUT.LR_ACTIVE = False;\par
+      \}\par
+\par
+      \cf8 /*------------------------------*/\par
+\cf0       \cf8 /* get abrupt lane switch input */\par
+\cf0       \cf8 /*------------------------------*/\par
+\cf10\tab Wir momentan nicht ausgewertet !!\cf0\par
+      \cf4 if\cf0  (LRResults.ALDWLaneChgStat == ALDW_LANE_CHANGE_IDLE)\par
+      \{\par
+        LKA_INPUT_DATA.LR_INPUT.LR_LANE_SWITCH_LEFT  = False;\par
+        LKA_INPUT_DATA.LR_INPUT.LR_LANE_SWITCH_RIGHT = False;\par
+      \}\par
+      \cf4 else\cf0  \cf4 if\cf0  (LRResults.ALDWLaneChgStat == ALDW_LANE_CHANGE_LT)\par
+      \{\par
+        LKA_INPUT_DATA.LR_INPUT.LR_LANE_SWITCH_LEFT  = True;\par
+        LKA_INPUT_DATA.LR_INPUT.LR_LANE_SWITCH_RIGHT = False;\par
+      \}\par
+\par
+      \cf4 else\cf0  \cf4 if\cf0  (LRResults.ALDWLaneChgStat == ALDW_LANE_CHANGE_RT)\par
+      \{\par
+        LKA_INPUT_DATA.LR_INPUT.LR_LANE_SWITCH_LEFT  = False;\par
+        LKA_INPUT_DATA.LR_INPUT.LR_LANE_SWITCH_RIGHT = True;\par
+      \}\par
+      \cf4 else\par
+\cf0       \{\par
+        LKA_INPUT_DATA.LR_INPUT.LR_LANE_SWITCH_LEFT  = False;\par
+        LKA_INPUT_DATA.LR_INPUT.LR_LANE_SWITCH_RIGHT = False;\par
+      \}\par
+\par
+      \cf8 /*-------------------------*/\par
+\cf0       \cf8 /* get lane mark type left */\par
+\cf0       \cf8 /*-------------------------*/\par
+\cf0       \cf4 switch\cf0  (LRResults.ALDWLaneMarkTypeLt)\par
+      \{        \par
+        \cf4 case\cf0 (ALDW_LM_TYPE_CONT):\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_CONT_BROKEN):\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_CONT_CONT):\par
+        \{\par
+          LKA_INPUT_DATA.LANE_DATA.MARK_TYPE_LEFT = Lane_mark_type_solid;\par
+          \cf4 break\cf0 ;\par
+        \}\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_BROKEN):\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_BROKEN_CONT):\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_BROKEN_BROKEN):\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_DOT):\par
+        \{\par
+          LKA_INPUT_DATA.LANE_DATA.MARK_TYPE_LEFT = Lane_mark_type_broken;\par
+          \cf4 break\cf0 ;\par
+        \}\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_VIRTUAL):\par
+        \{\par
+          LKA_INPUT_DATA.LANE_DATA.MARK_TYPE_LEFT = Lane_mark_type_virtual;\par
+          \cf4 break\cf0 ;\par
+        \}\par
+        \cf4 default\cf0 :\par
+        \{\par
+          LKA_INPUT_DATA.LANE_DATA.MARK_TYPE_LEFT = Lane_mark_type_unknown;\par
+          \cf4 break\cf0 ;\par
+        \}\par
+      \}\par
+\par
+      \cf8 /*--------------------------*/\par
+\cf0       \cf8 /* get lane mark type right */\par
+\cf0       \cf8 /*--------------------------*/\par
+\cf0       \cf4 switch\cf0  (LRResults.ALDWLaneMarkTypeRt)\par
+      \{        \par
+        \cf4 case\cf0 (ALDW_LM_TYPE_CONT):\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_CONT_BROKEN):\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_CONT_CONT):\par
+        \{\par
+          LKA_INPUT_DATA.LANE_DATA.MARK_TYPE_RIGHT = Lane_mark_type_solid;\par
+          \cf4 break\cf0 ;\par
+        \}\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_BROKEN):\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_BROKEN_CONT):\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_BROKEN_BROKEN):\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_DOT):\par
+        \{\par
+          LKA_INPUT_DATA.LANE_DATA.MARK_TYPE_RIGHT = Lane_mark_type_broken;\par
+          \cf4 break\cf0 ;\par
+        \}\par
+        \cf4 case\cf0 (ALDW_LM_TYPE_VIRTUAL):\par
+        \{\par
+          LKA_INPUT_DATA.LANE_DATA.MARK_TYPE_RIGHT = Lane_mark_type_virtual;\par
+          \cf4 break\cf0 ;\par
+        \}\par
+        \cf4 default\cf0 :\par
+        \{\par
+          LKA_INPUT_DATA.LANE_DATA.MARK_TYPE_RIGHT = Lane_mark_type_unknown;\par
+          \cf4 break\cf0 ;\par
+        \}\par
+      \}\par
+\par
+      \cf8 /*------------------------*/\par
+\cf0       \cf8 /* get LR blockage signal */\par
+\cf0       \cf8 /*------------------------*/\par
+\cf0       \cf4 if\cf0  (LRResults.VDATAALDWBlockageDtct == ALDW_BLOCK_DET_BLOCKAGE)\par
+      \{\par
+        LKA_INPUT_DATA.LR_INPUT.LR_BLOCKAGE = True;\par
+      \}\par
+      \cf4 else\cf0  \cf4 if\cf0  (LRResults.VDATAALDWBlockageDtct == ALDW_BLOCK_DET_CONDENSATION)\par
+      \{\par
+        LKA_INPUT_DATA.LR_INPUT.LR_CONDENSATION = True;\par
+      \}\par
+      \cf4 else\cf0  \cf4 if\cf0  (LRResults.VDATAALDWBlockageDtct == ALDW_BLOCK_DET_IDLE)\par
+      \{\par
+        LKA_INPUT_DATA.LR_INPUT.LR_BLOCKAGE     = False;\par
+        LKA_INPUT_DATA.LR_INPUT.LR_CONDENSATION = False;\par
+      \}\par
+      \cf4 else\par
+\cf0       \{\par
+        LKA_INPUT_DATA.LR_INPUT.LR_BLOCKAGE     = False;\par
+        LKA_INPUT_DATA.LR_INPUT.LR_CONDENSATION = False;\par
+      \}\par
+\lang1033\f1\fs18\par
+\f0\fs22\par
+\cf3\b 1.1.8.7 Debug-Signale\cf0\b0\par
+\par
+\cf3\b\fs26 1.1.9 R304\cf0\b0\par
+\par
+\cf3\b\fs22 1.1.9.1 offenePunkte\cf0\b0\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\cf7\lang1031\strike\f1\fs18 Parameter LkaDecelSuppress wird nicht bedient, entspricht jetzt = -LkaAccelSuppress\lang1033 #\b  => Implementieren => gemacht\cf4\b0\strike0\par
+\cf7\lang1031\strike{\pntext\f10\'B7\tab}go over intervention generator\strike0\par
+\strike{\pntext\f10\'B7\tab}go over reference angle calc (switching psi gain factor )\par
+{\pntext\f10\'B7\tab}hands off warning generator for lca\strike0\par
+\pard{\pntext\f1 1.\tab}{\*\pn\pnlvlbody\pnf1\pnindent0\pnstart1\pndec{\pntxta.}}
+\fi-360\li360\strike\f2\fs20 LKA_OUTPUT_DATA.OUTPUT_STATUS.HANDS_OFF_DISP in lka_vdata_output() ist nicht richtig programmiert\cf11\f1\fs18\par
+\cf7\f2\fs20{\pntext\f1 2.\tab}Skalierung von LA_REF_ANGLE_DX_HC_FAC und LA_REF_ANGLE_DX_LCA_FAC \'fcberpr\'fcfen, da Aufl\'f6sung erh\'f6ht\cf0\strike0\f1\fs18\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\cf7\lang1033\strike fct_lka_lines.dll Projekt einchecken!!\par
+\cf0\strike0{\pntext\f10\'B7\tab}\par
+\lang1031\f2\fs20{\pntext\f10\'B7\tab}NVM-Variable: \cf4\b => mit Dan kl\'e4ren\cf0\b0  \cf4\b => Implementieren\cf0\lang1033\b0\f1\fs18\par
+{\pntext\f10\'B7\tab}\par
+\cf7\lang1031\strike{\pntext\f10\'B7\tab}IPMA_Internal_Status mu\'df nachgezogen werden, insbesondere HMI-Controller \b => mit Mirco kl\'e4ren => Implementieren\cf0\lang1033\b0\strike0\par
+\cf7\lang1031\strike\f2\fs20{\pntext\f10\'B7\tab}Es gibt zwei Intensausgaben?? La_bcm_outputs.VDATALdwMenuIntnsActl und La_pscm_outputs.VDATALdwActvIntnsReq. Stimmt das und sind diese gleich zu behandeln\b\strike0  => ist gleich im mdl-Modell\cf11\lang1033\b0\strike\f1\fs18\par
+\cf7\lang1031\f2\fs20{\pntext\f10\'B7\tab}Handsoffausgabe mu\'df Lka und Lca verquicken (siehe Functional Request nach Version13)\lang1033\f1\fs18\par
+\pard{\pntext\f1 1.\tab}{\*\pn\pnlvlbody\pnf1\pnindent0\pnstart1\pndec{\pntxta.}}
+\fi-360\li360\lang1031\f2\fs20 La_pscm_outputs.VDATALaRefAngReq und La_pscm_outputs.VDATALaCurvatureCalc mit null initialisieren, damit in LKA_VDATA_OUTPUT() und HC nicht gesetzt st\'e4ndig null zugewiesen wird\b\strike0 => geht nicht, da La_pscm_outputs lokale Variablen sind!\b0\strike\f1\fs18\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\lang1033 LA_Failure_Stat  in vdata_la vorbereiten \b => mit Mirco kl\'e4ren, diese Gr\'f6\'dfe geht ja nicht an CAN, sondern an Framwork => Implementieren\lang1031\b0\par
+\lang1033{\pntext\f10\'B7\tab}Debug-Gr\'f6\'dfen bereitstellen\b  => mit Mirco kl\'e4ren (LanDataQuality_Left, LanDataQuality_Right, LaneMarkerColor_Left , LaneMarkerColor_Right, Angle Target Point (ist nicht global), dy1, dy2, Exit Lane Detected) => Implementieren, was geht\strike0\par
+\pard\cf0\b0\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\cf7\lang1031\strike\f2\fs20 Parameter La_ref_angle_dy_change_rate ist ein falscher Ausdruck sollte La_ref_angle_tf_change_rate hei\'dfen !! (betriftt FLSP) \b => mit Erik kl\'e4ren => flsp Implementieren\b0\tab\lang1033\f1\fs18\par
+\lang1031\f2\fs20{\pntext\f10\'B7\tab}Erik: In vdata_cals.h ist ; falsch bei den HC Parameter) \b => mit Erik kl\'e4ren\lang1033\b0\f1\fs18\par
+\cf0\strike0{\pntext\f10\'B7\tab}vdata_la.h einchecken, da ge\'e4ndert\cf4\b  => noch warten, wegen weiteren \'c4nderungen\cf0\b0\par
+\cf7\strike{\pntext\f10\'B7\tab}Introduce Parameter HmiDenyEnable\b  => implementieren\par
+\pard\lang1031\b0\par
+\cf0\lang1033\strike0\f0\fs22\par
+\cf3\b 1.1.9.2 offenePunkteNachRelease\cf0\b0\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\lang1031\f1\fs18 Schnittstelle f\'fcr \cf5\f2\fs20 IGN_KEY_TYPE noch nicht implementiert\par
+\cf0\f1\fs18{\pntext\f10\'B7\tab}Signal LaSwtchIndic_B_Req wird nicht bedient, da in dbc noch nicht vorhanden \cf5\f2\fs20\par
+\cf0{\pntext\f10\'B7\tab}Fct_opmode_diag_001 und Fct_opmode_diag_002 in FCT_LAT_EXEC() nicht gesetzt\cf4\b  => mit Dan/Erik besprechen\cf5\b0\par
+\pard{\pntext\f1 1.\tab}{\*\pn\pnlvlbody\pnf1\pnindent0\pnstart1\pndec{\pntxta.}}
+\fi-360\li360\cf0 Berechnung mit La_ref_angle_dy_change_rate verbessern, da von time auf rate gewechselt \cf4\b => mu\'df noch gepr\'fcft werden\cf0\b0\f1\fs18\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\lang1033 Refernce Winkel und Curvature haben keine SigStat in vdata_la, nachziehen \cf4\b => mit Erik,Mirco kl\'e4ren\cf0\b0\par
+\lang1031{\pntext\f10\'B7\tab}Code ohne Parameterzuweisung in Simulation laufen lassen, um divide by zero rauszufinden und abzufangen\cf5\f2\fs20\par
+\cf0\f1\fs18{\pntext\f10\'B7\tab}in fct_lat  ist Input von Hands Off nicht f\'fcr HC ausgetstrappt.\cf5\f2\fs20\par
+{\pntext\f10\'B7\tab}mu\'df bearbeitet werden:\par
+\pard\sl240\slmult0\cf6\b\f4\fs22 AbsActv_B_Actl\b0\f3\fs20 : \f6\fs18                       Wird eingelesen, aber bislang nicht ausgewertet. Ich denke in der n\'e4chsten Version mu\'df das rein, dann werden die Funktionenen \f3\par
+\f6                                                             LDW/LKA/LCA unterdr\'fcckt\f3\par
+\b\f4\fs22 DrvSlipCtlLamp_D_Rq:\tab\fs18 Das ist mir nicht bekannt, wird ein ESP/TCS eingriff sein oder \'e4hnliches, was dann auch zum Unterdr\'fccken f\'fchrt\par
+\fs22 EBAMode\fs18 :                                      Wenn dies emergency brake assist ist, wird es genauso zu Unterdr\'fcckungen f\'fchren\par
+\fs22 EmergencyBrakingEvent\fs18 :    dito, aber dann mu\'df EBAMode was anderes sein\par
+\fs22 RSCMode\fs18 :                                     anti roll control, dito\par
+\fs22 TCMode\fs18 :                                         k\'f6nnte ASR sein, dito\par
+\fs22 CmbbBrkPrchg_D_Rq\fs18 :           Das ist wohl collision mitigation oder so \'e4hnlich; wird bisher nicht genutzt, kommt wie ABS\par
+\fs16\par
+\fs22 FcwVisblWarn_B_Rq\fs18 :             Kenne ich nicht\par
+\par
+\fs22 IgnKeyType_D_Actl\fs18 :               Bei Ignition On wird dieser Wert in den ersten 2.5 s ausgelesen, um damit bestimmte Voreinstellungen zu generieren. \par
+\tab\tab\tab               0: Key_Reqd_In_Progress; 1: Standard Key; 2: My Key; 3: Key not programmed\par
+\par
+\pard\cf5\b0\f2\fs20\par
+\cf0\lang1033\f0\fs26\par
+\cf3\b 1.1.10 R306\cf0\b0\par
+\par
+\cf3\b\fs22 1.1.10.1 offenePunkte\cf0\b0\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\lang1031\strike\f1\fs18 Schnittstelle f\'fcr \cf5\f2\fs20 IGN_KEY_TYPE noch nicht implementiert\strike0\par
+\cf0\f1\fs18{\pntext\f10\'B7\tab}Signal LaSwtchIndic_B_Req wird nicht bedient, da in dbc noch nicht vorhanden \cf4\b => Anfrage an Dirk Gunia gestellt\cf5\b0\f2\fs20\par
+\pard{\pntext\f1 1.\tab}{\*\pn\pnlvlbody\pnf1\pnindent0\pnstart1\pndec{\pntxta.}}
+\fi-360\li360\cf0\strike Fct_opmode_diag_001 und Fct_opmode_diag_002 in FCT_LAT_EXEC() nicht gesetzt\cf4\b , wird erst bei Bedarf gemacht\cf0\b0\strike0\f1\fs18\par
+\strike\f2\fs20{\pntext\f1 2.\tab}Berechnung mit La_ref_angle_dy_change_rate verbessern, da von time auf rate gewechselt \cf4\b => mu\'df noch gepr\'fcft werden\cf0\b0\f1\fs18\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\lang1033 Refernce Winkel und Curvature haben keine SigStat in vdata_la, nachziehen \cf4\b => ANfrage an Erik gestellt\cf0\b0\par
+\lang1031\strike0{\pntext\f10\'B7\tab}Code ohne Parameterzuweisung in Simulation laufen lassen, um divide by zero rauszufinden und abzufangen\cf5\f2\fs20\par
+\cf0\strike\f1\fs18{\pntext\f10\'B7\tab}in fct_lat  ist Input von Hands Off nicht f\'fcr HC ausgetstrappt\strike0 .\cf5\f2\fs20\par
+{\pntext\f10\'B7\tab}mu\'df bearbeitet werden: \cf4\b => Anfrage an Dirk Gunia gestartet\cf5\b0\par
+\pard\sl240\slmult0\cf6\b\f4\fs22 AbsActv_B_Actl\b0\f3\fs20 : \f6\fs18                       Wird eingelesen, aber bislang nicht ausgewertet. Ich denke in der n\'e4chsten Version mu\'df das rein, dann werden die Funktionenen \f3\par
+\f6                                                             LDW/LKA/LCA unterdr\'fcckt\f3\par
+\b\f4\fs22 DrvSlipCtlLamp_D_Rq:\tab\fs18 Das ist mir nicht bekannt, wird ein ESP/TCS eingriff sein oder \'e4hnliches, was dann auch zum Unterdr\'fccken f\'fchrt\par
+\strike\fs22 EBAMode\fs18 :                                      Wenn dies emergency brake assist ist, wird es genauso zu Unterdr\'fcckungen f\'fchren\par
+\fs22 EmergencyBrakingEvent\fs18 :    dito, aber dann mu\'df EBAMode was anderes sein\par
+\fs22 RSCMode\fs18 :                                     anti roll control, dito\par
+\fs22 TCMode\fs18 :                                         k\'f6nnte ASR sein, dito\par
+\strike0\fs22 CmbbBrkPrchg_D_Rq\fs18 :           Das ist wohl collision mitigation oder so \'e4hnlich; wird bisher nicht genutzt, kommt wie ABS\par
+\fs16\par
+\strike\fs22 FcwVisblWarn_B_Rq\fs18 :             Kenne ich nicht\par
+\strike0\par
+\pard\cf5\b0\f2\fs20\par
+\cf0\lang1033\f1\fs18\par
+\f0\fs22\par
+\cf3\b 1.1.10.2 review-Tool\cf0\b0\par
+\par
+\pard\sl240\slmult0\tx0\tx0\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\cf6\f3\fs20 http://review.rb.de.conti.de:7779/forms/frmservlet?config=review\par
+\par
+Review ID: 2780447\par
+\pard\cf0\f1\fs18\par
+\f0\fs22\par
+\cf3\b 1.1.10.3 LRresult-Schnittstelle\cf0\b0\par
+\par
+\trowd\trgaph30\trleft-30\trrh742\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12\clbrdrt\brdrw15\brdrs\brdrcf12 \cellx2557\clbrdrt\brdrw15\brdrs\brdrcf12 \cellx7856\clbrdrt\brdrw15\brdrs\brdrcf12 \cellx9133\clbrdrt\brdrw15\brdrs\brdrcf12\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl\cf6\b\f7\fs20 LRResult structure\par
+LRResults.\cell LA structure\par
+LKA_INPUT_DATA.\cell\pard\intbl\qc used in\par
+csf265\par
+(Ford)\cell used in\par
+csf200\par
+(Daimler)\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl\b0 fPsi\cell LANE_REL_POS.ORIENTATION\cell\pard\intbl\qc x\cell x\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fSigma_Psi\cell LANE_REL_POS.ORIENTATION_STANDEV\cell\pard\intbl\qc\cell\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fYEgo\cell LANE_REL_POS.LATERAL_DISPLACEMENT\cell\pard\intbl\qc x\cell x\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fSigma_YEgo\cell LANE_REL_POS.LATERAL_DISPLACEMENT_STANDEV\cell\pard\intbl\qc\cell\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fB0m\cell LANE_DATA.LANE_WIDTH\cell\pard\intbl\qc x\cell x\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fSigma_B0m\cell LANE_DATA.LANE_WIDTH_STANDEV\cell\pard\intbl\qc\cell x\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fC0hm\cell LANE_DATA.CURVATURE\cell\pard\intbl\qc x\cell x\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fSigma_C0hm\cell LANE_DATA.CURVATURE_STANDEV\cell\pard\intbl\qc\cell\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fC1hm\cell LANE_DATA.CURVATURE_GRADIENT\cell\pard\intbl\qc x\cell x\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fSigma_C1hm\cell LANE_DATA.CURVATURE_GRADIENT_STANDEV\cell\pard\intbl\qc\cell\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fTheta\cell LANE_REL_POS.PITCH\cell\pard\intbl\qc\cell\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fSigma_Theta\cell LANE_REL_POS.PITCH_STANDEV\cell\pard\intbl\qc\cell\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fConfRaw\cell LANE_DATA.PREDICTION_QUALITY\cell\pard\intbl\qc x\cell x\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl fdYdT\cell RAW_LATERAL_VELOCITY\cell\pard\intbl\qc\cell x\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl bSystemAvailable\cell LR_INPUT.LR_ACTIVE\cell\pard\intbl\qc x\cell x\cell\row\trowd\trgaph30\trleft-30\trrh494\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl ALDWLaneChgStat\cell LR_INPUT.LR_LANE_SWITCH_LEFT\par
+LR_INPUT.LR_LANE_SWITCH_RIGHT\cell\pard\intbl\qc\cell x\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl ALDWLaneMarkTypeLt\cell LANE_DATA.MARK_TYPE_LEFT\cell\pard\intbl\qc x\cell x\cell\row\trowd\trgaph30\trleft-30\trrh247\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12 \cellx2557\cellx7856\cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl ALDWLaneMarkTypeRt\cell LANE_DATA.MARK_TYPE_RIGHT\cell\pard\intbl\qc x\cell x\cell\row\trowd\trgaph30\trleft-30\trrh742\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\brdrcf12\clbrdrb\brdrw15\brdrs\brdrcf12 \cellx2557\clbrdrb\brdrw15\brdrs\brdrcf12 \cellx7856\clbrdrb\brdrw15\brdrs\brdrcf12 \cellx9133\clbrdrr\brdrw15\brdrs\brdrcf12\clbrdrb\brdrw15\brdrs\brdrcf12 \cellx10410\pard\intbl VDATAALDWBlockageDtct\cell LR_INPUT.LR_BLOCKAGE\par
+LR_INPUT.LR_CONDENSATION\par
+\cell\pard\intbl\qc\cell x\cell\row\pard\cf0\f1\fs18\par
+\par
+\par
+\par
+\par
+\par
+\f0\fs26\par
+\cf3\b 1.1.11 R400\cf0\b0\par
+\par
+\cf3\b\fs22 1.1.11.1 offenePunkte\cf0\b0\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1\lang1031\f1\fs18 signal\b  LaSwtchIndic_B_Req \b0 is not supported and can't be found in dbc  \cf4\b => Question asked to Dirk Gunia (\cf8\b0\f2\fs20 Triggers LED in LDW Hard Switch)\cf0\lang1033\f1\fs18\par
+\pard\sl360\slmult1\tab 12.01.2010 Mail an Dirk Gunia\par
+\tab 14.01.2010 Ford/Dirk Gunia sagt wird eventuell f\'fcr weitere Projekte gebraucht, ist im moment nicht notwendig\par
+\tab 15.01.2010 Wenn auch cd_carline dieses Signal nicht braucht,  (Dan Kbnieper kl\'e4rt neustes dbc-File), wird es rausgelassen \par
+\tab\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1 Inputsignal \b YawStabilityIndex \b0 has to be implemented, in dbc it is a 9-bit value -256 ... 255 what value type to use signed_int1\par
+\pard\sl360\slmult1\tab 12.01.2010 Wurde von Dan Knieper aufgenommen\par
+\tab 15.01.2010 11:00 Noch nicht in vdata\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1 Implementierung der Suppression Other Systems \par
+\pard\sl360\slmult1\tab 12.01.2010 Implementiert\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1 Input signal \b DirectionIndSwitchPos\b0 : \lang1031\f2\fs20 VDATAGetDynTurnIndicator(&TurnIndicator, &State);TurnIndicator = TI_LEFT,TI_RIGHT,TI_HAZARD?\lang1033\f1\fs18\par
+{\pntext\f10\'B7\tab}turnidication state machine has to be revised\par
+\pard\sl360\slmult1   \tab 15.01.2010 Ist soweit drinn und mu\'df gepr\'fcft werden\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1 Input signal \b LA_Off_By_Framework\b0 : In the last frame work spec I found \b LA_Denied_By_Framework, \b0 Dirk Gunia said, it  has to be changed into \b LA_Off_By_Framework \b0 (next frame work spec)\par
+\pard\sl360\slmult1\tab 15.01.2010 Mu\'df noch gekl\'e4rt werden wer dieses Signal generiert\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1 How to proceed with \b LaActState_No_Cs \b0 and\b  LaActState_No_RollCnt \b0 in vdata-structure, no communication checker anymore. Take out parameter for communictaion checking\par
+\pard\sl360\slmult1\tab 15.01.2010 Ist ausgestrappt mu\'df noch gel\'f6scht werden\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1 Failure handling: see in code \cf8\lang1031\f2\fs20 26. LA_Failure_Status, \cf0 no checksum DTC, no rolling counter DTC but still cluster communication DTC\lang1033\f1\fs18\par
+\pard\sl360\slmult1\tab 15.01.2010 Die nicht notwendigen DTC sind draussen\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1\lang1031\f2\fs20 New parameter (4) for understeer and oversteer detection by YawStabilityIndex\lang1033\f1\fs18\par
+\pard\sl360\slmult1\tab 15.01.2010 Ist implementiert\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1\lang1031\f2\fs20 Change of parameter \b LA_LDW_WARN_SHIFT_OUT_START_N\b0  and \b LA_LDW_WARN_SHIFT_OUT_START_H\lang1033\b0\f1\fs18  from constant to a table dependend of lane_width, use the the same type of table as \b LA_LDW_WARN_BASE_DISPL_INNER_TABLE_N\b0\par
+\pard\sl360\slmult1\tab 15.01.2010 implementiert, falsche Parametervorgabe mu\'df noch abgefangen werden\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1 Suppression based on other system statuses for C-careline and CD-carline different, see CR-LA-v014-03\par
+\pard\sl360\slmult1\tab\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1 nvm for hmi setting controller:\par
+\pard\sl360\slmult1\tab 15.01.2010 Ist implementiert mu\'df gepr\'fcft werden\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1\lang1031 Code ohne Parameterzuweisung in Simulation laufen lassen, um divide by zero rauszufinden und abzufangen\lang1033\par
+\pard\sl360\slmult1\tab offen\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1\lang1031\fs24 statistics:\par
+\pard\sl360\slmult1     \fs18\par
+\par
+\fs24\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1\par
+\pard\sl360\slmult1\cf6\f3\fs20\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl360\slmult1\cf0\lang1033\f1\fs18 LA_HMI_DENY_ENABLE mit dem Display output verkn\'fcpfen\par
+\pard\sl360\slmult1\par
+\par
+CSF265_2010_CW03_DEVELOPMENT_01\par
+\pard\f0\fs22\par
+\cf3\b 1.1.11.2 Tests\cf0\b0\par
+\par
+\lang1031\b\f1\fs32 Simulation\b0\fs18\par
+\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360 Pruefen, ob Blinker delay funktioniert\par
+\pard\par
+\par
+\b\fs32 Steuerger\'e4t\par
+\b0\fs18\par
+\pard{\pntext\f10\'B7\tab}{\*\pn\pnlvlblt\pnf10\pnindent0{\pntxtb\'B7}}\fi-360\li360 Werden die hmi settings correct eingelesen\par
+\pard\lang1033\f0\fs28\par
+\cf2\b 1.2 IQF\cf0\b0\par
+\par
+\cf3\b\fs26 1.2.1 Code\cf0\b0\par
+\par
+\b\f5\fs22 IQF-Funktion: (iqf_main.h,iqf.h)\par
+\par
+cLoopTime        = 0.01  [s]\par
+cMaxYGradient    = 2.0 [m/loop] \par
+\par
+IQFLoop():\par
+\par
+\tab IQFSignalProcessing()\par
+\par
+\par
+\tab\tab LaneY wird auf cMaxYGradient     begrenzt\par
+\par
+\tab\tab Output:\par
+\tab\tab Input->Available \tab\tab [-]     system available\par
+\tab\tab Input->LaneY\tab\tab\tab [m]     current displacement from vehicle center to lane \par
+\tab\tab\tab\tab\tab\tab\tab\tab    boundary\par
+\tab\tab Input->LanePsi\tab\tab\tab [deg]   angle between vehicle movement and current lane path\par
+\tab\tab Input->LaneC0\tab\tab\tab [1/m]   current lane curvature\par
+\tab\tab Input->LaneC1\tab\tab\tab [1/m/m] current lane curvature change rate\par
+\par
+\tab Yreq = IQFCalcYreq()\par
+\par
+\tab IQFCalcSteerAngleReq():\par
+\par
+\tab YawAngleReq = IQFCalcYawAngleReq(Yreq,                   \par
+                                   \tab LaneY,            \par
+                                   \tab LaneC0,\par
+                                   \tab Vref,\par
+                                   \tab Available):\par
+\par
+\tab\tab DeltaY = Yreq - LaneY\par
+\par
+\tab\tab DeltaYDot = (DeltaY - DeltaYOld)/cLoopTime\par
+\tab\tab DeltaYDot = DeltaYDotOld + (DeltaYDot - DeltaYDotOld )*PAR_IqfDeltaYDot_FiltFactor\par
+\tab\par
+\tab\tab YawAngleReqKP = (PAR_IQFCalcYawAngleReqKP_a / 100.0) / Vref \par
+                         + (PAR_IQFCalcYawAngleReqKP_b / 100.0f)\par
+\par
+\tab\tab YawAngleReqKP2 = (PAR_IQFCalcYawAngleReqKP2_a / 100.0f) / Vref \par
+                          + (PAR_IQFCalcYawAngleReqKP2_b / 100.0f)\par
+\tab\tab YawAngleReqKD = (PAR_IQFCalcYawAngleReqKD_a / 100.0f) / Vref \par
+                         + (PAR_IQFCalcYawAngleReqKD_b / 100.0f);\par
+\par
+\tab\tab\tab\tab\tab\par
+\tab\tab AsymDeltaYCorr = 360/pi/pi * LaneC0/YawAngleReqKP * abs(DeltaY)\par
+\par
+\tab\tab YawAngleReqPPart  = YawAngleReqKP   * (DeltaY + AsymDeltaYCorr)\par
+\tab\tab YawAngleReqP2Part = YawAngleReqKP2  * (DeltaY + AsymDeltaYCorr)* abs(DeltaY+AsymDeltaYCorr)\par
+\tab\tab YawAngleReqDPart  = YawAngleReqKD   *  DeltaYDot\par
+\par
+\tab\tab YawAngleReq = YawAngleReqPPart + YawAngleReqP2Part + YawAngleReqDPart\par
+\par
+\tab SteerWhAngleReqControl  = IQFCalcSteerAngleReq(YawAngleReq,\par
+                           \tab\tab\tab\tab\tab    LanePsi,\par
+                           \tab\tab\tab\tab\tab    Vref,\par
+                           \tab\tab\tab\tab\tab    Available):\par
+\par
+\tab\tab DeltaYawAngle = YawAngleReq - LanePsi\par
+\par
+\tab\tab DeltaYawAngleDot = (DeltaYawAngle  - DeltaYawAngleOld)/cLoopTime\par
+\tab\tab DeltaYawAngleDot = DeltaYawAngleDotOld \par
+                            + (DeltaYawAngleDot - DeltaYawAngleDotOld )*PAR_IqfDeltaYawAngDotFiltFact\par
+\par
+\tab\tab DeltaYawAngleInt = DeltaYawAngleInt + DeltaYawAngleDot * cLoopTime\par
+\tab\tab DeltaYawAngleInt = DeltaYawAngleInt - sign(DeltaYawAngleInt ) * cLoopTime\par
+\par
+\tab\tab DeltaYawAngleInt =max(-5.0,min(5.0,DeltaYawAngleInt ))\par
+\par
+\par
+\tab\tab SteerAngleReqKP = (PAR_IQFCalcSteerAngleReqKP_a / 100.0) / (Vref * Vref) \par
+                           + (PAR_IQFCalcSteerAngleReqKP_b / 100.0)\par
+\par
+\tab\tab SteerAngleReqKD = (PAR_IQFCalcYawAngleReqKD_a / 100.0) / Vref \par
+\tab\tab\tab\tab      + (PAR_IQFCalcYawAngleReqKD_b / 100.0)\par
+\par
+\tab\tab SteerAngleReqKI = (PAR_IQFCalcSteerAngleReqKI_a / 100.0) / (Vref * Vref) \par
+\tab\tab\tab\tab      + (PAR_IQFCalcSteerAngleReqKI_b / 100.0);\par
+\tab\tab\par
+\tab\tab SteerWhAngleReqControl = SteerAngleReqKP + SteerAngleReqKD + SteerAngleReqKI\par
+\par
+\tab if( SteerWhAngleReqControl > SteerWhAngleReqControlOld )\par
+\tab\tab SteerWhAngleReqControl = min(SteerWhAngleReqControl \par
+                                       ,SteerWhAngleReqControlOld + cMaxStAngControl * cLoopTime)\par
+\tab else\par
+\tab\tab SteerWhAngleReqControl = max(SteerWhAngleReqControl \par
+                                       ,SteerWhAngleReqControlOld - cMaxStAngControl * cLoopTime)\par
+\par
+\tab SteerWhAngleReqLookAhead = IQFCalcLookAheadStAng(Vref,\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab LaneC0,\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab LaneC1):\par
+\par
+\tab\tab LookAheadCurvature = LaneC0 + LaneC1 * Vref * (PAR_IqfCurveLookAheadTimeMs/1000)\par
+\par
+\tab\tab SteerWhAngleReqLookAhead = LookAheadCurvature * (cWheelBase+cEG*Vref*Vref)*cRad2Deg\par
+\tab\tab SteerWhAngleReqLookAhead = SteerWhAngleReqLookAhead * PAR_IQFCurveLookAheadFactor / 100\par
+\par
+\tab if( SteerWhAngleReqLookAhead > SteerWhAngleReqLookAheadOld )\par
+\tab\tab SteerWhAngleReqLookAhead = min(SteerWhAngleReqLookAhead \par
+                                         ,SteerWhAngleReqLookAheadOld + cMaxStAngLAhead * cLoopTime)\par
+\tab else\par
+\tab\tab SteerWhAngleReqLookAhead = max(SteerWhAngleReqLookAhead \par
+                                         ,SteerWhAngleReqLookAheadOld - cMaxStAngLAhead * cLoopTime)\par
+\par
+\tab SteerWhAngleReq = (SteerWhAngleReqControl + SteerWhAngleReqLookAhead) * PAR_IQFSteerWhAmpl\par
+\par
+IQF_SWA_CONTROL():\par
+\par
+\tab swa_ref_buffer[0] = swa_ref_buffer[1]\par
+\tab swa_ref_buffer[1] = swa_ref_buffer[2]\par
+\tab swa_ref_buffer[2] = swa_ref_buffer[3]\par
+\tab swa_ref_buffer[3] = swa_ref_buffer[4]\par
+\par
+\tab swa_ref_buffer[4] = max(swa_ref_buffer[4]-5.0,min(swa_ref_buffer[4]+5.0,SteerWhAngleReq))\par
+\par
+    \tab swa_ref_dot   =  ( (swa_ref_buffer[4] - swa_ref_buffer[0]) \par
+                       + (swa_ref_buffer[3] - swa_ref_buffer[1])*2.0f\par
+                       ) * 0.125f / dT;\tab\par
+\tab\par
+\tab Delta_swa     = SteerWhAngleReq - SendMsg_Sigcon_swa\par
+\tab delta_swa_dot = Delta_swa * PAR_Gain_dPhi_Ref\par
+\b0\f0\fs26\par
+\cf3\b 1.2.2 RP-ECU\cf0\b0\par
+\par
+\cf3\b\fs22 1.2.2.1 CCP-Umstellung\cf0\b0\par
+\par
+\lang1031\b\f5 Um auf dem IQF-Regler von TOS Kommunikation auf CCP umzustellen m\'fcssen folgende Macros umgestellt werden:\par
+\par
+in Include/debugcfg.h wird\par
+\par
+DEBUG_USERINTERFACE = 4\par
+DEBUG_MESSAGE       = 4\par
+DEBUG_CCP           = 1 \par
+DEBUG_CAN_CMD       = 0\par
+DEBUG_CAN_DOWNLOAD  = 2\par
+\par
+gesetzt. Damit wird in Tos/Lib/debug.c die CAN-Kommunikation ausgestrappt und CCP gestrappt:\par
+\par
+void DebugInit()\par
+\{\par
+   /* CAN */\par
+#if ((DEBUG_USERINTERFACE & 2) || (DEBUG_MESSAGE & 2) || (DEBUG_CAN_CMD) )\par
+\par
+   CanXInitObjReceive(DEBUG_CAN_BUS,DEBUG_CAN_RECV_SLOT, DEBUG_CAN_RECV_ID);\par
+   CanXInitObjTransmit(DEBUG_CAN_BUS,DEBUG_CAN_SEND_SLOT, DEBUG_CAN_SEND_ID, 8);\par
+\par
+#endif\par
+#if ((DEBUG_USERINTERFACE & 4) || (DEBUG_MESSAGE & 4) || DEBUG_CCP)\par
+\par
+   CanXInitObjTransmit(DEBUG_CAN_BUS, CCP_CAN_SEND_SLOT, (ushort)CCP_CAN_SEND_ID, 8);\par
+   CanXInitObjReceive(DEBUG_CAN_BUS, CCP_CAN_RECV_SLOT, (ushort)CCP_CAN_RECV_ID);\par
+\par
+#endif\par
+\par
+\par
+In Tos/Lib/config.h k\'f6nnen die IDs eingestellt werden\par
+\par
+CCP_CAN_RECV_ID      (0x110_ID+CntrId*2)\par
+CCP_CAN_SEND_ID      (0x110+1+CntrId*2)\par
+\par
+In CanCmd entsprechend auch einstellen\lang1033\par
+\b0\f0\par
+\cf3\b\i 1.2.2.1.1 New Child Page\cf0\b0\i0\par
+\par
+\cf3\b\fs26 1.2.3 TB\cf0\b0\par
+\par
+\f1\fs18 Fr 31.07.2009\par
+\par
+\cf10 Probleme in Messungen:\par
+\par
+=> Messung Continuous_2009.07.23_at_14.48.15.rec t = 49.6 s\par
+\par
+LA_HC_STATE toggelt von 4 (lca_mode) zu 0 (inactive). Es ist nicht zu erkennen,\par
+da\'df irgendeine Bedingung dazu erf\'fcllt wird\par
+\par
+\par
+=> Messung Continuous_2009.07.23_at_14.44.54.rec Zeipunkt t=1.681 s\par
+\par
+wird INHIBIT-Bit gesetzt, warum?\par
+\par
+Eigentlich bleibt nur, das der lenkwinkel > 100 ist, Ist das so, Warum drin\par
+\par
+\par
+\cf0\par
+\par
+\par
+\par
+Fr 24.04.2009\par
+\par
+Pferdsfelderprobung Fusions-BMW\par
+\par
+LKA auf Baustelle funktioniert so leidlich.\par
+\par
+Probleme: Abstand nach links und nach rechts wird unterschiedlich gemessen\par
+\par
+Parallel fahren und anhalten um manuell zu messen\par
+\par
+Baustelle rechts:\par
+\par
+dyR (noch Fahrt/fastStillstand)\tab Handgemessen\tab\tab Differenz\par
+\par
+-0.88 / -0.88 m\tab\tab\tab -1.44 m\tab\tab\tab -0.56 / -0.56\par
+-0.90 / -0.8 m\tab\tab\tab -1.17 m\tab\tab\tab -0.27 / -0.37\par
+-0.97 / -0.9 m\tab\tab\tab -1.28 m\tab\tab\tab -0.31 / -0.38\par
+\par
+Baustelle links\par
+\par
+dyL (noch Fahrt/fast Stillstand)\par
+\par
+1.60 / 0.76 m\tab\tab\tab 1.61 m\tab\tab\tab 0.01  / 0.85\par
+0.80 / 0.30 m\tab\tab\tab 1.50 m\tab\tab\tab 0.70  / 1.20\par
+1.43 / 0.72 m\tab\tab\tab 1.40 m\tab\tab\tab -0.03 / 0.68\par
+\par
+Markierungabstand \'e4ndert sich bei geringen Geschwindigkeiten\par
+rechts ist das Fahrzeug (bei Fahrt) im Mittel 0.38 m zunahe gesch\'e4tzt, links zwar 0.23 m, aber 2 von 3 fast exakt.\par
+\par
+Das scheint auch der Grund zu sein, das einmal weglenken machmal okay ist und manchmal zu stark.\par
+Nur mit Hinzunahme des dynamischen Anteils aus Lenkwinkel wird das Moment rechtzeitiger wieder weggenommen (Der Fahrer lenkt bereits weg, aber das Fahrzeug braucht bis es sich wegdreht oder wegbewegt), hat aber zur folge, das bei Loslassen des Lenkrades das Lenkrad sich zur\'fcckdreht .\par
+\par
+Es sollte die Fordl\'f6sung auf Lenkwinkel zu regeln versucht werden.\par
+\par
+\par
+\f0\fs28\par
+\cf2\b 1.3 LKA_Passat\cf0\b0\par
+\par
+\cf3\b\fs26 1.3.1 VPU\cf0\b0\par
+\par
+\cf3\b\fs22 1.3.1.1 CanCmd\cf0\b0\par
+\par
+\lang1031\f1\fs18 aus dem Projekt erzeugtes ef-File einladen\par
+\par
+Einstellung:\par
+\par
+\pard\li-360\ri923\f8\fs20 XCP verwenden. \par
+Einstellung:\par
+\lang2057 CanIdentifier Send (Laptop): 0x63C\par
+Receive(Controller): 0x507\par
+\par
+force length of CMD-Frame = 8 \tab\tab ja\par
+Seed & Key \tab\tab\tab\tab ja\par
+Seed & Key Algorithm -> \tab\tab VPU\par
+\pard\lang1033\f1\fs18\par
+\pard\lang1031\b\f9\fs19\par
+}
+ 

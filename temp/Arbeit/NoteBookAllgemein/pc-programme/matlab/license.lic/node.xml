@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>license.lic</string>
+  <key>payload_filename</key><string>license.lic</string>
+  <key>nodeid</key><string>5367eb57-df61-4be6-b180-05c3817b8fc3</string>
+  <key>modified_time</key><integer>1355235829</integer>
+  <key>order</key><integer>1</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>application/octet-stream</string>
+  <key>created_time</key><integer>1355235829</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

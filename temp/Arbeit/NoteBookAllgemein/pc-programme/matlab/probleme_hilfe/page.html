@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Probleme_Hilfe</title>
+</head><body>CW37: Mi 12.09.2018 08:13-------------------------------------------------------------------------------------------------------------------<br/>
+<br/>
+Matlab stürzt beim starten ab, ohne Hinweis, nachdem der Heap-Speicher erhöht wurde. (Matlab R2016b )<br/>
+<br/>
+Die Heap-Spechergröße ist in der Datei matlab.prf eingtragen<br/>
+Verzeichnis: C:\Users\tftbe1\AppData\Roaming\MathWorks\MATLAB\R2014b<br/>
+<br/>
+JavaMemHeapMax=I4006<br/>
+<br/>
+Hier wieder reduzieren!!!<br/>
+------------------------------------------------------------------------------------------------------------------------------------------------------------<ul><li>Die Funktion datenum hat Probleme mit deutscher Monatsbezeichnung:</li>
+<li style="list-style-type: none"><ul><li style="list-style-type: none"></li>
+<li style="list-style-type: none">n = datenum('19-Mrz-2000')</li>
+<li style="list-style-type: none">??? Error using ==&gt; datenum at 182</li>
+<li style="list-style-type: none">DATENUM failed.</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Caused by:</li>
+<li style="list-style-type: none">&nbsp; &nbsp; Error using ==&gt; datevec at 219</li>
+<li style="list-style-type: none">&nbsp; &nbsp; Failed to lookup month of year. </li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">=&gt; bisher habe ich es umgehen können, da vorher s = dir(filename) und datenum(s.date) verwendet habe. Aber in s ist datenum schon enthalten</li>
+<li style="list-style-type: none">&nbsp; &nbsp; &nbsp;also s.datenum direkt verwenden</li>
+</ul>
+</li>
+</ul>
+</body></html>

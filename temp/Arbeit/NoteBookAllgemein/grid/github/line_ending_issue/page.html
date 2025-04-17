@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>line_ending_issue</title>
+</head><body>Do 03.05.2018 07:31<br/>
+<br/>
+Dear colleagues,<br/>
+<br/>
+an error has happened under point "1. Console":<br/>
+<br/>
+1. Console:<br/>
+Open a CMD (Windows) or Terminal (Ubuntu) and use the command: git config --global -l (no panic if the file is not found)<br/>
+If you see the line core.autocrlf=true everything is ok.<br/>
+If NOT please use the command:<br/>
+For Windows: git config --global core.autocrlf true<br/>
+For Ubuntu: &nbsp;git config --global core.autocrlf input<br/>
+<br/>
+Please use the right command for your OS.<br/>
+<br/>
+<br/>
+<br/>
+Dear colleagues,<br/>
+<br/>
+due to our work in cross-platform development environments (Windows and Ubuntu) there have been issues with line endings. <br/>
+Windows uses CRLF and Ubuntu uses LF line endings, this little issue will cause the entire file to appear as modified on a commit with the wrong line endings.<br/>
+In order to prevent this from happening, I would ask you to check the responsible git config and set it if necessary.<br/>
+In general, if sharing folders on Windows / Linux, please make commits from the same OS from which you did the checkout.<br/>
+<br/>
+1. Console:<br/>
+Open a CMD (Windows) or Terminal (Ubuntu) and use the command: git config --global -l (no panic if the file is not found)<br/>
+If you see the line core.autocrlf=true everything is ok.<br/>
+If NOT please use the command: git config --global core.autocrlf true<br/>
+<br/>
+2. TortoiseGIT (Windows ONLY)<br/>
+Windows Start --&gt; All Programs --&gt; TortoiseGIT --&gt; Settings<br/>
+<img src="image.png" /><br/>
+On the left side select "GIT", select "Global" and check if the "AutoCrlf" is marked.<br/>
+<img src="image 2.png" /></body></html>

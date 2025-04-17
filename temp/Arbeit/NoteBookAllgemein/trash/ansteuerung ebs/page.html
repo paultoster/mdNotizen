@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ansteuerung EBS</title>
+</head><body><br/>
+Um die Schnittstelle zwischen PTSV und EBS am leben zu erhalten,<br/>
+<br/>
+müssen vom PTSV zwei Botschaften zyklisch gesendet werden und muss spätestens 10 s nach Zündungslauf starten<br/>
+<br/>
+1)&#09;RP_REQ_PRESSURE &nbsp;(0x32)<br/>
+2)&#09;RP_REQ_ESA_SPECIAL (0x34)<br/>
+<br/>
+<br/>
+Die EBS sendet ihrerseits die Botschaft<br/>
+<br/>
+3)&#09;RP_GRANT &nbsp;(0x50) &nbsp; &nbsp;10 ms<br/>
+<br/>
+<br/>
+Wennn dise Botschaft nicht mehr gesendet wird, ist das Interface zu.<br/>
+<br/>
+<br/>
+Der Druck wird angefordert mit:<br/>
+<br/>
+1)&#09;RP_REQ_PRESSURE &nbsp;(0x32)<br/>
+<br/>
+&nbsp;&#09;RP_Req_Press_FL &nbsp; &nbsp; &nbsp; &nbsp;[bar] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Druck vorne links in bar<br/>
+&nbsp;&#09;RP_Req_Press_FR &nbsp; &nbsp; &nbsp; &nbsp;[bar] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Druck vorne rechts in bar<br/>
+&nbsp;&#09;RP_Req_Press_RL &nbsp; &nbsp; &nbsp; &nbsp;[bar] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Druck hinten links in bar<br/>
+&nbsp;&#09;RP_Req_Press_RR &nbsp; &nbsp; &nbsp; &nbsp;[bar] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Druck hinten rechts in bar<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <ul><li style="list-style-type: none">und</li>
+<li style="list-style-type: none"></li>
+</ul>
+&nbsp; &nbsp; &nbsp; &nbsp; RP_Req_Press_Qual_FL = 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Absolutdruckanforderung vorne links<ul><li style="list-style-type: none">RP_Req_Press_Qual_FR = 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Absolutdruckanforderung vorne rechts</li>
+</ul>
+&nbsp; &nbsp; &nbsp; &nbsp; RP_Req_Press_Qual_RL = 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Absolutdruckanforderung hinten links<ul><li style="list-style-type: none">RP_Req_Press_Qual_RR = 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Absolutdruckanforderung hinten rechts</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none"></li>
+</ul>
+Bei reinem Bremsen, d.h. Lenken durch Bremsen sollte EBD/ABS und ESP nicht abgeschaltet werden<br/>
+Bei unsymetrischen Bremsen soll ESP an allen Rädern abgeschaltet werden, D.h.:<br/>
+<br/>
+2) &nbsp;RP_REQ_ESA_SPECIAL (0x34)<br/>
+<ul><li style="list-style-type: none">RP_Req_ESA_Mux = 2</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">RP_Req_Deact_AYC_FL = 0/1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Nicht abschalten/Abschalten von AYC vorne links</li>
+<li style="list-style-type: none">RP_Req_Deact_AYC_FR = 0/1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Nicht abschalten/Abschalten von AYC vorne rechts</li>
+<li style="list-style-type: none">RP_Req_Deact_AYC_RL = 0/1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Nicht abschalten/Abschalten von AYC hinten links</li>
+<li style="list-style-type: none">RP_Req_Deact_AYC_RR = 0/1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Nicht abschalten/Abschalten von AYC hinten rechts</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Bei beiden Botschaften (0x32) und (0x34) zählt der Alive-Counter bei jeder neuen Botschaft eins hoch</li>
+<li style="list-style-type: none">Die Checksumme wird wie im dbc-File beschrieben mit byte7 = byte0 ^ byte1 ^ byte2 ^ byte3 ^ byte4 ^ byte5 ^ byte6 ^ 0xFF berechnet</li>
+</ul>
+<br/>
+<br/>
+3)&#09;RP_GRANT &nbsp;(0x50)<br/>
+<ul><li style="list-style-type: none">Bei Betätigung der Bremse wird der Qualifier aus (032) gespiegelt:</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">RP_Press_Grant_FL &nbsp;= RP_Req_Press_Qual_FL</li>
+<li style="list-style-type: none">RP_Press_Grant_FR &nbsp;= RP_Req_Press_Qual_FR</li>
+<li style="list-style-type: none">RP_Press_Grant_RL &nbsp;= RP_Req_Press_Qual_RL</li>
+<li style="list-style-type: none">RP_Press_Grant_RR &nbsp;= RP_Req_Press_Qual_RR</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">Auch hier wird der Alive-Counter RP_Grant_AlivCnt hochgezählt und die Checksumme mit</li>
+<li style="list-style-type: none">byte7 = byte0 ^ byte1 ^ byte2 ^ byte3 ^ byte4 ^ byte5 ^ byte6 ^ 0xFF berechnet.</li>
+</ul>
+<ul><li style="list-style-type: none">Der Status der Fremdansteuerbarkeit durch Druckanforderung ist im Signal:</li>
+<li style="list-style-type: none"></li>
+<li style="list-style-type: none">RP_Status&#09;&#09;&#09;tbd.</li>
+</ul>
+<ul><li style="list-style-type: none"></li>
+<li style="list-style-type: none"></li>
+</ul>
+<ul><li style="list-style-type: none"></li>
+</ul>
+<br/>
+</body></html>

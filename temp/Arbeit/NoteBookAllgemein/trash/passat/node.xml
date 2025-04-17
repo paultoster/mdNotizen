@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>expanded</key><false/>
+  <key>title</key><string>Passat</string>
+  <key>nodeid</key><string>d3c9eda0-590b-4e04-a097-8b664e5a1267</string>
+  <key>modified_time</key><integer>1428675305</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>application/x-notebook-dir</string>
+  <key>created_time</key><integer>1428675305</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>order</key><integer>75</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

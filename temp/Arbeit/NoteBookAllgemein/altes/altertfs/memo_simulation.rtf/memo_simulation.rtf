@@ -1,0 +1,339 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0\fmodern Cambria;}{\f1\fnil\fcharset0 Arial;}{\f2\fnil\fcharset0 Courier New;}{\f3\fswiss Helv;}{\f4\fswiss\fcharset0 Helv;}{\f5\fswiss\fprq2\fcharset0 System;}{\f6\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red23\green54\blue93;\red54\green95\blue145;\red79\green129\blue189;\red0\green0\blue255;\red0\green0\blue0;\red255\green0\blue0;}
+{\*\generator Msftedit 5.41.21.2500;}\viewkind4\uc1\pard\lang1033\f0\fs52\par
+\cf1 memo\cf0\par
+\par
+\cf2\b\fs28 1.1 TB\cf0\b0\par
+\par
+\f1\fs18 Do 02.04.2009\par
+\par
+erste Freigabe f\'fcr thz2e und booste erstellt\par
+\par
+Soll jetz Bettina Mader bekommen:\par
+\par
+sfunc_thz2emod_d01.dll\tab\tab debug-Version\par
+sfunc_thz2emod_01.dll\tab\tab release\par
+\par
+sfunc_boostemod_d01.dll\tab\tab debug-Version\par
+sfunc_boostemod_01.dll\tab\tab release\par
+\par
+\f0\fs28\par
+\cf2\b 1.2 DSMod\cf0\b0\par
+\par
+\cf3\b\fs26 1.2.1 booste\cf0\b0\par
+\par
+\lang1031\b\f2\fs22 Fr.04.2009:\par
+Modell aus \par
+./DsModels/rtas/boostemod in ./DsModels/simulink/sfunc_boostemod \par
+genommen.\par
+Testmodell in \par
+d:\\simulink\\hydraulic\\hydraulice\par
+\par
+kaum Doku vorhanden\par
+\lang1033\b0\f1\fs18\par
+\f0\fs26\par
+\cf3\b 1.2.2 thz2e\cf0\b0\par
+\par
+\lang1031\b\f2\fs22 Fr.04.2009:\par
+Modell aus \par
+./DsModels/rtas/thz2emod in ./DsModels/simulink/sfunc_thz2emod \par
+genommen.\par
+Testmodell in \par
+d:\\simulink\\hydraulic\\hydraulice\par
+\par
+kleine Doku vorhanden\par
+\par
+\par
+Modell  thz2e gestetet\par
+\par
+Besprechung mit Bettina Mader 24.09.2008:\par
+\par
+Verbleibende Probleme:\par
+\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent0{\pntxtb\'B7}}\fi-360\li360 DK macht doppelten Leerweg, bis er Druck aufbaut.\par
+\pard\par
+\cf4 => Das ist soweit richtig, da auch der Leerweg des SKs aufgebraucht sein mu\'df, bis eine Druckkraft im SK aufgebaut wird. Dann erst kann ein nennenswerter Druck im DK aufgebaut werden\par
+\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent0{\pntxtb\'B7}}\fi-360\li360\cf0\lang1033 Volumenbilanz durch PT1-Filter auf das Volumen\par
+\pard\par
+\cf4\lang1031 => Die Filterung macht mit Zeitkonstante T= 0.01 die Bilanz kaum kaputt. Ist so eigentlich unsinnig, aber vielleicht mu\'df man mal die Zeitkonstante hochdrehen. Ansonsten bekomme ich im DK den Druck null, wenn der Weg bei 2 mm ist, setze ich Federvorspannung DK und SK gleich (60 N9, nehme Leerweg raus(2x 1mm) und nehme die Reibung raus (7 N), dann sind es noch 0.5 mm. Die m\'fcssen von dem Bremsvolumen herr\'fchren. Es ist noch Volumen im System, so das bei 0.5 mm der Druck zu null wird, d.h die 0.5 mm mal THZ-Fl\'e4che entsprechen dem Restvulumen in der Bremse.\par
+\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent0{\pntxtb\'B7}}\fi-360\li360\cf5 Parameter mit SI-Einheiten und der Struktur von Bettina Mader eingeben\par
+\pard\par
+wird noch gemacht, dazu wird die Struktur schon in der sfunc-Funktion mit EInheiten an die Parameterdatenstruktur \'fcbergeben\par
+\cf6\par
+\ul Wichtig:\ulnone  Wenn ein Block mit fester Schrittweite eingebracht wird (wie thz2e), dann einen sample and hold Block davor setzen. das hat, da variable schrittweite in Simulink, die Rechenzeit drasstich verringert.\par
+\par
+\cf5 Mi 08.10.2008\par
+\par
+Noch zu erledigen:\par
+\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent0{\pntxtb\'B7}}\fi-360\li360 Skizze anfertigen\par
+{\pntext\f6\'B7\tab}eta_mech einbringen\par
+{\pntext\f6\'B7\tab}sfunc_thz2e in sfunc_thz2e_01 umwandeln\par
+\pard\cf6\par
+\cf5\par
+\par
+\par
+\cf4\par
+\cf0\lang1033\par
+\b0\f0\fs26\par
+\cf3\b 1.2.3 dopri45\cf0\b0\par
+\par
+\lang1031\b\f2\fs22 K1\par
+Vand\par
+Vand\par
+y[0] = 1.9986800000000000\par
+y[1] = -0.70000000000000007\par
+\par
+f[0] = -0.70000000000000007\par
+f[1] = 97.625219680000043\par
+Org\par
+x = 0.002\par
+y[0] = 1.9986800000000000\par
+y[1] = -0.70000000000000007\par
+\par
+f[0] = -0.70000000000000007\par
+f[1] = \lang1033 97.625219680000043\par
+\par
+K7\par
+\lang1031 Vand\par
+y[0] = -0.70880879565542099\par
+y[1] = 20828.622148908671\par
+\par
+f[0] = 20828.622148908671\par
+f[1] = 10364824.803472947\par
+Org\par
+x = 0.01\par
+y[0] = -0.70880879565542099\par
+y[1] = 20828.622148908671\par
+\par
+f[0] = 20828.622148908671\par
+f[1] = \lang1033 10364824.803472947\par
+\par
+\lang1031 Vand\par
+\lang1033 yy2[0] = -6.1870773640159769\par
+yy2[1] = 4481.6282511592726\par
+\par
+\par
+err1 = 425332514536876.62\par
+err  = 14662226.054897293\par
+\par
+Expo1 = 0.2\par
+fac11 = 27.116896418488434\par
+fac   = 5.0\par
+\par
+Org\par
+k4[0] = -6.1870854994326434\par
+k4[1] = 4481.6280046314942\par
+\par
+err1 = 425333633080996.56\par
+err  = 14662245.118068442\par
+\par
+fac11 = 16.529285493282899\par
+fac   = 5.0\par
+\par
+hnew 0.002\par
+\par
+\par
+\b0\f0\fs26\par
+\cf3\b 1.2.4 fzg_modelle\cf0\b0\par
+\par
+\cf3\b\fs22 1.2.4.1 fzgeinspurmod\cf0\b0\par
+\par
+\lang1031\f1\fs18 Lineares Einsourmodell mit vorgegebener L\'e4ngsgeschwindigkeit\lang1033\par
+\f0\fs22\par
+\cf3\b\i 1.2.4.1.1 IO\cf0\b0\i0\par
+\par
+\lang1031\f2\fs20 Input:\par
+\par
+\lang1033 vxVeh\tab\tab\tab [m/s]\tab\tab L\'e4ngsfahrzeuggeschwindigkeit\par
+phiSteWhDrv\tab\tab [rad]\tab\tab Lenkradwinkel\par
+\par
+Output:\par
+\par
+betapVeh\tab\tab [rad/s]\tab Schwimmwinkelgeschwindigkeit COG\par
+betaVeh\tab\tab [rad]\tab\tab Schwimmwinkel COG\par
+psippVeh\tab\tab [rad/s/s]\tab Gierwinkelbeschleunigung COG\par
+psipVeh\tab\tab [rad/s]\tab Gierwinkelgeschwindigkeit COG\par
+psiVeh\tab\tab [rad]\tab\tab Gierwinkel COG\par
+ayVeh             [m/s/s]\tab Querbeschleunigung COG\par
+xBoVeh            [m]         x-Koordinate VA zu ground\par
+yBoVeh            [m]         y-Koordinate VA zu ground\par
+\par
+\par
+Parameter\par
+\par
+    \{"lf",          "m",       "1.264",       "distance front axle - center of gravity"\},\par
+    \{"lr",          "m",       "1.264",       "distance rear axle - center of gravity"\},\par
+    \{"m",           "kg",      "1450",        "body mass"\},\par
+    \{"Izz",         "kg*m**2", "1986",        "moment of inertia around z-coordinate"\},\par
+    \{"CyTire",      "N",       "72000",      "lateral tire stiffness fronta axle"\},\par
+    \{"CyTire",      "N",       "130000",     "lateral tire stiffness rear axle"\},\par
+    \{"iSteTotal",   "-",       "16.8",       "total steering steering ratio wheel to steer wheel"\},         \par
+    \{"beta0",       "-",       "0.0",        "side slip angle at start"\},\par
+    \{"psip0",       "-",       "0.0",        "yaw angle velocity at start"\},\par
+    \{"psi0",        "-",       "0.0",        "yaw angle at start"\},\par
+    \{"x0Bo",        "-",       "0.0",        "x-coordinate front axle midlle at start"\},\par
+    \{"y0Bo",        "-",       "0.0",        "y-coordinate front axle midlle at start"\},\par
+\par
+\f0\fs28\par
+\cf2\b 1.3 Fzg-Simulationstools\cf0\b0\par
+\par
+\cf3\b\fs26 1.3.1 Bewertung_100906\cf0\b0\par
+\par
+\f1\fs18 #2010-09-06: Besprechung \'fcber aktuellen Stand "Auswahl Simulationssoftware"\par
+\par
+o\tab Die Auswahlm\'f6glichkeit beschr\'e4nkt sich noch auf CarSim und CarMaker, die\par
+\tab dSpace-L\'f6sung wurde aus Performancegr\'fcnden verworfen und dem Vertreter \par
+\tab von Peter Lauer bereits abgesagt.\par
+\par
+o\tab Kriterien f\'fcr die Entscheidung "CarMaker" oder "CarSim"\par
+\par
+\tab 1)\tab Szenariendarstellung\par
+\par
+\tab\tab o\tab keine Ausschlusskriterien f\'fcr beide Pakete\par
+\tab\tab\par
+\tab 2)\tab Features\par
+\par
+\tab\tab o\tab Vorteile: CarMaker\par
+\tab\tab\tab o\tab "Video Data Stream": Bilderzeugung, um Bildverarbeitungsalgorithmen \par
+\tab\tab\tab\tab "in-the-loop" zu testen. -> Stefan\par
+\tab\tab\tab o\tab Ankopplung ADAS-Horizon: Einf\'fchrung einer Kopplungsm\'f6glichkeit\par
+\tab\tab\tab\tab f\'fcr NAVTEQ RP in 3 Schritten. -> Stefan/Ulrich\par
+\tab\tab\tab o\tab Einfache Bedienbarkeit, der Bereich Fahrversuch k\'f6nnte mit begrenztem\par
+\tab\tab\tab\tab Aufwand in die Nutzung eingebunden werden. ->Adam/Wolfgang/Bayer\par
+\tab\tab\tab o\tab Entwicklung sitzt in Deutschland und ist somit r\'e4umlich und sprachlich\par
+\tab\tab\tab\tab besser erreichbar.\par
+\tab\tab\tab o\tab Lenkungssimulation\par
+\tab\tab\tab\tab o\tab "Pfeffer-Lenkmodell"\par
+\tab\tab\tab\tab o\tab Pr\'e4zise Simulation des Lenkungsverhaltens \'fcber ein Lenkungs-Mock-up\par
+\tab\tab\tab\tab\tab m\'f6glich. Hierf\'fcr wird eine CarMaker HIL-Lizenz ben\'f6tigt.\par
+\tab\tab\tab o\tab Pr\'e4zises Fahrermodell\par
+\tab\tab\tab\tab o\tab Manpower->woher?\par
+\tab\tab\tab\tab o\tab Frage \'fcber die Nutzbarkeit, wie realistisch ist das \'fcberhaupt?\par
+\tab\tab\tab\tab o\tab Parameterbestimmung -> sehr aufw\'e4ndig!\par
+\tab\tab\tab\tab o\tab Vorteil: Diese M\'f6glichkeit besteht zumindest.\par
+\tab\tab\tab o\tab Live-Animationsdarstellung, bei CarSim lediglich Add-on\par
+\tab\tab\tab o\tab Segmentbasieres Stra\'dfendesign unterst\'fctzt Klothoiden\par
+\tab\tab\par
+\tab\tab o\tab Vorteile: CarSim\par
+\tab\tab\tab o\tab M\'f6glichkeit, einen Fahrpfad unabh\'e4ngig vom modellierten Stra\'dfenverlauf\par
+\tab\tab\tab\tab vorzugeben -> Vorteile bei Test-cases mit konstanten Trajektorien.\par
+\tab\tab\tab o\tab Eindruck eines sehr offenen Aufbaus, mehr M\'f6glichkeiten\par
+\tab\tab\tab\tab o\tab Sehr umfassende M\'f6glichkeiten, die Stra\'dfe zu modellieren\par
+\tab\tab\tab\tab o\tab Einblenden von Informationen in die Animation\par
+\tab\tab\tab o\tab Es k\'f6nnen mehrere Fahrzeuge mit voller Simulationstiefe betrieben werden.\par
+\tab\tab\tab\tab -> Ulrich\par
+\tab\tab\tab o\tab Overlay von mehreren Simulationsl\'e4ufen, geht deutlich einfacher\par
+\tab\tab\tab o\tab Aerodynamikf\'e4hig\par
+\tab\tab\tab\par
+\tab\par
+\tab 3)\tab Kosten\par
+\tab\par
+\tab\tab o\tab CarMaker:\par
+\tab\tab\tab o\tab 33.500 \'80 pro Nodelock\par
+\tab\tab\tab o\tab Floating: Faktor 1,35\par
+\tab\tab\tab o\tab Conti-Rabatt: Faktor 0,7\par
+\tab\tab\tab =>\tab Kosten pro Floating-Lizenz: 31658 \'80\par
+\tab\tab\tab =>\tab Schick: Bei Abnahme von 2 Floating-Lizenzen\par
+\tab\tab\tab\tab o\tab Video Data Stream kostenfrei\par
+\tab\tab\tab\tab o\tab Eine von beiden ist f\'fcr HIL-Anwendungen (Lenkungssimulator) freigeschaltet\par
+\tab\tab\par
+\tab\tab o\tab CarSim:\par
+\tab\tab\tab o\tab 12.000 \'80 pro Nodelock-Lizenz (6000 f\'fcr update jeder "alten" Version + 6000 f\'fcr Sensor-Package)\par
+\par
+TODO andree:\par
+o\tab Projektleiter auf Strategie pr\'fcfen -> Killerkriterien?\par
+\tab o\tab Video Data Stream?\par
+\tab o\tab Ankopplung ASAS Horizon?\par
+\tab o\tab Lenkung?\par
+o\tab Fahrversuch?\par
+\tab o\tab Wie ist hier die Nutzung geplant?\par
+o\tab Tabelle: Features, was fehlt bei CarSim -> CarSim anfragen, gibt es da was vergleichbares?\par
+o\tab Preise: Auf vergleichbare Ebene stellen\par
+\tab o\tab 3 Lizenzen, floating, davon eine portabel\par
+\tab o\tab HIL-Lenkungsmodell komplettpaket\par
+\tab o\tab 3 Jahre Wartungsvertrag inkl. aller updates\par
+\f0\fs28\par
+\cf2\b 1.4 IPGCarmaker\cf0\b0\par
+\par
+\cf3\b\fs26 1.4.1 Schulung\cf0\b0\par
+\par
+\lang1031\f1\fs18 Di 18.01.2011\par
+1. Tag vormittag\par
+\par
+Verzeichnis Programm\par
+\par
+bei-Verzeichnis: verschiedene Programme\par
+\par
+reutil\tab\tab bin\'e4re erg-File aufl\'f6sen, asber auch Strekendaten bin\'e4r machen\par
+obsutil\tab\tab Obsticle zus. Fahrzeug\par
+tireutil\tab\tab Reifen Modell Tydex Beschreibung wandeln in IPG-Modul\par
+\par
+verschidene  \par
+\lang1033\par
+\f0\fs26\par
+\cf3\b 1.4.2 IPG-HIL-lenkrad\cf0\b0\par
+\par
+\lang1031\f1\fs18 PC hat IP 192.168.0.100\par
+Unsere Roadbox hat IP 192.168.0.241 mit Namen rt1\par
+\par
+telnet rt1\par
+user: hil\par
+password: CarMaker\par
+\par
+\par
+(genauso root,CarMaker)\par
+\par
+CarMaker starten von  PC  mit Roadbox rt1 und gelichzeitigem Verbinden\par
+\par
+C:\\IPG\\hil\\win32-xeno-3.0.7\\bin\\CM_HIL.exe . -apphost rt1 -connect\par
+\par
+Ausf\'fchren in c:\\CM_Projects\\HIL\par
+\par
+\par
+src/CarMaker.xeno    Mu\'df Attribut versteckt haben , damit Unix es als executable erkennt\par
+\par
+Von Dirk:\par
+\par
+\pard\sl240\slmult1\cf5\f3\fs20 Grunds\f4\'e4\f3 tzliches:\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl240\slmult1 Der Simulator besteht momentan aus drei Komponenten: Lenkungssimulator (Sensodrive), Echtzeit-Rechner (X-Pack 4 Road Box), Steuer- und Anzeigerechner.\par
+{\pntext\f6\'B7\tab}Der Lenkungssimulator wird per CAN am Echtzeitrechner angeschlossen. \f4\'dc\f3 ber eine gekreiztes LAN-Kabel erfolgt die Anbindung zwischen Echtzeit- und Steuerrechner.\line\b -> Darauf achten, dass am X-Pack der UNTERE Netz-Anschluss verwendet wird (n\f4\'e4\f3 her am VGA-Anschluss).\par
+\b0{\pntext\f6\'B7\tab}Der X-Pack ist im Grunde ein Intel-PC, auf dem ein Echtzeit-Linux l\f4\'e4\f3 uft. Da er keine Festplatte besitzt, bootet der Rechner \f4\'fc\f3 ber LAN. Die Simulations-Executable wird ebenfalls per LAN vom Steuerrechner geladen.\par
+\pard\sl240\slmult1\par
+Einrichtung des Steuerrechners:\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl240\slmult1 Zuerst muss die HIL-Version von CarMaker ("xeno") installiert werden. Ein korrektes Licence-File muss nach "etc" kopiert werden.\par
+{\pntext\f6\'B7\tab}Das HIL-Projekt muss auf den Rechner kopiert werden. (Das hat Thomas bereits auf seinem Rechner.)\par
+{\pntext\f6\'B7\tab}Steuerrechner per LAN mit X-Pack verbinden.\par
+{\pntext\f6\'B7\tab}Der Netzwerkkarte des Steuerrechner muss eine feste IP zugewiesen werden.\par
+{\pntext\f6\'B7\tab}Nun muss das CarMaker/HIL Realtime System Setup ausgef\f4\'fc\f3 hrt werden.\par
+{\pntext\f6\'B7\tab}Sollte hier eine Fehlermeldung bzgl. eines falsch gesetzten Registry-Schl\f4\'fc\f3 ssels erscheinen, diesen entsprechend \f4\'e4\f3 ndern. \b Danach den Steuerrechner zuerst neu starten, sonst wird die \f4\'c4\f3 nderung nicht \f4\'fc\f3 bernommen!\par
+\b0{\pntext\f6\'B7\tab}Im Setup muss nun noch die Subnet Mask gesetzt werden (255.255.255.0). Dann die unten aufgef\f4\'fc\f3 hrten Standard-Verzeichnisse \f4\'fc\f3 berpr\f4\'fc\f3 fen.\par
+{\pntext\f6\'B7\tab}Nun muss man das Echtzeitsystem bekannt geben. Daf\f4\'fc\f3 r ein neues System hinzuf\f4\'fc\f3 gen ("+" dr\f4\'fc\f3 cken).\par
+{\pntext\f6\'B7\tab}Das Echtzeitsystem einschalten. Es m\f4\'fc\f3 sste nun seine MAC-Adresse an den Steuerrechner senden. Dieser vergibt dem System daraufhin eine IP (vorgeschlagene kann verwendet werden). Zum Pr\f4\'fc\f3 fen des korrekten Hochlaufens des X-Pack kann am VGA-Port ein Monitor angeschlossen werden. Bei Problemen kann das Log-File holfreich sein ("Program Files\\dhcp").\par
+{\pntext\f6\'B7\tab}Damit der CarMaker auf dem Steuerrechner immer gleich das korrekte Projekt l\f4\'e4\f3 d und sich mit dem HIl verbindet, die Verkn\f4\'fc\f3 pfung wie folgt modifizieren:\line cm_hil.exe . -apphost rt1 -connect\line Ausf\f4\'fc\f3 hren in: [Projektordnerpfad]\line Der Punkt nach cm_hil.exe ist wichtig. Dadurch, in Verbindung mit dem "Ausf\f4\'fc\f3 hren in"-Pfad, startet CarMaker immer im korrekten Projekt.\line Zudem muss das File "boot.rt1" (Ort?) korrekt ausgef\f4\'fc\f3 llt sein.\par
+\pard\sl240\slmult1\par
+Manuelles Login auf dem X-Pack:\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl240\slmult1 In Windows-Kommandozeile "telnet rt1" ausf\f4\'fc\f3 hren. User: "hil", Passwort: "CarMaker"\par
+{\pntext\f6\'B7\tab}Dann kann man per Linux-Befehlen auf dem X-Pack in das Projektverzeichnis und den Unterordner "src" wechseln.\par
+\pard\sl240\slmult1\par
+Sonstiges:\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl240\slmult1 Kopiert man den HIL-Projektordner und bekommt danach Probleme mit dem Starten des X-Pack, dann kann dies daran liegen, dass das xeno-Executable in \\src auf dem X-Pack nicht als "executable" gesetzt ist. Um dies sicherzustellen, muss das File auf dem Windows-Steuerrechner als "Versteckt" markiert sein (da es in Windows kein Executable-Flag gibt).\par
+\pard\sl240\slmult1\par
+Einbinden von weiteren Aktuatoren/ eigenen Modellen:\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent0{\pntxtb\'B7}}\fi-360\li360\sl240\slmult1 Das X-Pack hat 4 CAN-Kan\f4\'e4\f3 le. \f4\'dc\f3 ber einen entsprechenden Adapter lassen sich somit 3 weitere CANs ansprechen (um z.B. Cockpit, Bremse, Gaspedal, etc. anzubinden).\line Die Kommunikation wird \f4\'fc\f3 ber die Files io.c und io.h (unter \\src) eingebunden.\par
+{\pntext\f6\'B7\tab}Eigene Modell (z.B. Regler) m\f4\'fc\f3 ssen \f4\'fc\f3 ber die c-Schnittstelle eingebunden werden (haupts\f4\'e4\f3 chlich \f4\'fc\f3 ber user.c und user.h im \\src-Verzeichnis).\par
+{\pntext\f6\'B7\tab}Simulinkmodelle k\f4\'f6\f3 nnen als s-Funktion in die c-Schnittstelle \f4\'fc\f3 ber "RegisterModell" eingebunden werden (-> CarMaker-Doku oder 1-Tages-Training).\par
+{\pntext\f6\'B7\tab}Nach dem Einbinden eigener Module muss das Projekt neu kompiliert werden. Dazu wird ein GNU-Compiler mitgeliefert. Diesen mit dem "Makefile" aufrufen (Inhalt Makefile vorher pr\f4\'fc\f3 fen).\par
+\pard\sl240\slmult1\par
+\par
+Gr\f4\'fc\'df\f3 e, Dirk\par
+\pard\cf0\f1\fs18\par
+\par
+\par
+\par
+\lang1033\par
+\pard\b\f5\fs20\par
+}
+ 

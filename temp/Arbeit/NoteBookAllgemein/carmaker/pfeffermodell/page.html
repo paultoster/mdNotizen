@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Pfeffermodell</title>
+</head><body><br/>
+6.9.2011:<br/>
+<br/>
+Hallo Herr Berthold,<br/>
+<br/>
+es ist nicht ganz einfach die passenden Informationen in der Urlaubszeit zu <br/>
+sammeln. Ich habs trotdem versucht.<br/>
+<br/>
+&gt; 1) Es gibt die Größe Steer.Peffer.Mech.Torsbar.Trq_Twist sowie<br/>
+&gt; Steer.Peffer.Mech.Torsbar.TwistAng. &nbsp;Kann ich diese im C-Code benutzen, wie<br/>
+&gt; komme ich da ran? Konnte ich nicht in dem Header Steering.h finden<br/>
+Dabei hilft ein kleiner Konstrukt um an DataDictionary Größen die nicht als <br/>
+globale Variablen deklariert sind über die C-Schnittstelle zu kommen.<br/>
+<br/>
+struct {<br/>
+&nbsp; &nbsp; tDDGetFunc Get;<br/>
+&nbsp; &nbsp; void *ptr;<br/>
+} CMPrivateVar;<br/>
+<br/>
+<br/>
+/* in UserTestRunStart_atBegin */<br/>
+CMPrivateVar.ptr &nbsp;= DDictGetVar("Steer.Peffer.Mech.Torsbar.TwistAng", NULL, <br/>
+&amp;CMPrivateVar.Get, &nbsp;NULL);<br/>
+<br/>
+/* da wo es gebraucht wird, z.B. in User_Calc */<br/>
+MyVar = &nbsp;CMPrivateVar.Get ( CMPrivateVar.ptr);<br/>
+<br/>
+<br/>
+&gt; 2) Ich habe mit einer Simulation mit &nbsp;Kurvenfahrt versucht den Twist-Winkel<br/>
+&gt; (Steer.Peffer.Mech.Torsbar.TwistAng) &nbsp;nachzubilden, mit den folgenden<br/>
+&gt; Größen:<br/>
+<br/>
+&gt; &#09;&#09; TwistAngCalc = Steer.WhlAng - (Steer.L.q / Steer.L.iSteer2q) und mit<br/>
+&gt; Steer.Peffer.Mech.Torsbar.TwistAng verglichen.<br/>
+Die Berechung stimmt, gilt aber nicht für den TwistAng sondern für den <br/>
+DeltaAng. Der Twist Ang steht für den Torsionsanteil der nur in der <br/>
+Torsionbar entsteht und errechnet sich TextFormatHilfe <br/>
+DeltaAng * (Total stiffness column + torsion bar + mesh + hardy disk) / <br/>
+(torsion bar stiffness)<br/>
+<br/>
+&gt; &#09;&#09; Dabei ist der Winkel und konstant 2.0255 größer, warum, bzw. was habe<br/>
+&gt; ich dabei nicht bedacht.<br/>
+Das kann ich leider nicht nachvollziehen.<br/>
+<br/>
+&gt; 3) Wie sind die Größen Steer.L.Inert, bzw. Steer.R.Inert zu verstehen, sie<br/>
+&gt; werden in kg angegeben. sind das in Summe die im Reference Manual in<br/>
+&gt; Gleichung &nbsp;EQ79 angegebene Masse mR?<br/>
+&gt;<br/>
+&gt; (Embedded image moved to file: pic07164.gif)<br/>
+Die Größen Inert stehen für den dynamischen Massenateil, der durch die <br/>
+Radbewegung (um die Lenkachse) kommt. Diese werden mit der Zahnstangenmasse <br/>
+zusammengerechnet.<br/>
+<br/>
+&gt; Da ich einen Motor simulieren möchte, der an der Zahnstange angreift, ist<br/>
+&gt; die Bewegung des Motors direkt an die Bewegung sR (bzw. Steer.L.q)<br/>
+&gt; gekoppelt. D.h. ich müßte die Motorträgheit von der Schnittkraft (AssistFrc<br/>
+&gt; ) abziehen, aber mechanisch muss ich mR (bzw. &nbsp;Steer.L.Inert und &nbsp;Steer.R.<br/>
+&gt; Inert) nicht berücksichtigen?<br/>
+Richtig. Wenn Sie die Nettokraft in das System einspeisen dann stimmt die <br/>
+Gesamtenergiebilanz.<br/>
+<br/>
+Gruß<br/>
+<br/>
+Josef Henning<br/>
+<br/>
+Mo 17.10.2011<br/>
+<br/>
+Um das Lenkmoment vom Fahrer null zu setzen habe ich als Mini-Manöver gesetzt:<br/>
+<br/>
+Time=0 DVAwr VC.Steer.Trq Abs VC -1 0.0<br/>
+Time=0 DVAwr Drver.Steer.Trq Abs DM -1 0.0<br/>
+<br/>
+Dabei kommt es noch zu ganz kleinen Rippel mit 1e-6 Nm Moment<br/>
+<br/>
+</body></html>

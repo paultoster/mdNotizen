@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>SDC_DrivePX2</title>
+</head><body>CW38: Fr 21.09.2018 12:53-------------------------------------------------------------------------------------------------------------------<br/>
+Debian Packet entpacken:<br/>
+<br/>
+sudo dpkg -i dpx2-grid-master-457_arm64.deb<br/>
+<br/>
+Mi 15.08.2018 08:25<br/>
+<br/>
+TopView für DrivePX2 bauen<br/>
+<br/>
+jekins-&gt;99_Tools_Build-&gt;IVV_Grid_arm64<br/>
+<br/>
+<br/>
+<br/>
+Mi 04.07.2018 12:46<br/>
+<br/>
+<br/>
+http://jenkinsctzs.conti.de/job/IVV_GRID_arm64/build?delay=0sec<br/>
+Export Artifacts muss auf true gesetzt werden.<br/>
+<br/>
+Algos unter /algos/ kopieren<br/>
+inis unter /ini/<br/>
+<br/>
+Zusätzlich müssen noch erweiterte Berechtigungen gesetzt werden für jeden algo den man kopiert:<br/>
+Bsp:<br/>
+chmod +x StateSpaceSampling<br/>
+<br/>
+zuerst gateway_ez10 unter tegra-b starten, dann XBoxController unter tegra-b starten.<br/>
+(Kommandos müssten in der Command-Historie vorhanden sein -&gt; Pfeiltaste nach oben)<br/>
+<br/>
+Dann eCALServer unter tegra-a starten.<br/>
+<br/>
+Dann unter CARPC01 schauen dass im eCAL Monitor tegra-b angezeigt wird.<br/>
+Falls nicht -&gt; CARPC01 neu starten.<br/>
+Falls immer noch nicht -&gt; eCALServer unter tegra-a neu starten<br/>
+Falls immer noch nicht -&gt; Fahrzeug neu starten<br/>
+<br/>
+Dann Cube_One_N_nvidia.ecalsys auf dem Desktop starten.<br/>
+<br/>
+dort private_can gateway, </body></html>

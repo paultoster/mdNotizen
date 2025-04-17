@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Windows</title>
+</head><body><b><u>Benutzervariablen in den Umgebungsvariablen änder/löschen<br/>
+<br/>
+</u></b>Benutzervariable BOOST_ROOT aus Umgebungsvariablen des jeweiligen benutzers löschen:<br/>
+<br/>
+reg delete HKCU\Environment /v BOOST_ROOT /f<br/>
+<br/>
+Benutzervariable BOOST_ROOT aus Umgebungsvariablen des jeweiligen benutzers setzen:<br/>
+<br/>
+reg add HKCU\Environment /v BOOST_ROOT /d D:\abc\def /f<br/>
+<br/>
+<br/>
+/v variable<br/>
+/d data<br/>
+/f force<br/>
+(/t type, siehe Hilfe)<br/>
+<b><u><br/>
+<br/>
+<br/>
+</u></b><b><u>net</u></b><br/>
+<br/>
+Anmelden eines Laufwerks:<br/>
+<br/>
+net use J: \\frd55185\public /user:frd55185\berthold *<br/>
+<br/>
+Abmelden:<br/>
+<br/>
+net use \\frd55185\public /del<br/>
+<br/>
+<br/>
+<br/>
+Windows-Befehle:<br/>
+<br/>
+http://www.ss64.com/nt/<br/>
+<br/>
+</body></html>

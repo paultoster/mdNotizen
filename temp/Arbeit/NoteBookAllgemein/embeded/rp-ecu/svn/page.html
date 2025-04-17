@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>svn</title>
+</head><body>&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">Hi RPECU-Users,</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">as some of you might already have noticed, we are no longer supposed to commit the RPECU elf/hex-files to the repository. Actually, if you try to do so, you will receive an error message looking like this:</span></span><br/>
+&nbsp; &nbsp; <img src="image.png" /><br/>
+<br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">According to Thomas Grotendorst, binaries are not supposed to be commited to the repository, since they dramatically increase the size of it. Therefore, these files are now blocked from being commited. However, from my point of view, it is still important to commit those files, since we do not have a built server and there are frequent requests for fixed, flashable versions (e.g., before presentations) by people who do not have the toolchain to built the sw on their own.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">Fortunately, there exists another repository (svnInsec), which allows the storage of binaries. Thomas Grotendorst proposed to store the files there and add them as externals to our corresponding bin folder in the regular svn. The following example shows how this looks like:</span></span><br/>
+&nbsp; &nbsp; <br/>
+<img src="image 2.png" /><br/>
+<br/>
+<br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">Comparable to our base sw the binaries are added as externals with a fixed revision number, in order to guarantee that when creating a tag it will point to the right revision (instead of always pointing to the HEAD revision).</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">However, you might rather be interested, how this affects you as a user. The impact is rather small. </span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">If you commit the whole project (e.g. rpecu_ad_b8) to svn the commit window indicates that the bin folder is an external from a different repository, which can not be directly commited in one step with the other changed files. The following screenshot gives an example.</span></span><br/>
+&nbsp; &nbsp; <br/>
+<img src="image 3.png" /><br/>
+<br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">If you want to commit the binaries as well, you have to go to the bin folder and commit it. The following screen appears.</span></span><br/>
+&nbsp; &nbsp; <br/>
+<br/>
+<img src="image 4.png" /><br/>
+<br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">In addition, svn tells you that you have commited changes to an external item that is tagged to a specific revision and asks if you want to change the tagged revision now to the just commited revision. Click Change the tagged revision.</span></span><br/>
+&nbsp; &nbsp; <br/>
+<br/>
+<img src="image 5.png" /><br/>
+<br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">If you now want to create a tag of the whole project (again rpecu_ad_b8 as an example), the window looks like this. You can see that the binaries appear with a fixed revision in the lower part of the window.</span></span><br/>
+&nbsp; &nbsp; <br/>
+<img src="image 6.png" /><br/>
+<br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">Currently, only rpecu_ad_b8 is changed to this structure. However, I will try to shift the other rpecu projects as well in the next days.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">Please spread this information to other RPECU users that I might have forgot.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">Best regards</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Helv"><span style="font-size: 10pt">Fabian</span></span><br/>
+&nbsp; &nbsp; <br/>
+<br/>
+</body></html>

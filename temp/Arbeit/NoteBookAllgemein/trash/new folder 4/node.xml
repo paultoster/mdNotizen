@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>New Folder</string>
+  <key>nodeid</key><string>cfee706c-6d3c-47b3-8bc7-e2916fab14b8</string>
+  <key>modified_time</key><integer>1446622602</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>application/x-notebook-dir</string>
+  <key>created_time</key><integer>1446622602</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>order</key><integer>44</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

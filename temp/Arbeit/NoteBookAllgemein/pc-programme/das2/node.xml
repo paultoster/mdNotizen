@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>expanded</key><true/>
+  <key>nodeid</key><string>d94d7bde-72d7-4531-a3a4-d70cc6fefc0f</string>
+  <key>modified_time</key><integer>1352374542</integer>
+  <key>expanded2</key><true/>
+  <key>content_type</key><string>text/xhtml+xml</string>
+  <key>created_time</key><integer>1352374533</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>title</key><string>DAS2</string>
+  <key>version</key><integer>6</integer>
+  <key>order</key><integer>3</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

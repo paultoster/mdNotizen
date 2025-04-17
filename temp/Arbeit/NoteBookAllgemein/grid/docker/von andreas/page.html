@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>von Andreas</title>
+</head><body>CW07: Do 21.02.2019 15:42-------------------------------------------------------------------------------------------------------------------<br/>
+<br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Hello colleagues,</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">we wanted to give you an update from the tooling side regarding your workflow / Linux development.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">We have three new information that we want to share with you:</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt"><b>1. GRID BUILD without DOCKER</b></span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">We have now provided all necessary libraries as debian packages to build the GRID for Linux x86 platform.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">These are combined in a meta-package, so that the installation is easier.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Thus, it is no longer necessary to use the docker container if you want to build the GRID under Linux x86.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Cross-compile and driveworks still need the docker containers.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Information about the meta-package can be found here: <a href="http://github.conti.de/CTZS/phad_ubuntu_migration/wiki/Using-PHAD-Debian-Repository">http://github.conti.de/CTZS/phad_ubuntu_migration/wiki/Using-PHAD-Debian-Repository</a></span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt"><b>2. GUI = ON for Linux Pipelines</b></span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">In the software structure meeting, we determined that the &lt;ProjectName&gt;_CMake_Pipeline_Linux build jobs in Jenkins would be set to GUI = ON.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">This change gives you the possibility to migrate the visualizations of GRID to Linux.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">The introduced GIT workflow remains untouched and will continue to be built with GUI = OFF.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">If all projects are prepared for GUI=ON build on Linux we can switch to GUI=ON for the GIT-Workflow.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Here is a direct link to the job overview: <a href="http://jenkinsctzs.conti.de/view/00_CMake_Pipeline/">http://jenkinsctzs.conti.de/view/00_CMake_Pipeline/</a></span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt"><b>3. Cross-Platform IDE</b></span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">We can now offer C-Lion licenses.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">C-Lion is a cross-platform IDE from JetBrains.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Kerstin Keller has agreed to give a small introductory training (more information on this in the near future).</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">The C-Lion licenses are limited to a number of 70, so if you are not sure if you want to use the IDE, you can also use the trial version.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">A trial version can be downloaded here: <a href="https://www.jetbrains.com/clion/download/#section=linux">https://www.jetbrains.com/clion/download/#section=linux</a></span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">To get a C-Lion license and to install the IDE, please do the following:</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Please create a JetBrains Account!</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Always use your Continental E-Mail address, DON'T use your private one.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt"><u>Account information should be your Firstname, Surname and as Username your Continental E-Mail address.</u></span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt"><u>&nbsp;</u></span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Create Account here: <a href="https://account.jetbrains.com/login">https://account.jetbrains.com/login</a></span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Click the following link to accept this invitation and start using your CLion license: <a href="https://account.jetbrains.com/a/li3qu2jf">https://account.jetbrains.com/a/li3qu2jf</a></span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">All other necessary information will be provided during the installation.</span></span><br/>
+&nbsp;<span style="font-family: Arial"><span style="font-size: 10pt">If you want to use CLion on Windows <b>and</b>&nbsp;Linux, please use the activation key for offline usage</span></span>&nbsp; &nbsp;<br/>
+<br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">####################################################################################################</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">If we missed any colleague, please send me his/her name and E-Mail address.</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Mit freundlichen Grüßen / Best regards</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Andreas Hauk</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">Telefon: +49 69 7603 - 1440</span></span><br/>
+&nbsp;<br/>
+<span style="font-family: Arial"><span style="font-size: 10pt">E-mail: <a href="mailto:andreas.hauk-ext@continental-corporation.com">andreas.hauk-ext@continental-corporation.com</a></span></span><br/>
+&nbsp;<br/>
+&nbsp;<br/>
+&nbsp; &nbsp; <br/>
+CW07: Do 21.02.2019 14:49-------------------------------------------------------------------------------------------------------------------<br/>
+<br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">Dear colleagues,</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">we updated the available images from eu-test.artifactory.conti.de.</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">To update your local images to the new releases you need to do the following steps:</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<b><u><span style="font-size: 10pt"><span style="font-family: Arial">Caution, all data in the container will be deleted, so safe all files you need.</span></span></u></b><br/>
+&nbsp;<br/>
+<b><u><span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span></u></b><br/>
+&nbsp;<br/>
+<b><u><span style="font-size: 10pt"><span style="font-family: Arial">1. Delete all current docker containers</span></span></u></b><br/>
+&nbsp;<br/>
+<b><u><span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span></u></b><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">Check if ALL docker containers are exited:                  docker ps -a</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">IF a docker is running or pending:                                  docker stop &lt;ID&gt;</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">Remove all docker container:                                         docker rm -f $(docker ps -aq)</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;alte Mail zu Docker</span></span><br/>
+&nbsp;<br/>
+<b><u><span style="font-size: 10pt"><span style="font-family: Arial">2. Update the Docker_Get_Started-Scritps</span></span></u><span style="font-size: 10pt"><span style="font-family: Arial">:</span></span></b><br/>
+&nbsp;<br/>
+<b><span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span></b><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">We also updated the Docker_Get_Started-Scripts.</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">Please remove your checked out Docker_Get_Started.</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">Clone the origin repo on your linux machine from: <a href="http://github.conti.de/CTZS/Docker_Get_Started.git">http://github.conti.de/CTZS/Docker_Get_Started.git</a></span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<b><u><span style="font-size: 10pt"><span style="font-family: Arial">3. Execute the Docker-Image-Update-Script</span></span></u><span style="font-size: 10pt"><span style="font-family: Arial">:</span></span></b><br/>
+&nbsp;<br/>
+<b><span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span></b><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">Change the directory:                cd /your/copy/of/Docker_Get_Started/docker-scripts/</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">Make the script executable:       chmod +x docker_image_update.sh</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">Execute the script:                    ./docker_image_update.sh</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<b><u><span style="font-size: 10pt"><span style="font-family: Arial">Improvements and Errors</span></span></u></b><br/>
+&nbsp;<br/>
+<b><u><span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span></u></b><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">In order to improve the docker images and the work with them, we ask you to report any errors,</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">missing programs, missing libraries, etc. as an issue at the following address: <a href="http://github.conti.de/CTZS/Docker_Get_Started/issues">http://github.conti.de/CTZS/Docker_Get_Started/issues</a></span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">--------------------------------------------------------------------------------</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">How to work with Docker: <a href="http://github.conti.de/CTZS/Docker_Get_Started/#setup-the-docker-client-on-your-machine">http://github.conti.de/CTZS/Docker_Get_Started/#setup-the-docker-client-on-your-machine</a></span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">How to work with Docker, CUDA and DriveWorks: <a href="http://github.conti.de/CTZS/Docker_Get_Started/#preparations-for-usage-of-the-driveworks-docker-container-on-your-local-machine">http://github.conti.de/CTZS/Docker_Get_Started/#preparations-for-usage-of-the-driveworks-docker-container-on-your-local-machine</a></span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">####################################################################################################</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">If we missed any colleague, please send me his/her name and E-Mail address.</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">Mit freundlichen Grüßen / Best regards</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">Andreas Hauk</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">&nbsp;</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">Telefon: +49 69 7603 - 1440</span></span><br/>
+&nbsp;<br/>
+<span style="font-size: 10pt"><span style="font-family: Arial">E-mail: <a href="mailto:andreas.hauk-ext@continental-corporation.com">andreas.hauk-ext@continental-corporation.com</a></span></span><br/>
+&nbsp; &nbsp; </body></html>

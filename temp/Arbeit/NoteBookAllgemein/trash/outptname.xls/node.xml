@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>OutptName.xls</string>
+  <key>payload_filename</key><string>document.doc</string>
+  <key>nodeid</key><string>6e3aaadc-1c3a-4ac6-935f-366284422c6d</string>
+  <key>modified_time</key><integer>1352468340</integer>
+  <key>order</key><integer>6</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>application/msword</string>
+  <key>created_time</key><integer>1352468340</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

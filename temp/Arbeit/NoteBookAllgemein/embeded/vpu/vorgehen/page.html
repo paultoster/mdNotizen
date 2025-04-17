@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Vorgehen</title>
+</head><body><br/>
+<br/>
+Fr 13.05.2016 10:43<br/>
+<br/>
+Folgende Dateien ändern, wenn durch durch branch ein Projekt kopiert wird:<br/>
+<br/>
+linked_build/app/vpu-cg/prj/projektname/projektname.rml<br/>
+linked_build/app/vpu-cg/prj/projektname/mak/build_env.bat<br/>
+platform_sw/vpu2/make/ssw.ppopts<br/>
+<br/>
+<br/>
+<b><u>Vorgehen um eine Version zu erstellen:<br/>
+</u></b><ul><li style="list-style-type: none">- Bislang kann man keine Version auf einem Windows 7 Rechenr erstellen, also nur XP</li>
+</ul>
+<br/>
+1. auf dem Rechner sollte Visual C++ 2005 oder auch 2008 installiert sein. (Einrichten:rel://dukument/Info_VPU.rtf)<br/>
+2. Die Software für das jeweilige Projekt ist zu finden:<br/>
+<ul><li style="list-style-type: none">VPU1: Gateway von PT-CAN zu private-CAN http://frd55185/svn/tze/Projects/VPU_master/branches/VPU1_CG_Gateway </li>
+</ul>
+<ul><li style="list-style-type: none">VPU2: Ansteuerung Lenkung, Bremse http://frd55185/svn/tze/Projects/VPU_master/branches/VPU2_CG_OUT </li>
+</ul>
+<ul><li style="list-style-type: none">VPU3: Rear Radar http://frd55185/svn/tze/Projects/VPU_master/branches/VPU3_RearRadar </li>
+</ul>
+<ul><li style="list-style-type: none">VPU4: Querregler http://frd55185/svn/tze/Projects/VPU_master/branches/VPU4_CG_IQF</li>
+</ul>
+<br/>
+3. aktuellen Stand auschecken und .makemk_vcproj.bat ausführen, damit wird in .idevisualname.vcproj erstellt<br/>
+4. Es kann unabhängig von Visual C++ eine Version erstellt werden, indem .makemk_appl.bat ausgeführt wird<br/>
+<br/>
+<i>Beschreibung CAN-Signale einfügen</i><br/>
+<br/>
+<b><u>Lenkwinkelregler VPU2</u></b><br/>
+&nbsp;<br/>
+1. Zuerst muß das richtige Fahrzeug über #define eingestellt werden in .srcglobglob_cfg.he<br/>
+<br/>
+&nbsp; &nbsp; #define BMW545 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1 <br/>
+&nbsp; &nbsp; #define PASSAT_CC &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2<br/>
+&nbsp; &nbsp; #define OPEL_INSIGNIA &nbsp; &nbsp; &nbsp; &nbsp; 3<br/>
+&nbsp; &nbsp; #define USED_CAR &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;PASSAT_CC <br/>
+<br/>
+2. Die Funktionen sind in dem Bereich .srcfctlat zu finden<br/>
+3. Der Aufruf geschieht mit einer Loopzeit von 10 ms:<br/>
+<br/>
+&nbsp; &nbsp; FCT_LAT_EXEC(const times_t cycle_time, fct_opmode_t mode) &nbsp; fct_lat.c &nbsp; Aufruf Momentengenerierung Lenkung<br/>
+&nbsp; &nbsp; |<br/>
+&nbsp; &nbsp; +-&gt; FCT_LAT_INIT(cycle_time) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fct_lat.c &nbsp; Parameterzuweisung und Initialisierung<br/>
+&nbsp; &nbsp; | &nbsp; |<br/>
+&nbsp; &nbsp; | &nbsp; +-&gt; IPASInit() &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ipas_main.c Variablen initialisieren<br/>
+&nbsp; &nbsp; |<br/>
+&nbsp; &nbsp; +-&gt; FCT_LAT_INPUT() &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fct_lat.c &nbsp; EIngangsgrößen aus CAN setzen<br/>
+&nbsp; &nbsp; |<br/>
+&nbsp; &nbsp; +-&gt; IPASLoop() &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ipas_main.c Loopberechnung<br/>
+&nbsp; &nbsp; |<br/>
+&nbsp; &nbsp; +-&gt; FCT_LAT_OUTPUT() &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;fct_lat.c &nbsp; Ausgabegrößen für CAN setzen<br/>
+&nbsp; &nbsp; <br/>
+&nbsp; &nbsp; IPASLoop() &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ipas_main.c Loopberechnung<br/>
+&nbsp; &nbsp; |<br/>
+&nbsp; &nbsp; +-&gt; <br/>
+<br/>
+Funktion IPASLoop()<br/>
+<br/>
+IPASignalProcessing():&#09;&#09;Aufbereitung der Signale und Solllenkwinkelabbitrierer<br/>
+IPASRefTorqueAngCtrl():&#09;&#09;Berechnung Lenkmoment aus Vorgabe Solllenkwinkel<br/>
+IPASRefTorqueLka():&#09;&#09;Handling Interventionmoment von IQF<br/>
+IPASRefTorqueLdw():&#09;&#09;Lane depature warning Generierung<br/>
+IPASRefTorque():&#09;&#09;&#09;Abbitrierung Lenkmomente und Zustand für ein und ausrampen<br/>
+IPASFailure():&#09;&#09;&#09;&#09;Fehlerausgabe<br/>
+<br/>
+<b><u>Querregler VPU4<br/>
+</u></b><br/>
+<b><u>Version zum Downloaden mit Visual C++ erstellen</u></b><br/>
+<br/>
+Die Visual C solution liegt unter<br/>
+<br/>
+VPU2: D:\VPU_Master\VPU2_CG_OUT\idevisual\visproj_cg_out_appl.sln<br/>
+VPU4: D:\VPU_Master\VPU4_CG_IQF\ide\visual\visproj_cg_iqf_appl.sln<br/>
+<br/>
+Nach Starten kann unter Tools -&gt; A.D.C. Target Build eine Version erstellt werden<br/>
+VPU2: Hier ist darauf zu achten, das in D:\VPU_Master\VPU2_CG_OUT\src\glob\glob_cfg.he das richtige Fahrzeug eingestellt ist<br/>
+<br/>
+Die Version wird in dem out-Ordner abgelegt:<br/>
+VPU2: D:\VPU_Master\VPU2_CG_OUT\out\cg_out_appl<br/>
+VPU4: D:\VPU_Master\VPU4_CG_IQF\out\cg_iqf_appl<br/>
+<br/>
+<b>Versionspaket erstellen:</b><br/>
+<br/>
+Wenn eine neue Version erstellt ist, kann in das Versionsverzeichnis eine diese abgelegt werden:<br/>
+VPU2: D:\VersionenVPU\VPU2_CG_OUT_Version<br/>
+VPU4: D:\Versionen\VPU\VPU4_CG_IQF_Version<br/>
+<br/>
+Dazu können die Scripte unter D:\Versionen\VPU verwendet werden<br/>
+VPU2: copy_new_version_vpu2_vw.py<br/>
+copy_new_version_vpu2_bmw.py<br/>
+VPU4: copy_new_version_vpu4.py<br/>
+<br/>
+Dabei wird die svn-Versionsnummer gefragt (0 wenn nicht eingecheckt), die build-Nummer (sieht man im Visual-C++ Ausgabefenster oder im out-Verzeichnis und ein Kommentar wird abgefragt.<br/>
+<br/>
+Damit wird ein Verzeichnis erstellt, indem das mot-File (zum downloaden) und elf-File (CAN-Command) sowie die nvm-mot-Files um bestimmte Parameter zu ändern. Ausßerdem wird ein zip-File mit allen sourcen erstellt.<br/>
+<br/>
+VPU2:<br/>
+cg_out_master_appllast.elf<br/>
+cg_out_master_appllast.mot<br/>
+cg_out_master_appllast.zip<br/>
+cg_out_master_appllast_glob_cfg.he<br/>
+descript.txt<br/>
+nvm_production_35Nm_1_1.mot -&gt; Momentenbegrenzung auf 3.5 Nm<br/>
+nvm_production_55Nm_1_1.mot -&gt; Momentenbegrenzung auf 5.5 Nm<br/>
+<br/>
+VPU4:<br/>
+cg_iqf_master_appllast.elf<br/>
+cg_iqf_master_appllast.mot<br/>
+cg_iqf_master_appllast.zip<br/>
+cg_iqf_master_appllast_glob_cfg.he<br/>
+descript.txt<br/>
+nvm_production_BMW_1_5_a.mot -&gt; BMW-Parameter<br/>
+nvm_production_BMW_ADASWeek_Alzenau_1_5_a.mot -&gt; BMW-Parameter mit speziellen Einstellungen für Curbstone Alzenau<br/>
+nvm_production_Passat_1_5_a.mot -&gt; Passat-Parameter<br/>
+<br/>
+<b><u>Messung mit Matlab auswerten</u></b><br/>
+<br/>
+Offline Simulation erstellen<br/>
+<br/>
+Für den jeweiligen Regler gibt es eine Offline-Simulationsumgebung für Visual C++<br/>
+<br/>
+VPU2: D:\SiL_Modules\VPU2_CG_OUT_SteerCntrl_SIM\VPU2_CG_OUT_SteerCntrl_SIM.sln<br/>
+VPU4: D:\SiL_Modules\VPU4_CG_IQF_SIM\VPU4_CG_IQF_SIM.sln<br/>
+<br/>
+Dabei braucht man nur das mex-Projekt und Lib-Projekt zu erstellen <br/>
+<br/>
+Die Source-Files des Regler aus D:\VPU_Master\VPU2_CG_OUT\src bzw. D:\VPU_Master\VPU2_CG_IQF\src werden hier verwendet <br/>
+<br/>
+Beim Erstellen des mex-Projekts wird bei Erfolg, das mex-File und zwei m-Files in das Arbeitsverzeichnis von Matlab D:\projekte\contiguard\IQF\arbeit\100610_IQF_Auswertung\m_files kopiert <br/>
+<br/>
+Wenn neue Variablen rausgeführt werden sollen, kann man diese in variables.cpp tun<br/>
+<br/>
+<b>Matlabumgebung:</b><br/>
+<br/>
+Nach Starten von Matlab in das Verzeichnis D:\projekte\contiguard\IQF\arbeit\100610_IQF_Auswertung wechseln. Von hier aus werden die Scripte gestartet<br/>
+<br/>
+Wandeln von canlog.asc in matlab-Files: <br/>
+<br/>
+Dazu kann das Skript D:\projekte\contiguard\IQF\arbeit\100610_IQF_Auswertung\iqf_prepare_canalyser_mess.m verwendet werden. <br/>
+<br/>
+Man wählt das Verzeichnis aus indem die Messungen liegen, diese werden dann gewandelt <br/>
+<br/>
+Wenn eine neue zusätzliche Variable hinzugefügt werden soll, kann man das in der Datei D:\projekte\contiguard\IQF\arbeit\100610_IQF_Auswertung\m_files\iqf_build_cell_sig_liste.m tun (siehe Beschreibung im Header)<br/>
+<br/>
+<b>OfflineSimulation mit den Messdaten:</b><br/>
+<br/>
+Dazu kann das Skript D:\projekte\contiguard\IQF\arbeit\100610_IQF_Auswertung\iqf_offlinesim.m verwendet werden. <br/>
+<br/>
+Wenn der Parameter q.read_file_list = 2 steht, muss man die gewünschte Messung auswählen (mat- oder asc-Datei), man kann mehrere Dateien auswählen und am Ende mit Abbrechen weitergehen <br/>
+<br/>
+Mit q.read_file_list = 3 wählt man ein Verzeichnis aus, unter dem alle Messunegn simuliert werden. <br/>
+<br/>
+An die Messdatei (z.B. maesurement2001.mat) wird mit einem Zusatz gespeichert (maesurement2001_osim.mat)<br/>
+<br/>
+<b>Plotten der Größen:</b><br/>
+<br/>
+Dazu kann das Skript D:\projekte\contiguard\IQF\arbeit\100610_IQF_Auswertung\iqf_plot_messung.m verwendet werden. <br/>
+<br/>
+Im Header können verschiedene Plots ausgewählt werden <br/>
+<br/>
+Man wählt die gewünschte Messung aus (mat-Datei), man kann mehrere Dateien auswählen und am Ende mit Abbrechen weitergehen<br/>
+<br/>
+</body></html>

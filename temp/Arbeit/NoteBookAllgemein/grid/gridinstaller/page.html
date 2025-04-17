@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Gridinstaller</title>
+</head><body><br/>
+1. Inno Setup Compiler installieren (habe 5.5.1 (a) installiert)<br/>
+2. Grid-Solution einmal kopilieren und linken<br/>
+3. ConfigureInstallerGrid-Projekt bildet eine Datei: MakeDistGrid.iss, die mit dem Inno Setup Compiler gestartet werden kann<br/>
+4. Inno Setup Compiler zeigt einen zum editieren:<br/>
+&nbsp; &nbsp;- OutputBaseFilename=GridDist_28471_REPOSITORY &nbsp; &nbsp; &nbsp;=&gt; &nbsp;der Name der zu erstellenden exe (_MODIFIED, wenn irgendwas nicht <br/>
+&nbsp; &nbsp;eingecheckt ist)<br/>
+5. Um eine Task raus oder rein zunehmen, kann entweder im build/startup-Verzeichnis das ini-File geändert werden entsprechend dem Auto<br/>
+6. Um Channels neu zu definieren, ist es am besten das im Auto zu tun und das ini-File von TAcc nehmen, bzw. das hier erweitern<br/>
+<br/>
+<br/>
+dp<br/>
+</body></html>

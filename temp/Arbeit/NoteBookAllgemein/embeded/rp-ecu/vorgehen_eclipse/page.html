@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Vorgehen_Eclipse</title>
+</head><body>CW06: Di 12.02.2019 11:37-------------------------------------------------------------------------------------------------------------------<br/>
+<br/>
+1) Definition PROJECT_CONFIG und CAN_CONFIG<br/>
+<br/>
+D:\RTAS_work\rpecu_mc_b8\platform_sw\rpecu\appl\algo\0000_config\target_config.h<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+CW39: Mo 24.09.2018 12:57-------------------------------------------------------------------------------------------------------------------<br/>
+<br/>
+<img src="image 4.png" width="687" height="600" /><br/>
+<br/>
+<br/>
+Fehler in /rpecu/appl/algo/0000_InOutDataHandler/0000_ProtoDefinitions/nanopb verbessert:<br/>
+<br/>
+<img src="image 5.png" width="650" height="568" /><br/>
+<br/>
+<br/>
+Mo 18.09.2017 17:51<br/>
+<br/>
+<br/>
+Wenn für DANA das Project anstatt RP-ECU comipiliert werden soll, dann im Projekt Rechts-Klick und Build Configurations -&gt; Set Active<br/>
+<br/>
+<br/>
+<br/>
+Mi 24.05.2017 09:05<br/>
+<br/>
+Algo unter appl/algo zu finden<br/>
+<br/>
+Im High Tec Project Explorer auf oberster Ebene Rechtsklick und Refresh aussuchen, um neu zu sortieren<br/>
+<br/>
+<br/>
+Projekt bilden: Rechtsklick High Tec Project Explorer -&gt; build procejt<br/>
+<br/>
+<br/>
+=================================================================================================<br/>
+=================================================================================================<br/>
+Immer platform_sw auswählen:<br/>
+<img src="image 2.png" /><br/>
+=================================================================================================<br/>
+<br/>
+2 Einstellungen beim ersten einladen vornehmen:<br/>
+<br/>
+&nbsp;A) Menü Window-&gt;Prferences:<ul><li style="list-style-type: none">- Update model after each build aushacken</li>
+<li style="list-style-type: none">- Allow user defined linker description file in project settings anhacken</li>
+</ul>
+<br/>
+- <img src="image.png" /><br/>
+<br/>
+B) RechtsKlick auf Projekt im HighTec Project Explorer -&gt; Import -&gt; General -&gt; Existing Projects into Workspace -&gt; selct root directory, damit auf platform_sw Ordner auswählen z.B. (D:\RTAS_work\rpecu_parking_b7\platform_sw)<br/>
+<br/>
+=================================================================================================<br/>
+Wennn Zuordnungen nicht stimmen oder falsche Files zugeordnet werden:<ul><li style="list-style-type: none">- Rechte Maustaste auf Projekt:</li>
+<li style="list-style-type: none"><ul><li style="list-style-type: none">- Refresh</li>
+<li style="list-style-type: none">- Index- &gt; Rebuild</li>
+<li style="list-style-type: none"></li>
+</ul>
+</li>
+<li style="list-style-type: none">auch ein rebuild Index ist gut, CompilerSchalter Update</li>
+<li style="list-style-type: none">- &nbsp;Rechte Maustaste auf Projekt-&gt; Index-&gt;rebuild</li>
+<li style="list-style-type: none"></li>
+</ul>
+=================================================================================================<br/>
+Im Aufruf drtas-Module wird in eckigen Klammern der mögliche Typname gesetzt<br/>
+<ul><li style="list-style-type: none">- /* #sswrtas: n: admotioncontrol_init, s: [default, rpecu_phad2018_b8, rpecu_phad2018_300C, rpecu_phad2018_cube], &nbsp;f: init */</li>
+<li style="list-style-type: none">- In Klammern ist der mögliche Typname in dem grünen RTAS-Tool</li>
+</ul>
+=================================================================================================<br/>
+dbc-Files für B8<br/>
+http://frd2ahjg/svn/tze/Projects/ContiGuard/dbc-files/Passat_MQB &nbsp; Fahrzeug<br/>
+http://frd2ahjg/svn/tze/Projects/ContiGuard/dbc-files/CruisingChauffeur/PHAD2018/System-CAN/System-CAN_PHAD2018.dbc System-CAN<br/>
+=================================================================================================<br/>
+Die Modul-Schnittstelle ist in:<br/>
+<img src="image 3.png" /><br/>
+<br/>
+ADMotionControlTypedefs.h: &nbsp; &nbsp; Strukturen mit den Eingangs und Ausgangs Größen und Definition für RTAS /* RTAS: ....<br/>
+ADMotionControl.h: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Deklaration der Funktionen: &#09;&#09; &nbsp;void &#09;ADMotionControl_init();&#09;&#09;&#09;// prepare all structures and initialize mutexes<ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none">bool&#09;ADMotionControl_PrepareInput();&#09;// get the input data</li>
+<li style="list-style-type: none">bool&#09;ADMotionControl_GatherOutput();&#09;// process output</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br/>
+ADMotionControl.c &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Definitionen der Funktionen<br/>
+=================================================================================================<br/>
+<br/>
+=================================================================================================<br/>
+=================================================================================================<br/>
+=================================================================================================<br/>
+<br/>
+</body></html>

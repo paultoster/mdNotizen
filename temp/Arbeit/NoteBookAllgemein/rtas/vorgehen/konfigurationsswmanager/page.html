@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>KonfigurationSSWManager</title>
+</head><body>Do 05.01.2017 14:35:<br/>
+<br/>
+Von Fabian:<br/>
+der folgende Punkt betrifft wohl hauptsächlich die Modulentwickler. Für den Rest trotzdem zur Info.<br/>
+<br/>
+Da mittlerweile doch schon einige Projekte mit der RPECU arbeiten (AD B7 &amp; B8, Motion Control, People Mover,...) gibt es eine Vielzahl von Orten im Code an denen RTAS Module eingebunden werden können. Dies führt zu einer mittlerweile recht unübersichtlichen Konfigurationsübersicht im RTAS SSW Manager (siehe unten):<br/>
+<br/>
+<br/>
+<img src="image.png" /><br/>
+Es werden alle Code Stellen angezeigt, obwohl man gar nicht alle für das Projekt benötigt.<br/>
+<br/>
+Matthias hat mich auf die zusätzliche Option aufmerksam gemacht, mit der man etwas Ordnung in die Konfigurationsübersicht bringen kann. <br/>
+Wenn im Basis Code, der RTAS Kommentar wie folgt entsprechend erweitert wird:<br/>
+/* #sswrtas: n: lat_ctrl_init, s: [default, rpecu_ad_b7, rpecu_ad_b8, rpecu_ad_demo, rpecu_mc_b8], &nbsp;f: init */<br/>
+<br/>
+dann ist die entsprechende Code Stelle nur für die genannten "Type selections" sichtbar. Im SSW Manager "Rechts-Klick" auf das Feld "Type Name" bei "Type Selection"<br/>
+<br/>
+<img src="image 2.png" /><br/>
+bringt dann die entsprechende Auswahl:<br/>
+<img src="image 3.png" /><br/>
+und führt zu einer übersichtlicheren Konfigurationsübersicht in der wirklich nur die Code-Stellen gezeigt werden, die man für das Projekt auch benötigt:<br/>
+<img src="image 4.png" /><br/>
+<br/>
+Ich habe das mal in allen Repos (außer Parken) eingepflegt (mit der Option default, bekommt man weiterhin alle Stellen angezeigt), gebaut und eingecheckt.<br/>
+<br/>
+Gruß<br/>
+Fabian<br/>
+</body></html>

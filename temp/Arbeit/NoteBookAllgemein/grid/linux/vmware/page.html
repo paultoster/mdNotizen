@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>VMware</title>
+</head><body>&nbsp;13.03.2018 <br/>
+<br/>
+Hello colleagues,<br/>
+<br/>
+to get you ready for Ubuntu and the future work with the DrivePX2 &nbsp;as soon as possible, we recommend you to order and install a VMware-Ubuntu-Image.<br/>
+<br/>
+Click on your "Employee Self Service" --&gt; "IT Request management (SSP7)" --&gt; &nbsp;"New Request" --&gt; "Hardware &amp; Software" --&gt; "Software Installation (Automotive &amp; Rubber)".<br/>
+Choose your device name (hostname) and search for the Ubuntu-Image (Ubuntu Client 1.0.0.0) in the search field.<br/>
+Submit the order, after the approval process, install the VMWare with the "Portal Manager" and start it.<br/>
+An automated script will install Ubuntu in the VMWare, after the installation please write down the device name (displayed in the top left).<br/>
+<br/>
+With the device name of the VM you can now order admin rights (and if you want SSH).<br/>
+Click on your "Employee Self Service" --&gt; "IT Request management (SSP7)" --&gt; &nbsp;"New Request" --&gt; "User- and Group Management" --&gt; "Windows &amp; Linux".<br/>
+Choose "Local Admin Rights", the duration 12 months, add the device name (hostname) of your VM.<br/>
+<br/>
+Keep in mind that the VM is using 15GB of disk space and additional diskspace for each SW-Repo you install, so we would recommend to keep 40-50GB of diskspace free.<br/>
+In the next weeks we will deploy a docker solution so that every developer gets the same environment, until then you can use the time to gain some experience with the new OS.<br/>
+<br/>
+####################################################################################################<br/>
+<br/>
+If we missed any colleague, please send me his/her name and E-Mail address.<br/>
+<br/>
+Mit freundlichen Grüßen / Best regards<br/>
+<br/>
+Andreas Hauk<br/>
+13.03.2018<br/>
+<br/>
+Hello colleagues,<br/>
+<br/>
+to avoid confusion, the provided tutorial is intended for all developers who want to compile / crosscompile their code using Ubuntu and run software components independently from the Nvidia SDK.<br/>
+<br/>
+If your development requires to run DriveWorks based components, then you need a native Ubuntu. DriveWorks does not run in a VM!<br/>
+So it's required to have a Notebook with a native Ubuntu and a dedicated Nvidia graphics card.<br/>
+<br/>
+If in doubt, which computers are suitable, please ask your CEOS representative or read here: http://github.conti.de/CTZS/driveworks_samples/wiki/Hardware<br/>
+<br/>
+<br/>
+#############################################################################################################<br/>
+<br/>
+Shared libraries einbinden:<br/>
+<br/>
+In Einstellungen habe ich wie folgt eingebunden:<br/>
+<br/>
+Das Volumen taucht dann in /mnt/hgfs/GitGrid auf<br/>
+<br/>
+Dieses kann beim Starten im Docker noch dazu gemountet werden (siehe Docker/Befehle 6) Erweiterung mit shared libraries:)<br/>
+<br/>
+<img src="image.png" /></body></html>

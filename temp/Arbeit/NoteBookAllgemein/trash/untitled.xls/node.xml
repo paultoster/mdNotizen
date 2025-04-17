@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>untitled.xls</string>
+  <key>payload_filename</key><string>spreadsheet.xls</string>
+  <key>nodeid</key><string>35aaf223-ab88-4cc7-be3e-de61cec1d7e8</string>
+  <key>modified_time</key><integer>1352468204</integer>
+  <key>order</key><integer>5</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>application/vnd.ms-excel</string>
+  <key>created_time</key><integer>1352468204</integer>
+</dict>
+</node>

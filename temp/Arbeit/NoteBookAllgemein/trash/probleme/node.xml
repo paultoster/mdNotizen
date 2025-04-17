@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>Probleme</string>
+  <key>nodeid</key><string>ff40a8a8-5e4a-4e8a-89c3-2a41f75e1d6b</string>
+  <key>modified_time</key><integer>1492082851</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>application/x-notebook-dir</string>
+  <key>created_time</key><integer>1492082851</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>order</key><integer>58</integer>
+  <key>info_sort</key><string>order</string>
+  <key>icon</key><string>note.png</string>
+</dict>
+</node>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>Protobuf-Vorgehen</string>
+  <key>nodeid</key><string>8d3f86e3-85b5-41a9-a825-ce372d04cb89</string>
+  <key>modified_time</key><integer>1466407205</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>text/xhtml+xml</string>
+  <key>created_time</key><integer>1466405584</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>order</key><integer>26</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

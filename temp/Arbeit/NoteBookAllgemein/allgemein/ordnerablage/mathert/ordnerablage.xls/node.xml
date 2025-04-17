@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>Ordnerablage.xls</string>
+  <key>payload_filename</key><string>ordnerablage.xls</string>
+  <key>nodeid</key><string>7be4a8f9-feb9-43e8-9794-c0a2cb4c7232</string>
+  <key>modified_time</key><integer>1420192687</integer>
+  <key>order</key><integer>0</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>application/vnd.ms-excel</string>
+  <key>created_time</key><integer>1420192687</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

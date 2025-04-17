@@ -1,0 +1,1014 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Contiguard</title>
+</head><body>Mi 10.12.344 12:38:44<br/>
+<br/>
+<b>ffm-mks1:7001<br/>
+<br/>
+<br/>
+Passat-Sandbox:<br/>
+<br/>
+VW_MQ6\MQ6BBJ<br/>
+</b><br/>
+<br/>
+Do 27.11.331 08:44:23<br/>
+<br/>
+<img src="image 5.png" /><br/>
+<br/>
+<br/>
+Mo 17.11.321 11:00:56<br/>
+<br/>
+<br/>
+<br/>
+VPU2-Image:<br/>
+<br/>
+<img src="image 4.png" /><br/>
+<br/>
+Ffm_VirtWallTest_1.asc &nbsp; &nbsp;erste Messung war glaube ich gut<br/>
+<br/>
+2 war nix<br/>
+<br/>
+Messung 6 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;zu langsames Reingehen !!! an virt Wall<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Mo 15.09.2014 10:03:04<br/>
+<br/>
+Heute verion 369 geflasht, in dieser ist der Strap IQF_C0C1_CHANGE_ACTUAL = 1 gesetzt<br/>
+<br/>
+Auf dem Passat 440 war folgende VPU4-Version bis jetzt gewesen:<br/>
+<img src="image 3.png" /><br/>
+<br/>
+<br/>
+Di 15.03.2016 10:16<br/>
+<br/>
+Es wird geändert: <br/>
+&nbsp; IQFparam.C0C1_AddTor_max &nbsp;= 2.0f; /* Nm */ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =&gt; 0.0<br/>
+&nbsp; IQFparam.C0C1_AddTor_Gain = 2.0f/(60.f*IQF_DEG2RAD); /* Nm/rad */ &nbsp; &nbsp;=&gt; 0.0<br/>
+<br/>
+Damit wird für Ausweichen sanfter begonnen<br/>
+<br/>
+<br/>
+Fr 12.09.2014 10:51:31<br/>
+<br/>
+Von Nouri die email:<br/>
+<br/>
+Hello Thomas <br/>
+<br/>
+Thank you for your help.<br/>
+<br/>
+I used "1407151019_VPU4_CG_IQF_ver43856_spez_Japan".<br/>
+<br/>
+I could be going well without overshoot as shown in this mesurement.<br/>
+<br/>
+measurement20140912_001.zip<br/>
+\\frd2ahjg\Insecure\Transfer\Noriaki_Itagaki<br/>
+<br/>
+<br/>
+Ich habe aus der Version 43856 eine Spezial-Version für Nori gemacht, in der der erste Impuls bei ESA-Beginn abgestellt wird:<br/>
+<br/>
+IQFparam.C0C1_AddTor_Gain &nbsp; = 0.0f; (bisher: 1.909859317102744)<br/>
+IQFparam.C0C1_AddTor_max &nbsp; &nbsp;= 0.0f; (bisher: 2.0)<br/>
+<br/>
+siehe D:\VPU2_VPU4\VPU4_CG_IQF_JAPAN, dort ist diese Spezialversion und das cg_iqf_master_appllast<br/>
+<br/>
+Nach der Mail von Nori hat es funktioniert, Messung dazu: D:\mess\tacc\Contiguard_Passat_Japan\measurement20140912_001.zip<br/>
+<br/>
+<br/>
+Mi 10.09.2014 06:44:05<br/>
+<br/>
+von Nouri bekommen:<br/>
+<br/>
+1407151019_VPU4_CG_IQF_ver43856_build364<br/>
+<br/>
+<br/>
+Fr 05.09.2014 11:09:58<br/>
+<br/>
+Version auf 440:<br/>
+<br/>
+<img src="image 2.png" /><br/>
+<br/>
+<br/>
+<br/>
+Do 24.07.2014 10:46:30<br/>
+<br/>
+Hallo Jürgen und Thomas,<br/>
+<br/>
+über die Botschaft 0x175 wird mit den aktuellen Grid-Ständen auf Trunk und Tag nun eine "VehicleId" auf dem CAN ausgegeben (6 Bits).<br/>
+<br/>
+Bedeutung:<br/>
+&nbsp; &nbsp; enum carType { DEFAULT &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 0<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, FTZ2222 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 1<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, PassatFTZ560 &nbsp; &nbsp; = 2<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, OpelInsignia &nbsp; &nbsp; = 3<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, PassatFTZ440 &nbsp; &nbsp; = 4<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, PassatFTZ660 &nbsp; &nbsp; = 5<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, PassatFTZ880 &nbsp; &nbsp; = 6<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, PassatUSA &nbsp; &nbsp; &nbsp; &nbsp;= 7<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, PassatFTZ990 &nbsp; &nbsp; = 8<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, BmwFTZ5000 &nbsp; &nbsp; &nbsp; = 9<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, BmwRCO220 &nbsp; &nbsp; &nbsp; &nbsp;= 10<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, PassatFTZ330 &nbsp; &nbsp; = 11<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;, PassatLIDC507 &nbsp; &nbsp;= 12<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;};<br/>
+<br/>
+Für den Druckregler im 660 brauche ich eine Parameteranpassung:<br/>
+PAR_V_Verstaerkung: -1 -&gt; -0.3<br/>
+<br/>
+Für den 560 muss die -1 bleiben. Die anderen Fahrzeuge muss ich noch prüfen.<br/>
+<br/>
+Grüße, Dirk<br/>
+<br/>
+<br/>
+<br/>
+Mo 07.07.2014 12:09:36<br/>
+<br/>
+Messung Kurs_20 regelt Moment ab, trotz das der Solllenkwinkel nicht erreicht wird<br/>
+<br/>
+<br/>
+<br/>
+Proreta 3 Build-Nr 369 auf dem zusätzlichen VPU2-Steuergerät, dass Eric Bauer bekommen hat bis zum 7.7.2014<br/>
+<br/>
+ab 7.7.14 ist die Build - Nr 000 vom 7.7.2014 11:56 (Verzeichnis hat beim Erstellen gefehlt)<br/>
+<br/>
+<br/>
+Do 03.07.2014 05:30:55<br/>
+<br/>
+<br/>
+Ausgänge VPU2_LQR<br/>
+<br/>
+LQR_T_ges_Ausgabe<br/>
+LQR_T_ges<br/>
+LQR_T_ges_Faktorisiert<br/>
+LQR_T_ges_Aufschaltung<br/>
+LQR_T_Regler<br/>
+LQR_T_Vorsteuerung<br/>
+<br/>
+LQR_T_Anteil_PsiPunkt<br/>
+LQR_T_Anteil_Psi<br/>
+LQR_T_Anteil_yPunkt<br/>
+LQR_T_Anteil_y<br/>
+LQR_T_Anteil_deltaLPunkt<br/>
+LQR_T_Anteil_deltaL<br/>
+LQR_deltaL_Vorsteuerung_des<br/>
+<br/>
+LQR_Delta_Psi_filt&#09;&#09;&#09;&#09;&#09;&#09;&#09;&#09;10 bit<br/>
+LQR_Delta_PsiPunkt_org&#09;&#09;&#09;&#09;&#09;&#09;&#09;10<br/>
+LQR_Delta_PsiPunkt_filt&#09;&#09;&#09;&#09;&#09;&#09;&#09;10<br/>
+LQR_Delta_y_filt&#09;&#09;&#09;&#09;&#09;&#09;&#09;&#09;10<br/>
+LQR_Delta_yPunkt_org&#09;&#09;&#09;&#09;&#09;&#09;&#09;10<br/>
+LQR_Delta_yPunkt_filt&#09;&#09;&#09;&#09;&#09;&#09;&#09;10<br/>
+&#09;&#09;&#09;&#09;&#09;<br/>
+LQR_deltaStWhlAng_EPS_filt&#09;&#09;&#09;&#09;&#09;&#09;14 bit<br/>
+LQR_deltaStWhlVel_EPS_org&#09;&#09;&#09;&#09;&#09;&#09;14 bit<br/>
+LQR_deltaStWhlVel_EPS_filt&#09;&#09;&#09;&#09;&#09;&#09;14 bit<br/>
+LQR_Kappa_filt&#09;&#09;&#09;&#09;&#09;&#09;&#09;&#09;&#09;16 bit<br/>
+<br/>
+LQR_deltaStWhlAng_privat_filt&#09;&#09;&#09;&#09;&#09;&#09;14 bit<br/>
+LQR_deltaStWhlVel_privat_org&#09;&#09;&#09;&#09;&#09;&#09;14 bit<br/>
+LQR_deltaStWhlVel_privat_filt&#09;&#09;&#09;&#09;&#09;&#09;14 bit<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Revision: 43006<br/>
+Author: berthold<br/>
+Date: Dienstag, 17. Juni 2014 08:57:40<br/>
+Message:<br/>
+STWH_CNTRL_OUTPUT.ParkReqRepeatCount eingeführt, um die Anzahl der Anfragen zu variieren. (Problem bei HAPS)<br/>
+----<br/>
+Modified : /Projects/VPU_master/branches/VPU2_CG_OUT/src/can/dc_chassis/can_process_tx_ch1.c<br/>
+Modified : /Projects/VPU_master/branches/VPU2_CG_OUT/src/fct/lat/fct_lat.c<br/>
+Modified : /Projects/VPU_master/branches/VPU2_CG_OUT/src/fct/lat/stwh_cntrl/stwh_cntrl.he<br/>
+Modified : /Projects/VPU_master/branches/VPU2_CG_OUT/src/glob/glob_cfg.he<br/>
+<br/>
+<br/>
+Di 27.05.2014 08:58:42<br/>
+<br/>
+Proreta-Absprache mit Eric Bauer:<br/>
+<br/>
+ArbiDev2Pth:<br/>
+<br/>
+&nbsp;- timestamp benutzen und &nbsp;neuer time Neuberechnung des Offsets (komplett neue Trajektorie), wenn letzter Timestamp verwendet wird, dann wird Trajektorie mit den bestehenden Offsets aus Vehicle -Pose berechnet<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Fr 23.05.2014 13:11:34<br/>
+<br/>
+Ende Pferdsfeldwoche<br/>
+<br/>
+<br/>
+- <br/>
+<br/>
+Mi 21.05.2014 17:07:30<br/>
+<br/>
+VPU2- uild 361 ist die Version ohne Überwachung<br/>
+<br/>
+Di 20.05.2014 09:33:21<br/>
+<br/>
+Pferdsfeldwoche VPU2-Stand auf 560: build 340<br/>
+<br/>
+Messungen mit VPU2 build 357 mit den Parameter:<br/>
+<br/>
+IPASparam.SwaCntrl3MODGainPDeltaSwaFac=1.0<br/>
+IPASparam.SwaCntrl3MODPGainDeltaDSwa=0.01<br/>
+IPASparam.SwaCntrl3MODGainIDeltaSwa=0.0<br/>
+IPASparam.SwaCntrl3MODGainDSwaRefFac=0.2<br/>
+IPASparam.SwaCntrl3MODDampFac=0.002<br/>
+IPASparam.DampTorMax=5.0<br/>
+IPASparam.SwaCntrl3MODGainPDeltaSwaLowDynDeltaFac=0.3<br/>
+IPASparam.SwaCntrl3MODGainIDeltaSwaLowDynDelta=0.02<br/>
+IPASparam.SwaCntrl3MODGainDSwaRefLowDynDeltaFac=1.8<br/>
+IPASparam.SwaCntrl3MODPGainDeltaDSwaLowDynDeltaFac=1.0<br/>
+IPASparam.SwaCntrl3TestSwitchOn=1<br/>
+<br/>
+# Nachscheuen, ob über Rampe eingefadet wird, dabei kam es zu schwingungen, besser mit diesem Ramp-Faktor<br/>
+<br/>
+<br/>
+Messung mit <br/>
+<br/>
+Kooperativem Fahren 1:&#09;&#09;einmal rauslenken Schwingungen beim loslassen<br/>
+Kooperatives Fahren 2: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;IPASparam.SwaCntrl3MODDampFac=0.002 kaum besser<br/>
+<br/>
+Kooperatives Fahren 3: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Messung mit alten Parametern, keine Schwingung<br/>
+<ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none">IPASparam.SwaCntrl3MODGainPDeltaSwaFac=1.0</li>
+<li style="list-style-type: none">IPASparam.SwaCntrl3MODPGainDeltaDSwa=0.01</li>
+<li style="list-style-type: none">IPASparam.SwaCntrl3MODGainIDeltaSwa=0.0</li>
+<li style="list-style-type: none">IPASparam.SwaCntrl3MODGainDSwaRefFac=0.2</li>
+<li style="list-style-type: none">IPASparam.SwaCntrl3MODDampFac=0.002</li>
+<li style="list-style-type: none">IPASparam.DampTorMax=5.</li>
+<li style="list-style-type: none">IPASparam.SwaCntrl3MODGainPDeltaSwaLowDynDeltaFac=0.0</li>
+<li style="list-style-type: none">IPASparam.SwaCntrl3MODGainIDeltaSwaLowDynDelta=0.0</li>
+<li style="list-style-type: none">IPASparam.SwaCntrl3MODGainDSwaRefLowDynDeltaFac=0.0</li>
+<li style="list-style-type: none">IPASparam.SwaCntrl3MODPGainDeltaDSwaLowDynDeltaFac=0.0</li>
+<li style="list-style-type: none">IPASparam.SwaCntrl3TestSwitchOn=1</li>
+<li style="list-style-type: none"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+Kooperatives Fahren 4: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Fehlmessung<br/>
+<br/>
+<ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br/>
+Fr 16.05.2014 08:31:31<br/>
+<br/>
+Änderung über Erkennung Low-Dynamic, um besseres Trajektorienfolge zu haben, wenn wenig geregelt wird <br/>
+<br/>
+IPASparam.SwaCntrl3MODGainPDeltaSwaFac&#09;= &nbsp; &nbsp; &nbsp; 1.0 &nbsp; &nbsp; -&gt; &nbsp; &nbsp; 1.3<br/>
+IPASparam.SwaCntrl3MODPGainDeltaDSwa&#09;= &nbsp; &nbsp; &nbsp; 0.01 &nbsp; &nbsp;-&gt; &nbsp; &nbsp; 0.02<br/>
+IPASparam.SwaCntrl3MODGainIDeltaSwa&#09;&#09;= &nbsp; &nbsp; &nbsp; 0.0 &nbsp; &nbsp; -&gt; &nbsp; &nbsp; 0.01<br/>
+IPASparam.SwaCntrl3MODGainDSwaRefFac&#09;= &nbsp; &nbsp; &nbsp; 0.2 &nbsp; &nbsp; -&gt; &nbsp; &nbsp; 1.0<br/>
+IPASparam.SwaCntrl3MODDampFac&#09;&#09;&#09;= &nbsp; &nbsp; &nbsp; 0.001 &nbsp; -&gt; &nbsp; &nbsp; 0.002<br/>
+IPASparam.DampTorMax&#09;&#09;&#09;&#09;&#09;= &nbsp; &nbsp; &nbsp; 1.1 &nbsp; &nbsp; -&gt; &nbsp; &nbsp; 5.0<br/>
+<br/>
+<br/>
+Fct_ctrl_type_param=2<br/>
+IPASparam.ReduceByDrv=0<br/>
+IPASparam.Ctrl3MitDswaRef=0<br/>
+IPASparam.SwaCntrl3MODRedFacMin=0.25<br/>
+IPASparam.SwaCntrl3MODTorMaxDriveX1kmh=4.0<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Fr 06.09.2013 10:15:09<br/>
+Contidrom:<br/>
+<br/>
+Messung der Laufzeit IQF:<br/>
+<br/>
+Bei einer Fahrt auf Linien wurd die Laufzeit für den Aufruf IQFLoop() gemessen:<br/>
+<br/>
+Min = 34 µs Max = 332 µs und average = 118 µs<br/>
+<br/>
+Die Main-Loop ist geringfügig höher vom Wert:<br/>
+<br/>
+Min = 35 µs Max = 348 µs und average = 139 µs<br/>
+<br/>
+Di 03.09.2013 10:20:04<br/>
+Contidrom:<br/>
+Querregler mit Lenkwinkel bringt in manchen Situationen, insbesondere wenn Störungen auf den anderen Signalen sind, wird sich durch die Lenkbewegung verstärken:<br/>
+<br/>
+<img src="image.png" /><br/>
+<br/>
+<br/>
+Mo 02.09.2013 16:49:26<br/>
+<br/>
+Passat 660 VPU2 Version 276<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VPU4 Version 325<br/>
+<br/>
+<br/>
+Mo 02.09.2013 15:50:33<br/>
+HAF:<br/>
+<br/>
+Sehr geehrte Kollegen,<br/>
+&nbsp;<br/>
+ich habe soeben die Software fertiggestellt und auch das neue DBC-File dazu angepasst.<br/>
+&nbsp;<br/>
+ <br/>
+&nbsp;<br/>
+<b>LINK VTS aus Conti-Netz</b>&nbsp;<br/>
+<a href="https://b2bvtsp.bmw.com/sites/HAF-Strategieprojekt/Teilprojekte/Architektur/03_Dokumente/ZGWs/BMW_MotionControl">https://b2bvtsp.bmw.com/sites/HAF-Strategieprojekt/Teilprojekte/Architektur/03_Dokumente/ZGWs/BMW_MotionControl</a><br/>
+&nbsp;<br/>
+ <br/>
+&nbsp;<br/>
+ <br/>
+&nbsp;<br/>
+Im DBC File sind jetzt auch die Informationen für die noch fehlenden Signale ergänzt.<br/>
+&nbsp;<br/>
+(Schwimmwinkel, Klemmenstatus, Getriebe / Gang, Wegstrecke der Räder)<br/>
+&nbsp;<br/>
+ <br/>
+&nbsp;<br/>
+Auch die Qualifier habe ich nochmals korrigiert.<br/>
+&nbsp;<br/>
+Das DBC enthält jetzt auch die Richtige Nachricht zur Steuerung der Lenkung<br/>
+&nbsp;<br/>
+ <br/>
+&nbsp;<br/>
+Die Software zum Flashen des Gateways, sowie eine Anleitung liegt im Überordner<br/>
+&nbsp;<br/>
+<a href="https://b2bvtsp.bmw.com/sites/HAF-Strategieprojekt/Teilprojekte/Architektur/03_Dokumente/ZGWs">https://b2bvtsp.bmw.com/sites/HAF-Strategieprojekt/Teilprojekte/Architektur/03_Dokumente/ZGWs</a><br/>
+&nbsp;<br/>
+ <br/>
+&nbsp;<br/>
+ <br/>
+&nbsp;<br/>
+Bei Fragen einfach kurz melden J<br/>
+&nbsp;<br/>
+ <br/>
+&nbsp;<br/>
+Viel spaß<br/>
+&nbsp;<br/>
+Mit freundlichen Grüßen<br/>
+Bernhard Seidl <br/>
+<div style="text-align: left">&nbsp;<br/>
+ <br/>
+&nbsp; &nbsp; &nbsp;<br/>
+BMW Forschung und Technik GmbH<br/>
+Ein Unternehmen der BMW Group <br/>
+<b><br/>
+</b><b>Postanschrift</b>&nbsp;<br/>
+BMW Forschung und Technik GmbH <br/>
+80788 München <br/>
+<b>Hausanschrift</b>&nbsp;<br/>
+Hanauer Straße 46 <br/>
+<b>Internet</b>&nbsp;<br/>
+<a href="http://www.bmwgroup.com">www.bmwgroup.com</a><br/>
+<b><br/>
+</b><b>Tel</b>&nbsp;+49 (89) 382 - 35042 <b>Mobil</b>&nbsp;+49 (176) 601 - 35042<br/>
+<b>E-Mail</b>&nbsp;bernhard.seidl@bmw.de <br/>
+&nbsp; <br/>
+ <br/>
+&nbsp; <br/>
+<b>BMW Group<br/>
+</b>Forschung und Technik <br/>
+<br/>
+<b>Bernhard Seidl</b><br/>
+Projekte Connected Drive<br/>
+Fahrerassistenz und Perzeption<br/>
+</div><br/>
+Mi 28.08.2013 11:22:16<br/>
+<br/>
+Versuche mit Passat 990, EInparken<br/>
+bestehende Version:<br/>
+<br/>
+Version VPU4: APP00312<br/>
+Version VPU2: APP00005<br/>
+<br/>
+Messungen Ausgangszustand<br/>
+<br/>
+meas_197: &nbsp; &nbsp; Vorwärts nach links<br/>
+meas_198: &nbsp; &nbsp; Rückwärts nach links, keine Lenkbewegung<br/>
+<br/>
+neue Version VPU4:<br/>
+<br/>
+meas_201: &nbsp; &nbsp;Vorwärts nach links, neue Version 323, schlechter gelenkt<br/>
+meas_202: &nbsp; &nbsp; Rückwärts nach links, keine Lenkbewegung<br/>
+<br/>
+<br/>
+=&gt; Fehler mit Rückwärtsgangerkennung in IQF/VPU4<br/>
+=&gt; eigene Funtion für Einparken wieder aktiviert, da hier dy und psi stärker verstärkt werden<br/>
+<br/>
+Messungen 205 - 212 mit Rück/Vor<br/>
+<br/>
+=&gt; Es wird bei kleinen Geschwin &lt; 10 km/h keine Vorsteuerung in der Lenkanforderng gegeben,<br/>
+&nbsp; &nbsp; &nbsp;deswegen wurde, Version 277 mit fftyp = 3 anstatt 4 erstellt zum testen, hier wird möglicherweise ein zu großes &nbsp; &nbsp; <br/>
+&nbsp; &nbsp; &nbsp;Moment gegeben<br/>
+<br/>
+&nbsp; &nbsp; &nbsp;(alte Version war 005 von Jürgen oder Jonas)<br/>
+<br/>
+TopViewImageXXX, und DstMap rausnehmen<br/>
+Do 22.08.2013 15:49:49<br/>
+Pferdsfeld, Test mit Passat 660 durch die Baustelle<br/>
+<ul><li>Die zweite Kurve wird schlecht durchfahren. Das Fahrzeug kommt zuweit nach aussen.</li>
+<li>Der Boundaryestimator schätzt die Klothoide auf zu weit links</li>
+<li>Generell wird diese Kurve kaum geschafft, da hier die Krümung teilweise ähnlich stark ist wie die erste Kurve, aber stärker eingelenkt werden muss. </li>
+<li>Als workaround habe ich die Vorsteuerung rechts auf Mittenführung mit boundaries mit dem Faktor 2.2 versehen. Dies ist hoch und kann wahrscheinlich nicht so bleiben !!!!</li>
+</ul>
+<br/>
+<br/>
+<br/>
+Mo 10.06.2013 08:13:53<br/>
+<br/>
+Unterlagen aus Schwalbach zur EPS Passat an Holger Faisst geschickt, darin sind die Parameter<br/>
+für das Abschalten durch den FAhrer:<br/>
+<br/>
+Für die Abschaltung der externen Ansteuerung durch den Fahrer gibt es die Parameter:<br/>
+<br/>
+Max-Moment &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; P_PEI_Max_Drv_Tq = 7.5 Nm (max 8 Nm)<br/>
+Zeit bis zur Abschaltung bei Überschreiten &nbsp; &nbsp; &nbsp; P_PEI_Max_Tq_Timer &nbsp;~ &nbsp;2 s &nbsp;(kann laut Spec auf 5 s erhöht werden, wir konnten aber diesen Wert auch höher <br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; drehen &lt;30s, müsste noch mal verifiziert werden)<br/>
+<br/>
+Die aktuelle Einstellung müsste man noch mal verifizieren.<br/>
+<br/>
+<br/>
+<br/>
+Mo 25.02.2013 13:40:58<br/>
+<br/>
+Für Testauslösung MaxmOment BMW verstellen:<br/>
+<br/>
+<br/>
+IPASparam.MaxGradSteTorTotal &gt; 550 Nm/s<br/>
+IPASparam.MaxSteTorTotal &nbsp; &nbsp; &nbsp; &gt; 5.5 Nm<br/>
+<br/>
+<br/>
+Canalyser<br/>
+ExtSteerReq_Tor_priority = 63<br/>
+ExtSteerReq_Tor_active &nbsp; = 1<br/>
+ExtSteerReq_Tor_value &nbsp; &nbsp;= 5.5<br/>
+<br/>
+<br/>
+Mi 13.02.2013 14:19:43<br/>
+<br/>
+geändert:<br/>
+<br/>
+- IPASparam.SwaCntrl2GainPVec[2] = 0.2; &nbsp;IPASparam.SwaCntrl2GainPVec[3] = 0.2;<br/>
+<br/>
+- Bei 20 grad und 30 km/h ist die Vorsteuerung zu hoch !!!<br/>
+<br/>
+Fr 25.01.2013 12:53:57<br/>
+<br/>
+Charts für Thomas Raste:<br/>
+<br/>
+- D:\projekte\contiguard\IQF\dokumente\TZ\111012_C0_Regelung\C0Regelung.pptx<br/>
+- D:\projekte\contiguard\IQF\dokumente\TZ\100713_IqfRegler\IQF_Regler.pptx<br/>
+<br/>
+Mi 23.01.2013 13:17:06<br/>
+<br/>
+<br/>
+BMW-Lenkwinkeluntersuchen mit<br/>
+<br/>
+W:\mess_2012\tacc\Contiguard_BMW_FTZ2222\120727_Linie_weglenken\measurment1819<br/>
+<br/>
+Weglenken von Linie<br/>
+<br/>
+W:\mess_2012\tacc\Contiguard_BMW_FTZ2222\120507_Spurwechsel\measurment1992<br/>
+<br/>
+Spurwechsel bei 50 km/h<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Mi 23.01.2013 13:08:44<br/>
+<br/>
+Unter D:\canalyser\cfg\Contiguard\Trajektorienvorgabe ist die Aktuelle Ansteuerung über eine Trajektorie implementiert &nbsp;([C0Vorgae]). Dabei wird eine Ext3-Botschaft und Salat geneiriert.<br/>
+<br/>
+Dabei wird der Schnittpunkt und die Größen Alpha und C0 linear berechnet C1 dann konst.<br/>
+<br/>
+Um Ext2 mit C0C1 zu generieren, müsste dann aus D:\canalyser\cfg\Contiguard\C0Vorgabe genommen werden.<br/>
+<br/>
+<br/>
+Fr 18.01.2013 13:08:55<br/>
+<br/>
+https://netstorage.hrz.tu-darmstadt.de/NetStorage/?/oneNet/NetStorage <br/>
+<br/>
+PW: Conti<br/>
+login: procontireta<br/>
+<br/>
+probiers mal...<br/>
+<br/>
+Viele Grüße<br/>
+Andree<br/>
+<br/>
+<br/>
+<br/>
+Mo 07.01.2013 15:13:06<br/>
+<br/>
+Passat 660 losgefahren 15432 km<br/>
+<br/>
+15440 km Endstand<br/>
+<br/>
+<br/>
+Mi 19.12.2012 16:54:22<br/>
+<br/>
+Einstellung Fußgänger - Dummay Anlage von heute für Interactive Präsentation:<br/>
+<br/>
+Einstellung PDs-Maschine 50 km/h<br/>
+Ego = 30, Pedastrian = 6 km/h, Trigger = 500 ms<br/>
+<br/>
+Einstellung PDs-Maschine 30 km/h<br/>
+Ego = 30, Pedastrian = 6 km/h, Trigger = 3100 ms<br/>
+<br/>
+Pilonengasse quer 8 m von Linie und 3,2 m breit <br/>
+Längs 10.7 m von Dummylauflinie<br/>
+<br/>
+<br/>
+Do 13.12.2012 10:25:12<br/>
+<br/>
+<br/>
+Versuche für das Parken Canalser zu verwenden: TrajektorieSalatPassatCC angepasst<br/>
+<br/>
+Die Input.ini wurd bisher mit Matlab im Pfad 111103_Trajektorie_fuer_Canalyser erstellt<br/>
+<br/>
+jetzt auch mit ScriptMainPathCalc zu erstellen:<br/>
+<br/>
+10: TajektorienVorgabe mit x,y Canalyser (Input.ini) schreiben<br/>
+<br/>
+<br/>
+<br/>
+Mi 12.12.2012 13:10:27<br/>
+<br/>
+<br/>
+Untersuchung Lenkwinkel zu Kurvenkrümmung stationär bei kleinen Geschw. (10 km/h)<br/>
+<br/>
+Der Faktor kann ins Verhltnis zu WheelBase und Übersetzung gesetzt werden:<br/>
+<br/>
+deltaStWhlRef = c0 * wheeleBase * isteer * c0_fac &nbsp; &nbsp; und<br/>
+c0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= &nbsp;deltaStWhlRef * fac (Diagramm)<br/>
+<br/>
+vorwärts<br/>
+c0_fac &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1/fac/wheelBase/isteer = 1./0.020717/2.7/16 = 1.117<br/>
+rückwärts<br/>
+c0_fac &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1/fac/wheelBase/isteer = 1./0.02290/2.7/16 = 1.108<br/>
+<br/>
+<br/>
+vorwärts<br/>
+<br/>
+<img src="screenshot 2.png" /><br/>
+<br/>
+rückwärts<br/>
+<br/>
+<img src="screenshot.png" /><br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Do 06.12.2012 10:43:31<br/>
+<br/>
+<br/>
+aus Rückwertsfahren nach links gefahren<br/>
+<br/>
+<span style="font-family: Courier New">Mo 16.06.2014 16:08:26<br/>
+<br/>
+delta = 0,05141 sec Longitude =&gt; 1.0 m ostwaerts<br/>
+delta = 0,03241 sec Latidude &nbsp;=&gt; 1.0 m noerdlich <br/>
+<br/>
+fixed &nbsp; &nbsp; &nbsp;11010011010110101<br/>
+standalone 11010000000100111<br/>
+float &nbsp; &nbsp; &nbsp; &nbsp; 10101000101010<br/>
+<br/>
+VBox-Messungen Griesheim<br/>
+<br/>
+1) linksrum einfache Fahrt in rechter Spur, Start Landbahn Ende<br/>
+2) rechtsrum einfache Fahrt in linker Spur, Start Landbahn Abfahrt<br/>
+<br/>
+4) rechtsrum, dynamische Fahrten mit Lenkwinkel<br/>
+5) gerade<br/>
+<br/>
+6) rechtsrum<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+-------------------------------------------------------------------<br/>
+| &nbsp; Tabelle Konstantfahrt konstaner Lenkwinkel =&gt; gefahrenes C0 &nbsp; |<br/>
+-------------------------------------------------------------------<br/>
+| &nbsp; &nbsp; Name &nbsp; &nbsp; |deltaStWhl| vel &nbsp;| c0yawp |c0VehVA |c0VehHA | dt &nbsp;|<br/>
+-------------------------------------------------------------------<br/>
+| &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| &nbsp; deg &nbsp; &nbsp;| km/h | &nbsp;1/m &nbsp; | &nbsp;1/m &nbsp; | &nbsp;1/m &nbsp; | &nbsp;s &nbsp;|<br/>
+-------------------------------------------------------------------<br/>
+|measurment2396| -115 &nbsp; &nbsp; |8.6146|0.043901| 0.04671|0.046834| 6.86|<br/>
+|measurment2397| -145.0034|8.6592|0.055742|0.054488|0.056277| 5.87|<br/>
+|measurment2398| &nbsp;-97.2531|8.0054|0.037156|0.038583| 0.03791| &nbsp;5.7|<br/>
+|measurment2399| &nbsp;-88.3556|9.2329|0.033527|0.034415|0.034744| 6.74|<br/>
+|measurment2400| -175.9484|9.0533|0.067301| 0.06713|0.069105| &nbsp; &nbsp;9|<br/>
+|measurment2401| -177.119 |8.8762| &nbsp;0.0675| 0.06683|0.069386| &nbsp;9.4|<br/>
+|measurment2402| -269.2958|9.1708| 0.10231|0.099981| 0.10696| 8.12|<br/>
+|measurment2403| -267.2991|8.5822| 0.10125| 0.10078| 0.10658|11.76|<br/>
+|measurment2404| -350.9824|8.9511| 0.13272| 0.12572| 0.14197| 7.95|<br/>
+|measurment2405| -345.6465|8.5835| 0.13106| 0.12716| 0.14029| 8.01|<br/>
+-------------------------------------------------------------------<br/>
+</span><br/>
+<br/>
+<br/>
+Mi 21.11.2012 19:11:50<br/>
+<br/>
+Untersuchung HAPS<br/>
+<br/>
+mit gegebener Trajektorie<ul><li>in VorgabeTask.ini: [Vorgabe]</li>
+<li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li>start_delay_time = 0.0</li>
+<li>input_modus &nbsp; = 1</li>
+<li>out_vset &nbsp; &nbsp; &nbsp; = 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; set speed </li>
+<li>out_haps &nbsp; &nbsp; &nbsp; = 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output hapsVehDsrdTraj,hapsRearAxleTraj HAPS</li>
+<li>out_idTra &nbsp; &nbsp; &nbsp;= 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output idTraVehDsrdTraj ESA</li>
+<li>out_Lkas &nbsp; &nbsp; &nbsp; = 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output Salat-CAN-Botschaften, Dev2Path-CAn-Botschaft</li>
+<li>out_proretaTra = 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output Proreta Trajectory</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br/>
+&nbsp;und Ausschalten der VehPose-Applikation in Apps.cpp<br/>
+<br/>
+kann man Rückwärts mit 3-5 km/h nur maximal 250 grad einlenken, dann zerbröselt das Modell.<br/>
+<br/>
+Versuche machen mit manuall 250 und mehr und kriechen<br/>
+<br/>
+Untersuchung Mittenführung:<br/>
+<br/>
+icht gemacht oben beschriebene Einstellungen zurücknehmen<br/>
+<ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li>input_modus &nbsp; = 2</li>
+<li>out_haps &nbsp; &nbsp; &nbsp; = 0</li>
+<li>out_proretaTra = 1</li>
+<li></li>
+<li>sowie VehPose-Applikation in Apps.cpp hinzunehmen,</li>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Dann nochmal untersuchen, ob Schwingung minimal, bei Genauer Übergabe der CAN-Werte durch den Zustandsregler mit Lenkwinkel kommt??? &nbsp;(CAN_CONTIGUARD_VPU_TEST_PRECISE &nbsp;= 1,CAN_CONTIGUARD_VPU_TEST_PRECISE1 = 1)</li>
+<li></li>
+<li></li>
+</ul>
+<br/>
+Di 20.11.2012 19:01:34<br/>
+<br/>
+Simulation mit "PassatCC_LenkTor_Gerade_mit_stepSteer2"<br/>
+<br/>
+Ergebnis PassatCC_LenkTor_Gerade_mit_stepSteer2_Einstellung1 mit allen untenstehenden Verzögerungen und Totzeiten und CAN-Genau<br/>
+<br/>
+<br/>
+Mo 19.11.2012 16:33:33<br/>
+<br/>
+Simulation VPU2_4:<br/>
+<br/>
+1) Einstellung Proretasimulation für Mittenregelung:<br/>
+<ul><li>in Apps.cpp die Tasks "VehPoseEstCM" &nbsp;einschalten</li>
+<li></li>
+<li>in CarMakerOut.info: [ebs]</li>
+<li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li>.yawRateOffset &nbsp; &nbsp; &nbsp;= 0.00</li>
+<li>.yawRateDeadTime &nbsp; &nbsp;= 0.07</li>
+<li>.yawRatePT1Time &nbsp; &nbsp; = 0.13</li>
+<li>[steer]</li>
+<li>.steerWheelAngleOffset &nbsp; &nbsp; &nbsp;= 0.00</li>
+<li>.steerWheelAngleDeadTime &nbsp; &nbsp;= 0.01</li>
+<li>.steerWheelAnglePT1Time &nbsp; &nbsp; = 0.1</li>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>in VorgabeTask.ini: [Vorgabe]</li>
+<li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li>start_delay_time = 1.0</li>
+<li>input_modus &nbsp; = 2</li>
+<li>vPath0 &nbsp; &nbsp; &nbsp; &nbsp;= 100 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; [km/h] velocity &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
+<li>prioPath0 &nbsp; &nbsp; = 18 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; [-] &nbsp; &nbsp;priority</li>
+<li>out_vset &nbsp; &nbsp; &nbsp; = 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; set speed </li>
+<li>out_haps &nbsp; &nbsp; &nbsp; = 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output hapsVehDsrdTraj,hapsRearAxleTraj HAPS</li>
+<li>out_idTra &nbsp; &nbsp; &nbsp;= 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output idTraVehDsrdTraj ESA</li>
+<li>out_Lkas &nbsp; &nbsp; &nbsp; = 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output Salat-CAN-Botschaften, Dev2Path-CAn-Botschaft</li>
+<li>out_proretaTra = 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output Proreta Trajectory</li>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul><li style="list-style-type: none"><ul><li style="list-style-type: none">um die Anregung von Driver zu bekommen</li>
+<li style="list-style-type: none">und RoadPreview mit vPath0 und prio</li>
+</ul>
+</li>
+</ul>
+<ul><li>in ArbiD2v2Path.cpp #define ARBI_DEV2PATH_USE_DEADTIME_PRORETA 1 &nbsp; setzen, damit Verzögerung in Spur</li>
+<li>&nbsp; SlfRingBuffer&lt;uchar, &nbsp;5 &nbsp;&gt; Proreta_mValid_buffer;</li>
+<li>&nbsp; SlfRingBuffer&lt;CTaccMsgVectorOfObj&lt;CVehicleDesiredTrajXY &nbsp; &nbsp;,200&gt;, &nbsp;5 &nbsp;&gt; Proreta_mPoint_buffer;</li>
+<li>&nbsp;5 * 20 ms kann die Verzögerung eungestellt werden</li>
+<li></li>
+<li>In &nbsp; &nbsp; &nbsp; &nbsp;can_contiguard_vpu.h wird mit #define CAN_CONTIGUARD_VPU_TEST_PRECISE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0 </li>
+<li>bzw. in can_pq35_46_mit_6d0.h &nbsp; &nbsp;mit #define CAN_CONTIGUARD_VPU_TEST_PRECISE1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0</li>
+<li>kann die Auflösung eingestellt werden , ob mit CAN-Auflösung oder präzise mit float-Auflösung</li>
+<li></li>
+<li>TestRun: PassatCC_LenkTor_Gerade_mit_stepSteer oder PassatCC_LenkAng_Gerade_mit_stepSteer</li>
+<li></li>
+<li>In SteerCtrl.cpp: kann &nbsp; #define STEER_CTRL_FILTER_IPAS_DEMAND 1 &nbsp;gesetzt werden.</li>
+</ul>
+<br/>
+2) Einstellung HAPS-Sumlation<br/>
+<ul><li>in Apps.cpp die Tasks "VehPoseEstCM" ausschalten </li>
+<li>in CarMakerOut.info: [ebs]</li>
+<li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li>.yawRateOffset &nbsp; &nbsp; &nbsp;= 0.00</li>
+<li>.yawRateDeadTime &nbsp; &nbsp;= 0.00</li>
+<li>.yawRatePT1Time &nbsp; &nbsp; = 0.00</li>
+<li>[steer]</li>
+<li>.steerWheelAngleOffset &nbsp; &nbsp; &nbsp;= 0.00</li>
+<li>.steerWheelAngleDeadTime &nbsp; &nbsp;= 0.00</li>
+<li>.steerWheelAnglePT1Time &nbsp; &nbsp; = 0.00</li>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>in VorgabeTask.ini: [Vorgabe]</li>
+<li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li style="list-style-type: none"><ul><li>start_delay_time = 0.0</li>
+<li>input_modus &nbsp; = 1</li>
+<li>out_vset &nbsp; &nbsp; &nbsp; = 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; set speed </li>
+<li>out_haps &nbsp; &nbsp; &nbsp; = 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output hapsVehDsrdTraj,hapsRearAxleTraj HAPS</li>
+<li>out_idTra &nbsp; &nbsp; &nbsp;= 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output idTraVehDsrdTraj ESA</li>
+<li>out_Lkas &nbsp; &nbsp; &nbsp; = 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output Salat-CAN-Botschaften, Dev2Path-CAn-Botschaft</li>
+<li>out_proretaTra = 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; output Proreta Trajectory</li>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TesRun:HAPS/HAPS_PassatCC_LenkAng_SimpleParking,HAPS/HAPS_PassatCC_LenkTor_SimpleParking</li>
+</ul>
+<br/>
+Mi 07.11.2012 09:05 <br/>
+<br/>
+alter Account Thomas Lingenau als Student:<br/>
+<br/>
+Windows: tftzsm<br/>
+notes: &nbsp; Tzs Student<br/>
+<br/>
+Mi 24.10.2012<br/>
+Messung Baustellenwand mit Ralf Grewe<br/>
+<br/>
+svn-Stand:<br/>
+<br/>
+gemessen, CAN<br/>
+149 cm, &nbsp;158 cm<br/>
+166.5 cm, 164 cm<br/>
+128.5 cm, 146 cm<br/>
+174 cm, 168 cm<br/>
+<br/>
+anderer Radarmapper:<br/>
+<br/>
+167 cm, 173 cm<br/>
+130,5 cm, 147 cm<br/>
+<br/>
+<br/>
+anderes vehicle.data<br/>
+154.5 cm, 161 cm<br/>
+127.5 cm, 139 cm<br/>
+129 cm, 135 cm<br/>
+182 cm, 188 cm<br/>
+144 cm, 135 cm<br/>
+<br/>
+rechts<br/>
+179 cm, 205 cm<br/>
+142 cm, 171 cm<br/>
+130.5 cm, 164 cm<br/>
+<br/>
+altes vehicle-data<br/>
+190.5 cm, 208 cm<br/>
+164.5 cm, 174 cm<br/>
+137 cm, 155 cm<br/>
+132 cm, 133 cm<br/>
+138 cm, 147 cm<br/>
+<br/>
+<br/>
+<br/>
+Mi 31.10.2012 05:38 <br/>
+<br/>
+Telefonbuch, Adresse ändern, Telefonnummer ändern<br/>
+<br/>
+unter https://phonebook.conti.de/apps/cpb/cpb.nsf<br/>
+<br/>
+edit my profil wählen und Lotus-Notes Password eingeben<br/>
+<br/>
+<br/>
+Mo 08.10.2012 01:13 <br/>
+<br/>
+Eric Bauer hat mir den Server genannt, um Daten wegen Carmaker auszutauschen<br/>
+<br/>
+https://netstorage.hrz.tu-darmstadt.de/NetStorage/?/oneNet/NetStorage <br/>
+<br/>
+Benutzername: Conti<br/>
+Passwort: &nbsp; &nbsp; procontireta<br/>
+<br/>
+<br/>
+Fr 28.09.2012 01:18 <br/>
+Erprobungswoche für Google<br/>
+<br/>
+*TJA anpassen für Lenkwinkel TextFormatHilfe psi:*<br/>
+<br/>
+&lt;&lt;<br/>
+IQFparam.StatespaceCalcK2_comf1[IQF_MIN( 0, &nbsp;N_VEC_VEL_DEPENDED_STATESPACE-1)] = &nbsp;-25.0f*0.3; &nbsp; &nbsp; /* &nbsp;min kmh */<br/>
+IQFparam.StatespaceCalcK2_comf1[IQF_MIN( 1, &nbsp;N_VEC_VEL_DEPENDED_STATESPACE-1)] = -8.0842f; &nbsp;/* &nbsp;10 kmh */<br/>
+IQFparam.StatespaceCalcK2_comf1[IQF_MIN( 2, &nbsp;N_VEC_VEL_DEPENDED_STATESPACE-1)] = -8.3189f; &nbsp;/* &nbsp;20 kmh */<br/>
+IQFparam.StatespaceCalcK2_comf1[IQF_MIN( 3, &nbsp;N_VEC_VEL_DEPENDED_STATESPACE-1)] = -8.5702f; &nbsp;/* &nbsp;30 kmh */<br/>
+IQFparam.StatespaceCalcK2_comf1[IQF_MIN( 4, &nbsp;N_VEC_VEL_DEPENDED_STATESPACE-1)] = -8.8378f; &nbsp;/* &nbsp;40 kmh */<br/>
+&gt;&gt;<br/>
+<br/>
+<br/>
+*Testen, ob Dämpfungsberechnung die geräusche in der lenkung verursachen:*<br/>
+<br/>
+IPASparam.IntvDampFactorL = 0.004 -&gt; 0.0<br/>
+IPASparam.IntvDampFactorR = 0.004 -&gt; 0.0<br/>
+<br/>
+IPASparam.DampFactorL &nbsp; &nbsp; = 0.008 -&gt; 0.0<br/>
+IPASparam.DampFactorR &nbsp; &nbsp; = 0.008 -&gt; 0.0<br/>
+<br/>
+*Curbstone-Einstellung*<br/>
+<br/>
+Zonen etwas größer machen<br/>
+IQFparam.IqfCtrl4IntvPsiFac &nbsp; &nbsp; &nbsp; = 0.90<br/>
+<br/>
+Di 18.09.2012 09:38 <br/>
+<br/>
+Stände für Dirk Japanpräsentation zusammensuchen:<br/>
+<br/>
+1) Endstand aktuell:<br/>
+<br/>
+Endstand vor Jubiläumsfeier (TJA) (wurde dann für Fußgänger-ESA benutzt):<br/>
+<br/>
+VPU2: &nbsp;1209041625_VPU2_CG_OUT_VW_ver28671_build220<br/>
+VPU4: &nbsp;1209101557_VPU4_CG_IQF_ver28697_build242<br/>
+<br/>
+<br/>
+Vorgehen beim Flashen:<br/>
+<br/>
+VPU2: &nbsp;Downloadtool starten, den zweiten CAN einstellen<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;Zündung TextFormatHilfe, damit VPU1 TextFormatHilfe ist,<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;Rote Notaus ausschalten<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;Downloadtool: Connect drücken und Notaus (VPU2) aktivieren<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;Downloadtool: Unter Special Functions mit Get Infoblock die Version überprüfen (CG_OUT)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;Dann das mot-File "cg_out_master_appllast.mot" TextFormatHilfe "1209041625_VPU2_CG_OUT_VW_ver28671_build220" auswählen und downloaden<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;danach noch "nvm_production_55Nm_1_0.mot" downloaden<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;Downloadtool: Reset machen<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;Notaus TextFormatHilfe und wieder an, Zündung starten<br/>
+&nbsp; &nbsp; <br/>
+VPU4: &nbsp;Downloadtool starten, den ersten CAN einstellen<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;VPU4 TextFormatHilfe ausschalten (Console)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;Downloadtool: Connect drücken und VPU4 einschalten<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;Downloadtool: Unter Special Functions mit Get Infoblock die Version überprüfen (CG_IQF)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;Dann das mot-File "cg_out_master_appllast.mot" TextFormatHilfe "1209101557_VPU4_CG_IQF_ver28697_build242" auswählen und downloaden<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;danach noch "nvm_production_Passat_1_4.mot" downloaden<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;Downloadtool: Reset machen<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;VPU4 TextFormatHilfe und wieder einschalten<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;<br/>
+Revision: 27395<br/>
+Author: berthold<br/>
+Date: Donnerstag, 28. Juni 2012 17:02:35<br/>
+Message:<br/>
+Parameter IPASparam.SwaCntrl2ESAGainAddTor &nbsp;= 0.f;, damit kein Peak am Anfang entsteht<br/>
+<br/>
+----<br/>
+Modified : /Projects/VPU_master/branches/VPU2_CG_OUT/src/fct/lat/fct_lat.c<br/>
+<br/>
+<br/>
+Mo 17.09.2012 09:28 <br/>
+<br/>
+Aufgaben: neues nvm für VPU-4 mit den links/rechts-Aänderungen für Alzenau<br/>
+<br/>
+Mi 12.09.2012 10:45<br/>
+<br/>
+Virtual Wall Curbstone<br/>
+BMW545 F-TZ-2222<br/>
+Versuche in Alzenau mit den Blumenkästen<br/>
+Dryrun für ADAS-Week<br/>
+<br/>
+- Virtual Wall gab es Probleme Unterschied links/rechts links zu Schwach, recht sehr stark<br/>
+&nbsp; Der Grund war, das Wolfgang immer links von der Mitte losgefahren ist, damit einen weiteren Weg in die rechte Zone hat, dabei einen<br/>
+&nbsp; positive psi-Winkel aufgebaut hat ud mit diesem Anteil zu Beginn der Zone großen Solllenkwinkel hat und damit höheres Moment<br/>
+&nbsp; Nach links baut sich kaum ein psi-Winkel auf und die Regelung beginnt schon mit kleinerem Solllenkwinkel und damit Momet.<br/>
+&nbsp; Abhilfe: den Solllenkwinkelfaktor TextFormatHilfe psi verringern IQFparam.IqfCtrl4IntvPsiFac &nbsp; &nbsp; &nbsp; = 0.25 (bisher 0.5) und dafür Geschwindigkeitsabhängige <br/>
+&nbsp; Verstärkung bei 15 km/h hochnehmen IqfCtrl4CtrlVelFacHard[1] = 1.6 (bisher 0.8), dadurch Unterschiede geringer<br/>
+- IQFparam.IqfCtrl4IntvFiltGain &nbsp; &nbsp; = 0.8 (zuletzt 0.5, früher 0.9) gesetzt um sanfteres EInrampen bei erreichen der one zu haben<br/>
+- IQFparam.IqfCtrl4IntvFiltGainFast = 0.8 (zuletzt 0.5) gesetzt zuerstmal gleichgesetzt<br/>
+- IQFparam.SwaOffset = -5 deg gesetzt<br/>
+- geändert, das die Zonegröße zu halten ist, wenn in der Regelung<br/>
+<br/>
+Testen ob der switch IqfCtrl4IntvRampTorSet zu gebrauchen ist, damit wird das Moment nach dem Rampenwert tqRampDistL/R beim Eintritt in die Zone begrenzt<br/>
+war eigentlich nicht so gut, aber nochmal testen &nbsp;<br/>
+<br/>
+<br/>
+Di 11.09.2012 12:32 <br/>
+<br/>
+&nbsp;* Entwicklung für Curbstone, Virt Wall Zonenvergrößerung auf maxDist mit gefltertem psi in VPU4<br/>
+&nbsp;* Lenkwinkelregler VPU2: Butterworth Filter 2nd order eingeführt, wird erstmal im BMW getestet<br/>
+<br/>
+1209111216_VPU2_CG_OUT_BMW_ver0_build225: Lenkwinkelfilter kann online ge„ndert werden<br/>
+1209111217_VPU4_CG_IQF_ver0_build243: VirtWall-Moment-Filter-Konstane reduziert<br/>
+<br/>
+<br/>
+<br/>
+Mi 18.04.2012 11:25 <br/>
+<br/>
+Habe jetzt den priv-Stand von VPU4 und VPU2 in den normlen Stand gemerged, muß aber noch getestet werden, daher nich eingecheckt, aber mit verbackup vom heutigen Tag gesichert<br/>
+<br/>
+VPU2 App00168: &nbsp; D:\VPU_SW_Versionen\VPU2_CG_OUT_Version\1204181212_VW<br/>
+<br/>
+<br/>
+Mi 25.04.2012 11:43 <br/>
+<br/>
+Letzter Stand für Interactive, gilt als Stand für die Sicherheitsfreigabe F045<br/>
+<br/>
+VPU2: &nbsp; Fehler bei Übergang von LKAS auf ESA im Sollmoment behoben<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; längeres Aussteigen TextFormatHilfe der Regeleung, wenn Fahrer überdrückt, 2 sec<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; Fahrermoment wird von Sollmoment abgezogen, wenn entgegengesetzt<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; maximales Sollmoment auf 5.5 Nm begrenzt<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <br/>
+VPU2 Appl00179 25.04.2012 11:04 1204251125_VW_Rev26185<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <br/>
+<br/>
+</body></html>

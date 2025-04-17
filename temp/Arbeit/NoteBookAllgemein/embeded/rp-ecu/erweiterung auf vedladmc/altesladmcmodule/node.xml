@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>duplicate_of</key><string>2bec001d-22f1-4e02-8b1b-d79f25a9b42b</string>
+  <key>title</key><string>altesLaDMCModule</string>
+  <key>nodeid</key><string>b8a17292-6d0c-4045-bbb9-0a4f0630eb91</string>
+  <key>modified_time</key><integer>1558514865</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>text/xhtml+xml</string>
+  <key>created_time</key><integer>1558514761</integer>
+  <key>order</key><integer>1</integer>
+</dict>
+</node>

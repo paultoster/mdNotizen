@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>HAPS</title>
+</head><body>Mo 10.04.2017 07:15<br/>
+<br/>
+Vergleich Parameter RTAS-Modul stwhlcntrl mit AD_Lateral_Controller_init_PassatB7_Parking:<br/>
+<br/>
+Änderungen zum aktuellen Stand im Vergleich zu stwhlcntrl<br/>
+<br/>
+Vorsteuerung<br/>
+==========<br/>
+IPASparam_SwaCntrl3TestSwitchOn &nbsp; &nbsp; = boolean(0) =&gt; boolean(1); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; % [0/1] &nbsp; &nbsp; &nbsp; Manual Switch to use load estimation<br/>
+<br/>
+IPASparam.SwaCntrl3MODForwardFactor &nbsp; &nbsp; &nbsp;= 0.50f; &nbsp; &nbsp; /* - &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FeedForwardGain-Factor */ &nbsp; Parameter in simulink nicht vorhanden<br/>
+<br/>
+Regler<br/>
+=====<br/>
+IPASparam_Ctrl3MODMitDswaRef &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= boolean(1)=&gt; boolean(0); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; % Wird Soll-Lenkwinkelgeschwindigkeit nach erster Kaskade hinzuaddiert?<br/>
+<br/>
+IPASparam_SwaCntrl3MODPGainDeltaDSwaFac &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= single(0.84) =&gt; 1.0; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; % [-] &nbsp; &nbsp; Scaling-factor for P-gain second cascade (Dswa) <br/>
+IPASparam_SwaCntrl3MODPGainDeltaDSwaLowDynDeltaFac = single(0.7) =&gt; 1.0; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; % [-] &nbsp; &nbsp; Scaling-factor for influence of SwaCntrlLowDynFac on P-gain second cascade (Dswa)<br/>
+<br/>
+<br/>
+IPASparam_SwaCntrl3MODGainDSwaRefLowDynDeltaFac &nbsp; &nbsp;= single(0.56) =&gt; 0.8; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; % [-] &nbsp; &nbsp; Scaling-factor for IPASparam_SwaCntrl3MODGainDSwaRefVec<br/>
+IPASparam_SwaCntrl3MODGainDSwaRefFac &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = single(0.28) =&gt; 0.2; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; % [-] &nbsp; &nbsp; Scaling-factor for influence of SwaCntrlLowDynFac on IPASparam_SwaCntrl3MODGainDSwaRefVec<br/>
+<br/>
+<br/>
+<br/>
+I-Anteil auf erste Kaskade &nbsp;für v = &lt; 15 km/h ist nicht berücksichtigt<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Dieser Block ist wahrscheinlich nicht enthalten<br/>
+=================================================================================================<br/>
+&nbsp; /* Gradient FeedForward gradienten limitieren wegen Geräusche bei Parken */<br/>
+&nbsp; if( &nbsp;(IPASintern.SwaRequest.Priority == IQF_PRIORITY_TP)<br/>
+&nbsp; &nbsp; || (IPASintern.SwaRequest.Priority == IQF_PRIORITY_GP)<br/>
+&nbsp; &nbsp; || (IPASintern.SwaRequest.Priority == IQF_PRIORITY_HAPS)<br/>
+&nbsp; &nbsp; )<br/>
+&nbsp; {<br/>
+&nbsp; &nbsp; /*-------------------------------------------*/<br/>
+&nbsp; &nbsp; /* max gradient &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/<br/>
+&nbsp; &nbsp; /*-------------------------------------------*/<br/>
+&nbsp; &nbsp; delta_swa_max = IPASintern.ForwardTorSwaReq - torque;<br/>
+&nbsp; &nbsp; val1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = IPASparam.SwaCntrl3MODTorFFMaxGrad*IPASparam.LoopTime;<br/>
+&nbsp; &nbsp; if( &nbsp; &nbsp; &nbsp;delta_swa_max &gt; val1 &nbsp;) IPASintern.ForwardTorSwaReq = torque + val1;<br/>
+&nbsp; &nbsp; else if( delta_swa_max &lt; -val1 ) IPASintern.ForwardTorSwaReq = torque - val1;<br/>
+&nbsp; }<br/>
+=================================================================================================<br/>
+<br/>
+Do 10.11.2016 08:26<br/>
+<br/>
+Problem VPU2 mit Einstellen des Sendens verschiedener Botschaften <br/>
+<br/>
+Mit der alten Version (LIndau-Passat) wurde gestestet:<br/>
+<img src="image 7.png" /><br/>
+<br/>
+Testen der VPU2 übernacht mit Senden einer Fahrzeugmessung von Jonas über eine Stunde<br/>
+Can1: VPU-CAN<br/>
+CAN2: PT-CAN<br/>
+CAN3: BCU3-CAN<br/>
+<br/>
+Zum einen kamm es zum Absturz des BCU3-CAN nach 11368 s:<br/>
+<img src="image 6.png" /><br/>
+<br/>
+was dazu führte, das alle Botschaften auf CAN3 nicht mehr funktionieren und damit auch BCU3_TO_ICC auf CAN1 eingestellt wird.<br/>
+<br/>
+Der eigentliche Fehler, das die Botschaften BAP_ACC, mAWV, mACC_GRA_Anzeige, mACC_System,ExtBrakeRequest1,IQF1, IQF2, IQF_MESS_ID623 auf CAN 1<br/>
+sich nach 16863 s eingestellt haben. Die Messung lief weiter bis 50510 s<br/>
+<br/>
+Es ist in der VPU noch ein Interrupt enthalten, der möglicherweise dafür verantwortlich ist. Der wird rausgenommen und erneut übernacht getestet<br/>
+<br/>
+<img src="image 5.png" /><br/>
+<br/>
+<br/>
+Di 06.09.2016 18:21<br/>
+<br/>
+<img src="image 4.png" /><br/>
+Do 07.01.2016 15:30<br/>
+<br/>
+Liebe Kollegen,<br/>
+<br/>
+bitte alle Stunden im Zusammenhang mit dem Volvo-SV-Projekt bitte ab sofort auf folgendes Projekt schreiben:<br/>
+<br/>
+SURROUND VIEW VOLVO<br/>
+DG-047085<br/>
+D1-213657<br/>
+<br/>
+<br/>
+Di 08.09.2015 16:42<br/>
+<br/>
+Messung B 2: &nbsp;TestTrackFFMQuer01 &nbsp;-15 deg<br/>
+Messung B 3: &nbsp;TestTrackFFMQuer02 &nbsp;-30 deg<br/>
+Messung B 4: &nbsp;TestTrackFFMQuer03 &nbsp;+1.5 deg<br/>
+Messung B 5: &nbsp;TestTrackFFMQuer04 &nbsp;-40 deg<br/>
+Messung B 6: &nbsp;TestTrackFFMQuer05 &nbsp;+30 deg<br/>
+Messung B 7: &nbsp;TestTrackFFMQuer06 &nbsp;+40 deg<br/>
+Messung B 8: &nbsp;TestTrackFFMQuer07 &nbsp;+1.5 deg<br/>
+Messung B 9: &nbsp;TestTrackFFMQuer08 &nbsp;+1. deg<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Fr 10.07.2015 10:41<br/>
+<br/>
+Versuche mit Bremregelung auf Mk100 anstatt Booster<br/>
+<br/>
+Mit einem Schalter FctParam.UseMk100 &nbsp;= 0/1 &nbsp;habe ich eine Umschaltung auf die MK100 gemacht.<br/>
+<br/>
+Die Regelung funktioniert prinzipiell, ist aber deutlich unkomfortabler und ungenauer, Booster regelt bei 2-4 bar auf 1-2 km/h<br/>
+<br/>
+Mk100 regelt bei 8-10 bar auf <br/>
+<br/>
+<br/>
+Mi 22.04.2015 08:00<br/>
+<br/>
+von Dirk:<br/>
+<br/>
+Hi,<br/>
+<br/>
+habe es wie besprochen im Trunk implementiert. Der alte Zustand ist über das ini-File reaktivierbar:<br/>
+<br/>
+;******************************************************************************<br/>
+; SECTION &nbsp;M I S C E L L A N E O U S<br/>
+;******************************************************************************<br/>
+[misc]<br/>
+pathInvalidInPause &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= &nbsp; 0 &nbsp; ;[0/1] send path invalid during PathFinder is in state "Pause"<br/>
+<br/>
+Grüße, Dirk<br/>
+<br/>
+<br/>
+Do 19.03.2015<br/>
+Messung Querparkllücken mit VehiclePoseCorrected<br/>
+<br/>
+150313_990_OffsetRight20kmh_20 &nbsp; Querpark Rechts vorwaerts, auf VA geregelt<br/>
+150313_990_OffsetRight20kmh_22 &nbsp; Querpark Rechts vorwaerts, auf VA geregelt<br/>
+150313_990_OffsetRight20kmh_23 &nbsp; Querpark Rechts vorwaerts, auf VA geregelt ein bisschen schraeg<br/>
+<br/>
+150313_990_OffsetRight20kmh_24 &nbsp; Querpark Rechts vorwaerts, auf HA geregelt ein deutlich schraeg<br/>
+150313_990_OffsetRight20kmh_25 &nbsp; Querpark Rechts vorwaerts, auf HA geregelt, gut, aber Linie lag schlecht, wahrscheinlich kaum korrektur<br/>
+150313_990_OffsetRight20kmh_26 &nbsp; Querpark Rechts vorwaerts, auf HA geregelt, gut<br/>
+150313_990_OffsetRight20kmh_34 &nbsp; Querpark Rechts vorwaerts HA-geregelt okay<br/>
+<br/>
+150313_990_OffsetRight20kmh_36 &nbsp; Querpark Rechts rueckwaerts HA-geregelt versatz aber gerade<br/>
+150313_990_OffsetRight20kmh_38 &nbsp; Querpark Rechts ruckwaerts HA-geregelt versatz etwas schief<br/>
+150313_990_OffsetRight20kmh_39 &nbsp; Querpark Rechts ruckwaerts HA-geregelt gut reingekommen<br/>
+150313_990_OffsetRight20kmh_40 &nbsp; Querpark Rechts ruckwaerts HA-geregelt gut reingekommen<br/>
+&nbsp;<br/>
+Mo 09.02.2015 letzter Stand VPU4 in Lindau-Passat<br/>
+<br/>
+<img src="image 3.png" /><br/>
+<br/>
+aktueller Stand 990 VPU2<br/>
+<br/>
+<br/>
+<img src="image 2.png" /><br/>
+<br/>
+<br/>
+alphaSIsAct = 0.233833<br/>
+alphaS &nbsp; &nbsp; &nbsp; &nbsp; = 0.249<br/>
+yawEgo &nbsp; &nbsp; &nbsp; = -2.9<br/>
+<br/>
+<br/>
+Do 29.01.2015<br/>
+<br/>
+Messung 3 Kopfparklücke Rueckwaerts<br/>
+<br/>
+<br/>
+<br/>
+Mi 17.12.351 11:30:47<br/>
+<br/>
+<br/>
+LenkAnsteuerung_IQF_interrupt_3ms_1.asc &nbsp;Stand, Sprung in Vorgabe Canalyzer<br/>
+LenkAnsteuerung_IQF_interrupt_3ms_2.asc &nbsp;Stand,<br/>
+LenkAnsteuerung_IQF_interrupt_3ms_3.asc &nbsp;Kriechen<br/>
+LenkAnsteuerung_IQF_interrupt_4ms_3.asc &nbsp;Rollen<br/>
+<br/>
+LenkAnsteuerung_IQF_geaendert_3ms_1.asc &nbsp;Stand<br/>
+LenkAnsteuerung_IQF_geaendert_3ms_2.asc &nbsp;Kriechen, Teilstueck<br/>
+LenkAnsteuerung_IQF_geaendert_3ms_1.asc &nbsp;Kriechen<br/>
+LenkAnsteuerung_IQF_geaendert_3ms_1.asc &nbsp;Rollen<br/>
+<br/>
+<br/>
+keine Lampe an: Motor läuft, aus machen, Notaus drücken, wieder an machen, Motor gestartet<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Di 16.12.350 15:31:31<br/>
+Eisntellung:<br/>
+<br/>
+<img src="image.png" /><br/>
+<br/>
+Messung 1 Stand &nbsp; &nbsp; &nbsp;: LenkAnsteuerung_IQF_1.asc<br/>
+Messung 2 kriechen &nbsp;: LenkAnsteuerung_IQF_2.asc<br/>
+Messung 3 Rollen &nbsp; &nbsp; : LenkAnsteuerung_IQF_3.asc &nbsp; <br/>
+Messung 4 &gt;= 10 km/h &nbsp;: LenkAnsteuerung_IQF_4.asc &nbsp; &nbsp; &nbsp; stärkere Geräusche<br/>
+Messung 5 &gt;= 10 km/h &nbsp;: LenkAnsteuerung_IQF_5.asc &nbsp; &nbsp; &nbsp; default-Einstellung =&gt; stärkere Geräusche<br/>
+Messung 6 &gt;= 10 km/h &nbsp;: LenkAnsteuerung_IQF_5.asc &nbsp; &nbsp; &nbsp; default-Einstellung+IPASparam.SwaCntrl3MODCtrlTorFiltGain=0.5 &nbsp; weniger Geräusche<br/>
+<br/>
+Rest default-Zustand, dann Geräusche beu 10 km/h besser<br/>
+<br/>
+<br/>
+Do 11.12.345 08:34:57<br/>
+<br/>
+D:\mess\canalyser\Contiguard_Passat_990\131017_Ffm_Stand_Dev2Pth\VorgabeStandMeas292_2.asc<br/>
+<br/>
+bisher <br/>
+<br/>
+D:\mess\canalyser\Contiguard_Passat_990\141126_EinParkVersuche\EinparkVersuche_2a.asc<br/>
+<br/>
+<br/>
+Messungen:<br/>
+<br/>
+Lenkwinkelvorbage_IQF1_inter_1ms_1.asc &nbsp; &nbsp; &nbsp; VPU2 &nbsp;build 373 Interuptgesteuert &nbsp; TZH-CAN-Modul mit 1ms<br/>
+Lenkwinkelvorbage_IQF1_inter_1ms_2.asc<br/>
+Lenkwinkelvorbage_IQF1_sofort_1ms_1.asc<br/>
+Lenkwinkelvorbage_IQF1_inter_2ms_1.asc<br/>
+Lenkwinkelvorbage_IQF1_sofort_2ms_1.asc<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Lenkwinkelvorbage_Parken_intert_2ms_1.asc<br/>
+<br/>
+<br/>
+Lenkwinkelvorbage_Parken_inter_2ms_bx.asc &nbsp;Fortlaufende Messung mit Interrupt Parken<br/>
+Lenkwinkelvorbage_Parken_inter_2ms_b7.asc &nbsp;Am Ende wurde Parkvorgang abgebrochen ????<br/>
+<br/>
+<br/>
+<br/>
+Do 11.12.345 15:57:38<br/>
+<br/>
+Test mit aktueller Version:<br/>
+<br/>
+Lenkwinkelvorbage_IQF1_2ms_a1.asc &nbsp; &nbsp; &nbsp; IPASparam.config_byte = 128+2 &nbsp;IPASparam.FFStaticTOffset=1.0 &nbsp;IPASparam.SwaCntrl3MODTorMaxGrad=75<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Sprung in Vorgabe durch ascii-Messung, leichte Geräusche beim 1.0 Nm Sprung. Geräusch bei hoher Dynamik<br/>
+<br/>
+Lenkwinkelvorbage_IQF1_2ms_a11.asc &nbsp; &nbsp; &nbsp;IPASparam.config_byte = 128+2 &nbsp;IPASparam.FFStaticTOffset=1.0 &nbsp;IPASparam.SwaCntrl3MODTorMaxGrad=75<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; kein Sprung in Vorgabe durch ascii-Messung, leichte Geräusche beim 1.0 Nm Sprung. Geräusch bei hoher Dynamik<br/>
+<br/>
+Lenkwinkelvorbage_IQF1_2ms_a12.asc &nbsp; &nbsp; &nbsp;IPASparam.config_byte = 128+2 &nbsp;IPASparam.FFStaticTOffset=0.0 &nbsp;IPASparam.SwaCntrl3MODTorMaxGrad=75<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Geräusch bei hoher Dynamik<br/>
+Lenkwinkelvorbage_IQF1_2ms_a13.asc &nbsp; &nbsp; &nbsp;IPASparam.config_byte = 128+2 &nbsp;IPASparam.FFStaticTOffset=1.0 &nbsp;IPASparam.SwaCntrl3MODTorMaxGrad=50<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Geräusche beim 1.0 Nm Sprung, Geräusch bei hoher Dynamik<br/>
+Lenkwinkelvorbage_IQF1_2ms_a14.asc &nbsp; &nbsp; &nbsp;IPASparam.config_byte = 128+2 &nbsp;IPASparam.FFStaticTOffset=1.0 &nbsp;IPASparam.SwaCntrl3MODTorMaxGrad=25<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; leichte Geräusche beim 1.0 Nm Sprung, Geräusch bei hoher Dynamik<br/>
+Lenkwinkelvorbage_IQF1_2ms_a15.asc &nbsp; &nbsp; &nbsp;IPASparam.config_byte = 128+2 &nbsp;IPASparam.FFStaticTOffset=0.5 &nbsp;IPASparam.SwaCntrl3MODTorMaxGrad=25<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ganz leichte Geräusche beim 1.0 Nm Sprung, etwas Geräusch bei hoher Dynamik<br/>
+Lenkwinkelvorbage_IQF1_2ms_a16.asc &nbsp; &nbsp; &nbsp;IPASparam.config_byte = 128+2 &nbsp;IPASparam.FFStaticTOffset=0.0 &nbsp;IPASparam.SwaCntrl3MODTorMaxGrad=25<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; etwas Geräusch bei hoher Dynamik<br/>
+Lenkwinkelvorbage_IQF1_2ms_a17.asc &nbsp; &nbsp; &nbsp;aktuelle Version Interruptgesteuert<br/>
+Lenkwinkelvorbage_IQF1_2ms_a18.asc &nbsp; &nbsp; &nbsp;aktuelle Version Sofortsenden gesteuert<br/>
+Lenkwinkelvorbage_IQF1_2ms_a19.asc &nbsp; &nbsp; &nbsp;aktuelle Version Sofortsenden gesteuert j25 Nm/s auf Gesamt hat geschwungen<br/>
+Lenkwinkelvorbage_IQF1_2ms_a20.asc &nbsp; &nbsp; &nbsp;aktuelle Version Sofortsenden gesteuert IPASparam.SwaCntrl3MODTorMaxGrad=25 Genauigkeit war okay<br/>
+<br/>
+<br/>
+</body></html>
